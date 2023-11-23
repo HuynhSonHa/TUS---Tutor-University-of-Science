@@ -4,6 +4,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const methodOverride = require('method-override');
+const nodemailer = require('nodemailer');
+const { OAuth2Client } = require ('google-auth-library');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
