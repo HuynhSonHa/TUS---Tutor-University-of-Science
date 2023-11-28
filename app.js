@@ -8,7 +8,7 @@ const nodemailer = require('nodemailer');
 const { OAuth2Client } = require ('google-auth-library');
 
 //var indexRouter = require('./public/javascripts/script');
-const Route = require('./routes');
+const route = require('./routes/index');
 const db = require('./config/dbMongo');
 const app = express();
 

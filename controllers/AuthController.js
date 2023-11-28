@@ -4,7 +4,7 @@ const User = require('../models/User');
 
 //[GET] /
 exports.index = function (req, res, next) {
-  res.render('login/index');
+  res.render('index');
 };
 //[GET] /signin
 exports.getSignIn = function (req, res, next) {

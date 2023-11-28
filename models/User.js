@@ -60,7 +60,7 @@ const UserScheme = new Schema({
         {
             productId: {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: Product,
+                ref: 'Course',
             },
             quantity: Number
         }
@@ -68,7 +68,7 @@ const UserScheme = new Schema({
     reviews: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: Review,
+            ref: 'Review',
         }
     ],
     ban: {

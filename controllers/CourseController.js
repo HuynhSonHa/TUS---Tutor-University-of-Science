@@ -1,5 +1,5 @@
 const Course = require("../models/Course");
-const { mongooseToObject } = require("../../util/mongoose");
+const { mongooseToObject } = require("../util/mongoose");
 const mongoose = require("mongoose");
 
 class CourseController {
