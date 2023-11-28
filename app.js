@@ -8,7 +8,7 @@ const nodemailer = require('nodemailer');
 const { OAuth2Client } = require ('google-auth-library');
 
 //var indexRouter = require('./public/javascripts/script');
-const indexRouter = require('./routes/index');
+const Route = require('./routes');
 const db = require('./config/dbMongo');
 const app = express();
 
@@ -28,7 +28,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, '/public')));
-app.use('/', indexRouter);
+
+route(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
