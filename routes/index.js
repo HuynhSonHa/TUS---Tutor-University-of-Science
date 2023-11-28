@@ -2,7 +2,7 @@ const meRouter = require("./me");
 const newsRouter = require("./news");
 const siteRouter = require("./site");
 const courseRouter = require("./courses");
-const loginRouter = require("./login");
+const authRouter = require("./auth");
 
 function route(app) {
   //   app.get("/news", function (req, res) {
@@ -25,7 +25,7 @@ function route(app) {
   app.use("/me", meRouter);
   app.use("/courses", courseRouter);
   app.use("/home", siteRouter);
-  app.use("/", loginRouter);
+  app.use("/", authRouter);
 }
 
 module.exports = route;
