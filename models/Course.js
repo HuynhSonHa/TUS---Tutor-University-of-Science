@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const ProductScheme = new Schema({
+const CourseScheme = new Schema({
     catalogId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Catalog' // Tham chiếu đến schema danh mục sản phẩm (Catalog)
@@ -67,5 +67,4 @@ const ProductScheme = new Schema({
 });
 
 
-
-module.exports = mongoose.model('Product', ProductScheme);
+module.exports = mongoose.model('Course', CourseScheme);
