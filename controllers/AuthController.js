@@ -67,4 +67,8 @@ exports.postSignUp = function(req, res, next) {
   })
   .catch(next);
 };
+module.exports = {
+  postSignIn, 
+  postSignUp,
+}
 //res.session.user = user;
