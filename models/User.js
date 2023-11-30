@@ -45,7 +45,7 @@ const UserScheme = new Schema({
 
     phoneNumber: {
         type: String,
-        required: [true, "Please provide phonenumber"]
+        //required: [true, "Please provide phonenumber"]
     },
     registrationDate: {
         type: Date,
