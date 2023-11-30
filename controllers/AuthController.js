@@ -1,21 +1,22 @@
-const { check, validationResult } = require('express-validator');
 const passport = require('passport');
 const User = require('../models/User');
 
 //[GET] /
-exports.index = function (req, res, next) {
+const index = (req, res, next) => {
   res.render('index');
 };
+
 //[GET] /signin
-exports.getSignIn = function (req, res, next) {
+const getSignIn = (req, res, next) => {
   var messages = req.flash('error');
   res.render('login/signin', {
     messages: messages,
     hasErrors: messages.length > 0,
   });
 };
+
 //[POST] /signin
-exports.postSignIn = function(req, res, next){
+const postSignIn = (req, res, next) => {
   User.findOne({ 'username': req.body.username })
   .then((user) => {
     if (!user) {
@@ -35,15 +36,16 @@ exports.postSignIn = function(req, res, next){
 };
 
 //[GET] /signup
-exports.getSignUp = function (req, res, next) {
+const getSignUp = (req, res, next) => {
   var messages = req.flash('error');
   res.render('login/signup', {
     messages: messages,
     hasErrors: messages.length > 0,
   });
 };
+
 // [POST] /signup
-exports.postSignUp = function(req, res, next) {
+const postSignUp = (req, res, next) => {
   User.findOne({ 'username': req.body.username })
   .then( (user) => {
     if (user) {
@@ -67,8 +69,12 @@ exports.postSignUp = function(req, res, next) {
   })
   .catch(next);
 };
+
 module.exports = {
-  postSignIn, 
+  index,
+  getSignIn,
+  postSignIn,
+  getSignUp, 
   postSignUp,
 }
-//res.session.user = user;
+
