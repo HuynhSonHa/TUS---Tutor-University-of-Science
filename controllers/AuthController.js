@@ -2,8 +2,8 @@ const passport = require('passport');
 const User = require('../models/User');
 
 //[GET] /
-const index = (req, res, next) => {
-  res.render('index');
+const getHomePage = (req, res, next) => {
+  res.render('home/home');
 };
 
 //[GET] /signin
@@ -71,7 +71,7 @@ const postSignUp = (req, res, next) => {
 };
 
 module.exports = {
-  index,
+  getHomePage,
   getSignIn,
   postSignIn,
   getSignUp, 
