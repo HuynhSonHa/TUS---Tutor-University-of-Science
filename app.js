@@ -1,5 +1,7 @@
 const createError = require('http-errors');
 const express = require('express');
+const session = require('express-session');
+const flash = require('express-flash');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -14,6 +16,16 @@ const app = express();
 
 // Connect to DB
 db.connect();
+
+//Session for registry
+app.use(
+  session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+  })
+);
+app.use(flash())
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
