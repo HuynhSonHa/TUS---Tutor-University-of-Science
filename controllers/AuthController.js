@@ -51,7 +51,7 @@ const postSignUp = (req, res, next) => {
       newUser.fullname = req.body.fullname;
       newUser.save()
       .then(() => {
-        res.status(201).redirect("/");
+        res.status(201).redirect("/signin");
       })
       .catch((err) => {
         console.error(err);
