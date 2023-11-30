@@ -82,16 +82,11 @@ const UserScheme = new Schema({
 
 })
 
-UserScheme.pre("save", async function () {
-    if (!this.isModified("password")) return;
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-
-});
-
-UserScheme.methods.comparePass = async function (temporaryPassword) {
-    const result = await bcrypt.compare(temporaryPassword, this.password);
-    return result;
+UserScheme.methods.encryptPassword = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(5), null);
+};
+UserScheme.methods.validPassword = function(password) {
+    return bcrypt.compareSync(password, this.password);
 }
 
 
