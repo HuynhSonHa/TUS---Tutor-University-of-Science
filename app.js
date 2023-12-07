@@ -17,7 +17,7 @@ const app = express();
 
 // Connect to DB
 db.connect();
-
+app.use(express.static(path.join(__dirname, '/public')));
 //Session for registry
 app.use(
   session({
@@ -41,7 +41,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use(express.static(path.join(__dirname, '/public')));
+
 
 route(app);
 

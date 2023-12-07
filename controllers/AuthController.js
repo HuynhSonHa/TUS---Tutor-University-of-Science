@@ -1,6 +1,6 @@
 const passport = require('../middlewares/passport');
 const User = require('../models/User');
-
+const storage = require('../config/multer');
 //[GET] /
 const getHomePage = (req, res, next) => {
   res.render('home/home');
@@ -49,6 +49,12 @@ const postSignUp = (req, res, next) => {
       newUser.email = req.body.email;
       newUser.password = newUser.encryptPassword(req.body.password);
       newUser.fullname = req.body.fullname;
+      // Nếu có ảnh đại diện được tải lên
+      if (req.file) {
+        // Gán id của ảnh đại diện cho user
+        console.log(req.file.filename);
+        newUser.avatar = req.file.filename;
+      }
       newUser.save()
       .then(() => {
         res.status(201).redirect("/signin");

@@ -30,7 +30,6 @@ const UserScheme = new Schema({
     },
     avatar: {
         type: String,
-
     },
 
     address: {

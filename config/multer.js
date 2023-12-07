@@ -1,7 +1,12 @@
 const multer = require("multer");
 
-const multerConfig = multer({
-    storage: multer.memoryStorage(),
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'public/images/'); // Destination folder for uploaded files
+    },
+    filename: function (req, file, cb) {
+      cb(null, Date.now() + '-' + file.originalname); // File name with timestamp
+    },
     fileFilter: (req, file, callback) => {
         // Chỉ chấp nhận các file ảnh (định dạng: jpeg, jpg, png, gif)
         if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
@@ -15,4 +20,4 @@ const multerConfig = multer({
     },
 });
 
-module.exports = multerConfig;
+module.exports = storage;

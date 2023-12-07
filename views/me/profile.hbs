@@ -1,0 +1,5 @@
+<h1>User Profile</h1>
+<p>Username: {{ user.username }}</p>
+{{#if user.avatar}}
+    <img src="/images/{{user.avatar}}" alt="Avatar">
+{{/if}}
