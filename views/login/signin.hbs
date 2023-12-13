@@ -1,14 +1,251 @@
-<h1>Login</h1>
-<div class="mt-8">
-  <form class="mt-4" method="POST" action="/signin">
-    <div class="form-group">
-      <label for="name">User name</label>
-      <input type="text" class="form-control" id="username" name="username" />
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/register.css">
+    <link rel="stylesheet" href="/assets/fonts/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+
+
+        <div class="wrapper-header">
+            <div class="login-interface row">
+                <div class="col-6  content-login">
+                    <div class="login">
+                        <div class="header-login">
+                            <div class="square"> </div>
+                            <div class="app-name">TUS</div>
+                        </div>
+
+                        <div class="register">Register</div>
+                    </div>
+                    <div class="wrapper-content-login">
+                        <div class="instruction">To keep connected with us please login with your
+                            personal information by email address and password <i class="ti-bell"></i></div>
+                        <form action="/signin" method="post" id="myForm">
+                            <div class="input-content">
+                                <div class="input">
+                                    <i class="ti-user"></i>
+                                    <div class="input-data">
+                                        <input type="text" id="input-username" placeholder="Username" name="username">
+                                    </div>
+
+                                </div>
+
+                                <div class="input">
+                                    <i class="ti-lock"></i>
+                                    <div class="input-data">
+
+
+                                        <input type="password" id="input-password" placeholder="Password" name="password">
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </form>
+                        <div class="choose">
+                            <label for="checkbox-remember" class="remember">
+                                <input type="checkbox" class="checkbox-remember">
+                                <div class="text-data">Remember Me</div>
+                            </label>
+
+                            <a href="forgetPassword.html" class="text-data forget-password">Forget Password?</a>
+                        </div>
+
+
+
+                        <div class="btn">
+                            <button class="btn-login"  onclick="login()">Login Now</button>
+                            <button class="btn-create-account">Create Account</button>
+                        </div>
+
+
+                        <div class="text-data pd-20-0">Or you can join with</div>
+
+                        <div class="login-other-method">
+                            <img src="assets/img/icons8-google-48.png" alt=""><a href="#"></a></img><img
+                                src="assets\img\icons8-facebook-48.png" alt=""><a href="#"></a></img><img
+                                src="assets\img\icons8-twitter-circled-48.png" alt=""><a href="#"></a></img>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="discriptions col-6">
+                    <div class="wrapper-logo">
+                        <img class="logo" src="assets\img\logo.png" alt="">
+                    </div>
+
+                    <div class="wrapper-discriptions">
+                        <div class="discription">
+                            <div class="header-discription">
+                                <div class="circle">
+                                    <div class="tick"></div>
+                                </div>
+                                <div class="text">
+                                    <div class="text-header-discription">Flexibility</div>
+                                    <div class="text-discription">A flexible timetable with a variety of different class
+                                        schedules
+                                        allows users
+                                        to choose what suits them best.
+                                    </div>
+                                    <div class="seperator"></div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="discription">
+                            <div class="header-discription">
+                                <div class="circle">
+                                    <div class="tick"></div>
+                                </div>
+                                <div class="text">
+                                    <div class="text-header-discription">The reliability</div>
+                                    <div class="text-discription">The tutoring tream is always meticulously screened
+                                        based on their GPA and evaluations form students.
+                                    </div>
+                                    <div class="seperator"></div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="discription">
+                            <div class="header-discription">
+                                <div class="circle">
+                                    <div class="tick"></div>
+                                </div>
+                                <div class="text">
+                                    <div class="text-header-discription">The suitability</div>
+                                    <div class="text-discription">
+                                        The platform is formed based on the need to enhance the academic performance of
+                                        HCMUS
+                                        students,
+                                        so the courses will be more suitable and closely aligned with the curriculum of
+                                        the
+                                        university than anywhere else.
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
     </div>
-    <div class="form-group">
-      <label for="name">Password</label>
-      <input type="text" class="form-control" id="password" name="password" />
+
+
+
     </div>
-    <button type="submit" class="btn btn-primary">Sign In</button>
-  </form>
-</div>
+
+    </div>
+
+    <!-- <img src="your_image.jpg" id="clickableImage" alt="Hình ảnh có thể bấm">
+    
+    <script>
+        // Bắt sự kiện khi hình ảnh được bấm
+        document.getElementById("clickableImage").addEventListener("click", function() {
+            // Chuyển đến trang hoặc tab mới
+            window.location.href = "https://www.example.com"; // Thay thế địa chỉ URL bằng trang mà bạn muốn chuyển đến.
+        });
+    </script> 
+        </div>
+    </div>
+    <-- <script>
+        var cbRemember = document.querySelector(".checkbox-remember")
+        cbRemember.addEventListener("change", function () {
+            if (cbRemember.checked) {
+                // Checkbox đã được chọn
+                cbRemember.classList.add("checked");
+                console.log(cbRemember)
+                console.log("check")
+            } else {
+                // Checkbox đã bị bỏ chọn
+                cbRemember.classList.remove("checked");
+                console.log(cbRemember)
+                console.log("uncheck")
+            }
+        });
+    </script>-->
+
+    <script >
+         var createAccountBtn = document.querySelector('.btn .btn-create-account');
+
+         createAccountBtn.addEventListener("click", function () {
+            window.location.href = "/signup";
+
+        })
+
+        document.querySelector('.btn-login')
+
+
+        function signup(event) {
+            event.stopPropagation();
+            window.location.href = "../signup";
+
+            console.log(document.querySelector("#myForm"));
+        }
+        async function login() {
+            try {
+                let username = document.getElementById('input-username').value;
+                let password = document.getElementById('input-password').value;
+
+
+                console.log(username)
+                console.log(password)
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password }),
+                });
+
+                // Clear input fields regardless of the response status
+                document.getElementById('input-password').value = "";
+                document.getElementById('input-username').value = "";
+
+                if (!response.ok) {
+                    throw new Error('Login failed');
+                }
+
+                console.log(response);
+                // Check if the response indicates a successful login and a redirection
+                if (response.ok && response.redirected) {
+                    window.location.href = response.url;
+                    return;
+                }
+
+                // Optional: You can handle the data returned from the server if needed
+                const data = await response.json();
+                console.log(data);
+
+            } catch (error) {
+                // Handle login error, e.g., display an error message
+                alert("Login failed");
+                console.error('Login failed', error);
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
