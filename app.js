@@ -17,7 +17,7 @@ const app = express();
 
 // Connect to DB
 db.connect();
-app.use(express.static(path.join(__dirname, '/public')));
+
 //Session for registry
 app.use(
   session({
@@ -29,6 +29,7 @@ app.use(
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -41,6 +42,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+app.use(express.static(path.join(__dirname, '/public')));
 
 route(app);
 
@@ -61,3 +63,4 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
