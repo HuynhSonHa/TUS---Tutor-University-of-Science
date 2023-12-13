@@ -168,7 +168,7 @@ const postResetPassword = async(req, res, next) => {
         //     res.status(401).json({ message: "Id invalid or token invalid" });
         // }
 
-        user.password = password;
+        user.password = user.encryptPassword(password);
         await user.save();
 
         res.status(200).send("Change password successfully!");
