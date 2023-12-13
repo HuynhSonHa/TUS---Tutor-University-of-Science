@@ -62,10 +62,10 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-const PORT = 3001; // or any other available port
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// const PORT = 6000; // or any other available port
+// app.listen(PORT, () => {
+//   console.log(`Server is running on port ${PORT}`);
+// });
 
 
 module.exports = app;

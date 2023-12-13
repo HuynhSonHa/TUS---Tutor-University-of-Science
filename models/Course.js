@@ -49,7 +49,7 @@ const CourseScheme = new Schema({
         min: 0
     },
     // nhà sản xuất
-    manufacturer: {
+    tutor: {
         type: String,
         required: [true, "Please provide manufacturer"],
         trim: true

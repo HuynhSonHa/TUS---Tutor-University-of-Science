@@ -2,16 +2,11 @@ const { myOAuth2Client } = require('../config/mail')
 const nodemailer = require("nodemailer")
 require("dotenv").config();
 
-async function sendMail(mailOption) {
+async function sendMail(mailOptions) {
   try {
-    // Lấy thông tin gửi lên từ client qua body
-    const { email, subject, content } = req.body
-    if (!email || !subject || !content) throw new Error('Please provide email, subject and content!')
-    /**
-    * Lấy AccessToken từ RefreshToken (bởi vì Access Token cứ một khoảng thời gian ngắn sẽ bị hết hạn)
-    * Vì vậy mỗi lần sử dụng Access Token, chúng ta sẽ generate ra một thằng mới là chắc chắn nhất.
-    */
     const myAccessTokenObject = await myOAuth2Client.getAccessToken()
+    console.log('haha')
+    console.log(mailOptions)
     // Access Token sẽ nằm trong property 'token' trong Object mà chúng ta vừa get được ở trên
     const myAccessToken = myAccessTokenObject?.token
     // Tạo một biến Transport từ Nodemailer với đầy đủ cấu hình, dùng để gọi hành động gửi mail
@@ -33,7 +28,9 @@ async function sendMail(mailOption) {
     //     html: `<h3>${content}</h3>` // Nội dung email
     // }
     // Gọi hành động gửi email
-    await transport.sendMail(mailOptions)
+    console.log('Before sending email');
+    await transport.sendMail(mailOptions);
+    console.log('After sending email');
     res.status(200).json({ message: 'Email sent successfully.' })
   } catch (error) {
     // Có lỗi thì các bạn log ở đây cũng như gửi message lỗi về phía client
