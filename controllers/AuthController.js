@@ -69,11 +69,31 @@ const postSignUp = (req, res, next) => {
   .catch(next);
 };
 
+//[GET] /forget-password
+const getForgetPassword = (req, res, next) => {
+  var messages = req.flash('error');
+  res.render('login/forgetPassword', {
+    messages: messages,
+    hasErrors: messages.length > 0,
+  });
+};
+
+//[GET] /forget-password
+const getResetPassword = (req, res, next) => {
+  var messages = req.flash('error');
+  res.render('login/resetPassword', {
+    messages: messages,
+    hasErrors: messages.length > 0,
+  });
+};
+
 module.exports = {
   getHomePage,
   getSignIn,
   postSignIn,
   getSignUp, 
   postSignUp,
+  getForgetPassword,
+  getResetPassword,
 }
 

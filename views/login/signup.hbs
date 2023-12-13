@@ -1,30 +1,188 @@
-<h1>Register</h1>
-<div class="mt-8">
-  <form class="mt-4" method="POST" action="/signup" enctype="multipart/form-data">
-    <div class="form-group">
-      <label for="name">User name</label>
-      <input type="text" class="form-control" id="username" name="username" />
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/register.css">
+    <link rel="stylesheet" href="/assets/fonts/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+
+
+        <div class="wrapper-header">
+            <div class="create-interface row">
+                <div class="col-6  content-create">
+                    <div class="create">
+                        <div class="header-create">
+                            <div class="square"> </div>
+                            <div class="app-name">TUS</div>
+                        </div>
+
+                        <div class="register">Sign Up</div>
+                    </div>
+                    <div class="wrapper-content-create">
+
+                        <div class="instruction">Fill full these input to create a new account <i class="ti-bell"></i></div>
+
+                        <form class="modal-content" action="" method="POST">
+
+                            <div class="input-content">
+
+                                <div class="input">
+                                    <i class="ti-user"></i>
+                                    <div class="input-data">
+                                        <input type="text" class="input-user" placeholder="User">
+                                    </div>
+                                </div>
+
+                                
+
+                                <div class="input">
+                                    <i class="ti-lock"></i>
+                                    <div class="input-data">
+                                        <input type="password" class="input-password" placeholder="Password">
+                                    </div>
+                                </div>
+
+
+
+                                <div class="input">
+                                    <i class="ti-lock"></i>
+                                    <div class="input-data">
+                                        <input type="password" class="input-confirm-password" placeholder="Confirm Password">
+                                    </div>
+                                </div>
+
+                                <div class="input">
+                                    <i class="ti-email"></i>
+                                    <div class="input-data">
+
+                                        <input type="email" class="input-email" placeholder="Email">
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </form>
+                        <div class="text-policy">By creating an account you agree to our <a href="#"
+                            style="color:dodgerblue">Terms &
+                            Privacy</a>.
+                    </div> 
+                   <div class="choose">
+                        <label for="checkbox-accept-policy" class="checkbox-container">
+                            <input type="checkbox" id="checkbox-accept-policy" name="checkbox-accept-policy">
+                            <span class="checkmark"></span>Agree Policies
+                        </label>
+                    </div>
+                        <div class="clearfix">
+
+                            <button type="submit" class="signupbtn">Sign Up</button>
+                            <button type="button" class="cancelbtn">Cancel</button>
+                        </div>
+                    </div>
+                    
+
+                </div>
+                <div class="discriptions col-6">
+                    <div class="wrapper-logo">
+                        <img class="logo" src="assets\img\logo.png" alt="">
+                    </div>
+
+                    <div class="wrapper-discriptions">
+                        <div class="discription">
+                            <div class="header-discription">
+                                <div class="circle">
+                                    <div class="tick"></div>
+                                </div>
+                                <div class="text">
+                                    <div class="text-header-discription">Flexibility</div>
+                                    <div class="text-discription">A flexible timetable with a variety of different class
+                                        schedules
+                                        allows users
+                                        to choose what suits them best.
+                                    </div>
+                                    <div class="seperator"></div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="discription">
+                            <div class="header-discription">
+                                <div class="circle">
+                                    <div class="tick"></div>
+                                </div>
+                                <div class="text">
+                                    <div class="text-header-discription">The reliability</div>
+                                    <div class="text-discription">The tutoring tream is always meticulously screened
+                                        based on their GPA and evaluations form students.
+                                    </div>
+                                    <div class="seperator"></div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="discription">
+                            <div class="header-discription">
+                                <div class="circle">
+                                    <div class="tick"></div>
+                                </div>
+                                <div class="text">
+                                    <div class="text-header-discription">The suitability</div>
+                                    <div class="text-discription">
+                                        The platform is formed based on the need to enhance the academic performance of
+                                        HCMUS
+                                        students,
+                                        so the courses will be more suitable and closely aligned with the curriculum of
+                                        the
+                                        university than anywhere else.
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
     </div>
-    <div class="form-group">
-      <label for="name">Password</label>
-      <input type="text" class="form-control" id="password" name="password" />
+
+
+
     </div>
-    <div class="form-group">
-      <label for="name">Confirm password</label>
-      <input type="text" class="form-control" id="re_password" name="re_password" />
+
     </div>
-    <div class="form-group">
-      <label for="name">Email</label>
-      <input type="text" class="form-control" id="email" name="email" />
-    </div>
-    <div class="form-group">
-      <label for="name">Full name</label>
-      <input type="text" class="form-control" id="fullname" name="fullname" />
-    </div>
-    <div class="form-group">
-      <label for="avatar">Avatar:</label>
-      <input type="file" id="avatar" name="avatar" accept="image/*">
-    </div>
-    <button type="submit" class="btn btn-primary">Sign Up</button>
-  </form>
-</div>
+    <script >
+    var createAccountBtn = document.querySelector('.btn .btn-create-account')
+    var cancelBtn = document.querySelector('.clearfix .cancelbtn')
+
+
+
+    cancelBtn.addEventListener("click", function () {
+            window.location.href = "/login";
+
+        })
+</script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

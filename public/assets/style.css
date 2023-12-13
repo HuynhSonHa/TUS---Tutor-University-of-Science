@@ -1,0 +1,433 @@
+* {padding: 0;}
+
+html {
+    padding: 0;
+}
+
+.container {
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    width: 100vw;
+    max-width: none !important; 
+    position: relative;
+    background: linear-gradient(to bottom, #264D59 , #43978D);
+    margin: 0;
+    padding: 0;
+
+}
+
+
+
+
+.create .header-create,
+.reset .header-reset,
+.forget .header-forget,
+.login .header-login{
+    display: flex;
+    align-items: center;
+}
+
+.app-name{
+    color: #fff;
+    padding-left: 4px;
+    font-size: 18px;
+}
+
+.register{
+    color: #fff;
+    font-size: 32px;
+    padding: 20px 0;
+}
+
+.create-interface,
+.reset-interface,
+.forget-interface,
+.login-interface{
+    border-radius: 20px;
+   
+    width: 60vw;
+    height: 60vh;
+  
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.col-3 {
+    width: 25%;
+}
+
+.col-4 {
+    width: 33.33333333%;
+}
+
+.col-8 {
+    width: 66.66666667%;
+}
+
+.col-9 {
+    width: 75%;
+}
+
+
+.col {
+    width: 100%;
+    height: 100%;
+}
+
+.row {}
+
+.text-data {
+    font-size: 16px;
+    opacity: 0.6;
+
+
+}
+
+
+
+
+.pd-20-0 {
+    padding: 20px 0;
+}
+
+.pd-40-0 {
+    padding: 40px 0;
+}
+
+.pd-0-80 {
+    padding: 0px 80px;
+}
+
+.pd-0-160 {
+    padding: 0px 160px;
+}
+
+.header-logo {
+    width: 135px;
+    height: 30px;
+}
+
+
+
+.img {
+    width: 100%;
+}
+
+.instruction {
+    font-size: 20px;
+    padding-top: 20px;
+    opacity: 0.7;
+}
+
+.input {
+    display: flex;
+    height: 60px !important;
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    background-color: #F4F4F4;
+
+    width: 100%;
+    height: 100%;
+    color: #BBBEC3;
+    /* box-shadow: 1px 2px 5px #888888; */
+
+}
+.wrapper-content-create,
+.wrapper-content-reset,
+.wrapper-content-forget,
+.wrapper-content-login{
+    padding: 8% ;
+    border-radius: 8px;
+    height: fit-content;
+}
+
+.login-interface .content-login {
+   
+}
+
+
+.content-create .create,
+.content-reset .reset,
+.content-forget .forget,
+.content-login .login{
+    position: absolute;
+    z-index: 1;
+    top: -10vh;
+}
+
+
+.wrapper-content-create,
+.wrapper-content-reset,
+.wrapper-content-forget,
+.wrapper-content-login{
+    background-color: rgba(255, 255, 255);
+    height: 80%;
+}
+
+.wrapper-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.input-content {
+    padding-top: 60px;
+
+}
+
+.input{
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+}
+
+.input-confirm-password,
+.input-user,
+.input-email,
+.input-password {
+    border: none;
+}
+
+.input i[class*="ti-"] {
+    display: inline-block;
+    padding: 0 8px;
+    background-color: inherit;
+}
+
+
+.input-data .text-data {
+    background-color: inherit;
+}
+
+.input:hover {
+    background-color: #fff;
+
+    /* hover vô lợt hơn */
+}
+
+.input-data {
+    padding: 0px 12px;
+    width: 100%;
+    background-color: inherit;
+
+}
+
+
+input:focus {
+    outline-width: 0;
+
+}
+
+input[class*="input-"] {
+    background-color: inherit;
+    width: 100%;
+}
+
+
+
+.btn button[class*="btn-"] {
+    padding: 12px;
+    min-width: 120px;
+    background-color: #40DDb6;
+    border: 1px solid #fff;
+    border-radius: 50px;
+    color: #fff;
+    margin-right: 20px;
+}
+
+.btn .btn-create-account {
+    background-color: #f3f3f3 !important;
+    color: #000 !important;
+    /* radiant */
+}
+.btn button[class*="btn-"]:hover{
+    cursor: pointer;
+}
+
+
+.choose {
+    display: flex;
+    padding: 20px 0;
+    justify-content: space-between;
+}
+
+.remember {
+    display: flex;
+}
+
+.choose .text-data{
+    padding-left: 4px;
+}
+
+.forget-password {
+    text-decoration: none;
+    color: #000;
+
+}
+
+.checkbox-email {
+    display: flex;
+}
+
+.login {
+    position: absolute;
+    /* margin-top: 20vh;
+    margin-left: 23vw; */
+    /* transform: translate(-50%, -50%); */
+    
+}
+
+
+.login-other-method img{
+    padding-right: 12px;
+}
+
+.login-other-method:hover{
+    cursor: pointer;
+}
+
+.discriptions {
+    position: absolute;
+    z-index: 1;
+   height: 80%;
+ 
+    /* margin-top: 40vh;
+    margin-left: 55vw; */
+    /* transform: translate(-50%, -50%); */
+}
+
+.wrapper-discriptions{
+   height: fit-content;
+   padding: 10%;
+}
+
+.logo{
+    width: 300px;
+    height: 282px;
+}
+
+.wrapper-logo {
+    position: absolute;
+    z-index: 1;
+    top: -18vh !important;
+    /* margin-top: 8vh;
+    margin-left: 50vw; */
+   
+}
+
+
+.square {
+    /* đang không biết tại sao width bị thay đổi */
+    width: 16px;  
+    height: 16px;
+    background-color: #40DDb6;
+   
+    /* Biến nó thành hình tròn */
+    
+}
+
+
+.circle {
+    /* đang không biết tại sao width bị thay đổi */
+    width: 28px;  
+    height: 28px;
+    background-color: white;
+    border-radius: 50%;
+    /* Biến nó thành hình tròn */
+    position: relative;
+}
+
+.tick {
+    width: 8px;
+    height: 16px;
+    border-style: solid;
+    border-width: 3px 0 0 3px;
+    transform: rotate(225deg);
+    position: absolute;
+    top: 12%;
+    left: 32%;
+}
+.discription{
+    width: 100%;
+    padding-left: 10%;
+}
+.header-discription {
+    display: flex;
+}
+
+.header-discription .text{
+    padding-left: 12px;
+}
+.text-header-discription {
+    
+    color: #fff;
+    font-size: 24px;
+}
+.text{
+    width: 100%
+}
+.text-discription{
+    padding: 12px 0;
+    color: #fff;
+    font-size: 18px;
+    line-height: 1.4;
+}
+
+.seperator{
+    margin: 24px 0;
+    border-top: 1px solid #fff;
+}
+
+.instruction{
+    padding-bottom: 12px;
+}
+
+
+
+
+
+.wrapper-content-create .modal-content{
+    border: none;
+}
+
+.checkbox-container {
+    display: block;
+    position: relative;
+    padding-left: 32px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkmark {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+    border: 2px solid #4CAF50;
+    border-radius: 50%;
+}
+
+.checkbox-container:hover input~.checkmark {
+    background-color: #e7f1e7;
+}
+
+.checkbox-container input:checked~.checkmark {
+    background-color: #4CAF50;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}

@@ -3,7 +3,7 @@ const multer = require('multer');
 const router = express.Router();
 const storage = require('../config/multer');
 
-const {getSignIn,getSignUp,postSignIn,postSignUp,getHomePage} = require("../controllers/AuthController");
+const {getSignIn,getSignUp,postSignIn,postSignUp,getHomePage,getForgetPassword,getResetPassword} = require("../controllers/AuthController");
 const upload = multer({ storage: storage });
 
 router.get("/signin", getSignIn);
@@ -14,7 +14,8 @@ router.post("/signin", postSignIn);
 router.post("/login", postSignIn);
 router.post("/signup",upload.single('avatar'), postSignUp);
 router.post("/register",upload.single('avatar'), postSignUp);
-//router.get("/forget-password", authController.forgetpassword);
+router.get("/forget-password", getForgetPassword);
+router.get("/reset-password", getResetPassword);
 router.get("/", getHomePage);
 
 
