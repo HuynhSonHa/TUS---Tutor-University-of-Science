@@ -101,3 +101,9 @@
     transform: rotate(45deg);
 }
 
+
+input[id*="input"]{
+    width: 100%;
+    background-color: inherit;
+    border: none;
+}
