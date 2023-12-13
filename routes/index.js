@@ -4,24 +4,16 @@ const siteRouter = require("./site");
 const courseRouter = require("./courses");
 const authRouter = require("./auth");
 
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-/* GET home page. */
-router.get('/home', function(req, res, next) {
-  res.render('home/home');
-});
-=======
->>>>>>> Stashed changes
+// /* GET home page. */
+// router.get('/home', function(req, res, next) {
+//   res.render('home/home');
+// });
+
 function route(app) {
   //   app.get("/news", function (req, res) {
   //     res.render("news");
   //   });
   app.use("/news", newsRouter);
-<<<<<<< Updated upstream
-=======
->>>>>>> 2e76e768c0cbd74c33f2b4a66789f6c4d15bc91a
->>>>>>> Stashed changes
 
   //   app.get("/search", function (req, res) {
   //     console.log(req.query.q);

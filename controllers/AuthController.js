@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 const passport = require('../middlewares/passport');
 const User = require('../models/User');
 const storage = require('../config/multer');
@@ -9,17 +8,6 @@ const getHomePage = (req, res, next) => {
 
 //[GET] /signin
 const getSignIn = (req, res, next) => {
-const { check, validationResult } = require('express-validator');
-const passport = require('passport');
-const User = require('../models/User');
-
-//[GET] /
-exports.index = function (req, res, next) {
-  res.render('index');
-};
-//[GET] /signin
-exports.getSignIn = function (req, res, next) {
->>>>>>> Stashed changes
   var messages = req.flash('error');
   res.render('login/signin', {
     messages: messages,

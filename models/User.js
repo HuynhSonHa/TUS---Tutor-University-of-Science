@@ -30,10 +30,6 @@ const UserScheme = new Schema({
     },
     avatar: {
         type: String,
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
     },
 
     address: {
@@ -48,11 +44,7 @@ const UserScheme = new Schema({
 
     phoneNumber: {
         type: String,
-<<<<<<< Updated upstream
         //required: [true, "Please provide phonenumber"]
-=======
-        required: [true, "Please provide phonenumber"]
->>>>>>> Stashed changes
     },
     registrationDate: {
         type: Date,
@@ -89,24 +81,11 @@ const UserScheme = new Schema({
 
 })
 
-<<<<<<< Updated upstream
 UserScheme.methods.encryptPassword = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(5), null);
 };
 UserScheme.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.password);
-=======
-UserScheme.pre("save", async function () {
-    if (!this.isModified("password")) return;
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-
-});
-
-UserScheme.methods.comparePass = async function (temporaryPassword) {
-    const result = await bcrypt.compare(temporaryPassword, this.password);
-    return result;
->>>>>>> Stashed changes
 }
 
 

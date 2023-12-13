@@ -1,7 +1,6 @@
 const Course = require("../models/Course");
 const { mutipleMongooseToObject } = require("../util/mongoose");
 
-<<<<<<< Updated upstream
 
 // [GET] /home
 const getHomePage = async(req, res, next) => {
@@ -12,18 +11,6 @@ const getHomePage = async(req, res, next) => {
     });
   })
   .catch(next);
-=======
-class SiteController {
-  // [GET] /home
-  async index(req, res, next) {
-    Course.find({})
-      .then((courses) => {
-        res.render("home", {
-          courses: mutipleMongooseToObject(courses),
-        });
-      })
-      .catch(next);
->>>>>>> Stashed changes
     // Course.find({})
     //   .lean()
     //   .then((courses) => {
@@ -48,7 +35,6 @@ class SiteController {
     //   res.status(400).json({ err: "ERROR!!!" });
     // }
     //res.render("home  ")
-<<<<<<< Updated upstream
 }
 
 // [GET] /search
@@ -59,14 +45,3 @@ module.exports = {
   getHomePage,
   search,
 };
-=======
-  }
-
-  // [GET] /search
-  search(req, res) {
-    res.render("search");
-  }
-}
-
-module.exports = new SiteController();
->>>>>>> Stashed changes

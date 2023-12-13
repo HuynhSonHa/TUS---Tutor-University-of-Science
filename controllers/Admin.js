@@ -13,7 +13,7 @@ const ProductService = require("../service/Product.js")
 
 const { use } = require("passport");
 const jwt = require("jsonwebtoken");
-const { sendMail } = require("./mailApi.js")
+const { sendMail } = require("./mailAPI.js")
 
 
 require('dotenv').config();
