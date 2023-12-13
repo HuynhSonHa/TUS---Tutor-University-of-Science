@@ -1,126 +1,182 @@
-<body>
+<header class="header">
+    <div class="contact-info">
+        <p> <i class="fas fa-map-marker-alt"></i>227 Nguyễn Văn Cừ, District 5, HCMC</p>
+        <p> <i class="fas fa-envelope"></i>lynhathao.it@gmail.com</p>
+        <p> <i class="fas fa-clock"></i>24/7
+            <a href="https://instagram.com/nauxbachh/"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.facebook.com/bach0807/"><i class="fab fa-facebook"></i></a>
+            <i class="fab fa-twitter"></i>
+            <i class="fab fa-pinterest"></i>
+            </i>
+        </p>
+    </div>
+    <nav class="navbar">
 
-    <header class="header">
-        <div class="contact-info">
-            <p> <i class="fas fa-map-marker-alt"></i>227 Nguyễn Văn Cừ, District 5, HCMC</p>
-            <p> <i class="fas fa-envelope"></i>lynhathao.it@gmail.com</p>
-            <p> <i class="fas fa-clock"></i>24/7
-                <a href="https://instagram.com/nauxbachh/"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.facebook.com/bach0807/"><i class="fab fa-facebook"></i></a>
-                <i class="fab fa-twitter"></i>
-                <i class="fab fa-pinterest"></i>
-                </i>
-            </p>
-        </div>
-        <nav class="navbar">
+        <a href="#" class="logo">
+            <img src="./images/logo-small.svg" alt="">
+            <img src="./images/Logo.svg" alt="">
+            <div class="links">
+                <a href="#home">Home</a>
+                <a href="#about">About Us</a>
+                <a href="#">Tutor</a>
+                <a href="#services">News & Blog</a>
+                <a href="#">Contact Us</a>
+                <a href="#" class="btn">Become Tutor</a>
+                <a href="#">Login</a>
+            </div>
 
-            <a href="#" class="logo">
-                <img src="./images/logo-small.svg" alt="">
-                <img src="./images/Logo.svg" alt="">
-                <div class="links">
-                    <a href="#home">Home</a>
-                    <a href="#about">About Us</a>
-                    <a href="#">Tutor</a>
-                    <a href="#services">News & Blog</a>
-                    <a href="#">Contact Us</a>
-                    <a href="#" class="btn">Become Tutor</a>
-                    <a href="#">Login</a>
-                </div>
+            <div id="menu-btn" class="fa fa-bars"></div>
 
-                <div id="menu-btn" class="fa fa-bars"></div>
+    </nav>
 
-        </nav>
-
-    </header>
-    <div id="page" class="page-category">
-        <main>
-            <div class="section">
-                <div class="container wide">
-                    <div class="wrap">
-                        <div class="content">
-                            <div id="sidebar-filter" class="sidebar">
-                                <div class="wrap">
-                                    <a href="#0" class="close-trigger" close-button>
-                                        <i class="ri-close-line"></i>
-                                    </a>
-                                    <div class="sidebar-content">
-                                        <div class="sidebar-title">Filter</div>
+</header>
+<div id="page" class="page-category">
+    <main>
+        <div class="section">
+            <div class="container wide">
+                <div class="wrap">
+                    <div class="content">
+                        <div id="sidebar-filter" class="sidebar">
+                            <div class="wrap">
+                                <a href="#0" class="close-trigger" close-button>
+                                    <i class="ri-close-line"></i>
+                                </a>
+                                <div class="sidebar-content">
+                                    <div class="sidebar-title">Filter</div>
+                                    <form action="" method="GET" id="filter_form">
                                         <div class="widget">
                                             <div class="sumary">
-                                                <input type="checkbox" name="cats" id="aaa" checked>
+                                                <input type="checkbox" name="cats" id="aaa" check style="display: none;"
+                                                    checked>
                                                 <label for="aaa">
-                                                    <span>Size</span>
-                                                    <i class="ri-arrow-down-s-line"></i>
+                                                    <span>Mathematics</span>
+                                                    <i class="ri-arrow-right-s-line"></i>
                                                 </label>
                                                 <div class="accord product-size">
                                                     <div class="wrap">
-                                                        <button>40</button>
-                                                        <button>41</button>
-                                                        <button>42</button>
-                                                        <button>43</button>
+                                                        <label>
+                                                            Linear Algebra
+                                                            <input type="checkbox" id="linearAlgebra"
+                                                                name="mathCategory">
+                                                        </label>
+                                                        <label>
+                                                            Discrete Mathematics
+                                                            <input type="checkbox" id="discreteMath"
+                                                                name="mathCategory">
+                                                        </label>
+                                                        <label>
+                                                            Probability Statistics
+                                                            <input type="checkbox" id="probabilityStats"
+                                                                name="mathCategory">
+                                                        </label>
+                                                        <label>
+                                                            Combinatorics Mathematics
+                                                            <input type="checkbox" id="combinatorics"
+                                                                name="mathCategory">
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="widget">
                                             <div class="sumary">
-                                                <input type="checkbox" name="cats" id="aab" checked>
+                                                <input type="checkbox" name="cats" id="aab" check style="display: none;"
+                                                    checked>
                                                 <label for="aab">
-                                                    <span>Colors</span>
-                                                    <i class="ri-arrow-down-s-line"></i>
+                                                    <span>Mathematics</span>
+                                                    <i class="ri-arrow-right-s-line"></i>
                                                 </label>
-                                                <div class="accord product-color">
+                                                <div class="accord product-size">
                                                     <div class="wrap">
-                                                        <button class="white"></button>
-                                                        <button class="black"></button>
-                                                        <button class="brown"></button>
+                                                        <label>
+                                                            Linear Algebra
+                                                            <input type="checkbox" id="linearAlgebra"
+                                                                name="mathCategory">
+                                                        </label>
+                                                        <label>
+                                                            Discrete Mathematics
+                                                            <input type="checkbox" id="discreteMath"
+                                                                name="mathCategory">
+                                                        </label>
+                                                        <label>
+                                                            Probability Statistics
+                                                            <input type="checkbox" id="probabilityStats"
+                                                                name="mathCategory">
+                                                        </label>
+                                                        <label>
+                                                            Combinatorics Mathematics
+                                                            <input type="checkbox" id="combinatorics"
+                                                                name="mathCategory">
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="widget">
                                             <div class="sumary">
-                                                <input type="checkbox" name="cats" id="aac" checked>
+                                                <input type="checkbox" name="cats" id="aac" check style="display: none;"
+                                                    checked>
                                                 <label for="aac">
-                                                    <span>Categories</span>
-                                                    <i class="ri-arrow-down-s-line"></i>
+                                                    <span>Mathematics</span>
+                                                    <i class="ri-arrow-right-s-line"></i>
                                                 </label>
-                                                <div class="accord list-block scrollto">
-                                                    <ul class="wrapper initial">
-                                                        <li><a href="">All Shoes</a></li>
-                                                        <li><a href="">Newest Sneaker</a></li>
-                                                        <li><a href="">Jordan</a></li>
-                                                        <li><a href="">LifeStyle</a></li>
-                                                        <li><a href="">Running</a></li>
-                                                        <li><a href="">Gym and Tranning</a></li>
-                                                        <li><a href="">Basketball</a></li>
-                                                        <li><a href="">Football</a></li>
-                                                        <li><a href="">Sandals and Slides</a></li>
-                                                        <li><a href="">Gym and Tranning</a></li>
-                                                        <li><a href="">Last sizes available</a></li>
-                                                        <li><a href="">Last sizes available</a></li>
-                                                        <li><a href="">Customise by you</a></li>
-                                                    </ul>
+                                                <div class="accord product-size">
+                                                    <div class="wrap">
+                                                        <label>
+                                                            Linear Algebra
+                                                            <input type="checkbox" id="linearAlgebra"
+                                                                name="mathCategory">
+                                                        </label>
+                                                        <label>
+                                                            Discrete Mathematics
+                                                            <input type="checkbox" id="discreteMath"
+                                                                name="mathCategory">
+                                                        </label>
+                                                        <label>
+                                                            Probability Statistics
+                                                            <input type="checkbox" id="probabilityStats"
+                                                                name="mathCategory">
+                                                        </label>
+                                                        <label>
+                                                            Combinatorics Mathematics
+                                                            <input type="checkbox" id="combinatorics"
+                                                                name="mathCategory">
+                                                        </label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="widget">
                                             <div class="sumary">
-                                                <input type="checkbox" name="cats" id="aad" checked>
+                                                <input type="checkbox" name="cats" id="aad" check style="display: none;"
+                                                    checked>
                                                 <label for="aad">
-                                                    <span>Brands</span>
-                                                    <i class="ri-arrow-down-s-line"></i>
+                                                    <span>Mathematics</span>
+                                                    <i class="ri-arrow-right-s-line"></i>
                                                 </label>
-                                                <div class="accord list-block scrollto">
-                                                    <ul class="wrapper initial">
-                                                        <li><a href="#">Nike</a></li>
-                                                        <li><a href="#">Dior</a></li>
-                                                        <li><a href="#">Adidas</a></li>
-                                                        <li><a href="#">Balenciaga</a></li>
-                                                        <li><a href="#">Gucci</a></li>
-                                                        <li><a href="#">Puma</a></li>
-                                                        <li><a href="#">Louis Vuition</a></li>
-                                                    </ul>
+                                                <div class="accord product-size">
+                                                    <div class="wrap">
+                                                        <label>
+                                                            Linear Algebra
+                                                            <input type="checkbox" id="linearAlgebra"
+                                                                name="mathCategory">
+                                                        </label>
+                                                        <label>
+                                                            Discrete Mathematics
+                                                            <input type="checkbox" id="discreteMath"
+                                                                name="mathCategory">
+                                                        </label>
+                                                        <label>
+                                                            Probability Statistics
+                                                            <input type="checkbox" id="probabilityStats"
+                                                                name="mathCategory">
+                                                        </label>
+                                                        <label>
+                                                            Combinatorics Mathematics
+                                                            <input type="checkbox" id="combinatorics"
+                                                                name="mathCategory">
+                                                        </label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -136,481 +192,491 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                        <div class="button-container">
+                                            <div class="button"><a href="#" class="primary-btn"
+                                                    onclick="clearForm()">Clear all</a></div>
+                                            <div class="button"><a href="#" class="primary-btn">Submit</a></div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
-                            <div class="category-content">
-                                <div class="sorter">
-                                    <a href="#0" class="menu-trigger" trigger-button data-target="sidebar-filter">
-                                        <i class="ri-filter-line"></i>
-                                    </a>
-                                    <div class="left">
-                                        <div class="input-box">
-                                            <i class="fas fa-search"></i>
-                                            <input type="text" placeholder="Search" />
-                                        </div>
+                        </div>
+                        <div class="category-content">
+                            <div class="sorter">
+                                <a href="#0" class="menu-trigger" trigger-button data-target="sidebar-filter">
+                                    <i class="ri-filter-line"></i>
+                                </a>
+                                <div class="left">
+                                    <div class="input-box">
+                                        <i class="fas fa-search"></i>
+                                        <input type="text" placeholder="Search" />
                                     </div>
-                                    <div class="right">
-                                        <div class="sort-list">
-                                            <div class="wrap">
-                                                <div class="opt-trigger">
-                                                    <span class="grey-color">Showing 12 of 100 TUTORS</span>
-                                                    <span class="value">Default sorting</span>
-                                                    <i class="ri-arrow-down-s-line"></i>
-                                                </div>
-                                                <ul>
-                                                    <li class="active"><a href="#0">Default sorting</a></li>
-                                                    <li><a href="#0">Popular</a></li>
-                                                    <li><a href="#0">Rating</a></li>
-                                                    <li><a href="#0">Latest</a></li>
-                                                    <li><a href="#0">Price: low to high</a></li>
-                                                    <li><a href="#0">Price: high to low</a></li>
-                                                </ul>
+                                </div>
+                                <div class="right">
+                                    <div class="sort-list">
+                                        <div class="wrap">
+                                            <div class="opt-trigger">
+                                                <span class="grey-color">Showing 12 of 100 TUTORS</span>
+                                                <span class="value">Default sorting</span>
+                                                <i class="ri-arrow-down-s-line"></i>
                                             </div>
-                                        </div>
-                                        <div class="list-inline">
                                             <ul>
-                                                <li><a href=""><i class="ri-pause-mini-line"></i></a></li>
-                                                <li><a href=""><i class="ri-list-check-2"></i></a></li>
-                                                <li><a href=""><i class="ri-layout-grid-line"></i></a></li>
-                                                <li><a href=""><i class="ri-layout-masonry-line"></i></a></li>
+                                                <li class="active"><a href="#0">Default sorting</a></li>
+                                                <li><a href="#0">Popular</a></li>
+                                                <li><a href="#0">Rating</a></li>
+                                                <li><a href="#0">Latest</a></li>
+                                                <li><a href="#0">Price: low to high</a></li>
+                                                <li><a href="#0">Price: high to low</a></li>
                                             </ul>
                                         </div>
                                     </div>
+                                    <div class="list-inline">
+                                        <ul>
+                                            <li><a href=""><i class="ri-pause-mini-line"></i></a></li>
+                                            <li><a href=""><i class="ri-list-check-2"></i></a></li>
+                                            <li><a href=""><i class="ri-layout-grid-line"></i></a></li>
+                                            <li><a href=""><i class="ri-layout-masonry-line"></i></a></li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="tabbed">
-                                    <div id="shoes" class="sort-data active">
-                                        <div class="dotgrid">
-                                            <div class="wrapper">
-                                                <div class="item">
-                                                    <div class="dot-image">
-                                                        <a href="" class="product-permalink"></a>
-                                                        <div class="thumbnail">
-                                                            <img src="./images/team-1.png" alt="">
-                                                        </div>
-                                                        <div class="thumbnail hover">
-                                                            <img src="./images/team-2.png" alt="">
-                                                        </div>
-                                                        <div class="actions">
-                                                            <ul>
-                                                                <li><a href=""><i class="ri-star-line"></i></a>
-                                                                </li>
-                                                                <li><a href=""><i
-                                                                            class="ri-arrow-left-right-line"></i></a>
-                                                                </li>
-                                                                <li><a href=""><i class="ri-eye-line"></i></a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="label"><span>-25%</span></div>
+                            </div>
+                            <div class="tabbed">
+                                <div id="shoes" class="sort-data active">
+                                    <div class="dotgrid">
+                                        <div class="wrapper">
+                                            <div class="item">
+                                                <div class="dot-image">
+                                                    <a href="" class="product-permalink"></a>
+                                                    <div class="thumbnail">
+                                                        <img src="./images/team-1.png" alt="">
                                                     </div>
-                                                    <div class="dot-info">
-                                                        <h2 class="dot-title"><a href="">The Sneaker
-                                                                in VietNam</a></h2>
-                                                        <div class="product-price">
-                                                            <span class="before">$80.00</span>
-                                                            <span class="current">$52.00</span>
-                                                        </div>
+                                                    <div class="thumbnail hover">
+                                                        <img src="./images/team-2.png" alt="">
+                                                    </div>
+                                                    <div class="actions">
+                                                        <ul>
+                                                            <li><a href=""><i class="ri-star-line"></i></a>
+                                                            </li>
+                                                            <li><a href=""><i class="ri-arrow-left-right-line"></i></a>
+                                                            </li>
+                                                            <li><a href=""><i class="ri-eye-line"></i></a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="label"><span>-25%</span></div>
+                                                </div>
+                                                <div class="dot-info">
+                                                    <h2 class="dot-title"><a href="">Tutor
+                                                            in VietNam</a>
+
+                                                    </h2>
+                                                    <i class="ri-star-fill"></i>
+                                                    <i class="ri-star-fill"></i>
+                                                    <i class="ri-star-fill"></i>
+                                                    <i class="ri-star-fill"></i>
+                                                    <i class="ri-star-fill"></i>
+
+                                                    <div class="product-price">
+                                                        <span class="before">$80.00</span>
+                                                        <span class="current">$52.00</span>
                                                     </div>
                                                 </div>
-                                                <div class="item">
-                                                    <div class="dot-image">
-                                                        <a href="" class="product-permalink"></a>
-                                                        <div class="thumbnail">
-                                                            <img src="./images/team-1.png" alt="">
-                                                        </div>
-                                                        <div class="thumbnail hover">
-                                                            <img src="./images/team-2.png" alt="">
-                                                        </div>
-                                                        <div class="actions">
-                                                            <ul>
-                                                                <li><a href=""><i class="ri-star-line"></i></a>
-                                                                </li>
-                                                                <li><a href=""><i
-                                                                            class="ri-arrow-left-right-line"></i></a>
-                                                                </li>
-                                                                <li><a href=""><i class="ri-eye-line"></i></a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="label"><span>-25%</span></div>
-                                                    </div>
-                                                    <div class="dot-info">
-                                                        <h2 class="dot-title"><a href="">The Sneaker
-                                                                in VietNam</a></h2>
-                                                        <div class="product-price">
-                                                            <span class="before">$80.00</span>
-                                                            <span class="current">$52.00</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="item">
-                                                    <div class="dot-image">
-                                                        <a href="" class="product-permalink"></a>
-                                                        <div class="thumbnail">
-                                                            <img src="./images/team-1.png" alt="">
-                                                        </div>
-                                                        <div class="thumbnail hover">
-                                                            <img src="./images/team-2.png" alt="">
-                                                        </div>
-                                                        <div class="actions">
-                                                            <ul>
-                                                                <li><a href=""><i class="ri-star-line"></i></a>
-                                                                </li>
-                                                                <li><a href=""><i
-                                                                            class="ri-arrow-left-right-line"></i></a>
-                                                                </li>
-                                                                <li><a href=""><i class="ri-eye-line"></i></a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="label"><span>-25%</span></div>
-                                                    </div>
-                                                    <div class="dot-info">
-                                                        <h2 class="dot-title"><a href="">The Sneaker
-                                                                in VietNam</a></h2>
-                                                        <div class="product-price">
-                                                            <span class="before">$80.00</span>
-                                                            <span class="current">$52.00</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="item">
-                                                    <div class="dot-image">
-                                                        <a href="" class="product-permalink"></a>
-                                                        <div class="thumbnail">
-                                                            <img src="./images/team-1.png" alt="">
-                                                        </div>
-                                                        <div class="thumbnail hover">
-                                                            <img src="./images/team-2.png" alt="">
-                                                        </div>
-                                                        <div class="actions">
-                                                            <ul>
-                                                                <li><a href=""><i class="ri-star-line"></i></a>
-                                                                </li>
-                                                                <li><a href=""><i
-                                                                            class="ri-arrow-left-right-line"></i></a>
-                                                                </li>
-                                                                <li><a href=""><i class="ri-eye-line"></i></a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="label"><span>-25%</span></div>
-                                                    </div>
-                                                    <div class="dot-info">
-                                                        <h2 class="dot-title"><a href="">The Sneaker
-                                                                in VietNam</a></h2>
-                                                        <div class="product-price">
-                                                            <span class="before">$80.00</span>
-                                                            <span class="current">$52.00</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="item">
-                                                    <div class="dot-image">
-                                                        <a href="" class="product-permalink"></a>
-                                                        <div class="thumbnail">
-                                                            <img src="./images/team-1.png" alt="">
-                                                        </div>
-                                                        <div class="thumbnail hover">
-                                                            <img src="./images/team-2.png" alt="">
-                                                        </div>
-                                                        <div class="actions">
-                                                            <ul>
-                                                                <li><a href=""><i class="ri-star-line"></i></a>
-                                                                </li>
-                                                                <li><a href=""><i
-                                                                            class="ri-arrow-left-right-line"></i></a>
-                                                                </li>
-                                                                <li><a href=""><i class="ri-eye-line"></i></a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="label"><span>-25%</span></div>
-                                                    </div>
-                                                    <div class="dot-info">
-                                                        <h2 class="dot-title"><a href="">The Sneaker
-                                                                in VietNam</a></h2>
-                                                        <div class="product-price">
-                                                            <span class="before">$80.00</span>
-                                                            <span class="current">$52.00</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="item">
-                                                    <div class="dot-image">
-                                                        <a href="" class="product-permalink"></a>
-                                                        <div class="thumbnail">
-                                                            <img src="./images/team-1.png" alt="">
-                                                        </div>
-                                                        <div class="thumbnail hover">
-                                                            <img src="./images/team-2.png" alt="">
-                                                        </div>
-                                                        <div class="actions">
-                                                            <ul>
-                                                                <li><a href=""><i class="ri-star-line"></i></a>
-                                                                </li>
-                                                                <li><a href=""><i
-                                                                            class="ri-arrow-left-right-line"></i></a>
-                                                                </li>
-                                                                <li><a href=""><i class="ri-eye-line"></i></a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="label"><span>-25%</span></div>
-                                                    </div>
-                                                    <div class="dot-info">
-                                                        <h2 class="dot-title"><a href="">The Sneaker
-                                                                in VietNam</a></h2>
-                                                        <div class="product-price">
-                                                            <span class="before">$80.00</span>
-                                                            <span class="current">$52.00</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="item">
-                                                    <div class="dot-image">
-                                                        <a href="" class="product-permalink"></a>
-                                                        <div class="thumbnail">
-                                                            <img src="./images/team-1.png" alt="">
-                                                        </div>
-                                                        <div class="thumbnail hover">
-                                                            <img src="./images/team-2.png" alt="">
-                                                        </div>
-                                                        <div class="actions">
-                                                            <ul>
-                                                                <li><a href=""><i class="ri-star-line"></i></a>
-                                                                </li>
-                                                                <li><a href=""><i
-                                                                            class="ri-arrow-left-right-line"></i></a>
-                                                                </li>
-                                                                <li><a href=""><i class="ri-eye-line"></i></a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="label"><span>-25%</span></div>
-                                                    </div>
-                                                    <div class="dot-info">
-                                                        <h2 class="dot-title"><a href="">The Sneaker
-                                                                in VietNam</a></h2>
-                                                        <div class="product-price">
-                                                            <span class="before">$80.00</span>
-                                                            <span class="current">$52.00</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="item">
-                                                    <div class="dot-image">
-                                                        <a href="" class="product-permalink"></a>
-                                                        <div class="thumbnail">
-                                                            <img src="./images/team-1.png" alt="">
-                                                        </div>
-                                                        <div class="thumbnail hover">
-                                                            <img src="./images/team-2.png" alt="">
-                                                        </div>
-                                                        <div class="actions">
-                                                            <ul>
-                                                                <li><a href=""><i class="ri-star-line"></i></a>
-                                                                </li>
-                                                                <li><a href=""><i
-                                                                            class="ri-arrow-left-right-line"></i></a>
-                                                                </li>
-                                                                <li><a href=""><i class="ri-eye-line"></i></a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="label"><span>-25%</span></div>
-                                                    </div>
-                                                    <div class="dot-info">
-                                                        <h2 class="dot-title"><a href="">The Sneaker
-                                                                in VietNam</a></h2>
-                                                        <div class="product-price">
-                                                            <span class="before">$80.00</span>
-                                                            <span class="current">$52.00</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="item">
-                                                    <div class="dot-image">
-                                                        <a href="" class="product-permalink"></a>
-                                                        <div class="thumbnail">
-                                                            <img src="./images/team-1.png" alt="">
-                                                        </div>
-                                                        <div class="thumbnail hover">
-                                                            <img src="./images/team-2.png" alt="">
-                                                        </div>
-                                                        <div class="actions">
-                                                            <ul>
-                                                                <li><a href=""><i class="ri-star-line"></i></a>
-                                                                </li>
-                                                                <li><a href=""><i
-                                                                            class="ri-arrow-left-right-line"></i></a>
-                                                                </li>
-                                                                <li><a href=""><i class="ri-eye-line"></i></a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="label"><span>-25%</span></div>
-                                                    </div>
-                                                    <div class="dot-info">
-                                                        <h2 class="dot-title"><a href="">The Sneaker
-                                                                in VietNam</a></h2>
-                                                        <div class="product-price">
-                                                            <span class="before">$80.00</span>
-                                                            <span class="current">$52.00</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="item">
-                                                    <div class="dot-image">
-                                                        <a href="" class="product-permalink"></a>
-                                                        <div class="thumbnail">
-                                                            <img src="./images/team-1.png" alt="">
-                                                        </div>
-                                                        <div class="thumbnail hover">
-                                                            <img src="./images/team-2.png" alt="">
-                                                        </div>
-                                                        <div class="actions">
-                                                            <ul>
-                                                                <li><a href=""><i class="ri-star-line"></i></a>
-                                                                </li>
-                                                                <li><a href=""><i
-                                                                            class="ri-arrow-left-right-line"></i></a>
-                                                                </li>
-                                                                <li><a href=""><i class="ri-eye-line"></i></a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="label"><span>-25%</span></div>
-                                                    </div>
-                                                    <div class="dot-info">
-                                                        <h2 class="dot-title"><a href="">The Sneaker
-                                                                in VietNam</a></h2>
-                                                        <div class="product-price">
-                                                            <span class="before">$80.00</span>
-                                                            <span class="current">$52.00</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="item">
-                                                    <div class="dot-image">
-                                                        <a href="" class="product-permalink"></a>
-                                                        <div class="thumbnail">
-                                                            <img src="./images/team-1.png" alt="">
-                                                        </div>
-                                                        <div class="thumbnail hover">
-                                                            <img src="./images/team-2.png" alt="">
-                                                        </div>
-                                                        <div class="actions">
-                                                            <ul>
-                                                                <li><a href=""><i class="ri-star-line"></i></a>
-                                                                </li>
-                                                                <li><a href=""><i
-                                                                            class="ri-arrow-left-right-line"></i></a>
-                                                                </li>
-                                                                <li><a href=""><i class="ri-eye-line"></i></a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="label"><span>-25%</span></div>
-                                                    </div>
-                                                    <div class="dot-info">
-                                                        <h2 class="dot-title"><a href="">The Sneaker
-                                                                in VietNam</a></h2>
-                                                        <div class="product-price">
-                                                            <span class="before">$80.00</span>
-                                                            <span class="current">$52.00</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="item">
-                                                    <div class="dot-image">
-                                                        <a href="" class="product-permalink"></a>
-                                                        <div class="thumbnail">
-                                                            <img src="./images/team-1.png" alt="">
-                                                        </div>
-                                                        <div class="thumbnail hover">
-                                                            <img src="./images/team-2.png" alt="">
-                                                        </div>
-                                                        <div class="actions">
-                                                            <ul>
-                                                                <li><a href=""><i class="ri-star-line"></i></a>
-                                                                </li>
-                                                                <li><a href=""><i
-                                                                            class="ri-arrow-left-right-line"></i></a>
-                                                                </li>
-                                                                <li><a href=""><i class="ri-eye-line"></i></a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="label"><span>-25%</span></div>
-                                                    </div>
-                                                    <div class="dot-info">
-                                                        <h2 class="dot-title"><a href="">The Sneaker
-                                                                in VietNam</a></h2>
-                                                        <div class="product-price">
-                                                            <span class="before">$80.00</span>
-                                                            <span class="current">$52.00</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                
                                             </div>
+                                            <div class="item">
+                                                <div class="dot-image">
+                                                    <a href="" class="product-permalink"></a>
+                                                    <div class="thumbnail">
+                                                        <img src="./images/team-1.png" alt="">
+                                                    </div>
+                                                    <div class="thumbnail hover">
+                                                        <img src="./images/team-2.png" alt="">
+                                                    </div>
+                                                    <div class="actions">
+                                                        <ul>
+                                                            <li><a href=""><i class="ri-star-line"></i></a>
+                                                            </li>
+                                                            <li><a href=""><i class="ri-arrow-left-right-line"></i></a>
+                                                            </li>
+                                                            <li><a href=""><i class="ri-eye-line"></i></a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="label"><span>-25%</span></div>
+                                                </div>
+                                                <div class="dot-info">
+                                                    <h2 class="dot-title"><a href="">Tutor
+                                                            in VietNam</a></h2>
+                                                    <div class="product-price">
+                                                        <span class="before">$80.00</span>
+                                                        <span class="current">$52.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <div class="dot-image">
+                                                    <a href="" class="product-permalink"></a>
+                                                    <div class="thumbnail">
+                                                        <img src="./images/team-1.png" alt="">
+                                                    </div>
+                                                    <div class="thumbnail hover">
+                                                        <img src="./images/team-2.png" alt="">
+                                                    </div>
+                                                    <div class="actions">
+                                                        <ul>
+                                                            <li><a href=""><i class="ri-star-line"></i></a>
+                                                            </li>
+                                                            <li><a href=""><i class="ri-arrow-left-right-line"></i></a>
+                                                            </li>
+                                                            <li><a href=""><i class="ri-eye-line"></i></a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="label"><span>-25%</span></div>
+                                                </div>
+                                                <div class="dot-info">
+                                                    <h2 class="dot-title"><a href="">Tutor
+                                                            in VietNam</a></h2>
+                                                    <div class="product-price">
+                                                        <span class="before">$80.00</span>
+                                                        <span class="current">$52.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <div class="dot-image">
+                                                    <a href="" class="product-permalink"></a>
+                                                    <div class="thumbnail">
+                                                        <img src="./images/team-1.png" alt="">
+                                                    </div>
+                                                    <div class="thumbnail hover">
+                                                        <img src="./images/team-2.png" alt="">
+                                                    </div>
+                                                    <div class="actions">
+                                                        <ul>
+                                                            <li><a href=""><i class="ri-star-line"></i></a>
+                                                            </li>
+                                                            <li><a href=""><i class="ri-arrow-left-right-line"></i></a>
+                                                            </li>
+                                                            <li><a href=""><i class="ri-eye-line"></i></a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="label"><span>-25%</span></div>
+                                                </div>
+                                                <div class="dot-info">
+                                                    <h2 class="dot-title"><a href="">Tutor
+                                                            in VietNam</a></h2>
+                                                    <div class="product-price">
+                                                        <span class="before">$80.00</span>
+                                                        <span class="current">$52.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <div class="dot-image">
+                                                    <a href="" class="product-permalink"></a>
+                                                    <div class="thumbnail">
+                                                        <img src="./images/team-1.png" alt="">
+                                                    </div>
+                                                    <div class="thumbnail hover">
+                                                        <img src="./images/team-2.png" alt="">
+                                                    </div>
+                                                    <div class="actions">
+                                                        <ul>
+                                                            <li><a href=""><i class="ri-star-line"></i></a>
+                                                            </li>
+                                                            <li><a href=""><i class="ri-arrow-left-right-line"></i></a>
+                                                            </li>
+                                                            <li><a href=""><i class="ri-eye-line"></i></a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="label"><span>-25%</span></div>
+                                                </div>
+                                                <div class="dot-info">
+                                                    <h2 class="dot-title"><a href="">Tutor
+                                                            in VietNam</a></h2>
+                                                    <div class="product-price">
+                                                        <span class="before">$80.00</span>
+                                                        <span class="current">$52.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <div class="dot-image">
+                                                    <a href="" class="product-permalink"></a>
+                                                    <div class="thumbnail">
+                                                        <img src="./images/team-1.png" alt="">
+                                                    </div>
+                                                    <div class="thumbnail hover">
+                                                        <img src="./images/team-2.png" alt="">
+                                                    </div>
+                                                    <div class="actions">
+                                                        <ul>
+                                                            <li><a href=""><i class="ri-star-line"></i></a>
+                                                            </li>
+                                                            <li><a href=""><i class="ri-arrow-left-right-line"></i></a>
+                                                            </li>
+                                                            <li><a href=""><i class="ri-eye-line"></i></a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="label"><span>-25%</span></div>
+                                                </div>
+                                                <div class="dot-info">
+                                                    <h2 class="dot-title"><a href="">Tutor
+                                                            in VietNam</a></h2>
+                                                    <div class="product-price">
+                                                        <span class="before">$80.00</span>
+                                                        <span class="current">$52.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <div class="dot-image">
+                                                    <a href="" class="product-permalink"></a>
+                                                    <div class="thumbnail">
+                                                        <img src="./images/team-1.png" alt="">
+                                                    </div>
+                                                    <div class="thumbnail hover">
+                                                        <img src="./images/team-2.png" alt="">
+                                                    </div>
+                                                    <div class="actions">
+                                                        <ul>
+                                                            <li><a href=""><i class="ri-star-line"></i></a>
+                                                            </li>
+                                                            <li><a href=""><i class="ri-arrow-left-right-line"></i></a>
+                                                            </li>
+                                                            <li><a href=""><i class="ri-eye-line"></i></a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="label"><span>-25%</span></div>
+                                                </div>
+                                                <div class="dot-info">
+                                                    <h2 class="dot-title"><a href="">Tutor
+                                                            in VietNam</a></h2>
+                                                    <div class="product-price">
+                                                        <span class="before">$80.00</span>
+                                                        <span class="current">$52.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <div class="dot-image">
+                                                    <a href="" class="product-permalink"></a>
+                                                    <div class="thumbnail">
+                                                        <img src="./images/team-1.png" alt="">
+                                                    </div>
+                                                    <div class="thumbnail hover">
+                                                        <img src="./images/team-2.png" alt="">
+                                                    </div>
+                                                    <div class="actions">
+                                                        <ul>
+                                                            <li><a href=""><i class="ri-star-line"></i></a>
+                                                            </li>
+                                                            <li><a href=""><i class="ri-arrow-left-right-line"></i></a>
+                                                            </li>
+                                                            <li><a href=""><i class="ri-eye-line"></i></a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="label"><span>-25%</span></div>
+                                                </div>
+                                                <div class="dot-info">
+                                                    <h2 class="dot-title"><a href="">Tutor
+                                                            in VietNam</a></h2>
+                                                    <div class="product-price">
+                                                        <span class="before">$80.00</span>
+                                                        <span class="current">$52.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <div class="dot-image">
+                                                    <a href="" class="product-permalink"></a>
+                                                    <div class="thumbnail">
+                                                        <img src="./images/team-1.png" alt="">
+                                                    </div>
+                                                    <div class="thumbnail hover">
+                                                        <img src="./images/team-2.png" alt="">
+                                                    </div>
+                                                    <div class="actions">
+                                                        <ul>
+                                                            <li><a href=""><i class="ri-star-line"></i></a>
+                                                            </li>
+                                                            <li><a href=""><i class="ri-arrow-left-right-line"></i></a>
+                                                            </li>
+                                                            <li><a href=""><i class="ri-eye-line"></i></a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="label"><span>-25%</span></div>
+                                                </div>
+                                                <div class="dot-info">
+                                                    <h2 class="dot-title"><a href="">Tutor
+                                                            in VietNam</a></h2>
+                                                    <div class="product-price">
+                                                        <span class="before">$80.00</span>
+                                                        <span class="current">$52.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <div class="dot-image">
+                                                    <a href="" class="product-permalink"></a>
+                                                    <div class="thumbnail">
+                                                        <img src="./images/team-1.png" alt="">
+                                                    </div>
+                                                    <div class="thumbnail hover">
+                                                        <img src="./images/team-2.png" alt="">
+                                                    </div>
+                                                    <div class="actions">
+                                                        <ul>
+                                                            <li><a href=""><i class="ri-star-line"></i></a>
+                                                            </li>
+                                                            <li><a href=""><i class="ri-arrow-left-right-line"></i></a>
+                                                            </li>
+                                                            <li><a href=""><i class="ri-eye-line"></i></a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="label"><span>-25%</span></div>
+                                                </div>
+                                                <div class="dot-info">
+                                                    <h2 class="dot-title"><a href="">Tutor
+                                                            in VietNam</a></h2>
+                                                    <div class="product-price">
+                                                        <span class="before">$80.00</span>
+                                                        <span class="current">$52.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <div class="dot-image">
+                                                    <a href="" class="product-permalink"></a>
+                                                    <div class="thumbnail">
+                                                        <img src="./images/team-1.png" alt="">
+                                                    </div>
+                                                    <div class="thumbnail hover">
+                                                        <img src="./images/team-2.png" alt="">
+                                                    </div>
+                                                    <div class="actions">
+                                                        <ul>
+                                                            <li><a href=""><i class="ri-star-line"></i></a>
+                                                            </li>
+                                                            <li><a href=""><i class="ri-arrow-left-right-line"></i></a>
+                                                            </li>
+                                                            <li><a href=""><i class="ri-eye-line"></i></a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="label"><span>-25%</span></div>
+                                                </div>
+                                                <div class="dot-info">
+                                                    <h2 class="dot-title"><a href="">Tutor
+                                                            in VietNam</a></h2>
+                                                    <div class="product-price">
+                                                        <span class="before">$80.00</span>
+                                                        <span class="current">$52.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="item">
+                                                <div class="dot-image">
+                                                    <a href="" class="product-permalink"></a>
+                                                    <div class="thumbnail">
+                                                        <img src="./images/team-1.png" alt="">
+                                                    </div>
+                                                    <div class="thumbnail hover">
+                                                        <img src="./images/team-2.png" alt="">
+                                                    </div>
+                                                    <div class="actions">
+                                                        <ul>
+                                                            <li><a href=""><i class="ri-star-line"></i></a>
+                                                            </li>
+                                                            <li><a href=""><i class="ri-arrow-left-right-line"></i></a>
+                                                            </li>
+                                                            <li><a href=""><i class="ri-eye-line"></i></a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="label"><span>-25%</span></div>
+                                                </div>
+                                                <div class="dot-info">
+                                                    <h2 class="dot-title"><a href="">Tutor
+                                                            in VietNam</a></h2>
+                                                    <div class="product-price">
+                                                        <span class="before">$80.00</span>
+                                                        <span class="current">$52.00</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
-                                    <div class="button"><a href="" class="primary-btn">Load more</a></div>
+                                </div>
+                                <!-- <div class="button"><a href="" class="primary-btn">Load more</a></div> -->
+                                <div class="pagination">
+                                    <a id="prev_page">
+                                        << /a>
+                                            <a id="1" href="" class="active">1</a>
+                                            <a id="2" href="">2</a>
+                                            <a id="3" href="">3</a>
+                                            <a id="4" href="">4</a>
+                                            <a id="5" href="">5</a>
+                                            <a id="next_page" href="">></a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
 
 
-        </main>
-    </div>
-    <section class="footer">
+    </main>
+</div>
+<section class="footer">
 
-        <div class="box-container">
-  
-           <div class="box">
-              <h3>quick links</h3>
-              <a class="link" href="#home"> <i class="fas fa-angle-right"></i> Home</a>
-              <a class="link" href="#about"> <i class="fas fa-angle-right"></i> About</a>
-              <a class="link" href="#"> <i class="fas fa-angle-right"></i>Tutor</a>
-              <a class="link" href="#services"> <i class="fas fa-angle-right"></i>News & Blog</a>
-              <a class="link" href="#contact"> <i class="fas fa-angle-right"></i> Contact</a>
-              <a class="link" href="#"> <i class="fas fa-angle-right"></i> Login</a>
-           </div>
-  
-           <div class="box">
-              <h3>contact info</h3>
-              <a href="#" class="link"> <i class="fas fa-phone"></i>0942607590</a>
-              <a href="#" class="link"> <i class="fas fa-phone"></i>0942492722</a>
-              <a href="#" class="link"> <i class="fas fa-envelope"></i> lynhathao.it@gmail.com </a>
-              <a href="#" class="link"> <i class="fas fa-map"></i>227 Nguyễn Văn Cừ, District 5, HCMC</a>
-           </div>
-  
-           <div class="box">
-              <h3>Subscribe</h3>
-              <p>Join Our Mailing List & to get our news.</p>
-              <form action="">
-                 <input type="email" name="" placeholder="enter your email address" id="" class="email">
-                 <input type="submit" value="subscribe" class="btn">
-              </form>
-              <div class="share">
-                 <a href="https://www.facebook.com/LNH.1105" class="fab fa-facebook-f"></a>
-                 <a href="#" class="fab fa-twitter"></a>
-                 <a href="#" class="fab fa-instagram"></a>
-                 <a href="#" class="fab fa-linkedin"></a>
-              </div>
-           </div>
-  
+    <div class="box-container">
+
+        <div class="box">
+            <h3>quick links</h3>
+            <a class="link" href="#home"> <i class="fas fa-angle-right"></i> Home</a>
+            <a class="link" href="#about"> <i class="fas fa-angle-right"></i> About</a>
+            <a class="link" href="#"> <i class="fas fa-angle-right"></i>Tutor</a>
+            <a class="link" href="#services"> <i class="fas fa-angle-right"></i>News & Blog</a>
+            <a class="link" href="#contact"> <i class="fas fa-angle-right"></i> Contact</a>
+            <a class="link" href="#"> <i class="fas fa-angle-right"></i> Login</a>
         </div>
-  
-        <div class="credit"> © Created by <span>TUS Team</span> | all rights reserved! </div>
-  
-     </section>
-    <script src="./js/script.js"></script>
 
-</body>
+        <div class="box">
+            <h3>contact info</h3>
+            <a href="#" class="link"> <i class="fas fa-phone"></i>0942607590</a>
+            <a href="#" class="link"> <i class="fas fa-phone"></i>0942492722</a>
+            <a href="#" class="link"> <i class="fas fa-envelope"></i> lynhathao.it@gmail.com </a>
+            <a href="#" class="link"> <i class="fas fa-map"></i>227 Nguyễn Văn Cừ, District 5, HCMC</a>
+        </div>
+
+        <div class="box">
+            <h3>Subscribe</h3>
+            <p>Join Our Mailing List & to get our news.</p>
+            <form action="">
+                <input type="email" name="" placeholder="enter your email address" id="" class="email">
+                <input type="submit" value="subscribe" class="btn">
+            </form>
+            <div class="share">
+                <a href="https://www.facebook.com/LNH.1105" class="fab fa-facebook-f"></a>
+                <a href="#" class="fab fa-twitter"></a>
+                <a href="#" class="fab fa-instagram"></a>
+                <a href="#" class="fab fa-linkedin"></a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="credit"> © Created by <span>TUS Team</span> | all rights reserved! </div>
+
+</section>
+<script src="./js/script.js"></script>
