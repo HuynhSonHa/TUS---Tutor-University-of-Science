@@ -1,4 +1,5 @@
 const Course = require("../models/Course");
+<<<<<<< Updated upstream
 const User = require("../models/User")
 const { mutipleMongooseToObject } = require("../util/mongoose");
 
@@ -38,3 +39,22 @@ module.exports = {
   storedCourses,
   profile,
 };
+=======
+const { mutipleMongooseToObject } = require("../util/mongoose");
+
+class MeController {
+  // [GET] /me/stored/courses
+  async storedCourses(req, res, next) {
+    Course.find({})
+      .then((courses) => {
+        res.render("me/stored-courses", {
+          courses: mutipleMongooseToObject(courses),
+        });
+      })
+      .catch(next);
+    //res.render("me/stored-courses");
+  }
+}
+
+module.exports = new MeController();
+>>>>>>> Stashed changes
