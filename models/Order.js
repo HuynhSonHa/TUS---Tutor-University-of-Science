@@ -5,19 +5,19 @@ const OrderScheme = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User' // Tham chiếu đến user mà đặt hàng 
     },
-    listItem: [
-        {
-            productId: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: Product,
-            },
-            quantity1: Number
-        }
-    ],
-    // status: {
-    //     type: String,
-    //     default: "Processing"
-    // },
+    courseId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Course', // Tham chiếu đến schema sản phẩm (Product)
+        required: true
+    },
+    status: {
+        type: String,
+        default: "Subscribing",
+    },
+    datePost: {
+        type: Date,
+        default: Date.now(),
+    }
     // subTotal: {
     //     type: Number,
     //     default: 0
@@ -43,10 +43,6 @@ const OrderScheme = new Schema({
     //     maxLength: 20,
     //     default: "full name",
     //     trim: true,
-    // },
-    // date: {
-    //     type: Date,
-    //     default: Date.now(),
     // },
 });
 

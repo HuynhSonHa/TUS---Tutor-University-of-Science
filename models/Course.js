@@ -39,7 +39,7 @@ const CourseScheme = new Schema({
             message: 'Invalid image URLs in the list'
         }
     },
-    creationTime: {
+    createDay: {
         type: Date,
         default: Date.now(),
     },
@@ -50,9 +50,9 @@ const CourseScheme = new Schema({
     },
     // nhà sản xuất
     tutor: {
-        type: String,
-        required: [true, "Please provide manufacturer"],
-        trim: true
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
     },
     // sort theo tống số lần mua
     totalPurchase: {
@@ -62,7 +62,19 @@ const CourseScheme = new Schema({
     status: {
         type: String,
         required: [true, `Please provide status`],
-    }
+    },
+    faculty: {
+        type: String,
+    },
+    average: {
+        type: Float32Array,
+        default: 0, 
+    },
+    schedule: [
+        {
+            type: String,
+        }
+    ],
 
 });
 

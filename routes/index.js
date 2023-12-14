@@ -4,6 +4,7 @@ const siteRouter = require("./site");
 const courseRouter = require("./courses");
 const authRouter = require("./auth");
 const reviewRouter = require("./review");
+const orderRouter = require("./order");
 
 // /* GET home page. */
 // router.get('/home', function(req, res, next) {
@@ -32,6 +33,7 @@ function route(app) {
   app.use("/courses", courseRouter);
   app.use("/home", siteRouter);
   app.use("/review", reviewRouter);
+  app.use("/order", orderRouter);
   app.use("/", authRouter);
 }
 

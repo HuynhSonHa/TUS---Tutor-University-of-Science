@@ -55,21 +55,21 @@ const UserScheme = new Schema({
         default: Date.now()
 
     },
-    cart: [
-        {
-            productId: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'Course',
-            },
-            quantity: Number
-        }
-    ],
-    reviews: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Review',
-        }
-    ],
+    // cart: [
+    //     {
+    //         productId: {
+    //             type: mongoose.Schema.Types.ObjectId,
+    //             ref: 'Course',
+    //         },
+    //         quantity: Number
+    //     }
+    // ],
+    // reviews: [
+    //     {
+    //         type: mongoose.Schema.Types.ObjectId,
+    //         ref: 'Review',
+    //     }
+    // ],
     ban: {
         type: Boolean,
         default: false,
