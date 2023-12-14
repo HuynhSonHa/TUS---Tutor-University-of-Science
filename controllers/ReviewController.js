@@ -1,5 +1,6 @@
 const Review = require("../models/Review");
 const Order = require("../models/Order");
+const Course = require("../models/Course");
 const mongoose = require("mongoose");
 
 // [POST] /review/store/:courseId
@@ -9,16 +10,30 @@ const store = async (req, res, next) => {
         if (!order) {
             return res.status(400).send("Bạn chưa đăng ký khóa học!");
         }
-        else if (order && order.status == "Subscribing") {
+        else if (order && order.status === "Subscribing") {
             return res.status(400).send("Hãy đợi tutor accept bạn vào khóa học!");
         }
-        
+
         const formData = req.body;
         formData.courseId = req.params.id;
         formData.userId = req.user._id;
         const review = new Review(formData);
-        review.save().then;
-        res.redirect("/user/home");
+        await review.save();
+
+        const reviewList = await Review.find({courseId: req.params.id})
+        const n = reviewList.length;
+        let sum = 0;
+        for(let i=0; i<n; i++) {
+            sum += reviewList[i].rating;
+        }
+        if(n>0) {
+            const average = sum / n;
+            const course = await Course.findOne({courseId: req.params.id});
+            course.average = average;
+            await course.save();
+        }
+        
+        return res.send("Thêm review thành công!").redirect("/user/home");
     }
     catch (err) {
         next(err);

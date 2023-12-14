@@ -9,7 +9,7 @@ const store = async (req, res, next) => {
         formData.userId = req.user._id;
         const order = new Order(formData);
         order.save().then;
-        res.redirect("/user/home");
+        res.send("Đã gửi yêu cầu đến tutor").redirect("/user/home");
     }
     catch (err) {
         next(err);
