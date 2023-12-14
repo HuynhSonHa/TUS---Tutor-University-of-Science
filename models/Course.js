@@ -67,8 +67,10 @@ const CourseScheme = new Schema({
         type: String,
     },
     average: {
-        type: Float32Array,
-        default: 0, 
+        type: Number,
+        default: 0,
+        get: v => Math.round(v * 100) / 100, // Lấy giá trị với 2 số sau dấu thập phân
+        set: v => Math.round(v * 100) / 100, // Set giá trị với 2 số sau dấu thập phân
     },
     schedule: [
         {
