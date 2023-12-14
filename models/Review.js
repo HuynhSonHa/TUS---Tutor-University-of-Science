@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 const reviewSchema = new mongoose.Schema({
-  productId: {
+  courseId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Product', // Tham chiếu đến schema sản phẩm (Product)
+    ref: 'Course', // Tham chiếu đến schema sản phẩm (Product)
     required: true
   },
   userId: {

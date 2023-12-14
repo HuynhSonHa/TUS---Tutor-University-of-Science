@@ -94,7 +94,6 @@ const postForgetPassword = async(req, res, next) => {
     else {
         //const secret = process.env.JWT_SECRET + user.password;
         //const token = jwt.sign({ id: user._id, email: user.email }, secret, { expiresIn: "30m" });
-        console.log("haha");
         const reserPasswordLink = `http://localhost:10000/reset-password?id=${user._id}`;
 
         const mailOption = {

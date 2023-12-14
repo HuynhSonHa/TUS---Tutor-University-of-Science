@@ -5,7 +5,6 @@ require("dotenv").config();
 async function sendMail(mailOptions) {
   try {
     const myAccessTokenObject = await myOAuth2Client.getAccessToken()
-    console.log('haha')
     console.log(mailOptions)
     // Access Token sẽ nằm trong property 'token' trong Object mà chúng ta vừa get được ở trên
     const myAccessToken = myAccessTokenObject?.token
@@ -28,9 +27,9 @@ async function sendMail(mailOptions) {
     //     html: `<h3>${content}</h3>` // Nội dung email
     // }
     // Gọi hành động gửi email
-    console.log('Before sending email');
+    //console.log('Before sending email');
     await transport.sendMail(mailOptions);
-    console.log('After sending email');
+    //console.log('After sending email');
     res.status(200).json({ message: 'Email sent successfully.' })
   } catch (error) {
     // Có lỗi thì các bạn log ở đây cũng như gửi message lỗi về phía client
