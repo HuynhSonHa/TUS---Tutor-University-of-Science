@@ -1,13 +1,18 @@
-<style>@import url(/stylesheets/category.css);</style>
+<style>
+    @import url(/stylesheets/category.css);
+</style>
 <style type="stylesheets">@import url(https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css);</style>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <style type="stylesheets">@import url(https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css);</style>
 <script type="module" src="/javascripts/swiper-bundle.min.js"></script>
 <script type="module" src="/javascripts/script.js"></script>
 <style type="stylesheets">@import url(https://fonts.cdnfonts.com/css/prata-2);</style>
-<style type="stylesheets">@import url(https://fonts.googleapis.com/css?family=Montserrat:400,500,600&subset=latin-ext&display=swap);</style>
-<style type="stylesheets">@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css);</style>
-<style type="stylesheets">@import url(https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/css/lightgallery.min.css);</style>
+<style type="stylesheets">
+    @import url(https://fonts.googleapis.com/css?family=Montserrat:400,500,600&subset=latin-ext&display=swap);</style>
+<style type="stylesheets">@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css);
+</style>
+<style type="stylesheets">
+    @import url(https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/css/lightgallery.min.css);</style>
 
 
 
@@ -631,14 +636,14 @@
                                 </div>
                                 <!-- <div class="button"><a href="" class="primary-btn">Load more</a></div> -->
                                 <div class="pagination">
-                                    <a id="prev_page">
-                                        << /a>
-                                            <a id="1" href="" class="active">1</a>
-                                            <a id="2" href="">2</a>
-                                            <a id="3" href="">3</a>
-                                            <a id="4" href="">4</a>
-                                            <a id="5" href="">5</a>
-                                            <a id="next_page" href="">></a>
+                                    <a id="prev_page" href="/courses?page={{currentPage - 1}}" class="active"></a>
+
+                                    {{#each pages}}
+                                    <a id="{{this}}" href="/courses?page={{this}}"
+                                        class="{{#if (eq this ../currentPage)}}active{{/if}}">{{this}}</a>
+                                    {{/each}}
+
+                                    <a id="next_page" href="/courses?page={{nextPage}}"></a>
                                 </div>
                             </div>
                         </div>
