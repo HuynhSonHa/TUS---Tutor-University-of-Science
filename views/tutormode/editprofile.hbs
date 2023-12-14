@@ -1,173 +1,182 @@
-<style>@import url(/stylesheets/editprofile.css);</style>
-    <!-- header section starts  -->
+<style>
+    @import url(/stylesheets/editprofile.css);
+</style>
+<!-- header section starts  -->
 
-    <header class="header">
+<header class="header">
 
-        <div class="contact-info">
-            <p> <i class="fas fa-map-marker-alt"></i>227 Nguyễn Văn Cừ, District 5, HCMC</p>
-            <p> <i class="fas fa-envelope"></i>lynhathao.it@gmail.com</p>
-            <p> <i class="fas fa-clock"></i>24/7
-                <a href="https://instagram.com/nauxbachh/"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.facebook.com/bach0807/"><i class="fab fa-facebook"></i></a>
-                <i class="fab fa-twitter"></i>
-                <i class="fab fa-pinterest"></i>
-                </i>
+    <div class="contact-info">
+        <p> <i class="fas fa-map-marker-alt"></i>227 Nguyễn Văn Cừ, District 5, HCMC</p>
+        <p> <i class="fas fa-envelope"></i>lynhathao.it@gmail.com</p>
+        <p> <i class="fas fa-clock"></i>24/7
+            <a href="https://instagram.com/nauxbachh/"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.facebook.com/bach0807/"><i class="fab fa-facebook"></i></a>
+            <i class="fab fa-twitter"></i>
+            <i class="fab fa-pinterest"></i>
+            </i>
+        </p>
+
+    </div>
+
+    <nav class="navbar">
+
+        <a href="#" class="logo">
+            <img src="./images/logo-small.svg" alt="">
+            <img src="./images/Logo.svg" alt="">
+            <div class="links">
+                <a href="/">Home</a>
+                <a href="/">About Us</a>
+                <a href="/courses">Tutor</a>
+                <a href="/">News & Blog</a>
+                <a href="/">Contact Us</a>
+                <a href="./tutormode.html" class="btn">Tutor Mode</a>
+                <a href="/login">Login</a>
+            </div>
+
+            <div id="menu-btn" class="fa fa-bars"></div>
+
+    </nav>
+
+</header>
+
+<!-- header section ends -->
+
+<!--body section starts -->
+<section class="home" id="home">
+    <div class="content">
+        <h3>
+            <a href=""><i class="ri-arrow-right-s-fill"></i> Edit Profile</a>
+            <br>
+            <a>_____________________</a>
+        </h3>
+        <form action="">
+            <p>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" check
+                    style="background-color: #40DDB6;" required>
             </p>
 
-        </div>
-
-        <nav class="navbar">
-
-            <a href="#" class="logo">
-                <img src="./images/logo-small.svg" alt="">
-                <img src="./images/Logo.svg" alt="">
-                <div class="links">
-                    <a href="#home">Home</a>
-                    <a href="#about">About Us</a>
-                    <a href="#">Tutor</a>
-                    <a href="#services">News & Blog</a>
-                    <a href="#contact">Contact Us</a>
-                    <a href="./tutormode.html" class="btn">Tutor Mode</a>
-                    <a href="#login">Login</a>
-                </div>
-
-                <div id="menu-btn" class="fa fa-bars"></div>
-
-        </nav>
-
-    </header>
-
-    <!-- header section ends -->
-
-    <!--body section starts -->
-    <section class="home" id="home">
-        <div class="content">
-            <h3>
-                <a href=""><i class="ri-arrow-right-s-fill"></i> Edit Profile</a>
-                <br>
-                <a>_____________________</a>
-            </h3>
-            <form action="">
-                <p>
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" placeholder="Enter your name" check style="background-color: #40DDB6;" required>
-                </p>
-                
-                <p>
+            <p>
                 <label for="phone">Phone:</label>
-                <input type="tel" id="phone" name="phone"  placeholder="Enter your phone number" check style="background-color: #40DDB6;" required>
-                </p>
-                
-                <p>
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" check
+                    style="background-color: #40DDB6;" required>
+            </p>
+
+            <p>
                 <label for="faculty">Faculty:</label>
-                <input type="text" id="faculty" name="faculty" placeholder="Enter your faculty" check style="background-color: #40DDB6;" required>
-                </p>
-                
-                <p>
+                <input type="text" id="faculty" name="faculty" placeholder="Enter your faculty" check
+                    style="background-color: #40DDB6;" required>
+            </p>
+
+            <p>
                 <label for="school">School:</label>
-                <input type="text" id="school" name="school"  placeholder="Enter your school" check style="background-color: #40DDB6;" required>
-                </p>
-            
-                <p>
+                <input type="text" id="school" name="school" placeholder="Enter your school" check
+                    style="background-color: #40DDB6;" required>
+            </p>
+
+            <p>
                 <label for="student">Student ID:</label>
-                <input type="text" id="student" name="student"  placeholder="Enter your student ID" check style="background-color: #40DDB6;" required>
-                </p>
-            
-                <p>
+                <input type="text" id="student" name="student" placeholder="Enter your student ID" check
+                    style="background-color: #40DDB6;" required>
+            </p>
+
+            <p>
                 <label for="course">Course:</label>
-                <input type="text" id="course" name="course" placeholder="Enter your course" check style="background-color: #40DDB6;" required>
-                </p>
-            
-                <p>
+                <input type="text" id="course" name="course" placeholder="Enter your course" check
+                    style="background-color: #40DDB6;" required>
+            </p>
+
+            <p>
                 <label for="gpa">GPA:</label>
-                <input type="text" id="gpa" name="gpa"  placeholder="Enter your GPA" check style="background-color: #40DDB6;" required>
-                </p>
-            
-                <p>
-                    <button class="btn" type="submit">Save your changes</button>
-                </p>
+                <input type="text" id="gpa" name="gpa" placeholder="Enter your GPA" check
+                    style="background-color: #40DDB6;" required>
+            </p>
+
+            <p>
+                <button class="btn" type="submit">Save your changes</button>
+            </p>
+        </form>
+    </div>
+    <div class="image">
+        <img src="./images/team-2.png" id="profile-pic">
+        <label class="btn" for="input-file">Update avatar</label>
+        <input type="file" accept="image/jpeg, image/png, image/jpg" id="input-file" check style="display: none;">
+    </div>
+
+</section>
+
+<!--body section ends -->
+<!-- footer section starts  -->
+
+<section class="footer">
+
+    <div class="box-container">
+
+        <div class="box">
+            <h3>quick links</h3>
+            <a class="link" href="#home"> <i class="fas fa-angle-right"></i> Home</a>
+            <a class="link" href="#about"> <i class="fas fa-angle-right"></i> About</a>
+            <a class="link" href="./category.hbs"> <i class="fas fa-angle-right"></i>Tutor</a>
+            <a class="link" href="#services"> <i class="fas fa-angle-right"></i>News & Blog</a>
+            <a class="link" href="#contact"> <i class="fas fa-angle-right"></i> Contact</a>
+            <a class="link" href="#"> <i class="fas fa-angle-right"></i> Login</a>
+        </div>
+
+        <div class="box">
+            <h3>contact info</h3>
+            <a href="#" class="link"> <i class="fas fa-phone"></i>0942607590</a>
+            <a href="#" class="link"> <i class="fas fa-phone"></i>0942492722</a>
+            <a href="#" class="link"> <i class="fas fa-envelope"></i> lynhathao.it@gmail.com </a>
+            <a href="#" class="link"> <i class="fas fa-map"></i>227 Nguyễn Văn Cừ, District 5, HCMC</a>
+        </div>
+
+        <div class="box">
+            <h3>Subscribe</h3>
+            <p>Join Our Mailing List & to get our news.</p>
+            <form action="">
+                <input type="email" name="" placeholder="enter your email address" id="" class="email">
+                <input type="submit" value="subscribe" class="btn">
             </form>
-        </div>
-        <div class="image">
-            <img src="./images/team-2.png" id="profile-pic">
-            <label class="btn" for="input-file">Update avatar</label>
-            <input type="file" accept="image/jpeg, image/png, image/jpg" id="input-file" check style="display: none;">
-        </div>
-
-    </section>
-
-    <!--body section ends -->
-    <!-- footer section starts  -->
-
-    <section class="footer">
-
-        <div class="box-container">
-
-            <div class="box">
-                <h3>quick links</h3>
-                <a class="link" href="#home"> <i class="fas fa-angle-right"></i> Home</a>
-                <a class="link" href="#about"> <i class="fas fa-angle-right"></i> About</a>
-                <a class="link" href="./category.hbs"> <i class="fas fa-angle-right"></i>Tutor</a>
-                <a class="link" href="#services"> <i class="fas fa-angle-right"></i>News & Blog</a>
-                <a class="link" href="#contact"> <i class="fas fa-angle-right"></i> Contact</a>
-                <a class="link" href="#"> <i class="fas fa-angle-right"></i> Login</a>
+            <div class="share">
+                <a href="https://www.facebook.com/LNH.1105" class="fab fa-facebook-f"></a>
+                <a href="#" class="fab fa-twitter"></a>
+                <a href="#" class="fab fa-instagram"></a>
+                <a href="#" class="fab fa-linkedin"></a>
             </div>
-
-            <div class="box">
-                <h3>contact info</h3>
-                <a href="#" class="link"> <i class="fas fa-phone"></i>0942607590</a>
-                <a href="#" class="link"> <i class="fas fa-phone"></i>0942492722</a>
-                <a href="#" class="link"> <i class="fas fa-envelope"></i> lynhathao.it@gmail.com </a>
-                <a href="#" class="link"> <i class="fas fa-map"></i>227 Nguyễn Văn Cừ, District 5, HCMC</a>
-            </div>
-
-            <div class="box">
-                <h3>Subscribe</h3>
-                <p>Join Our Mailing List & to get our news.</p>
-                <form action="">
-                    <input type="email" name="" placeholder="enter your email address" id="" class="email">
-                    <input type="submit" value="subscribe" class="btn">
-                </form>
-                <div class="share">
-                    <a href="https://www.facebook.com/LNH.1105" class="fab fa-facebook-f"></a>
-                    <a href="#" class="fab fa-twitter"></a>
-                    <a href="#" class="fab fa-instagram"></a>
-                    <a href="#" class="fab fa-linkedin"></a>
-                </div>
-            </div>
-
         </div>
 
-        <div class="credit"> © Created by <span>TUS Team</span> | all rights reserved! </div>
+    </div>
 
-    </section>
+    <div class="credit"> © Created by <span>TUS Team</span> | all rights reserved! </div>
 
-    <!-- footer section ends -->
+</section>
 
-    <script>
+<!-- footer section ends -->
+
+<script>
     let menu = document.querySelector('#menu-btn');
     let navbarLinks = document.querySelector('.header .navbar .links');
-    
+
     menu.onclick = () => {
         menu.classList.toggle('fa-times');
         navbarLinks.classList.toggle('active');
     }
-    
+
     window.onscroll = () => {
         menu.classList.remove('fa-times');
         navbarLinks.classList.remove('active');
-    
+
         if (window.scrollY > 60) {
             document.querySelector('.header .navbar').classList.add('active');
         } else {
             document.querySelector('.header .navbar').classList.remove('active');
         }
     }
-    
+
     let profilePic = document.getElementById("profile-pic");
     let inputFile = document.getElementById("input-file");
-    
-    inputFile.onchange = function() {
+
+    inputFile.onchange = function () {
         profilePic.src = URL.createObjectURL(inputFile.files[0]);
     }
-    </script>
+</script>
