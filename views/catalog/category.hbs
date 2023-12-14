@@ -636,14 +636,14 @@
                                 </div>
                                 <!-- <div class="button"><a href="" class="primary-btn">Load more</a></div> -->
                                 <div class="pagination">
-                                    <a id="prev_page" href="/courses?page={{prevPage}}"></a>
+                                    <a id="prev_page" href="/courses?page={{currentPage - 1}}" class="active"></a>
 
                                     {{#each pages}}
                                     <a id="{{this}}" href="/courses?page={{this}}"
                                         class="{{#if (eq this ../currentPage)}}active{{/if}}">{{this}}</a>
                                     {{/each}}
 
-                                    <a id="next_page" href="/courses?page={{nextPage}}"></a>
+                                    <a id="next_page" href="/courses?page={{nextPage}}">>s</a>
                                 </div>
                             </div>
                         </div>
