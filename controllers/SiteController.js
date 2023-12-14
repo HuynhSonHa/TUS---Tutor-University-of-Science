@@ -4,13 +4,7 @@ const { mutipleMongooseToObject } = require("../util/mongoose");
 
 // [GET] /home
 const getHomePage = async(req, res, next) => {
-  Course.find({})
-  .then((courses) => {
-    res.render("home", {
-      courses: mutipleMongooseToObject(courses),
-    });
-  })
-  .catch(next);
+  res.render('home/home');
     // Course.find({})
     //   .lean()
     //   .then((courses) => {

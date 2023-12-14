@@ -2,19 +2,37 @@ const Course = require("../models/Course");
 const { mongooseToObject, mutipleMongooseToObject } = require("../util/mongoose");
 const mongoose = require("mongoose");
 
-// [GET] /course/
-const showAll = (req, res, next) => {
-  Course.find({})
-  .then((courses) => {
-    res.render("home/home", {
+// [GET] /courses?page=*;
+const showAll = async (req, res, next) => {
+  try {
+    const pageSize = 10;
+    //filter thay vào trên đây (filter xong lấy ra coursesFull, courses)
+    const coursesFull = await Course.find();
+    const totalCourses = coursesFull.length;
+    const totalPages = Math.ceil(totalCourses / pageSize);
+    const pageNumber = parseInt(req.query.page) || 1;
+    if(pageNumber > totalPages) pageNumber = totalPages;
+    else if(pageNumber < 1) pageNumber = 1;
+    
+    const skipAmount = (pageNumber - 1) * pageSize;
+    
+    const courses = await Course.find().skip(skipAmount).limit(pageSize);
+    const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+    const currentPage = Math.max(1, Math.min(totalPages, pageNumber));
+    res.render('catalog/category', {
       courses: mutipleMongooseToObject(courses),
+      currentPage: currentPage,
+      pages: pages,
+      nextPage: currentPage + 1,
     });
-  })
-  .catch(next);
+  } catch (error) {
+    console.error('Error fetching courses:', error);
+    next(error);
+  }
 }
 
-// [GET] /course/:id
-const show = (req, res, next) => {
+// [GET] /courses/:id
+const detail = (req, res, next) => {
   Course.findById(req.params.id)
   .then((course) => {
     res.render("courses/show", {
@@ -25,12 +43,12 @@ const show = (req, res, next) => {
   //res.send("COURSE" + req.params.slug);
 }
 
-// [GET] /course/create
+// [GET] /courses/create
 const create = (req, res, next) => {
   res.render("courses/create");
 }
 
-// [POST] /course/store
+// [POST] /courses/store
 const store = (req, res, next) => {
   //res.json(req.body);
   const formData = req.body;
@@ -41,7 +59,7 @@ const store = (req, res, next) => {
   res.redirect("/home");
 }
 
-// [GET] /course/:id/edit
+// [GET] /courses/:id/edit
 const edit = (req, res, next) => {
   Course.findById(req.params.id)
   .then((course) =>
@@ -52,7 +70,7 @@ const edit = (req, res, next) => {
   .catch(next);
 }
 
-// [PUT] /course/:id
+// [PUT] /courses/:id
 const update = (req, res, next) => {
   Course.updateOne({ _id: req.params.id }, req.body)
   .then(() => res.redirect("/me/stored/courses"))
@@ -74,7 +92,7 @@ const destroy = (req, res, next) => {
 
 module.exports = {
   showAll,
-  show,
+  detail,
   create,
   store,
   edit,
