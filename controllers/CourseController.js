@@ -11,19 +11,19 @@ const showAll = async (req, res, next) => {
     const totalCourses = coursesFull.length;
     const totalPages = Math.ceil(totalCourses / pageSize);
     const pageNumber = parseInt(req.query.page) || 1;
-    if(pageNumber > totalPages) pageNumber = totalPages;
-    else if(pageNumber < 1) pageNumber = 1;
-    
     const skipAmount = (pageNumber - 1) * pageSize;
-    
     const courses = await Course.find().skip(skipAmount).limit(pageSize);
     const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
     const currentPage = Math.max(1, Math.min(totalPages, pageNumber));
+    var nextPage = currentPage + 1; if(nextPage > totalPages) nextPage = totalPages;
+    var prevPage = currentPage - 1; if(prevPage < 1) prevPage = 1;
+    console.log(pages);
     res.render('catalog/category', {
       courses: mutipleMongooseToObject(courses),
-      currentPage: currentPage,
       pages: pages,
-      nextPage: currentPage + 1,
+      prevPage: prevPage,
+      currentPage: currentPage,
+      nextPage: nextPage,
     });
   } catch (error) {
     console.error('Error fetching courses:', error);

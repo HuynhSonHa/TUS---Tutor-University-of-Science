@@ -13,6 +13,7 @@ const { OAuth2Client } = require ('google-auth-library');
 const route = require('./routes/index');
 const db = require('./config/dbMongo');
 const passport = require('./middlewares/passport');
+const exphbs = require('./util/helpers');
 const app = express();
 
 // Connect to DB
@@ -31,8 +32,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // view engine setup
+app.engine('hbs', exphbs.engine);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+
 
 //dùng để chỉnh form từ post sang put
 app.use(methodOverride('_method'));
