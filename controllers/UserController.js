@@ -3,7 +3,7 @@ const User = require("../models/User")
 const { mutipleMongooseToObject } = require("../util/mongoose");
 
 
-// [GET] /me/stored/courses/id
+// [GET] /user/stored/courses/id
 const storedCourses = async (req, res, next) => {
   Course.find({manufacturer: req.params.id})
   .then((courses) => {
@@ -15,7 +15,7 @@ const storedCourses = async (req, res, next) => {
   //res.render("me/stored-courses");
 }
 
-// [GET] /me/profile/id
+// [GET] /user/profile/id
 const profile = async (req, res, next) => {
   try {
     const userId = req.params.id;
@@ -34,7 +34,13 @@ const profile = async (req, res, next) => {
 }
 }
 
+//[GET] /user/home
+const getHomePage = (req, res, next) => {
+  res.render('home/userHome', { user: req.user });
+}
+
 module.exports = {
   storedCourses,
   profile,
+  getHomePage,
 };

@@ -1,11 +1,21 @@
 const Course = require("../models/Course");
-const { mongooseToObject } = require("../util/mongoose");
+const { mongooseToObject, mutipleMongooseToObject } = require("../util/mongoose");
 const mongoose = require("mongoose");
 
+// [GET] /course/
+const showAll = (req, res, next) => {
+  Course.find({})
+  .then((courses) => {
+    res.render("home/home", {
+      courses: mutipleMongooseToObject(courses),
+    });
+  })
+  .catch(next);
+}
 
-// [GET] /course/:slug
+// [GET] /course/:id
 const show = (req, res, next) => {
-  Course.findOne({ slug: req.params.slug })
+  Course.findById(req.params.id)
   .then((course) => {
     res.render("courses/show", {
       course: mongooseToObject(course),
@@ -63,6 +73,7 @@ const destroy = (req, res, next) => {
 
 
 module.exports = {
+  showAll,
   show,
   create,
   store,
