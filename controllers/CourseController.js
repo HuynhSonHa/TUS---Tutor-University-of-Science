@@ -5,7 +5,8 @@ const mongoose = require("mongoose");
 // [GET] /courses?page=*;
 const showAll = async (req, res, next) => {
   try {
-    const pageSize = 10;
+   
+    const pageSize = 12;
     //filter thay vào trên đây (filter xong lấy ra coursesFull, courses)
     const coursesFull = await Course.find();
     const totalCourses = coursesFull.length;
@@ -17,7 +18,8 @@ const showAll = async (req, res, next) => {
     const currentPage = Math.max(1, Math.min(totalPages, pageNumber));
     var nextPage = currentPage + 1; if(nextPage > totalPages) nextPage = totalPages;
     var prevPage = currentPage - 1; if(prevPage < 1) prevPage = 1;
-    console.log(pages);
+    console.log(courses.length);
+  
     res.render('catalog/category', {
       courses: mutipleMongooseToObject(courses),
       pages: pages,
