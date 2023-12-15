@@ -11,7 +11,7 @@ const getHomePage = (req, res, next) => {
 //[GET] /signin
 const getSignIn = (req, res, next) => {
   var messages = req.flash('error');
-  res.render('login/signin', {
+  res.render('auth/signin', {
     messages: messages,
     hasErrors: messages.length > 0,
   });
@@ -29,7 +29,7 @@ const postSignIn = (req, res, next) => {
 //[GET] /signup
 const getSignUp = (req, res, next) => {
   var messages = req.flash('error');
-  res.render('login/signup', {
+  res.render('auth/signup', {
     messages: messages,
     hasErrors: messages.length > 0,
   });
@@ -74,7 +74,7 @@ const postSignUp = (req, res, next) => {
 //[GET] /forget-password
 const getForgetPassword = (req, res, next) => {
   var messages = req.flash('error');
-  res.render('login/forgetPassword', {
+  res.render('auth/forgetPassword', {
     messages: messages,
     hasErrors: messages.length > 0,
   });
@@ -137,13 +137,14 @@ const getResetPassword = async(req, res, next) => {
         // }
 
         // Successfull because error will throw 
-        res.render("login/resetPassword", { id: user._id })
+        res.render("auth/resetPassword", { id: user._id })
     }
   } catch (error) {
     next(error);
   }
 };
 
+//[POST] /reset-password
 const postResetPassword = async(req, res, next) => {
   try {
     const { password, password2 } = req.body;
