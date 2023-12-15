@@ -8,7 +8,7 @@ router.post('/store', isAuthenticated, courseController.store);
 router.get('/:id/edit', isAuthenticated, courseController.edit);
 router.put('/:id', isAuthenticated, courseController.update);
 router.delete('/:id', isAuthenticated, courseController.destroy);
-router.get('/:id', isAuthenticated, courseController.detail);
+router.get('/:id', courseController.detail);
 router.get('/', courseController.showAll);
 
 module.exports = router;

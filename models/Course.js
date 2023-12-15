@@ -62,6 +62,7 @@ const CourseScheme = new Schema({
     status: {
         type: String,
         required: [true, `Please provide status`],
+        default: "Available"
     },
     faculty: {
         type: String,

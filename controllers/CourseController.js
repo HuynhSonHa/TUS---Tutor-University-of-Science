@@ -1,4 +1,5 @@
 const Course = require("../models/Course");
+const Review = require("../models/Review");
 const { mongooseToObject, mutipleMongooseToObject } = require("../util/mongoose");
 const mongoose = require("mongoose");
 
@@ -34,15 +35,26 @@ const showAll = async (req, res, next) => {
 }
 
 // [GET] /courses/:id
-const detail = (req, res, next) => {
-  Course.findById(req.params.id)
-  .then((course) => {
-    res.render("courses/show", {
+const detail = async(req, res, next) => {
+  try {
+    const course = await Course.findById(req.params.id);
+    if (!course) {
+      return res.status(404).render("404"); // Handle the case where the product is not found
+    }
+
+    const coursesListOfTutor = await Course.find({tutor: course.tutor});
+    const reviews = await Review.find({ productId: req.params.id });
+    const coursesListOfName = await Course.find({name: course.name});
+
+    res.render("courses/detail", {
       course: mongooseToObject(course),
+      coursesListOfTutor: mutipleMongooseToObject(coursesListOfTutor),
+      reviews: mutipleMongooseToObject(reviews),
+      coursesListOfName: mutipleMongooseToObject(coursesListOfName),
     });
-  })
-  .catch(next);
-  //res.send("COURSE" + req.params.slug);
+  } catch (err) {
+    next(err);
+  }
 }
 
 // [GET] /courses/create

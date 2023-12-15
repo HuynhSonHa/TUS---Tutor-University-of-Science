@@ -1,11 +1,11 @@
 require("dotenv").config();
-const Product = require("../model/Product.js");
+const Course = require("../models/Course.js");
 const Review = require("../model/Review.js");
-const uploadToCloudinary = require("../config/cloudinary.js");
+//const uploadToCloudinary = require("../config/cloudinary.js");
 
 const mongoose = require("mongoose");
 
-const PrfilteredAndSortedProducts = async function (name, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder) {
+const PrfilteredAndSortedProducts = async function (name, tutor, status,  faculty, average, minPrice, maxPrice, sortByField, sortByOrder) {
     const fliter = {};
     const sort = {};
 
@@ -13,19 +13,24 @@ const PrfilteredAndSortedProducts = async function (name, catalogId, manufacture
     if (name !== `None` && name) {
         fliter.name = name;
     }
-    if (catalogId !== "None" && catalogId) {
+    if (tutor !== "None" && tutor) {
         try {
-            fliter.catalogId = new mongoose.Types.ObjectId(catalogId);
+            fliter.tutor = new mongoose.Types.ObjectId(tutor);
 
         } catch (error) {
-            delete fliter.catalogId;
+            delete fliter.tutor;
             console.log("Catalog Id invalid", error);
         }
     }
-    if (manufacturer !== `None` && manufacturer) {
-        fliter.manufacturer = manufacturer;
+    if (status !== `None` && status) {
+        fliter.status = status;
     }
-
+    if (faculty !== `None` && faculty) {
+        fliter.faculty = faculty;
+    }
+    if(average) {
+        fliter.average = average;
+    }
     if (minPrice !== `None` && maxPrice !== `None` && minPrice && maxPrice) {
         minPrice = Number(minPrice);
         maxPrice = Number(maxPrice);
@@ -41,7 +46,7 @@ const PrfilteredAndSortedProducts = async function (name, catalogId, manufacture
     }
 
     try {
-        const result = await Product.find(fliter).sort(sort);
+        const result = await Course.find(fliter).sort(sort);
 
         return result;
     } catch (error) {
