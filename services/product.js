@@ -1,6 +1,6 @@
 require("dotenv").config();
 const Course = require("../models/Course.js");
-const Review = require("../model/Review.js");
+const Review = require("../models/Review.js");
 const User = require("../models/User.js");
 //const uploadToCloudinary = require("../config/cloudinary.js");
 
