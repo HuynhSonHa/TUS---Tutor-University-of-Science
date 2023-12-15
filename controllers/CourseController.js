@@ -21,18 +21,17 @@ const showAll = async (req, res, next) => {
 
     const pageSize = 12;
     //filter thay vào trên đây (filter xong lấy ra coursesFull, courses)
-    const coursesFull 
-    = await CourseService
-      .filteredAndSorted(courseName, tutorName, status, faculty, average, minPrice, maxPrice, sortByField, sortByOrder);
+    const coursesFull = await CourseService.filteredAndSorted(
+      courseName, tutorName, status, faculty, average, minPrice, maxPrice, sortByField, sortByOrder
+    );
     const totalCourses = coursesFull.length;
     const totalPages = Math.ceil(totalCourses / pageSize);
     const pageNumber = parseInt(req.query.page) || 1;
     const skipAmount = (pageNumber - 1) * pageSize;
-    const courses 
-    = await CourseService
-      .filteredAndSorted(courseName, tutorName, status, faculty, average, minPrice, maxPrice, sortByField, sortByOrder)
-      .skip(skipAmount)
-      .limit(pageSize);
+    const courses = await CourseService.filteredSortedPaging(
+      courseName, tutorName, status, faculty, average, minPrice, maxPrice, sortByField, sortByOrder, skipAmount, pageSize
+    );
+      
     const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
     const currentPage = Math.max(1, Math.min(totalPages, pageNumber));
     var nextPage = currentPage + 1; if(nextPage > totalPages) nextPage = totalPages;

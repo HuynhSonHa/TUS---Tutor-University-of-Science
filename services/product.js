@@ -58,6 +58,57 @@ const filteredAndSorted = async function (name, tutorName, status,  faculty, ave
 
 }
 
+const filteredSortedPaging = async function (name, tutorName, status,  faculty, average, minPrice, maxPrice, sortByField, sortByOrder, skipAmount, pageSize) {
+    const fliter = {};
+    const sort = {};
+
+    // Fliter
+    if (name !== `None` && name) {
+        fliter.name = name;
+    }
+    if (tutorName !== "None" && tutorName) {
+        try {
+            const tutor = await User.find({username: tutorName, role: "tutor"})
+            fliter.tutor = tutor._id;
+
+        } catch (error) {
+            delete fliter.tutor;
+            console.log("Tutor invalid", error);
+        }
+    }
+    if (status !== `None` && status) {
+        fliter.status = status;
+    }
+    if (faculty !== `None` && faculty) {
+        fliter.faculty = faculty;
+    }
+    if(average) {
+        fliter.average = average;
+    }
+    if (minPrice !== `None` && maxPrice !== `None` && minPrice && maxPrice) {
+        minPrice = Number(minPrice);
+        maxPrice = Number(maxPrice);
+
+        if (minPrice <= maxPrice) {
+            fliter.price = { $gte: minPrice, $lte: maxPrice };
+        }
+    }
+
+    // Sort
+    if (sortByField !== `None` && sortByField) {
+        sort[sortByField] = sortByOrder === `desc` ? -1 : 1;
+    }
+
+    try {
+        const result = await Course.find(fliter).sort(sort).skip(skipAmount).limit(pageSize);;
+        return result;
+    } catch (error) {
+        console.log("Error in PrfilteredAndSortedProducts of Product Services", error);
+        throw error;
+    }
+
+}
+
 const getAnProductDetail = async function (productId) {
     // const id = new mongoose.Types.ObjectId
     try {
@@ -141,6 +192,7 @@ const saveFileAndGetUrlFromThumbnailAndGallery = async function (files) {
 
 module.exports = {
     filteredAndSorted,
+    filteredSortedPaging,
     getAnProductDetail,
     getProductByCart,
     saveFileAndGetUrlFromThumbnailAndGallery,
