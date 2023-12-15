@@ -6,11 +6,12 @@ const User = require("../models/User.js");
 
 const mongoose = require("mongoose");
 
-const filteredAndSorted = async function (name, tutorName, status,  faculty, average, minPrice, maxPrice, sortByField, sortByOrder) {
+const filteredAndSorted = async function (name, tutorName, faculty, average, minPrice, maxPrice, sortByField, sortByOrder) {
     const fliter = {};
     const sort = {};
 
     // Fliter
+    fliter.status = "Available";
     if (name !== `None` && name) {
         fliter.name = name;
     }
@@ -23,9 +24,6 @@ const filteredAndSorted = async function (name, tutorName, status,  faculty, ave
             delete fliter.tutor;
             console.log("Tutor invalid", error);
         }
-    }
-    if (status !== `None` && status) {
-        fliter.status = status;
     }
     if (faculty !== `None` && faculty) {
         fliter.faculty = faculty;
@@ -58,11 +56,12 @@ const filteredAndSorted = async function (name, tutorName, status,  faculty, ave
 
 }
 
-const filteredSortedPaging = async function (name, tutorName, status,  faculty, average, minPrice, maxPrice, sortByField, sortByOrder, skipAmount, pageSize) {
+const filteredSortedPaging = async function (name, tutorName, faculty, average, minPrice, maxPrice, sortByField, sortByOrder, skipAmount, pageSize) {
     const fliter = {};
     const sort = {};
 
     // Fliter
+    fliter.status = "Available";
     if (name !== `None` && name) {
         fliter.name = name;
     }
@@ -75,9 +74,6 @@ const filteredSortedPaging = async function (name, tutorName, status,  faculty, 
             delete fliter.tutor;
             console.log("Tutor invalid", error);
         }
-    }
-    if (status !== `None` && status) {
-        fliter.status = status;
     }
     if (faculty !== `None` && faculty) {
         fliter.faculty = faculty;
