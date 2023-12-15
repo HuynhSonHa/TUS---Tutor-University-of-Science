@@ -1,20 +1,38 @@
 const Course = require("../models/Course");
 const Review = require("../models/Review");
 const { mongooseToObject, mutipleMongooseToObject } = require("../util/mongoose");
+const CourseService = require("../services/product");
 const mongoose = require("mongoose");
 
 // [GET] /courses?page=*;
 const showAll = async (req, res, next) => {
   try {
-   
+    const courseName = req.query.courseName;
+    const tutorName = req.query.tutorName;
+    const status = req.query.status;
+    const faculty = req.query.faculty;
+    const average = req.query.average;
+    const minPrice = req.query.minPrice;
+    const maxPrice = req.query.maxPrice;
+    const manufacturer = req.query.manufacturer;
+    const sortByField = req.query.sortByField;
+    const sortByOrder = req.query.sortByOrder;
+
+
     const pageSize = 12;
     //filter thay vào trên đây (filter xong lấy ra coursesFull, courses)
-    const coursesFull = await Course.find();
+    const coursesFull 
+    = await CourseService
+      .filteredAndSorted(courseName, tutorName, status, faculty, average, minPrice, maxPrice, sortByField, sortByOrder);
     const totalCourses = coursesFull.length;
     const totalPages = Math.ceil(totalCourses / pageSize);
     const pageNumber = parseInt(req.query.page) || 1;
     const skipAmount = (pageNumber - 1) * pageSize;
-    const courses = await Course.find().skip(skipAmount).limit(pageSize);
+    const courses 
+    = await CourseService
+      .filteredAndSorted(courseName, tutorName, status, faculty, average, minPrice, maxPrice, sortByField, sortByOrder)
+      .skip(skipAmount)
+      .limit(pageSize);
     const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
     const currentPage = Math.max(1, Math.min(totalPages, pageNumber));
     var nextPage = currentPage + 1; if(nextPage > totalPages) nextPage = totalPages;

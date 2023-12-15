@@ -1,11 +1,12 @@
 require("dotenv").config();
 const Course = require("../models/Course.js");
 const Review = require("../model/Review.js");
+const User = require("../models/User.js");
 //const uploadToCloudinary = require("../config/cloudinary.js");
 
 const mongoose = require("mongoose");
 
-const PrfilteredAndSortedProducts = async function (name, tutor, status,  faculty, average, minPrice, maxPrice, sortByField, sortByOrder) {
+const filteredAndSorted = async function (name, tutorName, status,  faculty, average, minPrice, maxPrice, sortByField, sortByOrder) {
     const fliter = {};
     const sort = {};
 
@@ -13,13 +14,14 @@ const PrfilteredAndSortedProducts = async function (name, tutor, status,  facult
     if (name !== `None` && name) {
         fliter.name = name;
     }
-    if (tutor !== "None" && tutor) {
+    if (tutorName !== "None" && tutorName) {
         try {
-            fliter.tutor = new mongoose.Types.ObjectId(tutor);
+            const tutor = await User.find({username: tutorName, role: "tutor"})
+            fliter.tutor = tutor._id;
 
         } catch (error) {
             delete fliter.tutor;
-            console.log("Catalog Id invalid", error);
+            console.log("Tutor invalid", error);
         }
     }
     if (status !== `None` && status) {
@@ -138,7 +140,7 @@ const saveFileAndGetUrlFromThumbnailAndGallery = async function (files) {
 
 
 module.exports = {
-    PrfilteredAndSortedProducts,
+    filteredAndSorted,
     getAnProductDetail,
     getProductByCart,
     saveFileAndGetUrlFromThumbnailAndGallery,
