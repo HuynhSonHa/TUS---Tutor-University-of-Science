@@ -13,7 +13,6 @@ const showAll = async (req, res, next) => {
     const average = req.query.average;
     const minPrice = req.query.minPrice;
     const maxPrice = req.query.maxPrice;
-    const manufacturer = req.query.manufacturer;
     const sortByField = req.query.sortByField;
     const sortByOrder = req.query.sortByOrder;
 
