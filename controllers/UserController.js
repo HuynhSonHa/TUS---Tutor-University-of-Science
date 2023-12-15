@@ -15,7 +15,7 @@ const storedCourses = async (req, res, next) => {
   //res.render("me/stored-courses");
 }
 
-// [GET] /user/profile/id
+// [GET] /user/profile
 const profile = async (req, res, next) => {
   try {
     const userId = req.params.id;

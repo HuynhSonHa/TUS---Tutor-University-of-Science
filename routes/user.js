@@ -5,7 +5,7 @@ const {isAuthenticated} = require('../middlewares/isAuthenticated');
 
 
 router.get('/stored/courses/:id', isAuthenticated, userController.storedCourses);
-router.get('/profile/:id', isAuthenticated, userController.profile);
+router.get('/profile', isAuthenticated, userController.profile);
 router.get('/home', isAuthenticated, userController.getHomePage);
 
 module.exports = router;
