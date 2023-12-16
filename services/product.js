@@ -46,7 +46,7 @@ const filteredAndSorted = async function (name, tutorName, faculty, average, min
     }
 
     try {
-        const result = await Course.find(fliter).sort(sort);
+        const result = await Course.find(fliter).sort(sort).populate('tutor');
 
         return result;
     } catch (error) {
@@ -96,7 +96,7 @@ const filteredSortedPaging = async function (name, tutorName, faculty, average, 
     }
 
     try {
-        const result = await Course.find(fliter).sort(sort).skip(skipAmount).limit(pageSize);;
+        const result = await Course.find(fliter).sort(sort).populate('tutor').skip(skipAmount).limit(pageSize);;
         return result;
     } catch (error) {
         console.log("Error in PrfilteredAndSortedProducts of Product Services", error);

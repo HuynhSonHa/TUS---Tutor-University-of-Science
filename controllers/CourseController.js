@@ -52,14 +52,14 @@ const showAll = async (req, res, next) => {
 // [GET] /courses/:id
 const detail = async(req, res, next) => {
   try {
-    const course = await Course.findById(req.params.id);
+    const course = await Course.findById(req.params.id).populate('tutor');
     if (!course) {
       return res.status(404).render("404"); // Handle the case where the product is not found
     }
 
-    const coursesListOfTutor = await Course.find({tutor: course.tutor});
-    const reviews = await Review.find({ productId: req.params.id });
-    const coursesListOfName = await Course.find({name: course.name});
+    const coursesListOfTutor = await Course.find({tutor: course.tutor}).populate('tutor');
+    const reviews = await Review.find({ courseId: req.params.id }).populate('userId');
+    const coursesListOfName = await Course.find({name: course.name}).populate('tutor');
 
     res.render("courses/detail", {
       course: mongooseToObject(course),

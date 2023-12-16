@@ -19,7 +19,8 @@ const store = async (req, res, next) => {
         formData.userId = req.user._id;
         const review = new Review(formData);
         await review.save();
-
+        
+        //Tính lại average của course
         const reviewList = await Review.find({courseId: req.params.id})
         const n = reviewList.length;
         let sum = 0;
