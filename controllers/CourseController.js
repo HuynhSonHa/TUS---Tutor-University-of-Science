@@ -59,12 +59,14 @@ const detail = async(req, res, next) => {
 
     const coursesListOfTutor = await Course.find({tutor: course.tutor}).populate('tutor');
     const reviews = await Review.find({ courseId: req.params.id }).populate('userId');
+    const amountOfReviews = reviews.length;
     const coursesListOfName = await Course.find({name: course.name}).populate('tutor');
 
     res.render("courses/detail", {
       course: mongooseToObject(course),
       coursesListOfTutor: mutipleMongooseToObject(coursesListOfTutor),
       reviews: mutipleMongooseToObject(reviews),
+      amountOfReviews: amountOfReviews,
       coursesListOfName: mutipleMongooseToObject(coursesListOfName),
     });
   } catch (err) {
