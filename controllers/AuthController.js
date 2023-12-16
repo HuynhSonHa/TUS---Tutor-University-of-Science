@@ -37,8 +37,8 @@ const getSignUp = (req, res, next) => {
 
 // [POST] /signup
 const postSignUp = (req, res, next) => {
-  if(req.body.password != req.body.re_password) {
-    return res.status(201).json({ error: 'Re_Password is not match with Password!' }).redirect("/signup");
+  if(req.body.password != req.body.passwordConfirmation) {
+    return res.status(201).json({ error: 'Confirm Password is not match with Password!' }).redirect("/signup");
   }
   User.findOne({ 'username': req.body.username })
   .then( (user) => {
@@ -50,13 +50,13 @@ const postSignUp = (req, res, next) => {
       newUser.username = req.body.username;
       newUser.email = req.body.email;
       newUser.password = newUser.encryptPassword(req.body.password);
-      newUser.fullname = req.body.fullname;
+
       // Nếu có ảnh đại diện được tải lên
-      if (req.file) {
-        // Gán id của ảnh đại diện cho user
-        console.log(req.file.filename);
-        newUser.avatar = req.file.filename;
-      }
+      // if (req.file) {
+      //   // Gán id của ảnh đại diện cho user
+      //   console.log(req.file.filename);
+      //   newUser.avatar = req.file.filename;
+      // }
       newUser.save()
       .then(() => {
         res.status(201).redirect("/signin");
