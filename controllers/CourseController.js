@@ -59,7 +59,9 @@ const detail = async(req, res, next) => {
 
     const coursesListOfTutor = await Course.find({tutor: course.tutor}).populate('tutor');
     const reviews = await Review.find({ courseId: req.params.id }).populate('userId');
-    const amountOfReviews = reviews.length;
+    let amountOfReviews;
+    if(reviews.length===0) amountOfReviews = 0;
+    else amountOfReviews = reviews.length;
     const coursesListOfName = await Course.find({name: course.name}).populate('tutor');
 
     res.render("courses/detail", {
