@@ -11,7 +11,7 @@ const filteredAndSorted = async function (name, tutorName, faculty, average, min
     const sort = {};
 
     // Fliter
-    fliter.status = "Available";
+    // fliter.status = "Available";
     if (name !== `None` && name) {
         fliter.name = name;
     }
@@ -61,7 +61,7 @@ const filteredSortedPaging = async function (name, tutorName, faculty, average, 
     const sort = {};
 
     // Fliter
-    fliter.status = "Available";
+    // fliter.status = "Available";
     if (name !== `None` && name) {
         fliter.name = name;
     }

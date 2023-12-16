@@ -41,7 +41,7 @@
                                 <div class="input">
                                     <i class="ti-user"></i>
                                     <div class="input-data">
-                                        <input type="text" class="input-user" placeholder="User">
+                                        <input type="text" class="input-user" placeholder="User" name="username">
                                     </div>
                                 </div>
 
@@ -50,7 +50,7 @@
                                 <div class="input">
                                     <i class="ti-lock"></i>
                                     <div class="input-data">
-                                        <input type="password" class="input-password" placeholder="Password">
+                                        <input type="password" class="input-password" placeholder="Password" name="password"> 
                                     </div>
                                 </div>
 
@@ -59,7 +59,7 @@
                                 <div class="input">
                                     <i class="ti-lock"></i>
                                     <div class="input-data">
-                                        <input type="password" class="input-confirm-password" placeholder="Confirm Password">
+                                        <input type="password" class="input-confirm-password" placeholder="Confirm Password" name="confirmPassword">
                                     </div>
                                 </div>
 
@@ -67,7 +67,7 @@
                                     <i class="ti-email"></i>
                                     <div class="input-data">
 
-                                        <input type="email" class="input-email" placeholder="Email">
+                                        <input type="email" class="input-email" placeholder="Email" name="email">
                                     </div>
 
                                 </div>
@@ -177,6 +177,76 @@
 
     cancelBtn.addEventListener("click", function () {
             window.location.href = "/login";
+
+        })
+    createAccountBtn.addEventListener("click", function () {
+            event.preventDefault(); // Prevent the form from submitting automatically
+            const curUrl = new URL(window.location.href);
+            
+            // Collect data from the form
+
+
+
+
+            const formData = {
+                'name': $('#input-full-name').value,
+                'email': $('#input-email').value,
+                'username': $('#input-username').value,
+                'password': $('#input-password').value,
+                'passwordConfirmation': $('#input-confirm-password').value,
+
+            };
+            console.log(formData)
+            fetch('/signup', {
+                method: 'POST',
+                body: JSON.stringify(formData),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            }).then(response => {
+                if (!response.ok) {
+                    isError = true;
+                }
+                return response.json(); // or response.text() depending on the expected data format from the server
+            }).then(data => {
+                // Process the result from the server if needed
+                if (isError == true) {
+                    console.log(data);
+                    console.log(data.errors[0].path)
+                    // Add error handling to display error messages
+                    const errorElements = $$('.error');
+
+                    errorElements.forEach(errorElement => {
+                        errorElement.classList.remove('active');
+                    });
+                    errorElements.forEach(errorElement => {
+                        const fieldName = errorElement.previousElementSibling.lastElementChild.getAttribute('name');
+                        if (data.errors.some(error => error.path === fieldName)) {
+                            errorElement.classList.add('active');
+                            const matchingError = data.errors.find(error => error.path === fieldName);
+                            errorElement.innerHTML = matchingError.msg;
+                        }
+                    });
+                }
+                if (isError == false) {
+                    const alertReview = $('.alert-success')
+                    alertReview.style.opacity = "1";
+                    alertReview.style.display = "block"
+                    console.log(alertReview)
+                    setTimeout(function () {
+                        alertReview.style.opacity = "0";
+                        setTimeout(function () {
+                            alertReview.style.display = "none";
+                        }, 500);
+                    }, 3000);
+                 
+                    
+                }
+                
+              
+            }).catch(error => {
+                console.error('There has been a problem with your fetch operation:', error);
+            });
 
         })
 </script>
