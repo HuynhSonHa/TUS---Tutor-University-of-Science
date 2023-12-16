@@ -10,11 +10,12 @@ const getHomePage = (req, res, next) => {
 
 //[GET] /signin
 const getSignIn = (req, res, next) => {
-  var messages = req.flash('error');
-  res.render('auth/signin', {
-    messages: messages,
-    hasErrors: messages.length > 0,
-  });
+  //var messages = req.flash('error');
+  // res.status(302).render('auth/signin', {
+  //   //messages: messages,
+  //   //hasErrors: messages.length > 0,
+  // });
+  res.render("auth/signin");
 };
 
 //[POST] /signin
@@ -28,23 +29,24 @@ const postSignIn = (req, res, next) => {
 
 //[GET] /signup
 const getSignUp = (req, res, next) => {
-  var messages = req.flash('error');
-  res.render('auth/signup', {
-    messages: messages,
-    hasErrors: messages.length > 0,
-  });
+  // //var messages = req.flash('error');
+  // res.render('auth/signup', {
+  //   //messages: messages,
+  //   //hasErrors: messages.length > 0,
+  // });
+  res.render("auth/signup");
 };
 
 // [POST] /signup
 const postSignUp = (req, res, next) => {
  
   if(req.body.password != req.body.passwordConfirmation) {
-    return res.status(201).json({ error: 'Confirm Password is not match with Password!' }).redirect("/signup");
+    return res.status(400).json({ error: 'Confirm Password is not match with Password!' }).redirect("/signup");
   }
   User.findOne({ 'username': req.body.username })
   .then( (user) => {
     if (user) {
-      return res.status(201).json({ error: 'Username is already in use.' });
+      return res.status(400).json({ error: 'Username is already in use.' });
     }
     else {
       var newUser = new User();
@@ -53,14 +55,14 @@ const postSignUp = (req, res, next) => {
       newUser.password = newUser.encryptPassword(req.body.password);
 
       // Nếu có ảnh đại diện được tải lên
-      // if (req.file) {
-      //   // Gán id của ảnh đại diện cho user
-      //   console.log(req.file.filename);
-      //   newUser.avatar = req.file.filename;
-      // }
+      if (req.file) {
+        // Gán id của ảnh đại diện cho user
+        console.log(req.file.filename);
+        newUser.avatar = req.file.filename;
+      }
       newUser.save()
       .then(() => {
-        res.status(201).redirect("/signin");
+        res.status(200).json({ success: true, redirectUrl: '/signin' });
       })
       .catch((err) => {
         console.error(err);
