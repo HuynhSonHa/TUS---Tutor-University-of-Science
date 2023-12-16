@@ -312,12 +312,10 @@
                             <div class="pagination">
                                 <a id="prev_page" href="/courses?page={{prevPage}}">
                                     < </a>
-
                                         {{#each pages}}
                                         <a id="{{this}}" href="/courses?page={{this}}"
                                             class="{{#if (eq this ../currentPage)}}active{{/if}}">{{this}}</a>
                                         {{/each}}
-
                                         <a id="next_page" href="/courses?page={{nextPage}}"> > </a>
                             </div>
                         </div>
