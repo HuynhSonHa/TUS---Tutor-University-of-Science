@@ -202,7 +202,8 @@
                                             <div class="sumary">
                                                 <label><span>Price</span></label>
                                                 <div class="range-track">
-                                                    <input type="range" value="25" min="0" max="500" step="1">
+                                                    <input type="range" id="range-price" value="25" min="0" max="500"
+                                                        step="1">
                                                 </div>
                                                 <div class="price-range grey-color">
                                                     <span>$30</span>
@@ -213,7 +214,8 @@
                                         <div class="button-container">
                                             <div class="button"><a href="#" class="primary-btn"
                                                     onclick="clearForm()">Clear all</a></div>
-                                            <div class="button"><a href="#" class="primary-btn">Submit</a></div>
+                                            <div class="button"><a href="#" class="primary-btn"
+                                                    id="primary-btn">Submit</a></div>
                                         </div>
                                     </form>
                                 </div>
@@ -231,7 +233,7 @@
                                     </div>
                                 </div>
                                 <div class="right">
-                                    <div class="sort-list">
+                                    {{!-- <div class="sort-list">
                                         <div class="wrap">
                                             <div class="opt-trigger">
                                                 <span class="grey-color">Showing 12 of 100 TUTORS</span>
@@ -247,7 +249,23 @@
                                                 <li><a href="#0">Price: high to low</a></li>
                                             </ul>
                                         </div>
+                                    </div> --}}
+                                    <div class="col-8 col-xl-2 col-lg-2 col-sm-8 wrapper-sort-course">
+                                        <select class="form-select" id="sort_selection" aria-label="Sort Course">
+                                            <option selected>Sort accounts</option>
+                                            <option value="fullname-asc">Name, Alphabetically, A-Z</option>
+                                            <option value="fullname-desc">Name, Alphabetically, Z-A</option>
+                                            <option value="email-asc">Email ,Alphabetically, low to high</option>
+                                            <option value="email-desc">Email ,Alphabetically, high to low</option>
+                                            <option value="registrationDate-desc">Registration, new to old</option>
+                                            <option value="registrationDate-asc">Registration, old to new</option>
+                                        </select>
+
                                     </div>
+
+
+
+
                                     <div class="list-inline">
                                         <ul>
                                             <li><a href=""><i class="ri-pause-mini-line"></i></a></li>
@@ -266,7 +284,7 @@
                                             <div class="item">
 
                                                 <div class="dot-image">
-                                                    <a href="" class="product-permalink"></a>
+                                                    <a href="/courses/{{this._id}}" class="product-permalink"></a>
                                                     <div class="thumbnail">
                                                         <img src="./images/team-1.png" alt="">
                                                     </div>
@@ -286,7 +304,9 @@
                                                     <div class="label"><span>-25%</span></div>
                                                 </div>
                                                 <div class="dot-info">
+
                                                     <h2 class="dot-title"><a href="">{{this.name}}</a>
+                                                    <h2 class="dot-title"><a href="">{{this.tutor.fullname}}</a>
 
                                                     </h2>
                                                     <i class="ri-star-fill"></i>
@@ -373,3 +393,72 @@
 
 </section>
 <script src="./js/script.js"></script>
+
+<script>
+    // Lấy phần tử input range
+    const $ = document.querySelector.bind(document)
+    const $$ = document.querySelectorAll.bind(document)
+    const rangeInput = $('#range-price');
+    const submitBtn = $('#primary-btn');
+
+    // handle sort and filter
+
+    let maxPrice = 0;
+    let minPrice = 0;
+    // Thêm sự kiện 'input' để theo dõi sự thay đổi giá trị
+    rangeInput.addEventListener('input', function () {
+        // Lấy giá trị hiện tại từ phần tử input range
+        maxPrice = rangeInput.value;
+        // Hiển thị giá trị trong console hoặc làm cái gì đó với giá trị này
+        console.log('Giá trị hiện tại:', maxPrice);
+    });
+    let currentUrl = new URL(window.location.href);
+
+    const sortSelection = document.getElementById("sort_selection");
+    console.log(sortSelection)
+    sortSelection.addEventListener("change", async function () {
+
+        let selectedValue = sortSelection.value;
+        const parts = selectedValue.split('-');
+        const sortByOrder = parts[1];
+        const sortByField = parts[0];
+        if (currentUrl.searchParams.has('sortByField')) {
+            currentUrl.searchParams.set('sortByField', sortByField);
+        }
+        else {
+            currentUrl.searchParams.append('sortByField', sortByField);
+        }
+
+        if (currentUrl.searchParams.has('sortByOrder')) {
+            currentUrl.searchParams.set('sortByOrder', sortByOrder);
+        }
+        else {
+            currentUrl.searchParams.append('sortByOrder', sortByOrder);
+        }
+        console.log('haha')
+        window.location.href = currentUrl.toString();
+
+
+    })
+    submitBtn.addEventListener('click', function () {
+
+
+
+        if (currentUrl.searchParams.has('minPrice')) {
+            currentUrl.searchParams.set('minPrice', minPrice);
+        }
+        else {
+            currentUrl.searchParams.append('minPrice', minPrice);
+        }
+
+        if (currentUrl.searchParams.has('maxPrice')) {
+            currentUrl.searchParams.set('maxPrice', maxPrice);
+        }
+        else {
+            currentUrl.searchParams.append('maxPrice', maxPrice);
+        }
+        console.log(currentUrl.toString());
+        window.location.href = currentUrl.toString();
+
+    });
+</script>
