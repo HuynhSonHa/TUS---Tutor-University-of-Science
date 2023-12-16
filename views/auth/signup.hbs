@@ -188,10 +188,10 @@
             window.location.href = "/login";
 
         })
-        createAccountBtn.addEventListener("click",async function (event) {
+        createAccountBtn.addEventListener("click", async function (event) {
             event.preventDefault(); // Prevent the form from submitting automatically
             const curUrl = new URL(window.location.href);
-           
+            let isError = false;
             // Collect data from the form
             const formData = {
                 'email': $('#input-email').value,
@@ -209,23 +209,32 @@
                     'Content-type': 'application/json; charset=UTF-8',
                 },
             }).then(response => {
-               
                 if (!response.ok) {
-                    console.log(response)
+                    isError = true;
+                    // Handle errors here, e.g., display an error message
+                    
                 }
-                return response.json(); // or response.text() depending on the expected data format from the server
-            }).then(data => {
-                
-                console.log(data);
+                // If signup was successful, redirect to the signin page
+                return response.json();
+            })
+                .then(data => {
+                    if (isError == true) {
+                        alert(data.error)
+                    } else {
+                        // Redirect to the signin page (adjust the URL as needed)
+                        window.location.href = '/signin';
+                    }
 
-                
-               
-            }).catch(error => {
-                console.error('There has been a problem with your fetch operation:', error);
-            });
+                })
+                .catch(error => {
+                    // Handle other errors here
+                    console.error('Error:', error);
+                });
+
         });
 
     </script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>

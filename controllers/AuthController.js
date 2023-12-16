@@ -41,7 +41,7 @@ const getSignUp = (req, res, next) => {
 const postSignUp = (req, res, next) => {
  
   if(req.body.password != req.body.passwordConfirmation) {
-    return res.status(400).json({ error: 'Confirm Password is not match with Password!' }).redirect("/signup");
+    return res.status(400).json({ error: 'Confirm Password is not match with Password!' });
   }
   User.findOne({ 'username': req.body.username })
   .then( (user) => {
