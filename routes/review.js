@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const reviewController = require('../controllers/ReviewController.js');
-const {isAuthenticated} = require('../middlewares/isAuthenticated');
+const {isUser} = require('../middlewares/isAuthenticated');
 
-router.post('/store/:id', isAuthenticated, reviewController.store);
+router.post('/store/:id', isUser, reviewController.store);
 
 module.exports = router;

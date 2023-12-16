@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const orderController = require('../controllers/OrderController.js');
-const {isAuthenticated} = require('../middlewares/isAuthenticated');
+const {isUser} = require('../middlewares/isAuthenticated');
 
-router.post('/store/:id', isAuthenticated, orderController.store);
+router.post('/store/:id', isUser, orderController.store);
 
 module.exports = router;
