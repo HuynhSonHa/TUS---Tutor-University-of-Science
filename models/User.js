@@ -22,14 +22,9 @@ const UserScheme = new Schema({
         ],
         unique: true,
     },
-    fullname: {
-        type: String,
-        maxLength: 20,
-        default: "full name",
-        trim: true,
-    },
     avatar: {
         type: String,
+        default: "Client.jpg",
     },
 
     address: {
@@ -46,6 +41,18 @@ const UserScheme = new Schema({
         type: String,
         //required: [true, "Please provide phonenumber"]
     },
+    faculty: {
+        type: String,
+    },
+    school: {
+        type: String,
+    },
+    studentCourse: {
+        type: String,
+    },
+    GPA: {
+        type: Number,
+    },
     registrationDate: {
         type: Date,
         default: Date.now()
@@ -55,21 +62,6 @@ const UserScheme = new Schema({
         default: Date.now()
 
     },
-    // cart: [
-    //     {
-    //         productId: {
-    //             type: mongoose.Schema.Types.ObjectId,
-    //             ref: 'Course',
-    //         },
-    //         quantity: Number
-    //     }
-    // ],
-    // reviews: [
-    //     {
-    //         type: mongoose.Schema.Types.ObjectId,
-    //         ref: 'Review',
-    //     }
-    // ],
     ban: {
         type: Boolean,
         default: false,

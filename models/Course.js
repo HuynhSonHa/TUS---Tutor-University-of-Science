@@ -26,19 +26,6 @@ const CourseScheme = new Schema({
         min: 0,
         max: 100
     },
-    thumbnail: {
-        type: String
-    },
-    gallery: {
-        type: [String],
-        default: [],
-        validate: {
-            validator: function (value) {
-                return value.every(url => typeof url === 'string' && url.trim().length > 0);
-            },
-            message: 'Invalid image URLs in the list'
-        }
-    },
     createDay: {
         type: Date,
         default: Date.now(),
@@ -65,6 +52,12 @@ const CourseScheme = new Schema({
         default: "Available"
     },
     faculty: {
+        type: String,
+    },
+    school: {
+        type: String,
+    },
+    studentCourse: {
         type: String,
     },
     average: {
