@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const CourseScheme = new Schema({
-    catalogId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Catalog' // Tham chiếu đến schema danh mục sản phẩm (Catalog)
-    },
+    // catalogId: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'Catalog' // Tham chiếu đến schema danh mục sản phẩm (Catalog)
+    // },
     name: {
         type: String,
         trim: true,

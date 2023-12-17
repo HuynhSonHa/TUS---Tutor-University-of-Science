@@ -46,6 +46,7 @@ const UserScheme = new Schema({
     },
     school: {
         type: String,
+        default: "HCMUS",
     },
     studentCourse: {
         type: String,
