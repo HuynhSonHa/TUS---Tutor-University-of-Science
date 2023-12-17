@@ -763,13 +763,13 @@ i.fas.fa-play-circle {
     color: #40DDB6;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1450px) {
     .header .contact-info {
         padding: 2rem 5%;
     }
 
     .header .navbar {
-        padding: 2rem 5%;
+        padding: 2rem 0%;
     }
 
     section {
@@ -777,13 +777,13 @@ i.fas.fa-play-circle {
     }
 }
 
-@media (max-width: 991px) {
+@media (max-width: 1180px) {
     html {
-        font-size: 55%;
+        font-size: 40%;
     }
 
     .header .contact-info {
-        padding: 2rem;
+        padding: 2rem 5%;
     }
 
     .header .navbar {
@@ -795,7 +795,7 @@ i.fas.fa-play-circle {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 875px) {
     .header .contact-info {
         display: none;
     }
@@ -831,6 +831,7 @@ i.fas.fa-play-circle {
         margin: 2.5rem 2rem;
         font-size: 2.5rem;
     }
+
 
     .fun-fact {
         padding: 5rem 2rem;
