@@ -1,1 +1,512 @@
-<p>{{course.name}} - {{course.tutor.username}}</p>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assetsDetailCourses/style.css">
+    <link rel="stylesheet" href="/assetsDetailCourses/card.css">
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="main-product row">
+            <div class="col-6">
+                <div class="img-main-product">
+                    <img class="main-img" src="/images/{{course.tutor.avatar}}" alt="">
+                </div>
+            </div>
+
+            <div class="col-6 discription-product">
+                <!-- <div class="category-product">RUNNING SHOES</div> -->
+                <div class="header-product">{{course.tutor.fullname}}-{{course.name}}</div>
+                <div class="num-review">
+                    <div class="rating">
+                        {{course.average}}
+
+                        <div class="star-"></div>
+                    </div>
+                    ({{amountOfReviews}} Customer Reviews)
+                </div>
+                <div class="wrapper-price-product">
+                    <div class="price-product-current">$80.00</div>
+
+                    <div class="price-product-origin">$ {{course.price}}</div>
+
+                    <div class="percent-discount">-20%</div>
+                </div>
+
+                <div class="discription-product">
+                    {{course.description}}
+                </div>
+
+                <div class="wrapper-select-schedule">
+                    <ul class="list-schedule">
+                        <li class="schedule">
+                            <button class="btn-schedule">
+                                {{course.schedule}}
+                            </button>
+                        </li>
+                        <li class="schedule">
+                            <button class="btn-schedule">
+                                T3-T5-T7
+                            </button>
+                        </li>
+                        <li class="schedule">
+                            <button class="btn-schedule">
+                                T7-CN
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="wrapper-choose-course">
+                    <ul class="list-course">
+                        <li class="course">
+                            <button class="btn-course">
+                                DSA
+                            </button>
+                        </li>
+                        <li class="course">
+                            <button class="btn-course">
+                                INTROSE
+                            </button>
+                        </li>
+                        <li class="course">
+                            <button class="btn-course">
+                                OOP
+                            </button>
+                        </li>
+                        <li class="course">
+                            <button class="btn-course">
+                                MATHEMATIC!
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+
+                <button class="btn-contact">Contact</button>
+
+
+
+
+
+            </div>
+            <div class="wrapper-discription ">
+                <!-- handled description: none -->
+                <div class="row description">
+                    <div class="col-6">
+                        <div class="text-header">Description</div>
+                        <div class="text-content">Keep your home organized, yet elegant with storage cabinets by
+                            Onita Patio Furniture. These cabinets not only make a great storage units, but also
+                            bring a great decorative accent to your decor. Traditionally designed, they are perfect
+                            to be used in the hallway, living room, bedroom, office or any place where you need to
+                            store or display things. Made of high quality materials, they are sturdy and durable for
+                            years. Bring one-of-a-kind look to your interior with furniture from Onita Furniture!
+                        </div>
+
+
+
+
+                    </div>
+
+                    <div class="col-6">
+                        <div class="text-header">About This Products</div>
+                        <ul class="text-content">
+                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+                            <li>Nulla luctus libero quis mauris vestibulum dapibus.</li>
+                            <li>Maecenas ullamcorper erat mi, vel consequat enim suscipit at.</li>
+                            <li>Quisque consectetur nibh ac urna molestie scelerisque.</li>
+                            <li>Mauris in nisl scelerisque massa consectetur pretium sed et mauris.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="row features">
+                    <div class="col-3 feature">
+
+                        <img loading="lazy" decoding="async" class="alignnone size-full wp-image-1903"
+                            src="https://zunzowp.themesflat.com/wp-content/uploads/2023/10/step-1.svg" alt="" width="40"
+                            height="40">
+                        <div class="text-header">
+                            Shipping Faster
+                        </div>
+                        <div class="text-content">
+                            Use on walls, furniture, doors and many more surfaces. The possibilities are endless.
+                        </div>
+                    </div>
+                    <div class="col-3 feature"><img loading="lazy" decoding="async"
+                            class="alignnone size-full wp-image-1904"
+                            src="https://zunzowp.themesflat.com/wp-content/uploads/2023/10/step-2.svg" alt="" width="41"
+                            height="40">
+                        <div class="text-header">
+                            Cotton Material
+                        </div>
+                        <div class="text-content">
+                            Use on walls, furniture, doors and many more surfaces. The possibilities are endless.
+                        </div>
+                    </div>
+                    <div class="col-3 feature"><img loading="lazy" decoding="async"
+                            class="alignnone size-full wp-image-1905"
+                            src="https://zunzowp.themesflat.com/wp-content/uploads/2023/10/step-3.svg" alt="" width="40"
+                            height="40">
+                        <div class="text-header">
+                            High Quality
+                        </div>
+                        <div class="text-content">
+                            Use on walls, furniture, doors and many more surfaces. The possibilities are endless.
+                        </div>
+                    </div>
+                    <div class="col-3 feature"><img loading="lazy" decoding="async"
+                            class="alignnone size-full wp-image-1906"
+                            src="https://zunzowp.themesflat.com/wp-content/uploads/2023/10/step-4.svg" alt="" width="41"
+                            height="40">
+                        <div class="text-header">
+                            Highly Compatible
+                        </div>
+                        <div class="text-content">
+                            Use on walls, furniture, doors and many more surfaces. The possibilities are endless.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="wrapper-review">
+                <div class="header-review">
+                    Reviews(2)
+                </div>
+                <div class="row reviews">
+
+                    <div class="col-3 ">
+                        <div class="wrapper-score-review">
+                            <div class="score-review">
+                                {{course.average}}
+                            </div>
+                            <div class="num-review">
+                                <div class="rating">
+
+                                    <div class="star-1"></div>
+                                </div>
+                                <div class="num-ratings">
+                                    (2 Ratings)
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+
+                        {{!-- <ul class="list-score-review">
+                            <li class="five-score">
+                                <div class="score">5</div>
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                                    fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M4.66679 8.33307L2.25088 6.33314C1.79489 5.96849 1.99489 5.23518 2.57353 5.15252L6.00007 4.99986L7.46335 1.33132C7.56535 1.128 7.77268 1 8 1C8.22732 1 8.43465 1.12866 8.53665 1.33132L9.99993 4.99986L13.4265 5.15252C14.0051 5.23518 14.2051 5.96849 13.7491 6.33314L11.3332 8.33307L11.9925 12.2376C12.0685 12.7702 11.5152 13.1689 11.0346 12.9282L8 10.9996L4.96545 12.9276C4.48413 13.1682 3.93148 12.7696 4.00748 12.2369L4.66679 8.33307Z"
+                                        fill="#121212"></path>
+                                </svg>
+
+                                <div class="line-percent-review">
+
+                                </div>
+
+                                <div class="percent-review">
+                                    100%
+                                </div>
+                            </li>
+                            <li class="four-score">
+                                <div class="score">4</div>
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                                    fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M4.66679 8.33307L2.25088 6.33314C1.79489 5.96849 1.99489 5.23518 2.57353 5.15252L6.00007 4.99986L7.46335 1.33132C7.56535 1.128 7.77268 1 8 1C8.22732 1 8.43465 1.12866 8.53665 1.33132L9.99993 4.99986L13.4265 5.15252C14.0051 5.23518 14.2051 5.96849 13.7491 6.33314L11.3332 8.33307L11.9925 12.2376C12.0685 12.7702 11.5152 13.1689 11.0346 12.9282L8 10.9996L4.96545 12.9276C4.48413 13.1682 3.93148 12.7696 4.00748 12.2369L4.66679 8.33307Z"
+                                        fill="#121212"></path>
+                                </svg>
+
+                                <div class="line-percent-review">
+
+                                </div>
+
+                                <div class="percent-review">
+                                    100%
+                                </div>
+                            </li>
+                            <li class="three-score">
+                                <div class="score">3</div>
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                                    fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M4.66679 8.33307L2.25088 6.33314C1.79489 5.96849 1.99489 5.23518 2.57353 5.15252L6.00007 4.99986L7.46335 1.33132C7.56535 1.128 7.77268 1 8 1C8.22732 1 8.43465 1.12866 8.53665 1.33132L9.99993 4.99986L13.4265 5.15252C14.0051 5.23518 14.2051 5.96849 13.7491 6.33314L11.3332 8.33307L11.9925 12.2376C12.0685 12.7702 11.5152 13.1689 11.0346 12.9282L8 10.9996L4.96545 12.9276C4.48413 13.1682 3.93148 12.7696 4.00748 12.2369L4.66679 8.33307Z"
+                                        fill="#121212"></path>
+                                </svg>
+
+                                <div class="line-percent-review">
+
+                                </div>
+
+                                <div class="percent-review">
+                                    100%
+                                </div>
+                            </li>
+                            <li class="two-score">
+                                <div class="score">2</div>
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                                    fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M4.66679 8.33307L2.25088 6.33314C1.79489 5.96849 1.99489 5.23518 2.57353 5.15252L6.00007 4.99986L7.46335 1.33132C7.56535 1.128 7.77268 1 8 1C8.22732 1 8.43465 1.12866 8.53665 1.33132L9.99993 4.99986L13.4265 5.15252C14.0051 5.23518 14.2051 5.96849 13.7491 6.33314L11.3332 8.33307L11.9925 12.2376C12.0685 12.7702 11.5152 13.1689 11.0346 12.9282L8 10.9996L4.96545 12.9276C4.48413 13.1682 3.93148 12.7696 4.00748 12.2369L4.66679 8.33307Z"
+                                        fill="#121212"></path>
+                                </svg>
+
+                                <div class="line-percent-review">
+
+                                </div>
+
+                                <div class="percent-review">
+                                    100%
+                                </div>
+                            </li>
+                            <li class="one-score">
+                                <div class="score">1</div>
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                                    fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M4.66679 8.33307L2.25088 6.33314C1.79489 5.96849 1.99489 5.23518 2.57353 5.15252L6.00007 4.99986L7.46335 1.33132C7.56535 1.128 7.77268 1 8 1C8.22732 1 8.43465 1.12866 8.53665 1.33132L9.99993 4.99986L13.4265 5.15252C14.0051 5.23518 14.2051 5.96849 13.7491 6.33314L11.3332 8.33307L11.9925 12.2376C12.0685 12.7702 11.5152 13.1689 11.0346 12.9282L8 10.9996L4.96545 12.9276C4.48413 13.1682 3.93148 12.7696 4.00748 12.2369L4.66679 8.33307Z"
+                                        fill="#121212"></path>
+                                </svg>
+
+                                <div class="line-percent-review">
+
+                                </div>
+
+                                <div class="percent-review">
+                                    100%
+                                </div>
+                            </li>
+                        </ul> --}}
+                    </div>
+                    <div class="col-9">
+                        <ul class="user-reviews">
+                            {{!-- {{#each reviews}} --}}
+                            <li class="user-review">
+                                <img alt=""
+                                    src="https://secure.gravatar.com/avatar/b992087ca24c735ade838a3cf92d0d29?s=100&amp;d=mm&amp;r=g"
+                                    srcset="https://secure.gravatar.com/avatar/b992087ca24c735ade838a3cf92d0d29?s=200&amp;d=mm&amp;r=g 2x"
+                                    class="avatar avatar-100 photo" height="100" width="100" loading="lazy"
+                                    decoding="async">
+
+                                <div class="detail-review-user">
+                                    <div class="score-rating-user">
+                                        <div class="num-review">
+
+                                            <div class="rating">
+                                                <div class="star-5"></div>
+                                                <div class="star-4"></div>
+                                                <div class="star-3"></div>
+                                                <div class="star-2"></div>
+                                                <div class="star-1"></div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+                                    <div class="name-user">Maverick Nguyen </div>
+                                    <div class="time-review"> 11/03/2023</div>
+                                    <div class="content-user-review">
+                                        I can’t get enough of the fashion pieces from this brand. They have a great
+                                        selection for every occasion and the prices are reasonable. The shipping is fast
+                                        and
+                                        the items always arrive in perfect condition.
+                                    </div>
+                                </div>
+                            </li>
+                            {{!-- {{/each}} --}}
+                            {{!-- <li class="user-review">
+                                <img alt=""
+                                    src="https://secure.gravatar.com/avatar/b992087ca24c735ade838a3cf92d0d29?s=100&amp;d=mm&amp;r=g"
+                                    srcset="https://secure.gravatar.com/avatar/b992087ca24c735ade838a3cf92d0d29?s=200&amp;d=mm&amp;r=g 2x"
+                                    class="avatar avatar-100 photo" height="100" width="100" loading="lazy"
+                                    decoding="async">
+                                <div class="detail-review-user">
+                                    <div class="score-rating-user">
+                                        <div class="num-review">
+                                            <div class="rating">
+                                                <div class="star-5"></div>
+                                                <div class="star-4"></div>
+                                                <div class="star-3"></div>
+                                                <div class="star-2"></div>
+                                                <div class="star-1"></div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+                                    <div class="name-user">Tony Nguyen</div>
+                                    <div class="time-review"> 11/03/2023</div>
+                                    <div class="content-user-review">
+                                        The fashion brand’s online shopping experience is seamless. The website is
+                                        user-friendly, the product images are clear, and the checkout process is quick.
+                                    </div>
+                                </div>
+                            </li> --}}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="add-review">
+                <div class="header-add-review">Add A Review</div>
+                <div class="sub-instruction">
+                    Your email address will not be published. Required fields are marked *
+                </div>
+                <div class="rating-form">
+                    <div class="text-rating">Rating:* </div>
+                    <div class="rating">
+                        <input type="radio" id="star-5" name="rating" value="5">
+                        <label for="star-5"></label>
+                        <input type="radio" id="star-4" name="rating" value="4">
+                        <label for="star-4"></label>
+                        <input type="radio" id="star-3" name="rating" value="3">
+                        <label for="star-3"></label>
+                        <input type="radio" id="star-2" name="rating" value="2">
+                        <label for="star-2"></label>
+                        <input type="radio" id="star-1" name="rating" value="1">
+                        <label for="star-1"></label>
+
+                    </div>
+                </div>
+
+
+                <form class="row g-3 needs-review" novalidate>
+                    <div class="col-md-6">
+                        <label for="nameReview" class="form-label"></label>
+                        <input type="text" class="form-control" id="nameReview" placeholder="Your name" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="emailReview" class="form-label"></label>
+                        <input type="text" class="form-control" id="emailReview" placeholder="Your email" required>
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="feedback" class="form-label"></label>
+
+                        <!-- phan van textarea co lay duoc data vo khong -->
+                        <!-- <input type="text" class="form-control" id="feedback" placeholder="Your review" rows="4" required> -->
+                        <textarea type="text" class="form-control" id="feedback" placeholder="Your review"
+                            rows="4"></textarea>
+                        <div class="invalid-feedback">
+                            Please provide a review.
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <button class="btn btn-primary" type="submit">Submit form</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="card">
+            <h1>Card</h1>
+            <ul class="listCard">
+            </ul>
+            <div class="checkOut">
+                <div class="total">0</div>
+                <div class="closeShopping">Close</div>
+            </div>
+        </div>
+
+
+
+        <script>
+            const $ = document.querySelector.bind(document)
+            const $$ = document.querySelectorAll.bind(document)
+
+            {{!-- const containerImage = $('.img-main-product');
+            const mainImage = $('.main-img');
+
+
+            // add to cart
+            let closeShopping = $('.closeShopping')
+            let listCard = $('.listCard')
+            let total = $('.total')
+            let body = $('body')
+
+
+            const addToCart = $('.add-to-cart')
+            const backgroundOverlay = document.getElementById('backgroundOverlay');
+
+
+            addToCart.addEventListener('click', function () {
+
+                body.classList.add('active')
+
+            });
+
+            closeShopping.addEventListener('click', function () {
+
+                body.classList.remove('active')
+
+            }); --}}
+
+
+
+            // xử lý ảnh
+            containerImage.addEventListener('mousemove', (e) => {
+                const x = e.clientX - e.target.offsetLeft;
+                const y = e.clientY - e.target.offsetTop;
+                mainImage.style.transformOrigin = `${x}px ${y}px`;
+                mainImage.style.transform = "scale(1.1)"
+            })
+
+            containerImage.addEventListener('mouseleave', () => {
+
+                mainImage.style.transformOrigin = "center";
+                mainImage.style.transform = "scale(1)"
+            })
+
+
+           
+
+
+
+       
+         
+
+
+         
+
+        </script>
+
+
+    </div>
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
