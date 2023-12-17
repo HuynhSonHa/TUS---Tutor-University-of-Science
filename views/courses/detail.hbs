@@ -348,10 +348,10 @@
 
 
 
-            submitButton.addEventListener("click", function (event) {
+            submitButton.addEventListener("click",async function (event) {
 
                 event.preventDefault();
-
+                let isError = false;
 
                 const numRating = getRating();
                 const feedback = $('#feedback').value
@@ -374,24 +374,24 @@
                 })
                     .then(response => {
                         if (!response.ok) {
-                            console.log(response)
-                            if (response.status === 400) {
-                                alert("thêm thất bại")
-                            }
-                            throw new Error('Network response was not ok');
+                            isError = true;
                         }
-                        return response; // Hoặc response.text() tùy thuộc vào định dạng dữ liệu bạn mong đợi từ server
+                        return response.json(); // Hoặc response.text() tùy thuộc vào định dạng dữ liệu bạn mong đợi từ server
                     })
                     .then(data => {
-
                         console.log(data)
-                        alert("Thêm review thành công")
-                        window.location.href = curUrl.toString();
+                       
+                        if (isError == true) {
+                            alert(data.error);
+                        }
+                        if (isError == false) {
+                            
+                            window.location.href = curUrl.toString();
+                        }
+
 
                     })
                     .catch(error => {
-
-
                         console.error('There has been a problem with your fetch operation:', error);
 
                     });
