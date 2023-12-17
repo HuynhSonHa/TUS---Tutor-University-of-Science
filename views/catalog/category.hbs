@@ -202,12 +202,12 @@
                                             <div class="sumary">
                                                 <label><span>Price</span></label>
                                                 <div class="range-track">
-                                                    <input type="range" id="range-price" value="25" min="0" max="500"
-                                                        step="1">
+                                                    <input type="range" id="range-price" value="0" min="0" max="2000000"
+                                                        step="50000">
                                                 </div>
                                                 <div class="price-range grey-color">
-                                                    <span>$30</span>
-                                                    <span>$500</span>
+                                                    <span>0 VNĐ</span>
+                                                    <span>2000000 VNĐ</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -229,27 +229,11 @@
                                 <div class="left">
                                     <div class="input-box">
                                         <i class="fas fa-search"></i>
-                                        <input type="text" placeholder="Search" />
+                                        <input type="text" id="search-tutor" placeholder="Search" />
                                     </div>
                                 </div>
                                 <div class="right">
-                                    {{!-- <div class="sort-list">
-                                        <div class="wrap">
-                                            <div class="opt-trigger">
-                                                <span class="grey-color">Showing 12 of 100 TUTORS</span>
-                                                <span class="value">Default sorting</span>
-                                                <i class="ri-arrow-down-s-line"></i>
-                                            </div>
-                                            <ul>
-                                                <li class="active"><a href="#0">Default sorting</a></li>
-                                                <li><a href="#0">Popular</a></li>
-                                                <li><a href="#0">Rating</a></li>
-                                                <li><a href="#0">Latest</a></li>
-                                                <li><a href="#0">Price: low to high</a></li>
-                                                <li><a href="#0">Price: high to low</a></li>
-                                            </ul>
-                                        </div>
-                                    </div> --}}
+
                                     <div class="col-8 col-xl-2 col-lg-2 col-sm-8 wrapper-sort-course">
                                         <select class="form-select" id="sort_selection" aria-label="Sort Course">
                                             <option selected>Sort accounts</option>
@@ -300,24 +284,25 @@
                                                             </li>
                                                         </ul>
                                                     </div>
-                                                    <div class="label"><span>-{{percent this.discount this.price}}%</span></div>
+                                                    <div class="label"><span>-{{percent this.discount
+                                                            this.price}}%</span></div>
                                                 </div>
                                                 <div class="dot-info">
 
                                                     <h2 class="dot-title"><a href="">{{this.name}}</a>
-                                                    <h2 class="dot-title"><a href="">{{this.tutor.fullname}}</a>
+                                                        <h2 class="dot-title"><a href="">{{this.tutor.fullname}}</a>
 
-                                                    </h2>
-                                                    <i class="ri-star-fill"></i>
-                                                    <i class="ri-star-fill"></i>
-                                                    <i class="ri-star-fill"></i>
-                                                    <i class="ri-star-fill"></i>
-                                                    <i class="ri-star-fill"></i>
+                                                        </h2>
+                                                        <i class="ri-star-fill"></i>
+                                                        <i class="ri-star-fill"></i>
+                                                        <i class="ri-star-fill"></i>
+                                                        <i class="ri-star-fill"></i>
+                                                        <i class="ri-star-fill"></i>
 
-                                                    <div class="product-price">
-                                                        <span class="before"> {{this.price}}</span>
-                                                        <span class="current">{{this.discount}}</span>
-                                                    </div>
+                                                        <div class="product-price">
+                                                            <span class="before"> {{this.price}}</span>
+                                                            <span class="current">{{this.discount}}</span>
+                                                        </div>
                                                 </div>
                                             </div>
                                             {{/each}}
@@ -458,4 +443,21 @@
         window.location.href = currentUrl.toString();
 
     });
+
+
+
+    $('.fa-search').addEventListener('click', function () {
+        const tutorName = $('#search-tutor').value
+        console.log(tutorName)
+        if (currentUrl.searchParams.has('tutorName')) {
+            currentUrl.searchParams.set('tutorName', tutorName);
+        }
+        else {
+            currentUrl.searchParams.append('tutorName', tutorName);
+        }
+        window.location.href = currentUrl.toString();
+
+    });
+
+
 </script>
