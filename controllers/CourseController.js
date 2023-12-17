@@ -60,7 +60,7 @@ const detail = async(req, res, next) => {
     const coursesListOfTutor = await Course.find({tutor: course.tutor}).populate('tutor');
     const reviews = await Review.find({ courseId: req.params.id }).populate('userId');
     const coursesListOfName = await Course.find({name: course.name}).populate('tutor');
-
+    console.log(coursesListOfName);
     res.render("courses/detail", {
       course: mongooseToObject(course),
       coursesListOfTutor: mutipleMongooseToObject(coursesListOfTutor),
@@ -78,13 +78,19 @@ const create = (req, res, next) => {
 }
 
 // [POST] /courses/store
-const store = (req, res, next) => {
+const store = async(req, res, next) => {
   //res.json(req.body);
+  const checkList = await Course.find({name: req.body.name, tutor: req.user._id});
+  if(checkList!=null) {
+    return res.status(304).json({error: 'Bạn đã đăng khóa học này rồi!'})
+  }
   const formData = req.body;
   
   const course = new Course(formData);
   course.save().then;
-  res.redirect("/tutor/");
+  return res.status(200).json({success: true, redirectUrl: '/tutor'})
+  //res.redirect("/tutor/");
+
 }
 
 // [GET] /courses/:id/edit
