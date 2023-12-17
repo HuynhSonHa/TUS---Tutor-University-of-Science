@@ -34,11 +34,11 @@
                     ({{amountOfReviews}} Customer Reviews)
                 </div>
                 <div class="wrapper-price-product">
-                    <div class="price-product-current">$80.00</div>
+                    <div class="price-product-current">${{course.discount}}</div>
 
                     <div class="price-product-origin">$ {{course.price}}</div>
 
-                    <div class="percent-discount">-20%</div>
+                    <div class="percent-discount">- {{percent course.discount course.price}}%</div>
                 </div>
 
                 <div class="discription-product">
@@ -47,46 +47,27 @@
 
                 <div class="wrapper-select-schedule">
                     <ul class="list-schedule">
+                        {{#each course.schedule}}
                         <li class="schedule">
                             <button class="btn-schedule">
-                                {{course.schedule}}
+                                {{this}}
                             </button>
                         </li>
-                        <li class="schedule">
-                            <button class="btn-schedule">
-                                T3-T5-T7
-                            </button>
-                        </li>
-                        <li class="schedule">
-                            <button class="btn-schedule">
-                                T7-CN
-                            </button>
-                        </li>
+                        {{/each}}
                     </ul>
                 </div>
 
                 <div class="wrapper-choose-course">
                     <ul class="list-course">
-                        <li class="course">
+                         {{#each coursesListOfTutor}}
+                       <li  class="course"  onclick="changeCourse('{{this._id}}')" >
                             <button class="btn-course">
-                                DSA
+                                 {{this.name}}
+                                
+
                             </button>
                         </li>
-                        <li class="course">
-                            <button class="btn-course">
-                                INTROSE
-                            </button>
-                        </li>
-                        <li class="course">
-                            <button class="btn-course">
-                                OOP
-                            </button>
-                        </li>
-                        <li class="course">
-                            <button class="btn-course">
-                                MATHEMATIC!
-                            </button>
-                        </li>
+                          {{/each}}
                     </ul>
                 </div>
 
@@ -441,32 +422,14 @@
             const $ = document.querySelector.bind(document)
             const $$ = document.querySelectorAll.bind(document)
 
-            {{!-- const containerImage = $('.img-main-product');
-            const mainImage = $('.main-img');
 
 
-            // add to cart
-            let closeShopping = $('.closeShopping')
-            let listCard = $('.listCard')
-            let total = $('.total')
-            let body = $('body')
+            function changeCourse(id){
 
+                window.location.href = `/courses/${id}`
+            }
 
-            const addToCart = $('.add-to-cart')
-            const backgroundOverlay = document.getElementById('backgroundOverlay');
-
-
-            addToCart.addEventListener('click', function () {
-
-                body.classList.add('active')
-
-            });
-
-            closeShopping.addEventListener('click', function () {
-
-                body.classList.remove('active')
-
-            }); --}}
+         
 
 
 
@@ -485,15 +448,15 @@
             })
 
 
-           
 
 
 
-       
-         
 
 
-         
+
+
+
+
 
         </script>
 

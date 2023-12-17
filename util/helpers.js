@@ -4,7 +4,7 @@ const handlebars = exphbs.create({
     extname: '.hbs',
     helpers: {
       eq: (a, b) => a===b,
-      percent: (a, b) => a*100/b,
+      percent: (a, b) => (100-a*100/b).toFixed(0),
       // Add other helpers if needed
     }
   });
