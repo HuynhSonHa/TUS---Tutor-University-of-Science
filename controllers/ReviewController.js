@@ -34,7 +34,7 @@ const store = async (req, res, next) => {
             await course.save();
         }
         
-        return res.send("Thêm review thành công!").redirect("/user/home");
+        return res.send("Thêm review thành công!");
     }
     catch (err) {
         next(err);
