@@ -33,9 +33,8 @@ const store = async (req, res, next) => {
             course.average = average;
             await course.save();
         }
-        const successRedirect = (user.role === 'tutor') ? '/tutor/' : '/user/';
-        return res.status(200).json({ success: true, redirectUrl: successRedirect, msg: "Thêm review thành công!" });
-        //return res.send("Thêm review thành công!").redirect("/user/home");
+        
+        return res.send("Thêm review thành công!").redirect("/user/home");
     }
     catch (err) {
         next(err);
