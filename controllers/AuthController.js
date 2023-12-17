@@ -31,7 +31,7 @@ const postSignIn = (req, res, next) => {
     }
     if (!user) {
       // Authentication failed, redirect to the sign-in page
-      return res.redirect('/signin');
+      return res.status(400).json({ error: 'Đăng nhập thất bại' });
     }
     req.logIn(user, (err) => {
       if (err) {
@@ -40,7 +40,7 @@ const postSignIn = (req, res, next) => {
       // Check user role and set the successRedirect accordingly
       const successRedirect = (user.role === 'tutor') ? '/tutor/' : '/user/';
       //return res.redirect(successRedirect);
-      return res.status(200).json({ success: true, redirectUrl: successRedirect });
+      return res.status(200).json({ success: true, redirectUrl: successRedirect, msg: "Đăng nhập thành công!" });
     });
   })(req, res, next);
 };
@@ -110,7 +110,7 @@ const postForgetPassword = async(req, res, next) => {
 
     const user = await User.findOne({ email: email });
     if (!user) {
-        res.status(404).json({ msg: "Email này không tồn tại" });
+        res.status(404).json({ error: "Email này không tồn tại" });
     }
     else {
         //const secret = process.env.JWT_SECRET + user.password;
@@ -146,7 +146,7 @@ const getResetPassword = async(req, res, next) => {
     const user = await User.findById(id);
 
     if (!user) {
-        res.status(404).json({ message: "Not found" });
+        res.status(404).json({ error: "Not found" });
     }
     else {
 
@@ -171,7 +171,7 @@ const postResetPassword = async(req, res, next) => {
     const { password, password2 } = req.body;
 
     if (password !== password2) {
-        res.status(400).json({ message: "New password and confirmation do not match" });
+        res.status(400).json({ error: "New password and confirmation do not match" });
     }
 
     const { id} = req.query;
@@ -179,7 +179,7 @@ const postResetPassword = async(req, res, next) => {
     const user = await User.findById(id);
 
     if (!user) {
-        res.status(404).json({ message: "Not found user or id invalid!" });
+        res.status(404).json({ error: "Not found user or id invalid!" });
     }
     else {
         // const secret = process.env.JWT_SECRET + user.password;

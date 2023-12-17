@@ -95,7 +95,7 @@ const store = async(req, res, next) => {
   
   const course = new Course(formData);
   course.save().then;
-  return res.status(200).json({success: true, redirectUrl: '/tutor'})
+  return res.status(200).json({success: true, redirectUrl: '/tutor', msg: "Đăng khóa học thành công!"})
   //res.redirect("/tutor/");
 
 }
@@ -114,7 +114,7 @@ const edit = (req, res, next) => {
 // [PUT] /courses/:id
 const update = (req, res, next) => {
   Course.updateOne({ _id: req.params.id }, req.body)
-  .then(() => res.redirect("/tutor/"))
+  .then(() => res.status(200).json({success: true, redirectUrl: '/tutor', msg: "Chỉnh sửa khóa học thành công!"}))
   .catch(next);
   //res.json(req.body);
 }
@@ -123,7 +123,7 @@ const update = (req, res, next) => {
 const destroy = (req, res, next) => {
   var id = new mongoose.Types.ObjectId(req.params.id);
   Course.deleteOne({ _id: id })
-  .then(() => res.redirect("back"))
+  .then(() => res.status(200).json({success: true, redirectUrl: '/tutor', msg: "Xóa khóa học thành công!"}))
   .catch((error) => {
     console.error("Lỗi khi xóa bản ghi:", error);
     next(error); // Chuyển error cho middleware xử lý lỗi

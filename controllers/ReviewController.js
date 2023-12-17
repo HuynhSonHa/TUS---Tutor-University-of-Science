@@ -8,10 +8,10 @@ const store = async (req, res, next) => {
     try {
         const order = await Order.findOne({courseId: req.params.id, userId: req.user._id});
         if (!order) {
-            return res.status(400).send("Bạn chưa đăng ký khóa học!");
+            return res.status(400).json({error: "Bạn chưa đăng ký khóa học!"});
         }
         else if (order && order.status === "Subscribing") {
-            return res.status(400).send("Hãy đợi tutor accept bạn vào khóa học!");
+            return res.status(400).json({error: "Hãy đợi tutor accept bạn vào khóa học!"});
         }
 
         const formData = req.body;
@@ -33,8 +33,9 @@ const store = async (req, res, next) => {
             course.average = average;
             await course.save();
         }
-        
-        return res.send("Thêm review thành công!").redirect("/user/home");
+        const successRedirect = (user.role === 'tutor') ? '/tutor/' : '/user/';
+        return res.status(200).json({ success: true, redirectUrl: successRedirect, msg: "Thêm review thành công!" });
+        //return res.send("Thêm review thành công!").redirect("/user/home");
     }
     catch (err) {
         next(err);

@@ -9,7 +9,9 @@ const store = async (req, res, next) => {
         formData.userId = req.user._id;
         const order = new Order(formData);
         order.save().then;
-        res.send("Đã gửi yêu cầu đến tutor").redirect("/user/home");
+        const successRedirect = (user.role === 'tutor') ? '/tutor/' : '/user/';
+        return res.status(200).json({ success: true, redirectUrl: successRedirect, msg: "Đã đặt chỗ thành công. Hãy chờ tutor accept bạn nhé!"});
+        //return res.status(200).json({success: true, redirectUrl: '/tutor'});
     }
     catch (err) {
         next(err);
