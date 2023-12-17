@@ -192,7 +192,7 @@
 
         })
 
-        document.querySelector('.btn-login')
+      
 
 
         function signup(event) {
@@ -227,14 +227,14 @@
 
                 console.log(response);
                 // Check if the response indicates a successful login and a redirection
-                if (response.ok && response.redirected) {
-                    window.location.href = response.url;
-                    return;
-                }
+                {{!-- if (response.ok && response.redirected) {
+                    window.location.href = response.json().redirectUrl;
+                    
+                } --}}
 
                 // Optional: You can handle the data returned from the server if needed
                 const data = await response.json();
-                console.log(data);
+                window.location.href = data.redirectUrl
 
             } catch (error) {
                 // Handle login error, e.g., display an error message
