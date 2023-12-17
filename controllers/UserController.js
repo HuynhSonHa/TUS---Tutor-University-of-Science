@@ -18,7 +18,7 @@ const storedCourses = async (req, res, next) => {
 // [GET] /user/profile
 const profile = async (req, res, next) => {
   try {
-    const userId = req.params.id;
+    const userId = req.user.id;
 
     // Tìm user trong database dựa vào userId
     const user = await User.findById(userId).populate('avatar');

@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const CourseScheme = new Schema({
-    catalogId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Catalog' // Tham chiếu đến schema danh mục sản phẩm (Catalog)
-    },
+    // catalogId: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'Catalog' // Tham chiếu đến schema danh mục sản phẩm (Catalog)
+    // },
     name: {
         type: String,
         trim: true,
@@ -24,20 +24,6 @@ const CourseScheme = new Schema({
         type: Number,
         default: 0,
         min: 0,
-        max: 100
-    },
-    thumbnail: {
-        type: String
-    },
-    gallery: {
-        type: [String],
-        default: [],
-        validate: {
-            validator: function (value) {
-                return value.every(url => typeof url === 'string' && url.trim().length > 0);
-            },
-            message: 'Invalid image URLs in the list'
-        }
     },
     createDay: {
         type: Date,
@@ -65,6 +51,12 @@ const CourseScheme = new Schema({
         default: "Available"
     },
     faculty: {
+        type: String,
+    },
+    school: {
+        type: String,
+    },
+    studentCourse: {
         type: String,
     },
     average: {

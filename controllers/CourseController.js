@@ -74,25 +74,24 @@ const detail = async(req, res, next) => {
 
 // [GET] /courses/create
 const create = (req, res, next) => {
-  res.render("courses/create");
+  res.render("tutormode/createcourse");
 }
 
 // [POST] /courses/store
 const store = (req, res, next) => {
   //res.json(req.body);
   const formData = req.body;
-  formData.image =
-    "https://img.youtube.com/vi/" + req.body.videoID + "/sddefault.jpg";
+  
   const course = new Course(formData);
   course.save().then;
-  res.redirect("/home");
+  res.redirect("/tutor/");
 }
 
 // [GET] /courses/:id/edit
 const edit = (req, res, next) => {
   Course.findById(req.params.id)
   .then((course) =>
-    res.render("courses/edit", {
+    res.render("tutormode/editprofile", {
       course: mongooseToObject(course),
     })
   )
@@ -102,7 +101,7 @@ const edit = (req, res, next) => {
 // [PUT] /courses/:id
 const update = (req, res, next) => {
   Course.updateOne({ _id: req.params.id }, req.body)
-  .then(() => res.redirect("/me/stored/courses"))
+  .then(() => res.redirect("/tutor/"))
   .catch(next);
   //res.json(req.body);
 }

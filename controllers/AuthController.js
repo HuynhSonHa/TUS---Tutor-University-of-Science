@@ -20,11 +20,29 @@ const getSignIn = (req, res, next) => {
 
 //[POST] /signin
 const postSignIn = (req, res, next) => {
-  passport.authenticate('local', {
-    successRedirect: '/user/home',
-    failureRedirect: '/signin',
-    failureFlash: true,
-  })(req, res, next);// Thêm dòng này để gọi hàm authenticate
+  // passport.authenticate('local', {
+  //   successRedirect: '/user/home',
+  //   failureRedirect: '/signin',
+  //   failureFlash: true,
+  // })(req, res, next);// Thêm dòng này để gọi hàm authenticate
+  passport.authenticate('local', (err, user, info) => {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      // Authentication failed, redirect to the sign-in page
+      return res.redirect('/signin');
+    }
+    req.logIn(user, (err) => {
+      if (err) {
+        return next(err);
+      }
+      // Check user role and set the successRedirect accordingly
+      const successRedirect = (user.role === 'tutor') ? '/tutor/' : '/user/';
+      //return res.redirect(successRedirect);
+      return res.status(200).json({ success: true, redirectUrl: successRedirect });
+    });
+  })(req, res, next);
 };
 
 //[GET] /signup
