@@ -24,7 +24,6 @@ const CourseScheme = new Schema({
         type: Number,
         default: 0,
         min: 0,
-        max: 100
     },
     createDay: {
         type: Date,
