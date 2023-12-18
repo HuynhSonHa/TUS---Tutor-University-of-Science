@@ -10,8 +10,6 @@ const filteredAndSorted = async function (name, tutorName, faculty, average, min
     const fliter = {};
     const sort = {};
 
-
-    console.log(tutorName)
     // Fliter
     // fliter.status = "Available";
     if (name !== `None` && name) {
@@ -19,10 +17,8 @@ const filteredAndSorted = async function (name, tutorName, faculty, average, min
     }
     if (tutorName !== "None" && tutorName) {
         try {
-            const tutor = await User.find({fullname: tutorName, role: "tutor"})
-            fliter.tutor = tutor[0]._id.toString();
-            console.log(tutor[0]._id.toString())
-            console.log(fliter.tutor)
+            const tutor = await User.find({username: tutorName, role: "tutor"})
+            fliter.tutor = tutor._id;
 
         } catch (error) {
             delete fliter.tutor;
@@ -42,7 +38,6 @@ const filteredAndSorted = async function (name, tutorName, faculty, average, min
         if (minPrice <= maxPrice) {
             fliter.price = { $gte: minPrice, $lte: maxPrice };
         }
-        console.log(fliter.price)
     }
 
     // Sort
@@ -52,6 +47,7 @@ const filteredAndSorted = async function (name, tutorName, faculty, average, min
 
     try {
         const result = await Course.find(fliter).sort(sort).populate('tutor');
+
         return result;
     } catch (error) {
         console.log("Error in PrfilteredAndSortedProducts of Product Services", error);
@@ -71,9 +67,8 @@ const filteredSortedPaging = async function (name, tutorName, faculty, average, 
     }
     if (tutorName !== "None" && tutorName) {
         try {
-            const tutor = await User.find({fullname: tutorName, role: "tutor"})
-            fliter.tutor = tutor[0]._id;
-            //console.log("haha"+fliter.tutor);
+            const tutor = await User.find({username: tutorName, role: "tutor"})
+            fliter.tutor = tutor._id;
 
         } catch (error) {
             delete fliter.tutor;
