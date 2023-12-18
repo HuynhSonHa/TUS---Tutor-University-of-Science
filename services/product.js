@@ -42,7 +42,11 @@ const filteredAndSorted = async function (name, tutorName, faculty, average, min
 
     // Sort
     if (sortByField !== `None` && sortByField) {
-        sort[sortByField] = sortByOrder === `desc` ? -1 : 1;
+        if (sortByField === 'tutor.username') {
+            sort['tutor.username'] = sortByOrder === 'desc' ? -1 : 1;
+        } else {
+            sort[sortByField] = sortByOrder === 'desc' ? -1 : 1;
+        }
     }
 
     try {
@@ -67,8 +71,8 @@ const filteredSortedPaging = async function (name, tutorName, faculty, average, 
     }
     if (tutorName !== "None" && tutorName) {
         try {
-            const tutor = await User.find({username: tutorName, role: "tutor"})
-            fliter.tutor = tutor._id;
+            const tutor = await User.find({fullname: tutorName, role: "tutor"})
+            fliter.tutor = tutor[0]._id;
 
         } catch (error) {
             delete fliter.tutor;
