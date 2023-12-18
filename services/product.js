@@ -16,7 +16,7 @@ const filteredAndSorted = async function (searchField, name, tutorName, faculty,
         const course = await Course.find({name: searchField});
         if(course.length>0)  fliter.name = searchField;
         else {
-            const tutor = await User.find({fullname: tutorName, role: "tutor"})
+            const tutor = await User.find({fullname: searchField, role: "tutor"})
             if(tutor.length>0)fliter.tutor = tutor[0]._id;
         }
     }
