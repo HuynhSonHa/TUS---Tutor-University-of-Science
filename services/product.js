@@ -6,12 +6,20 @@ const User = require("../models/User.js");
 
 const mongoose = require("mongoose");
 
-const filteredAndSorted = async function (name, tutorName, faculty, average, minPrice, maxPrice, sortByField, sortByOrder) {
+const filteredAndSorted = async function (searchField, name, tutorName, faculty, average, minPrice, maxPrice, sortByField, sortByOrder) {
     const fliter = {};
     const sort = {};
 
     // Fliter
     // fliter.status = "Available";
+    if (searchField !== `None` && searchField) {
+        const course = await Course.find({name: searchField});
+        if(course.length>0)  fliter.name = searchField;
+        else {
+            const tutor = await User.find({fullname: tutorName, role: "tutor"})
+            if(tutor.length>0)fliter.tutor = tutor[0]._id;
+        }
+    }
     if (name !== `None` && name) {
         fliter.name = name;
     }
@@ -60,12 +68,21 @@ const filteredAndSorted = async function (name, tutorName, faculty, average, min
 
 }
 
-const filteredSortedPaging = async function (name, tutorName, faculty, average, minPrice, maxPrice, sortByField, sortByOrder, skipAmount, pageSize) {
+const filteredSortedPaging = async function (searchField, name, tutorName, faculty, average, minPrice, maxPrice, sortByField, sortByOrder, skipAmount, pageSize) {
     const fliter = {};
     const sort = {};
 
     // Fliter
     // fliter.status = "Available";
+    if (searchField !== `None` && searchField) {
+        const course = await Course.find({name: searchField});
+        if(course.length>0)  fliter.name = searchField;
+        else {
+            const tutor = await User.find({fullname: searchField, role: "tutor"})
+            //console.log(tutor); 
+            if(tutor.length>0)fliter.tutor = tutor[0]._id;
+        }
+    }
     if (name !== `None` && name) {
         fliter.name = name;
     }

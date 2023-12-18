@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 // [GET] /courses?page=*;
 const showAll = async (req, res, next) => {
   try {
+    const searchField = req.query.searchField;
     const courseName = req.query.courseName;
     const tutorName = req.query.tutorName;
     const faculty = req.query.faculty;
@@ -20,14 +21,14 @@ const showAll = async (req, res, next) => {
     const pageSize = 12;
     //filter thay vào trên đây (filter xong lấy ra coursesFull, courses)
     const coursesFull = await CourseService.filteredAndSorted(
-      courseName, tutorName, faculty, average, minPrice, maxPrice, sortByField, sortByOrder
+      searchField, courseName, tutorName, faculty, average, minPrice, maxPrice, sortByField, sortByOrder
     );
     const totalCourses = coursesFull.length;
     const totalPages = Math.ceil(totalCourses / pageSize);
     const pageNumber = parseInt(req.query.page) || 1;
     const skipAmount = (pageNumber - 1) * pageSize;
     const courses = await CourseService.filteredSortedPaging(
-      courseName, tutorName, faculty, average, minPrice, maxPrice, sortByField, sortByOrder, skipAmount, pageSize
+      searchField, courseName, tutorName, faculty, average, minPrice, maxPrice, sortByField, sortByOrder, skipAmount, pageSize
     );
       
     const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
