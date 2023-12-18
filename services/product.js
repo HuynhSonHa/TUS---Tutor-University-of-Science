@@ -18,7 +18,7 @@ const filteredAndSorted = async function (name, tutorName, faculty, average, min
     if (tutorName !== "None" && tutorName) {
         try {
             const tutor = await User.find({fullname: tutorName, role: "tutor"})
-            fliter.tutor = tutor._id;
+            fliter.tutor = tutor[0]._id;
 
         } catch (error) {
             delete fliter.tutor;
@@ -72,7 +72,7 @@ const filteredSortedPaging = async function (name, tutorName, faculty, average, 
     if (tutorName !== "None" && tutorName) {
         try {
             const tutor = await User.find({fullname: tutorName, role: "tutor"})
-            fliter.tutor = tutor._id;
+            fliter.tutor = tutor[0]._id;
 
         } catch (error) {
             delete fliter.tutor;
