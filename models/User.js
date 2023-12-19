@@ -82,7 +82,10 @@ const UserScheme = new Schema({
         type: Number,
         default: 0,
     },
-
+    amountDayUpload: {
+        type: Number,
+        default: 0,
+    },
 })
 
 UserScheme.methods.encryptPassword = function(password) {

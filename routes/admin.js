@@ -4,7 +4,7 @@ const passport = require("passport");
 require("../middlewares/passportAccessToken.js");
 
 const checkAdmin = require("../middlewares/authenticationAdmin.js")
-const adminControllers = require("../controllers/Admin.js");
+const adminController = require("../controllers/AdminController.js");
 
 
 const multerConfig = require("../config/multer.js")
@@ -29,5 +29,8 @@ router.post("/admin/product", passport.authenticate('jwt', { session: false }), 
 router.get("/admin/productlist", passport.authenticate('jwt', { session: false }), checkAdmin, adminControllers.getProductList)
 router.get("/admin/dashboard", passport.authenticate('jwt', { session: false }), checkAdmin, adminControllers.getDashBoard)
 
-
+router.get("/waitingTutor", adminController.getWaitingListTutor);
+router.get("/waitingTutor/:id", adminController.getDetailTutor);
+router.get("/accepted/:id", adminController.acceptTutor);
+router.get("/denied/:id", adminController.denyTutor);
 module.exports = router;

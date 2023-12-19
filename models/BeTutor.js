@@ -15,7 +15,11 @@ const tutorSchema = new mongoose.Schema({
   datePost: {
     type: Date,
     default: Date.now(),
-  }
+  },
+  status: {
+    type: String,
+    default: "waiting", 
+  },
 });
 
 module.exports = mongoose.model('BeTutor', tutorSchema);

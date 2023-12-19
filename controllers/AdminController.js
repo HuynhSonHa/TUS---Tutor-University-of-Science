@@ -3,17 +3,19 @@ const connection = require("../config/database.js");
 const mongoose = require("mongoose");
 
 // Model
-const User = require("../model/User.js");
-const Review = require("../model/Review.js");
-const Product = require("../model/Product.js");
-const Catalog = require("../model/Catalog.js");
+const User = require("../models/User.js");
+const Review = require("../models/Review.js");
+const Course = require("../models/Course.js");
+const BeTutor = require("../models/BeTutor.js");
+
 
 //Service
-const ProductService = require("../service/Product.js")
+const ProductService = require("../services/product.js")
 
 const { use } = require("passport");
 const jwt = require("jsonwebtoken");
-const { sendMail } = require("./mailAPI.js")
+const { sendMail } = require("./mailAPI.js");
+const BeTutor = require("../models/BeTutor.js");
 
 
 require('dotenv').config();
@@ -140,7 +142,79 @@ const getProductList = async (req, res, next) => {
         next(error);
     }
 }
-
+//[GET] /admin/waitingTutor
+const getWaitingListTutor = async (req, res, next) => {
+    const tutorList = await BeTutor.find({status: "waiting"}).populate('userId');
+    res.render('admin/waitingTutor', {
+        tutorList: tutorList,
+        amountTutor: tutorList.length,
+    })
+}
+//[GET] /admin/waitingTutor/userId
+const getDetailTutor = async (req, res, next) => {
+    const tutor = await BeTutor.find({status: "waiting", userId: req.params.id}).populate('userId');
+    res.render('admin/waitingTutor', {
+        tutor: tutor,
+    })
+}
+//[GET] /admin/accepted/BeTutor._id
+const acceptTutor = async(req, res, next) => {
+    try {
+        const beTutor = await BeTutor.findById(req.params.id).populate('userId');
+        if(!beTutor) {
+            return res.status(404).json({error: 'Không tìm thấy thông tin'});
+        }
+        if(beTutor.price == 199000) {
+            let formData = {
+                amountCourseUpload: 5,
+                amountDayUpload: 30,
+                role: "tutor",
+            };
+            beTutor.status = "accepted";
+            await beTutor.save();
+            User.updateOne({_id: beTutor.userId}, formData);
+            return res.status(200).json({ msg: 'Accepted thành công!' });
+        } else if(beTutor.price == 1999000) {
+            let formData = {
+                amountCourseUpload: 10,
+                amountDayUpload: 365,
+                role: "tutor",
+            };
+            beTutor.status = "accepted";
+            await beTutor.save();
+            User.updateOne({_id: beTutor.userId}, formData);
+            return res.status(200).json({ msg: 'Accepted thành công!' });
+        } else if(beTutor.price == 3999000) {
+            let formData = {
+                amountCourseUpload: 999999,
+                amountDayUpload: 999999,
+                role: "tutor",
+            };
+            beTutor.status = "accepted";
+            await beTutor.save();
+            User.updateOne({_id: beTutor.userId}, formData);
+            return res.status(200).json({ msg: 'Accepted thành công!' });
+        }
+    } catch {
+        console.error(error);
+        return res.status(500).json({ error: 'Internal Server Error' });
+    }   
+}
+//[GET] /admin/denied/BeTutor._id
+const denyTutor = async(req, res, next) => {
+    try {
+        const beTutor = await BeTutor.findById(req.params.id).populate('userId');
+        if(!beTutor) {
+            return res.status(404).json({error: 'Không tìm thấy thông tin'});
+        }
+        beTutor.status = "denied";
+        await beTutor.save();
+        return res.status(200).json({ msg: 'Denied thành công!' });
+    } catch {
+        console.error(error);
+        return res.status(500).json({ error: 'Internal Server Error' });
+    }   
+}
 module.exports = {
     getHomePage,
     getDashBoard,
@@ -148,5 +222,8 @@ module.exports = {
     getFormCreateNewProduct,
     postANewProduct,
     getProductList,
-
+    getWaitingListTutor,
+    getDetailTutor,
+    acceptTutor,
+    denyTutor,
 }
