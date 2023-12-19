@@ -348,7 +348,7 @@
 
 
 
-            submitButton.addEventListener("click",async function (event) {
+            submitButton.addEventListener("click", async function (event) {
 
                 event.preventDefault();
                 let isError = false;
@@ -380,12 +380,12 @@
                     })
                     .then(data => {
                         console.log(data)
-                       
+
                         if (isError == true) {
                             alert(data.error);
                         }
                         if (isError == false) {
-                            
+
                             window.location.href = curUrl.toString();
                         }
 
