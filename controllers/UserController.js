@@ -28,7 +28,7 @@ const profile = async (req, res, next) => {
         return res.status(404).json({ success: false, error: 'User not found' });
     }
 
-    res.render('me/profile', { user });
+    res.render('tutormode/editprofile', { user });
 } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: 'Internal Server Error' });

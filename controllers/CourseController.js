@@ -79,12 +79,10 @@ const detail = async(req, res, next) => {
     next(err);
   }
 }
-
 // [GET] /courses/create
-const create = (req, res, next) => {
+const createCourse = (req, res, next) => {
   res.render("tutormode/createcourse");
 }
-
 // [POST] /courses/store
 const store = async(req, res, next) => {
   //res.json(req.body);

@@ -25,7 +25,7 @@ const storedStudents = async (req, res, next) => {
     } else {
         amountOfStudents = orders.length;
     }
-    res.render("tutormode/", {
+    res.render("tutormode/waitingStudent", {
         orders: orders,
         amountOfStudents: amountOfStudents,
     })
@@ -37,7 +37,12 @@ const storedStudents = async (req, res, next) => {
     // })
     // .catch(next);
     //res.render("me/stored-courses");
-  }
+}
+
+// [GET] /tutor/create
+const createCourse = (req, res, next) => {
+  res.render("tutormode/createcourse");
+}
 // [GET] /tutor/profile
 const profile = async (req, res, next) => {
   try {
@@ -50,7 +55,7 @@ const profile = async (req, res, next) => {
         return res.status(404).json({ success: false, error: 'User not found' });
     }
 
-    res.render('me/profile', { user });
+    res.render('tutormode/editprofile', { user });
 } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: 'Internal Server Error' });
@@ -59,7 +64,7 @@ const profile = async (req, res, next) => {
 
 //[GET] /tutor/home
 const getHomePage = (req, res, next) => {
-  res.render('home/tutorHome', { user: req.user });
+  res.render('tutormode/tutormode', { user: req.user });
 }
 
 module.exports = {
@@ -67,4 +72,5 @@ module.exports = {
   storedStudents,
   profile,
   getHomePage,
+  createCourse,
 };
