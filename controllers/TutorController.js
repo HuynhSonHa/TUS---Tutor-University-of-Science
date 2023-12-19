@@ -61,7 +61,16 @@ const profile = async (req, res, next) => {
     res.status(500).json({ success: false, error: 'Internal Server Error' });
 }
 }
-
+//[POST] /tutor/profile
+const editProfile = async(req, res, next) => {
+  try {
+    User.updateOne({_id: req.user._id}, req.body)
+    .then(res.status(200).json({msg: 'Cập nhật thông tin thành công'}))
+  } catch(error) {
+    console.error(error);
+    res.status(500).json({ success: false, error: 'Internal Server Error' });
+  }
+}
 //[GET] /tutor/home
 const getHomePage = (req, res, next) => {
   res.render('tutormode/tutormode', { user: req.user });
@@ -71,6 +80,7 @@ module.exports = {
   storedCourses,
   storedStudents,
   profile,
+  editProfile,
   getHomePage,
   createCourse,
 };
