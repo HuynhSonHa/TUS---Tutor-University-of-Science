@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assetsSignUpToTutor/style.css">
+    <!-- <link rel="stylesheet" href="assets\card.css"> -->
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="main-product row">
+            <div class="col-12">
+                <div class="img-main-product">
+                    <img class="main-img" src="assets\main-header.jpeg" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="tutor-pricing-option ">
+            <div class="wrapper-text-simple-pricing ">
+                <div class="tus-icon"></div>
+                <div class="text-simple-pricing-option text-center">
+                    Simple Pricing option
+                </div>
+            </div>
+            
+            <div class="text-discription-choose-plan text-center">
+                Choose the Right Plan for you and your innovation
+            </div>
+            <div class="wrapper-choose-pricing row ">
+                <div class="container-plan col-4">
+                    <div class=" basic text-center">
+                        <div class="wrapper-header-plan">
+                            <div class="header-plan">
+                                Basic
+                            </div>
+                        </div>
+    
+                        <div class="wrapper-pricing">
+                            <div class="pricing">199.000 VNĐ/month</div>
+                            <div class="promotion">Trial for 1 month only</div>
+                        </div>
+                        <div class="wrapper-feature-plan ">
+                            <ul class="list-feature">
+                                <li class="feature">
+                                    <div class="text-emphasis">Unlimited</div>
+                                    <div class="text-feature">feedback</div>
+                                </li>
+                                <li class="feature">
+                                    <div class="text-emphasis">Unlimited</div>
+                                    <div class="text-feature">experience</div>
+                                </li>
+                                <li class="feature">
+                                    <div class="text-emphasis">Short</div>
+                                    <div class="text-feature">usage time</div>
+                                </li>
+                                <li class="feature">
+                                    <div class="text-emphasis">Limited</div>
+                                    <div class="text-feature">Course (5 courses/month)</div>
+                                </li>
+                            </ul>
+    
+    
+                        </div>
+                        <button class="get-started">Get Started</button>
+                    </div>
+                </div>
+                <div class="container-plan wrapper-unlimited-advance col-4">
+                    <div class="most-popular text-center">
+                        Most Popular
+                    </div>
+                    <div class=" unlimited-advance text-center">
+                        <div class="wrapper-header-plan">
+                            <div class="header-plan">
+                                UNLIMITED ADVANCED!
+                            </div>
+                        </div>
+    
+                        <div class="wrapper-pricing">
+                            <div class="pricing">3.999.000 VNĐ/forever</div>
+                            
+                            <div class="promotion"> <div class="text-promotion">
+                                PRICE BEFORE
+                            </div>
+                            <div class="price-before">
+                                5.990.000 VNĐ
+                            </div>
+                        </div>
+
+                        </div>
+                        <div class="wrapper-feature-plan ">
+                            <ul class="list-feature">
+                                <li class="feature">
+                                    <div class="text-emphasis">Unlimited</div>
+                                    <div class="text-feature">feedback</div>
+                                </li>
+                                <li class="feature">
+                                    <div class="text-emphasis">Unlimited</div>
+                                    <div class="text-feature">experience</div>
+                                </li>
+                                <li class="feature">
+                                    <div class="text-emphasis">Unlimited</div>
+                                    <div class="text-feature">usage time</div>
+                                </li>
+                                <li class="feature">
+                                    <div class="text-emphasis">Unlimited</div>
+                                    <div class="text-feature">Course</div>
+                                </li>
+                            </ul>
+    
+    
+                        </div>
+                        <button class="get-started">Get Started</button>
+                    </div>
+                </div>
+                <div class="container-plan col-4">
+                    <div class=" basic text-center">
+                        <div class="wrapper-header-plan">
+                            <div class="header-plan">
+                                Pro
+                            </div>
+                        </div>
+    
+                        <div class="wrapper-pricing">
+                            <div class="pricing">1.999.000 VNĐ/year</div>
+                            <div class="promotion">1 Year Experience</div>
+                        </div>
+                        <div class="wrapper-feature-plan ">
+                            <ul class="list-feature">
+                                <li class="feature">
+                                    <div class="text-emphasis">Unlimited</div>
+                                    <div class="text-feature">feedback</div>
+                                </li>
+                                <li class="feature">
+                                    <div class="text-emphasis">Unlimited</div>
+                                    <div class="text-feature">experience</div>
+                                </li>
+                                <li class="feature">
+                                    <div class="text-emphasis">Short</div>
+                                    <div class="text-feature">usage time</div>
+                                </li>
+                                <li class="feature">
+                                    <div class="text-emphasis">Limited</div>
+                                    <div class="text-feature">Course (10 courses/month)</div>
+                                </li>
+                            </ul>
+    
+    
+                        </div>
+                        <button class="get-started">Get Started</button>
+                    </div>
+                </div>
+                
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <script>
+        const $ = document.querySelector.bind(document)
+        const $$ = document.querySelectorAll.bind(document)
+
+        const containerImage = $('.img-main-product');
+        const mainImage = $('.main-img');
+
+
+        // add to cart
+        let closeShopping = $('.closeShopping')
+        let listCard = $('.listCard')
+        let total = $('.total')
+        let body = $('body')
+
+
+        const addToCart = $('.add-to-cart')
+        const backgroundOverlay = document.getElementById('backgroundOverlay');
+
+
+        addToCart.addEventListener('click', function () {
+
+            body.classList.add('active')
+
+        });
+
+        closeShopping.addEventListener('click', function () {
+
+            body.classList.remove('active')
+
+        });
+
+
+
+        // xử lý ảnh
+        containerImage.addEventListener('mousemove', (e) => {
+            const x = e.clientX - e.target.offsetLeft;
+            const y = e.clientY - e.target.offsetTop;
+            mainImage.style.transformOrigin = `${x}px ${y}px`;
+            mainImage.style.transform = "scale(1.1)"
+        })
+
+        containerImage.addEventListener('mouseleave', () => {
+
+            mainImage.style.transformOrigin = "center";
+            mainImage.style.transform = "scale(1)"
+        })
+
+
+        // adjust number of products
+        const plus = $(".plus")
+        const num = $(".num")
+        const minus = $(".minus")
+
+
+
+
+        function initApp() {
+            products.forEach((value, key) => {
+                let newDiv = document.createElement('div');
+                newDiv.classList.add('item');
+                newDiv.innerHTML = `
+            <img src="image/${value.image}">
+            <div class="title">${value.name}</div>
+            <div class="price">${value.price.toLocaleString()}</div>
+            <button onclick="addToCard(${key})">Add To Card</button>`;
+                list.appendChild(newDiv);
+            })
+        }
+        function reloadCard() {
+            listCard.innerHTML = '';
+            let count = 0;
+            let totalPrice = 0;
+            listCards.forEach((value, key) => {
+                totalPrice = totalPrice + value.price;
+                count = count + value.quantity;
+                if (value != null) {
+                    let newDiv = document.createElement('li');
+                    newDiv.innerHTML = `
+              
+                <div><img src="assets\\main-img.jpg"/></div>
+                <div>BROOKS MEN'S LAUNCH 9 ROAD-RUNNING SHOES</div>
+                <div>80.00</div>
+                <div>
+                    <button onclick="changeQuantity(${key}, ${value.quantity - 1})">-</button>
+                    <div class="count">${value.quantity}</div>
+                    <button onclick="changeQuantity(${key}, ${value.quantity + 1})">+</button>
+                </div>`;
+                    listCard.appendChild(newDiv);
+                }
+            })
+            total.innerText = totalPrice.toLocaleString();
+            quantity.innerText = count;
+        }
+
+
+        let a = 1;
+        plus.addEventListener("click", () => {
+            a++;
+            num.innerText = a;
+        })
+        minus.addEventListener("click", () => {
+
+            a--;
+            if (a <= 1) {
+                a = 1;
+            }
+            num.innerText = a;
+        })
+
+    </script>
+
+
+    </div>
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
