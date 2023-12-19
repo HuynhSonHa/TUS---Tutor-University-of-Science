@@ -34,6 +34,14 @@ const profile = async (req, res, next) => {
 }
 }
 
+const getPremium = (req, res, next) => {
+  res.render('user/signuptotutor', { user: req.user });
+}
+
+const getFormTutor = (req, res, next) => {
+  res.render('user/formbetutor', { user: req.user });
+}
+
 //[GET] /user/home
 const getHomePage = (req, res, next) => {
   res.render('home/userHome', { user: req.user });
@@ -42,5 +50,7 @@ const getHomePage = (req, res, next) => {
 module.exports = {
   storedCourses,
   profile,
+  getPremium,
+  getFormTutor,
   getHomePage,
 };
