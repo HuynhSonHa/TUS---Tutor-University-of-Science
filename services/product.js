@@ -180,7 +180,6 @@ const getProductByCart = async function (cart) {
 
 const saveFileAndGetUrlFromThumbnailAndGallery = async function (files) {
     try {
-
         let thumbnail;
         let gallery = []
         if ("thumbnail" in files) {
