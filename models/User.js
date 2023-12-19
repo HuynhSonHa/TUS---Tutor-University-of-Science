@@ -77,7 +77,11 @@ const UserScheme = new Schema({
     role: {
         type: String,
         default: "user",
-    }
+    },
+    amountCourseUpload: {
+        type: Number,
+        default: 0,
+    },
 
 })
 

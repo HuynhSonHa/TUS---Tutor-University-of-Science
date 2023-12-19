@@ -1,5 +1,6 @@
 const Course = require("../models/Course");
-const User = require("../models/User")
+const User = require("../models/User");
+const BeTutor = require("../models/BeTutor");
 const { mutipleMongooseToObject } = require("../util/mongoose");
 
 
@@ -47,11 +48,12 @@ const getFormTutor = (req, res, next) => {
   res.render('user/formbetutor', { 
     user: req.user,
     price: price, 
+    page: req.params.page,
   });
 }
 // [POST] /user/formTutor/123
 //fullname, phoneNumber, GPA, GPAfile
-const postFormTutor = (req, res, next) => {
+const postFormTutor = async(req, res, next) => {
   let price;
   if(req.params.page == '1') {price = 199000} 
   else if(req.params.page == '2') {price = 1999000} 
@@ -64,6 +66,15 @@ const postFormTutor = (req, res, next) => {
 
     // Lưu user vào database
     User.updateOne({_id: req.user._id}, req.body) 
+    .then()
+    .catch(res.status(400).json({ error: 'Cập nhật thông tin thất bại' }))
+
+    let newTutor;
+    newTutor = new BeTutor({
+      price: price,
+      userId: req.user._id,
+    });
+    newTutor.save()
     .then(res.status(200).json({ success: true, msg: "Đã gửi yêu cầu tới admin!"}))
     .catch(res.status(400).json({ error: 'Gửi thất bại' }))
     
