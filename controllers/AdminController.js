@@ -153,7 +153,7 @@ const getWaitingListTutor = async (req, res, next) => {
 //[GET] /admin/waitingTutor/userId
 const getDetailTutor = async (req, res, next) => {
     const tutor = await BeTutor.find({status: "waiting", userId: req.params.id}).populate('userId');
-    res.render('admin/waitingTutor', {
+    res.render('admin/detailTutor', {
         tutor: tutor,
     })
 }
