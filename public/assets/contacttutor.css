@@ -1,0 +1,209 @@
+.container {
+    max-width: 1440px !important;
+
+}
+
+
+.img-main-product {
+    /* box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.3); */
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.main-img {
+    transform-origin: center;
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    background-color: #f6f6f6;
+    /* position: absolute; */
+}
+
+
+.wrapper-text-simple-pricing {
+    display: flex;
+    justify-content: center;
+}
+
+.tus-icon {
+    position: relative;
+    margin: 5px 4px 0 0;
+    display: block;
+    width: 16px;
+    height: 16px;
+    background-color: #40DDB6;
+}
+
+.header-product {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    color: #121212;
+    /* line-height: 1.4; */
+}
+
+
+
+
+
+.main-product .num-review {
+    display: flex;
+
+}
+
+.rating {
+    display: flex;
+    margin-right: 8px;
+
+}
+
+.rating input {
+    display: none;
+}
+
+.rating div[class*="star-"] {
+    font-size: 16px;
+    color: #ccc;
+
+    padding: 0 0px;
+}
+
+.rating div[class*="star-"]:before {
+    content: '\2605';
+
+}
+
+.rating div[class*="star-"] {
+    color: #ffcc00;
+}
+
+
+
+
+
+.wrapper-price-product {
+    display: flex;
+    align-items: center;
+}
+
+.price-product-current {
+    color: #121212;
+    font-weight: bold;
+    font-size: 30px;
+    margin-right: 12px;
+}
+
+.price-product-origin::before {
+    content: "";
+    height: 100%;
+    border-left: 1px solid #A0A0A0;
+    padding: 0 12px;
+}
+
+.price-product-origin {
+    font-size: 16px;
+    color: #A0A0A0;
+    text-decoration: line-through;
+}
+
+
+.wrapper-contact-us,
+.wrapper-let-talk {
+    display: flex;
+
+}
+
+.wrapper-contact-us {
+    justify-content: center;
+    align-items: center;
+    margin-top: 4rem;
+}
+
+.contact-method {
+    display: flex;
+}
+
+.list-contact-method {
+    margin-top: 2rem;
+    margin-bottom: 0;
+    padding: 0;
+
+}
+
+.wrapper-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #f4f4f4;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 1rem;
+}
+
+.container-method-contact .header {
+    font-size: 36px;
+    font-weight: bold;
+    padding: 1rem 0 0;
+
+}
+
+.container-method-contact {
+
+    padding-left: 6rem !important;
+
+}
+
+.form-to-contact,
+.main-method-contact {
+    margin-top: 4rem;
+    padding: 0 12%;
+
+}
+
+.contact-us,
+.let-talk {
+    font-weight: 600;
+}
+
+.wrapper-contact-method>div {
+    line-height: 1.6;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.contact-method {
+    margin-top: 2.5rem;
+}
+
+.header {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.header.text-center::after {
+    content: 'TUS';
+    font-size: 44px;
+    font-weight: bold;
+    color: #6B77E5;
+}
+
+
+.input-group {
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+.wrapper-button-summit {
+    margin-top: 2rem;
+
+}
+
+.wrapper-button-summit .btn {
+    background-color: #6B77E5;
+    padding: 8px 2rem;
+    font-weight: 500;
+}

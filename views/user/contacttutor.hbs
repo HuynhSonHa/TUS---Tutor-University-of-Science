@@ -1,0 +1,258 @@
+<style>
+    @import url(/assets/contactutor.css);
+</style>
+<style type="stylesheets">@import url(https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css);</style>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+
+
+
+<div class="container">
+    <div class="main-product row">
+        <div class="col-12">
+            <div class="img-main-product">
+                <img class="main-img" src="assets\main-header.jpeg" alt="">
+            </div>
+        </div>
+    </div>
+
+    <div class="main-product row main-method-contact ">
+        <div class="col-6">
+            <div class="img-main-product">
+                <img class="main-img" src="assets\z4974466230071_54de896ba0932b02331ffcfa8970d702.jpg" alt="">
+            </div>
+        </div>
+        <div class="col-6 container-method-contact">
+            <div class="header-product">LÝ NHẬT HÀO - OOP</div>
+            <div class="num-review">
+                <div class="rating">
+
+                    <div class="star-5"></div>
+                    <div class="star-4"></div>
+                    <div class="star-3"></div>
+                    <div class="star-2"></div>
+                    <div class="star-1"></div>
+                </div>
+                (2 Customer Reviews)
+            </div>
+            <div class="wrapper-price-product">
+                <div class="price-product-current">$80.00</div>
+
+                <div class="price-product-origin">$100.00</div>
+
+                <div class="percent-discount">-20%</div>
+            </div>
+
+            <div class="discription-product">
+                ĐÃ HỌC LẠI MÔN NÀY NHIỀU LẦN NÊN RẤT CÓ NHIỀU KINH NGHIỆM
+            </div>
+
+            <ul class="list-contact-method">
+                <li class="contact-method">
+                    <div class="wrapper-icon">
+                        <img width="24" height="24" src="https://img.icons8.com/ios/24/phone--v1.png" alt="phone--v1" />
+                    </div>
+                    <div class="wrapper-contact-method">
+                        <div class="text-method">Have any questions?</div>
+                        <div class="text-method-contact">Free +84 782 832 923</div>
+                    </div>
+                </li>
+                <li class="contact-method">
+                    <div class="wrapper-icon">
+                        <img width="24" height="24" src="https://img.icons8.com/ios/24/mail.png" alt="mail" />
+                    </div>
+                    <div class="wrapper-contact-method">
+                        <div class="text-method">Write email</div>
+                        <div class="text-method-contact">Lnhao.it@gmail.com</div>
+                    </div>
+                </li>
+                <li class="contact-method">
+                    <div class="wrapper-icon">
+                        <img width="24" height="24" src="https://img.icons8.com/ios/24/marker--v1.png"
+                            alt="marker--v1" />
+                    </div>
+                    <div class="wrapper-contact-method">
+                        <div class="text-method">Visit anytime</div>
+                        <div class="text-method-contact">227, NGUYEN VAN CU, DISTRICT 5, HCMC</div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="wrapper-contact-us">
+        <div class="tus-icon"></div>
+        <div class="contact-us">Contact with your Tutor</div>
+    </div>
+    <div class="header text-center">
+        Contact To Become An Excellent Student With
+    </div>
+    <div class="form-to-contact row">
+        <form class="row g-3 needs-validation" novalidate>
+            <div class="col-md-6">
+                <label for="your-name" class="form-label"></label>
+                <input type="text" class="form-control" id="your-name" placeholder="Your Name" required>
+                <!-- <div class="valid-feedback">
+                        Looks good!
+                    </div> -->
+            </div>
+            <div class="col-md-6">
+                <label for="email-address" class="form-label"></label>
+                <input type="text" class="form-control" id="email-address" placeholder="Email Address" required>
+                <!-- <div class="valid-feedback">
+                        Looks good!
+                    </div> -->
+            </div>
+            <div class="col-md-6 ">
+                <label for="phone-number" class="form-label"></label>
+                <input type="tel" class="form-control" id="phone-number" placeholder="Phone Number" required>
+                <!-- <div class="valid-feedback">
+                        Looks good!
+                    </div> -->
+            </div>
+            <div class="col-md-6">
+
+
+                <label for="desired-gpa" class="form-label"></label>
+                <input type="text" class="form-control" id="desired-gpa" name="desired-gpa"
+                    aria-describedby="inputGroupFileAddon04" aria-label="Upload" placeholder="Desired GPA">
+
+
+
+
+            </div>
+            <div class="col-md-12  ">
+                <label for="message" class="form-label"></label>
+                <textarea type="text" rows="4" cols="50" class="form-control" id="message" placeholder="message">
+                    </textarea>
+                <!-- <div class="valid-feedback">
+                        Looks good!-->
+            </div>
+
+
+            <div class="col-12 wrapper-button-summit text-center">
+                <button class="btn btn-primary" type="submit">CONTACT</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+
+<script>
+    const $ = document.querySelector.bind(document)
+    const $$ = document.querySelectorAll.bind(document)
+
+    const containerImage = $('.img-main-product');
+    const mainImage = $('.main-img');
+
+
+    // add to cart
+    let closeShopping = $('.closeShopping')
+    let listCard = $('.listCard')
+    let total = $('.total')
+    let body = $('body')
+
+
+    const addToCart = $('.add-to-cart')
+    const backgroundOverlay = document.getElementById('backgroundOverlay');
+
+
+    addToCart.addEventListener('click', function () {
+
+        body.classList.add('active')
+
+    });
+
+    closeShopping.addEventListener('click', function () {
+
+        body.classList.remove('active')
+
+    });
+
+
+
+    // xử lý ảnh
+    containerImage.addEventListener('mousemove', (e) => {
+        const x = e.clientX - e.target.offsetLeft;
+        const y = e.clientY - e.target.offsetTop;
+        mainImage.style.transformOrigin = `${x}px ${y}px`;
+        mainImage.style.transform = "scale(1.1)"
+    })
+
+    containerImage.addEventListener('mouseleave', () => {
+
+        mainImage.style.transformOrigin = "center";
+        mainImage.style.transform = "scale(1)"
+    })
+
+
+    // adjust number of products
+    const plus = $(".plus")
+    const num = $(".num")
+    const minus = $(".minus")
+
+
+
+
+    function initApp() {
+        products.forEach((value, key) => {
+            let newDiv = document.createElement('div');
+            newDiv.classList.add('item');
+            newDiv.innerHTML = `
+            <img src="image/${value.image}">
+            <div class="title">${value.name}</div>
+            <div class="price">${value.price.toLocaleString()}</div>
+            <button onclick="addToCard(${key})">Add To Card</button>`;
+            list.appendChild(newDiv);
+        })
+    }
+    function reloadCard() {
+        listCard.innerHTML = '';
+        let count = 0;
+        let totalPrice = 0;
+        listCards.forEach((value, key) => {
+            totalPrice = totalPrice + value.price;
+            count = count + value.quantity;
+            if (value != null) {
+                let newDiv = document.createElement('li');
+                newDiv.innerHTML = `
+              
+                <div><img src="assets\\main-img.jpg"/></div>
+                <div>BROOKS MEN'S LAUNCH 9 ROAD-RUNNING SHOES</div>
+                <div>80.00</div>
+                <div>
+                    <button onclick="changeQuantity(${key}, ${value.quantity - 1})">-</button>
+                    <div class="count">${value.quantity}</div>
+                    <button onclick="changeQuantity(${key}, ${value.quantity + 1})">+</button>
+                </div>`;
+                listCard.appendChild(newDiv);
+            }
+        })
+        total.innerText = totalPrice.toLocaleString();
+        quantity.innerText = count;
+    }
+
+
+    let a = 1;
+    plus.addEventListener("click", () => {
+        a++;
+        num.innerText = a;
+    })
+    minus.addEventListener("click", () => {
+
+        a--;
+        if (a <= 1) {
+            a = 1;
+        }
+        num.innerText = a;
+    })
+
+</script>
