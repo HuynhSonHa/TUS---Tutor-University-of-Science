@@ -11,7 +11,7 @@ const isTutor = (req, res, next) => {
     if(req.user.role === "tutor") {
       return next();
     }
-    res.redirect('/premium');
+    res.redirect('user/premium');
   }
   res.redirect('/login');
 };

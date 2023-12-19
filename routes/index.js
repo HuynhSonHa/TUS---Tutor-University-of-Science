@@ -34,7 +34,7 @@ function route(app) {
   app.use("/user", userRouter);
   app.use("/tutor", tutorRouter);
   app.use("/courses", courseRouter);
-  app.use("/home", siteRouter);
+  app.use("/site", siteRouter);
   app.use("/review", reviewRouter);
   app.use("/order", orderRouter);
   app.use("/", authRouter);
