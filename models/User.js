@@ -58,6 +58,9 @@ const UserScheme = new Schema({
     GPA: {
         type: Number,
     },
+    GPAfile: {
+        type: String,
+    },
     registrationDate: {
         type: Date,
         default: Date.now()
