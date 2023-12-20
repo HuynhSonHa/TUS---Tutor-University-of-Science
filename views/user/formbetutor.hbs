@@ -14,6 +14,9 @@
 </head>
 
 <body>
+    <div class="alert alert-success  text-center align-items-center">
+        You changed password successly
+    </div>
     <div class="container">
         <div class="main-product row">
             <div class="col-12">
@@ -167,7 +170,7 @@
                 formData.append('GPAfile', fileInput.files[0]);
             }
 
-            const curUrl = new URL(window.location.href);
+
             let isError = false;
 
             try {
@@ -186,6 +189,17 @@
                     alert(data.error);
                 } else {
                     // Xử lý phản hồi thành công ở đây
+                    const alertReview = $('.alert-success')
+                    alertReview.innerHTML = `${data.msg}`
+                    alertReview.style.opacity = "1";
+                    alertReview.style.display = "block"
+                    console.log(alertReview)
+                    setTimeout(function () {
+                        alertReview.style.opacity = "0";
+                        setTimeout(function () {
+                            alertReview.style.display = "none";
+                        }, 500);
+                    }, 3000);
                 }
             } catch (error) {
                 console.error('Error:', error.message);
