@@ -70,13 +70,18 @@ const postFormTutor = async(req, res, next) => {
   else if(req.params.page == '2') {price = 1999000} 
   else if(req.params.page == '3') {price = 3999000};
   try {
-    const { fullname, phoneNumber, GPA } = req.body;
+    const { fullname, phoneNumber, GPA, comment } = req.body;
+    var savedUser = {
+      fullname: req.body.fullname,
+      phoneNumber: req.body.phoneNumber,
+      GPA: req.body.GPA,
+    }
     if (req.file) {
-      req.body.GPAfile = req.file.filename;;
+      savedUser.GPAfile = req.file.filename;;
     }
 
     // Lưu user vào database
-    User.updateOne({_id: req.user._id}, req.body) 
+    User.updateOne({_id: req.user._id}, savedUser) 
     .then()
     .catch(res.status(400).json({ error: 'Cập nhật thông tin thất bại' }))
 
@@ -84,6 +89,7 @@ const postFormTutor = async(req, res, next) => {
     newTutor = new BeTutor({
       price: price,
       userId: req.user._id,
+      comment: req.body.comment,
     });
     newTutor.save()
     .then(res.status(200).json({ success: true, msg: "Đã gửi yêu cầu tới admin!"}))
