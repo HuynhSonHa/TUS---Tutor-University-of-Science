@@ -1,0 +1,162 @@
+.container {
+    max-width: 1440px !important;
+
+}
+
+
+.img-main-product {
+    /* box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.3); */
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+
+}
+
+.main-img {
+    transform-origin: center;
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    background-color: #f6f6f6;
+    /* position: absolute; */
+}
+
+
+.wrapper-text-simple-pricing {
+    display: flex;
+    justify-content: center;
+}
+
+.tus-icon {
+    position: relative;
+    margin: 5px 4px 0 0;
+    display: block;
+    width: 16px;
+    height: 16px;
+    background-color: #40DDB6;
+}
+
+
+.wrapper-contact-us,
+.wrapper-let-talk {
+    display: flex;
+
+}
+
+.wrapper-contact-us {
+    justify-content: center;
+    align-items: center;
+    margin-top: 4rem;
+}
+
+.contact-method {
+    display: flex;
+}
+
+.list-contact-method {
+    margin-top: 2rem;
+    margin-bottom: 0;
+    padding: 0;
+
+}
+
+.wrapper-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #f4f4f4;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 1rem;
+}
+
+.container-method-contact .header {
+    font-size: 36px;
+    font-weight: bold;
+    padding: 1rem 0;
+}
+
+.form-to-contact,
+.main-method-contact {
+    margin-top: 4rem;
+    padding: 0 12%;
+
+}
+
+.contact-us,
+.let-talk {
+    font-weight: 600;
+}
+
+.wrapper-contact-method>div {
+    line-height: 1.6;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.contact-method {
+    margin-top: 2.5rem;
+}
+
+.header {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.header.text-center::after {
+    content: 'TUS';
+    font-size: 44px;
+    font-weight: bold;
+    color: #6B77E5;
+}
+
+#phone-number {
+    /* height: fit-content; */
+}
+
+.input-group {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#file-gpa {
+    align-self: flex-end;
+    justify-self: flex-end;
+
+}
+
+.wrapper-gpa>div {
+    padding: 0;
+}
+
+.wrapper-file-gpa {
+    padding: 0;
+
+}
+
+.wrapper-file-gpa>input {
+    border: none;
+
+}
+
+
+
+/* #file-gpa {
+    background-color: #40DDB6;
+} */
+
+.wrapper-text-gpa {
+    padding-left: 15px !important;
+}
+
+.wrapper-button-summit {
+    margin-top: 2rem;
+
+}
+
+.wrapper-button-summit .btn {
+    background-color: #6B77E5;
+    padding: 8px 2rem;
+    font-weight: 500;
+}

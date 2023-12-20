@@ -18,7 +18,7 @@
         <div class="main-product row">
             <div class="col-12">
                 <div class="img-main-product">
-                    <img class="main-img" src="assets\main-header.jpeg" alt="">
+                    <img class="main-img" src="/assetsSignUpToTutor/main-header.jpeg" alt="">
                 </div>
             </div>
         </div>
@@ -29,7 +29,7 @@
                     Simple Pricing option
                 </div>
             </div>
-            
+
             <div class="text-discription-choose-plan text-center">
                 Choose the Right Plan for you and your innovation
             </div>
@@ -41,7 +41,7 @@
                                 Basic
                             </div>
                         </div>
-    
+
                         <div class="wrapper-pricing">
                             <div class="pricing">199.000 VNĐ/month</div>
                             <div class="promotion">Trial for 1 month only</div>
@@ -65,8 +65,8 @@
                                     <div class="text-feature">Course (5 courses/month)</div>
                                 </li>
                             </ul>
-    
-    
+
+
                         </div>
                         <button class="get-started">Get Started</button>
                     </div>
@@ -81,17 +81,18 @@
                                 UNLIMITED ADVANCED!
                             </div>
                         </div>
-    
+
                         <div class="wrapper-pricing">
                             <div class="pricing">3.999.000 VNĐ/forever</div>
-                            
-                            <div class="promotion"> <div class="text-promotion">
-                                PRICE BEFORE
+
+                            <div class="promotion">
+                                <div class="text-promotion">
+                                    PRICE BEFORE
+                                </div>
+                                <div class="price-before">
+                                    5.990.000 VNĐ
+                                </div>
                             </div>
-                            <div class="price-before">
-                                5.990.000 VNĐ
-                            </div>
-                        </div>
 
                         </div>
                         <div class="wrapper-feature-plan ">
@@ -113,20 +114,20 @@
                                     <div class="text-feature">Course</div>
                                 </li>
                             </ul>
-    
-    
+
+
                         </div>
                         <button class="get-started">Get Started</button>
                     </div>
                 </div>
                 <div class="container-plan col-4">
-                    <div class=" basic text-center">
+                    <div class=" pro text-center">
                         <div class="wrapper-header-plan">
                             <div class="header-plan">
                                 Pro
                             </div>
                         </div>
-    
+
                         <div class="wrapper-pricing">
                             <div class="pricing">1.999.000 VNĐ/year</div>
                             <div class="promotion">1 Year Experience</div>
@@ -150,23 +151,17 @@
                                     <div class="text-feature">Course (10 courses/month)</div>
                                 </li>
                             </ul>
-    
-    
+
+
                         </div>
                         <button class="get-started">Get Started</button>
                     </div>
                 </div>
-                
+
             </div>
 
         </div>
     </div>
-
-
-
-
-
-
 
     <script>
         const $ = document.querySelector.bind(document)
@@ -174,31 +169,6 @@
 
         const containerImage = $('.img-main-product');
         const mainImage = $('.main-img');
-
-
-        // add to cart
-        let closeShopping = $('.closeShopping')
-        let listCard = $('.listCard')
-        let total = $('.total')
-        let body = $('body')
-
-
-        const addToCart = $('.add-to-cart')
-        const backgroundOverlay = document.getElementById('backgroundOverlay');
-
-
-        addToCart.addEventListener('click', function () {
-
-            body.classList.add('active')
-
-        });
-
-        closeShopping.addEventListener('click', function () {
-
-            body.classList.remove('active')
-
-        });
-
 
 
         // xử lý ảnh
@@ -216,67 +186,26 @@
         })
 
 
-        // adjust number of products
-        const plus = $(".plus")
-        const num = $(".num")
-        const minus = $(".minus")
 
+        // handle click to choose premium
+        const basic = $('.basic .get-started')
+        const pro = $('.pro .get-started')
+        const unlimitedAdvanced = $('.unlimited-advance .get-started')
 
-
-
-        function initApp() {
-            products.forEach((value, key) => {
-                let newDiv = document.createElement('div');
-                newDiv.classList.add('item');
-                newDiv.innerHTML = `
-            <img src="image/${value.image}">
-            <div class="title">${value.name}</div>
-            <div class="price">${value.price.toLocaleString()}</div>
-            <button onclick="addToCard(${key})">Add To Card</button>`;
-                list.appendChild(newDiv);
-            })
-        }
-        function reloadCard() {
-            listCard.innerHTML = '';
-            let count = 0;
-            let totalPrice = 0;
-            listCards.forEach((value, key) => {
-                totalPrice = totalPrice + value.price;
-                count = count + value.quantity;
-                if (value != null) {
-                    let newDiv = document.createElement('li');
-                    newDiv.innerHTML = `
-              
-                <div><img src="assets\\main-img.jpg"/></div>
-                <div>BROOKS MEN'S LAUNCH 9 ROAD-RUNNING SHOES</div>
-                <div>80.00</div>
-                <div>
-                    <button onclick="changeQuantity(${key}, ${value.quantity - 1})">-</button>
-                    <div class="count">${value.quantity}</div>
-                    <button onclick="changeQuantity(${key}, ${value.quantity + 1})">+</button>
-                </div>`;
-                    listCard.appendChild(newDiv);
-                }
-            })
-            total.innerText = totalPrice.toLocaleString();
-            quantity.innerText = count;
-        }
-
-
-        let a = 1;
-        plus.addEventListener("click", () => {
-            a++;
-            num.innerText = a;
+        let currentUrl = new URL(window.location.href);
+        basic.addEventListener('click', () => {
+            window.location.href = '/user/formTutor/1';
         })
-        minus.addEventListener("click", () => {
+        pro.addEventListener('click', () => {
 
-            a--;
-            if (a <= 1) {
-                a = 1;
-            }
-            num.innerText = a;
+            window.location.href = '/user/formTutor/2';
+
         })
+        unlimitedAdvanced.addEventListener('click', () => {
 
+            window.location.href = '/user/formTutor/3';
+
+        })
     </script>
 
 

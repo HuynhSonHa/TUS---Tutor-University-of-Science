@@ -66,6 +66,7 @@ const getFormTutor = (req, res, next) => {
 //fullname, phoneNumber, GPA, GPAfile
 const postFormTutor = async(req, res, next) => {
   let price;
+  console.log('haha')
   if(req.params.page == '1') {price = 199000} 
   else if(req.params.page == '2') {price = 1999000} 
   else if(req.params.page == '3') {price = 3999000};
