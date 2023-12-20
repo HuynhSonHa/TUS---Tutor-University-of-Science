@@ -1,6 +1,7 @@
 const Course = require("../models/Course");
 const User = require("../models/User");
 const Order = require("../models/Order");
+const { validationResult } = require("express-validator");
 const { mutipleMongooseToObject } = require("../util/mongoose");
 
 
@@ -63,6 +64,12 @@ const profile = async (req, res, next) => {
 }
 //[POST] /tutor/profile
 const editProfile = async(req, res, next) => {
+  // Verify user input
+  const result = validationResult(req);
+  if (!result.isEmpty()) {
+      res.status(400).json({ errors: result.array() });
+      return;
+  }
   try {
     User.updateOne({_id: req.user._id}, req.body)
     .then(res.status(200).json({msg: 'Cập nhật thông tin thành công'}))
