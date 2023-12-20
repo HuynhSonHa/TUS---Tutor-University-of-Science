@@ -3,6 +3,7 @@ const Review = require("../models/Review");
 const { mongooseToObject, mutipleMongooseToObject } = require("../util/mongoose");
 const CourseService = require("../services/product");
 const mongoose = require("mongoose");
+const { validationResult } = require("express-validator");
 
 // [GET] /courses?page=*;
 const showAll = async (req, res, next) => {
@@ -85,6 +86,12 @@ const createCourse = (req, res, next) => {
 }
 // [POST] /courses/store
 const store = async(req, res, next) => {
+  // Verify user input
+  const result = validationResult(req);
+  if (!result.isEmpty()) {
+      res.status(400).json({ errors: result.array() });
+      return;
+  }
   //res.json(req.body);
   const checkList = await Course.find({name: req.body.name, tutor: req.user._id});
   if(checkList!=null) {
@@ -112,6 +119,12 @@ const edit = (req, res, next) => {
 
 // [PUT] /courses/:id
 const update = (req, res, next) => {
+  // Verify user input
+  const result = validationResult(req);
+  if (!result.isEmpty()) {
+      res.status(400).json({ errors: result.array() });
+      return;
+  }
   Course.updateOne({ _id: req.params.id }, req.body)
   .then(() => res.status(200).json({success: true, redirectUrl: '/tutor', msg: "Chỉnh sửa khóa học thành công!"}))
   .catch(next);

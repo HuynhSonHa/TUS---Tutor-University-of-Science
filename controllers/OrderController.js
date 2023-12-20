@@ -1,8 +1,15 @@
 const Order = require("../models/Order");
 const mongoose = require("mongoose");
+const { validationResult } = require("express-validator");
 
 // [POST] /order/store/:courseId
 const store = async (req, res, next) => {
+    // Verify user input
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+        res.status(400).json({ errors: result.array() });
+        return;
+    }
     try {
         const formData = req.body;
         formData.courseId = req.params.id;

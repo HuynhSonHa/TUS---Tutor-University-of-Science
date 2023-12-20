@@ -2,9 +2,16 @@ const Review = require("../models/Review");
 const Order = require("../models/Order");
 const Course = require("../models/Course");
 const mongoose = require("mongoose");
+const { validationResult } = require("express-validator");
 
 // [POST] /review/store/:courseId
 const store = async (req, res, next) => {
+    // Verify user input
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+        res.status(400).json({ errors: result.array() });
+        return;
+    }
     try {
         const order = await Order.findOne({courseId: req.params.id, userId: req.user._id});
         if (!order) {

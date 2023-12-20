@@ -1,7 +1,8 @@
 const passport = require('../middlewares/passport');
 const User = require('../models/User');
 const storage = require('../config/multer');
-const { sendMail } = require("./mailAPI")
+const { sendMail } = require("./mailAPI");
+const { validationResult } = require("express-validator");
 
 //[GET] /
 const getHomePage = (req, res, next) => {
@@ -25,6 +26,12 @@ const postSignIn = (req, res, next) => {
   //   failureRedirect: '/signin',
   //   failureFlash: true,
   // })(req, res, next);// Thêm dòng này để gọi hàm authenticate
+  // Verify user input
+  const result = validationResult(req);
+  if (!result.isEmpty()) {
+      res.status(400).json({ errors: result.array() });
+      return;
+  }
   passport.authenticate('local', (err, user, info) => {
     if (err) {
       return next(err);
@@ -57,6 +64,12 @@ const getSignUp = (req, res, next) => {
 
 // [POST] /signup
 const postSignUp = (req, res, next) => {
+  // Verify user input
+  const result = validationResult(req);
+  if (!result.isEmpty()) {
+      res.status(400).json({ errors: result.array() });
+      return;
+  }
  
   if(req.body.password != req.body.passwordConfirmation) {
     return res.status(400).json({ error: 'Confirm Password is not match with Password!' });
@@ -103,6 +116,12 @@ const getForgetPassword = (req, res, next) => {
 
 //[POST] /forget-password
 const postForgetPassword = async(req, res, next) => {
+  // Verify user input
+  const result = validationResult(req);
+  if (!result.isEmpty()) {
+      res.status(400).json({ errors: result.array() });
+      return;
+  }
   try {
     const { email } = req.body;
     console.log(email);
@@ -167,6 +186,12 @@ const getResetPassword = async(req, res, next) => {
 
 //[POST] /reset-password
 const postResetPassword = async(req, res, next) => {
+  // Verify user input
+  const result = validationResult(req);
+  if (!result.isEmpty()) {
+      res.status(400).json({ errors: result.array() });
+      return;
+  }
   try {
     const { password, password2 } = req.body;
 
