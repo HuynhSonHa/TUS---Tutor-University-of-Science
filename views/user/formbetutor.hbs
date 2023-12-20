@@ -14,8 +14,12 @@
 </head>
 
 <body>
+    <%- include('formbetutor') -%>
     <div class="alert alert-success  text-center align-items-center">
         You changed password successly
+    </div>
+    <div class="alert alert-danger  text-center align-items-center">
+        Wrong
     </div>
     <div class="container">
         <div class="main-product row">
@@ -186,7 +190,21 @@
                 const data = await response.json();
 
                 if (data.error) {
-                    alert(data.error);
+                    const alertError = document.querySelector('.alert-danger');
+                    const errorMessages = data.errors.map(error => error.msg).join(', ');
+
+                    // Display or handle the error messages
+                    console.error('Error:', errorMessages);
+                    alertError.innerHTML = `${errorMessages}`
+
+                    alertError.style.opacity = "1";
+                    alertError.style.display = "block";
+                    setTimeout(function () {
+                        alertError.style.opacity = "0";
+                        setTimeout(function () {
+                            alertError.style.display = "none";
+                        }, 500);
+                    }, 3000);
                 } else {
                     // Xử lý phản hồi thành công ở đây
                     const alertReview = $('.alert-success')
