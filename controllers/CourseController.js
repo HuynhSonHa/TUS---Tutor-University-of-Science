@@ -133,7 +133,7 @@ const destroy = (req, res, next) => {
 module.exports = {
   showAll,
   detail,
-  create,
+  createCourse,
   store,
   edit,
   update,

@@ -1,8 +1,10 @@
 const express = require('express');
+const multer = require('multer');
 const router = express.Router();
 const userController = require('../controllers/UserController');
 const {isUser} = require('../middlewares/isAuthenticated');
-
+const storage = require('../config/multer');
+const upload = multer({ storage: storage });
 
 router.get('/stored/courses', isUser, userController.storedCourses);
 router.get('/profile', isUser, userController.profile);

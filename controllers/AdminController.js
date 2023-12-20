@@ -1,5 +1,5 @@
-const { json } = require("body-parser");
-const connection = require("../config/database.js");
+//const { json } = require("body-parser");
+//const connection = require("../config/database.js");
 const mongoose = require("mongoose");
 
 // Model
@@ -12,10 +12,10 @@ const BeTutor = require("../models/BeTutor.js");
 //Service
 const ProductService = require("../services/product.js")
 
-const { use } = require("passport");
-const jwt = require("jsonwebtoken");
+//const { use } = require("passport");
+//const jwt = require("jsonwebtoken");
 const { sendMail } = require("./mailAPI.js");
-const BeTutor = require("../models/BeTutor.js");
+
 
 
 require('dotenv').config();

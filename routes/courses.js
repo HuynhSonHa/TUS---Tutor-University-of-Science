@@ -3,7 +3,7 @@ const router = express.Router();
 const courseController = require('../controllers/CourseController');
 const {isTutor} = require('../middlewares/isAuthenticated');
 
-router.get('/create', isTutor, courseController.create);
+router.get('/create', isTutor, courseController.createCourse);
 router.post('/store', isTutor, courseController.store);
 router.get('/:id/edit', isTutor, courseController.edit);
 router.put('/:id', isTutor, courseController.update);
