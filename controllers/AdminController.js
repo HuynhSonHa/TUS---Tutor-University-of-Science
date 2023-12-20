@@ -156,6 +156,7 @@ const getWaitingListTutor = async (req, res, next) => {
     var nextPage = currentPage + 1; if(nextPage > totalPages) nextPage = totalPages;
     var prevPage = currentPage - 1; if(prevPage < 1) prevPage = 1;
     const tutorList = await BeTutor.find({status: "waiting"}).populate('tutorId').skip(skipAmount).limit(pageSize);
+    console.log(tutorList);
     res.render('admin/waitingTutor', {
         tutorList: mutipleMongooseToObject(tutorList),
         amountTutor: tutorList.length,
@@ -169,7 +170,7 @@ const getWaitingListTutor = async (req, res, next) => {
 const getDetailTutor = async (req, res, next) => {
     const tutor = await BeTutor.find({status: "waiting", _id: req.params.id}).populate('tutorId');
     res.render('admin/detailTutor', {
-        tutor: tutor,
+        tutor: mongooseToObject(tutor),
     })
 }
 //[GET] /admin/accepted/BeTutor._id
