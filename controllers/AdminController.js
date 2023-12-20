@@ -11,6 +11,7 @@ const BeTutor = require("../models/BeTutor.js");
 
 //Service
 const ProductService = require("../services/product.js")
+const { mongooseToObject, mutipleMongooseToObject } = require("../util/mongoose");
 
 //const { use } = require("passport");
 //const jwt = require("jsonwebtoken");
@@ -142,17 +143,31 @@ const getProductList = async (req, res, next) => {
         next(error);
     }
 }
-//[GET] /admin/waitingTutor
+//[GET] /admin/waitingTutor?page=*
 const getWaitingListTutor = async (req, res, next) => {
-    const tutorList = await BeTutor.find({status: "waiting"}).populate('tutorId');
+    const pageSize = 12;
+    const tutorListFull = await BeTutor.find({status: "waiting"}).populate('tutorId');
+    const totalTutor = tutorListFull.length;
+    const totalPages = Math.ceil(totalTutor / pageSize);
+    const pageNumber = parseInt(req.query.page) || 1;
+    const skipAmount = (pageNumber - 1) * pageSize;
+    const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+    const currentPage = Math.max(1, Math.min(totalPages, pageNumber));
+    var nextPage = currentPage + 1; if(nextPage > totalPages) nextPage = totalPages;
+    var prevPage = currentPage - 1; if(prevPage < 1) prevPage = 1;
+    const tutorList = await BeTutor.find({status: "waiting"}).populate('tutorId').skip(skipAmount).limit(pageSize);
     res.render('admin/waitingTutor', {
-        tutorList: tutorList,
+        tutorList: mutipleMongooseToObject(tutorList),
         amountTutor: tutorList.length,
+        pages: pages,
+        prevPage: prevPage,
+        currentPage: currentPage,
+        nextPage: nextPage,
     })
 }
-//[GET] /admin/waitingTutor/tutorId
+//[GET] /admin/waitingTutor/BeTutor._Id
 const getDetailTutor = async (req, res, next) => {
-    const tutor = await BeTutor.find({status: "waiting", tutorId: req.params.id}).populate('tutorId');
+    const tutor = await BeTutor.find({status: "waiting", _id: req.params.id}).populate('tutorId');
     res.render('admin/detailTutor', {
         tutor: tutor,
     })
