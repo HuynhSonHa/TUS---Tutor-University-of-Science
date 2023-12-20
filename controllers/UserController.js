@@ -82,19 +82,16 @@ const postFormTutor = async(req, res, next) => {
     }
 
     // Lưu user vào database
-    User.updateOne({_id: req.user._id}, savedUser) 
-    .then()
-    .catch(res.status(400).json({ error: 'Cập nhật thông tin thất bại' }))
+    await User.updateOne({_id: req.user._id}, savedUser) 
 
     let newTutor;
     newTutor = new BeTutor({
       price: price,
-      userId: req.user._id,
+      tutorId: req.user._id,
       comment: req.body.comment,
     });
-    newTutor.save()
-    .then(res.status(200).json({ success: true, msg: "Đã gửi yêu cầu tới admin!"}))
-    .catch(res.status(400).json({ error: 'Gửi thất bại' }))
+    await newTutor.save()
+    res.status(200).json({ success: true, msg: "Đã gửi yêu cầu tới admin!"})
     
   } catch (error) {
     console.error(error);

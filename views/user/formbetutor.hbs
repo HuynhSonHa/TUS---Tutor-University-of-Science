@@ -152,24 +152,28 @@
         let number = parts[parts.length - 1];
 
         requestToTutor.addEventListener("click", async function (event) {
-            event.preventDefault(); // Prevent the form from submitting automatically
+            event.preventDefault(); // Ngăn chặn hành vi gửi form tự động
+
+            // Tạo đối tượng FormData từ form
+            const formData = new FormData();
+            formData.append('fullname', $('#your-name').value);
+            formData.append('phoneNumber', $('#phone-number').value);
+            formData.append('GPA', $('#gpa').value);
+            formData.append('comment', $('#message').value);
+
+            // Thêm file vào FormData
+            const fileInput = document.querySelector('#file-gpa');
+            if (fileInput.files[0]) {
+                formData.append('GPAfile', fileInput.files[0]);
+            }
+
             const curUrl = new URL(window.location.href);
             let isError = false;
-            // Collect data from the form
-            const formData = {
-                'fullname': $('#your-name').value,
-                'phoneNumber': $('#phone-number').value,
-                'GPA': $('#gpa').value,
-                'GPAfile': $('#file-gpa').value,
-                'comment': $('#message').value,
-            };
-            console.log($('#file-gpa').value)
-            console.log(formData);
-            console.log(`/user/formTutor/${number}`)
+
             try {
                 const response = await fetch(`/user/formTutor/${number}`, {
                     method: 'POST',
-                    body: formData,
+                    body: formData, // Sử dụng FormData thay vì plain object
                 });
 
                 if (!response.ok) {
@@ -181,12 +185,11 @@
                 if (data.error) {
                     alert(data.error);
                 } else {
-                    // Handle successful response here
+                    // Xử lý phản hồi thành công ở đây
                 }
             } catch (error) {
                 console.error('Error:', error.message);
             }
-
         });
 
     </script>
