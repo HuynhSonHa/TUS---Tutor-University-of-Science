@@ -62,19 +62,19 @@
                                 {{#each tutorList}}
                                     <tr onclick="loadDetailUser('<%= accountList.docs[i]._id %>')">
                                         <td>
-                                          {{this.name}}
+                                          {{this.tutorId.fullname}}
                                         </td>
                                         <td>
-                                            {{this.name}}
+                                             {{this.users.name}}
                                         </td>
                                         <td>
-                                             {{this.name}}
+                                              {{this.users.name}}
                                         </td>
                                         <td>
-                                            {{this.name}}
+                                             {{this.users.name}}
                                         </td>
                                         <td>
-                                            {{this.name}}
+                                             {{this.users.name}}
                                         </td>
                                     </tr>
                                     {{/each}}
@@ -160,32 +160,7 @@
             // handle sort accounts
 
             const curUrl = new URL(window.location.href);
-            document.addEventListener('DOMContentLoaded', async function () {
-
-                let totalPages = 10;
-                let currentPage = 1;
-
-
-
-                const urlObjectPath = curUrl.pathname;
-                const pathPaging = "/paging"
-
-                curUrl.pathname = urlObjectPath + pathPaging;
-
-                console.log(curUrl)
-                await fetch(curUrl)
-                    .then((response) => {
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! Status: ${response.status}`);
-                        }
-                        return response.json();
-                    })
-                    .then((data) => {
-
-                        totalPages = data.accountList.totalPages;
-                        return data;
-
-                    })
+           
 
                 // Function to generate pagination HTML
                 function generatePagination() {
