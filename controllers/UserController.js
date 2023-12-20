@@ -78,20 +78,29 @@ const postFormTutor = async(req, res, next) => {
       GPA: req.body.GPA,
     }
     if (req.file) {
-      savedUser.GPAfile = req.file.filename;;
+      savedUser.GPAfile = req.file.filename;
     }
 
     // Lưu user vào database
-    await User.updateOne({_id: req.user._id}, savedUser) 
-
+    try {
+      await User.updateOne({_id: req.user._id}, savedUser);
+    } catch (updateError) {
+      console.error(updateError);
+      return res.status(400).json({ success: false, error: 'Cập nhật thông tin không thành công' });
+    }
     let newTutor;
     newTutor = new BeTutor({
       price: price,
       tutorId: req.user._id,
       comment: req.body.comment,
     });
-    await newTutor.save()
-    res.status(200).json({ success: true, msg: "Đã gửi yêu cầu tới admin!"})
+    try {
+      await newTutor.save();
+    } catch (saveError) {
+      console.error(saveError);
+      return res.status(400).json({ success: false, error: 'Gửi thất bại' });
+    }
+    return res.status(200).json({ success: true, msg: "Đã gửi yêu cầu tới admin!"})
     
   } catch (error) {
     console.error(error);
