@@ -4,7 +4,7 @@ const tutorSchema = new mongoose.Schema({
   price: {
     type: Number,
   },
-  userId: {
+  tutorId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User', // Tham chiếu đến schema người dùng (User)
     required: true
