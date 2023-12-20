@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Account List</title>
-    <link rel="stylesheet" href="\assets\styleViewAccountList.css">
-    <link rel="stylesheet" href="/css/pagination.css">
+    <link rel="stylesheet" href="/assetsViewWaitingTutor/styleViewAccountList.css">
+    <link rel="stylesheet" href="/pagination.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
@@ -15,7 +15,7 @@
 </head>
 
 <body>
-    {{< SideBarAdmin }}
+    {{> SideBarAdmin }}
         <div class="page-view-account-list">
 
             <div class="main--content">
@@ -39,8 +39,8 @@
 
 
                     </div>
-                    <%- include('SortAccount') -%>
-                        <img src="\assets\img.jpg" alt="">
+                   
+                        {{!-- <img src="\assets\img.jpg" alt=""> --}}
                 </div>
                 <div class="list-account-container">
                     <h3 class="main--title">List Account</h3>
@@ -59,25 +59,25 @@
                                 </tr>
                             <tbody id="list-account">
 
-                                <% for(let i=0; i < accountList.docs.length; i++) { %>
+                                {{#each tutorList}}
                                     <tr onclick="loadDetailUser('<%= accountList.docs[i]._id %>')">
                                         <td>
-                                            <%= accountList.docs[i].fullname %>
+                                          {{this.name}}
                                         </td>
                                         <td>
-                                            <%= accountList.docs[i].email %>
+                                            {{this.name}}
                                         </td>
                                         <td>
-                                            <%= accountList.docs[i].phoneNumber %>
+                                             {{this.name}}
                                         </td>
                                         <td>
-                                            <%= accountList.docs[i].country %>
+                                            {{this.name}}
                                         </td>
                                         <td>
-                                            <%= accountList.docs[i].ban %>
+                                            {{this.name}}
                                         </td>
                                     </tr>
-                                    <% } %>
+                                    {{/each}}
 
                             </tbody>
                             <tfoot>
