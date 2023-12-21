@@ -29,8 +29,9 @@ const adminController = require("../controllers/AdminController.js");
 // router.get("/admin/productlist", passport.authenticate('jwt', { session: false }), checkAdmin, adminControllers.getProductList)
 // router.get("/admin/dashboard", passport.authenticate('jwt', { session: false }), checkAdmin, adminControllers.getDashBoard)
 
-router.get("/waitingTutor", adminController.getWaitingListTutor);
 router.get("/waitingTutor/:id", adminController.getDetailTutor);
+router.get("/waitingTutor", adminController.getWaitingListTutor);
+
 router.get("/accepted/:id", adminController.acceptTutor);
 router.get("/denied/:id", adminController.denyTutor);
 module.exports = router;
