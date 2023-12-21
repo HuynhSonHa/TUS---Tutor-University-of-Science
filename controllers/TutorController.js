@@ -78,9 +78,13 @@ const editProfile = async(req, res, next) => {
     res.status(500).json({ success: false, error: 'Internal Server Error' });
   }
 }
-//[GET] /tutor/home
-const getHomePage = (req, res, next) => {
+//[GET] /tutor/tutor-mode
+const getTutorMode = (req, res, next) => {
   res.render('tutormode/tutormode', { user: req.user });
+}
+//[GET] /tutor/
+const getHomePage = (req, res, next) => {
+  res.render('home/tutorhome');
 }
 
 module.exports = {
@@ -88,6 +92,7 @@ module.exports = {
   storedStudents,
   profile,
   editProfile,
+  getTutorMode,
   getHomePage,
   createCourse,
 };
