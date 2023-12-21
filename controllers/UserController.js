@@ -1,20 +1,25 @@
 const Course = require("../models/Course");
 const User = require("../models/User");
 const BeTutor = require("../models/BeTutor");
+const Order = require("../models/Order");
 const { validationResult } = require("express-validator");
-const { mutipleMongooseToObject } = require("../util/mongoose");
+const { mutipleMongooseToObject, mongooseToObject } = require("../util/mongoose");
 
 
-// [GET] /user/stored/courses/id
+// [GET] /user/stored/courses
 const storedCourses = async (req, res, next) => {
-  Course.find({manufacturer: req.params.id})
-  .then((courses) => {
-    res.render("me/stored-courses", {
-      courses: mutipleMongooseToObject(courses),
-    });
-  })
-  .catch(next);
-  //res.render("me/stored-courses");
+  const orders = Order.find({userId: req.user._id}).populate('courseId userId');
+  res.render("user/stored-courses", {
+    orders: mutipleMongooseToObject(orders),
+  });
+}
+
+// [GET] /user/stored/courses/Order._id
+const detailCourses = async (req, res, next) => {
+  const order = Order.findById(req.params.id).populate('courseId userId');
+  res.render("user/stored-courses", {
+    orders: mongooseToObject(order),
+  });
 }
 
 // [GET] /user/profile
@@ -141,6 +146,7 @@ const getHomePage = (req, res, next) => {
 
 module.exports = {
   storedCourses,
+  detailCourses,
   profile,
   editProfile,
   getPremium,

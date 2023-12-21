@@ -27,17 +27,9 @@ const storedStudents = async (req, res, next) => {
         amountOfStudents = orders.length;
     }
     res.render("tutormode/waitingStudent", {
-        orders: orders,
+        orders: mutipleMongooseToObject(orders),
         amountOfStudents: amountOfStudents,
     })
-    // Course.find({manufacturer: req.params.id})
-    // .then((courses) => {
-    //   res.render("me/stored-courses", {
-    //     courses: mutipleMongooseToObject(courses),
-    //   });
-    // })
-    // .catch(next);
-    //res.render("me/stored-courses");
 }
 
 // [GET] /tutor/create
@@ -86,7 +78,43 @@ const getTutorMode = (req, res, next) => {
 const getHomePage = (req, res, next) => {
   res.render('home/tutorhome');
 }
+//[GET] /tutor/waitingStudent/Order._Id
+const getDetailStudent = async (req, res, next) => {
+  const order = await Order.findById(req.params.id).populate('userId courseId');
 
+  res.render('tutormode/detailStudent', {
+    order: mongooseToObject(order),
+  })
+}
+//[GET] /tutor/accepted/Order._id
+const acceptStudent = async(req, res, next) => {
+  try {
+    const order = await Order.findById(req.params.id).populate('userId courseId');
+    if(!order) {
+      return res.status(404).json({error: 'Không tìm thấy thông tin'});
+    }
+    order.status = "Learning";
+    await order.save();
+    return res.status(200).json({ msg: 'Accepted thành công!' });
+  } catch {
+      console.error(error);
+      return res.status(500).json({ error: 'Internal Server Error' });
+  }   
+}
+//[GET] /tutor/denied/Order._id
+const denyStudent = async(req, res, next) => {
+  try {
+    const order = await Order.findById(req.params.id).populate('userId courseId');
+    if(!order) {
+      return res.status(404).json({error: 'Không tìm thấy thông tin'});
+    }
+    await order.deleteOne({_id: req.params.id});
+    return res.status(200).json({ msg: 'Denied thành công!' });
+  } catch {
+      console.error(error);
+      return res.status(500).json({ error: 'Internal Server Error' });
+  }   
+}
 module.exports = {
   storedCourses,
   storedStudents,
@@ -95,4 +123,7 @@ module.exports = {
   getTutorMode,
   getHomePage,
   createCourse,
+  getDetailStudent,
+  acceptStudent,
+  denyStudent,
 };

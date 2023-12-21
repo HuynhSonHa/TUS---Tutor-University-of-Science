@@ -18,32 +18,7 @@ const OrderScheme = new Schema({
         type: Date,
         default: Date.now(),
     }
-    // subTotal: {
-    //     type: Number,
-    //     default: 0
-    // },
-    // discount: {
-    //     type: Number,
-    //     default: 0
-    // },
-    // shipping: {
-    //     type: Number,
-    //     default: 0
-    // },
-    // total: {
-    //     type: Number,
-    //     default: 0
-    // },
-    // phoneNumber: {
-    //     type: String,
-    //     required: [true, "Please provide phonenumber"]
-    // },
-    // fullname: {
-    //     type: String,
-    //     maxLength: 20,
-    //     default: "full name",
-    //     trim: true,
-    // },
+    
 });
 
 

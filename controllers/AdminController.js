@@ -225,8 +225,9 @@ const denyTutor = async(req, res, next) => {
         if(!beTutor) {
             return res.status(404).json({error: 'Không tìm thấy thông tin'});
         }
-        beTutor.status = "denied";
-        await beTutor.save();
+        beTutor.deleteOne({_id: req.params.id});
+        // beTutor.status = "denied";
+        // await beTutor.save();
         return res.status(200).json({ msg: 'Denied thành công!' });
     } catch {
         console.error(error);
