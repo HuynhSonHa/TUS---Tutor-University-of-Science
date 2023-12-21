@@ -2,7 +2,7 @@ const Course = require("../models/Course");
 const User = require("../models/User");
 const Order = require("../models/Order");
 const { validationResult } = require("express-validator");
-const { mutipleMongooseToObject } = require("../util/mongoose");
+const { mutipleMongooseToObject, mongooseToObject } = require("../util/mongoose");
 
 
 // [GET] /tutor/stored/courses
@@ -47,8 +47,9 @@ const profile = async (req, res, next) => {
     if (!user) {
         return res.status(404).json({ success: false, error: 'User not found' });
     }
+    console.log(user)
 
-    res.render('tutormode/editprofile', { user });
+    res.render('tutormode/editprofile', { user: mongooseToObject(user) });
 } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: 'Internal Server Error' });

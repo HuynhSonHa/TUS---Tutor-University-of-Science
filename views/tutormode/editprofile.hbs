@@ -20,17 +20,17 @@
 
     <nav class="navbar">
 
-        <a href="/" class="logo">
+        <a href="/tutor" class="logo">
             <img src="./images/logo-small.svg" alt="">
             <img src="./images/Logo.svg" alt="">
             <div class="links">
-                <a href="/">Home</a>
+                <a href="/tutor">Home</a>
                 <a href="/">About Us</a>
                 <a href="/courses">Tutor</a>
                 <a href="/">News & Blog</a>
                 <a href="/">Contact Us</a>
-                <a href="./tutormode.html" class="btn">Tutor Mode</a>
-                <a href="/login">Login</a>
+                <a href="/tutor/tutor-mode" class="btn">Tutor Mode</a>
+                <a href="/logout">Logout</a>
             </div>
 
             <div id="menu-btn" class="fa fa-bars"></div>
@@ -44,63 +44,66 @@
 <!--body section starts -->
 <section class="home" id="home">
     <div class="content">
-        <h3>
+        <h3 class="wrapper-header">
             <a href=""><i class="ri-arrow-right-s-fill"></i> Edit Profile</a>
             <br>
-            <a>_____________________</a>
+
         </h3>
         <form action="">
             <p>
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" placeholder="Enter your name" check
-                    style="background-color: #40DDB6;" required>
+            <div class="text-field">Name</div>
+            <label for="name"></label>
+            <input type="text" id="name" name="name" check value="{{user.fullname}}" style="background-color: #40DDB6;"
+                required>
+
             </p>
 
             <p>
-                <label for="phone">Phone:</label>
-                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" check
-                    style="background-color: #40DDB6;" required>
+            <div class="text-field">Phone</div>
+            <label for="phone"></label>
+            <input type="tel" id="phone" name="phone" check {{user.phoneNumber}} style="background-color: #40DDB6;"
+                required>
             </p>
 
             <p>
-                <label for="faculty">Faculty:</label>
-                <input type="text" id="faculty" name="faculty" placeholder="Enter your faculty" check
-                    style="background-color: #40DDB6;" required>
+            <div class="text-field">Faculty</div>
+            <label for="faculty"></label>
+            <input type="text" id="faculty" name="faculty" check {{user.faculty}} style="background-color: #40DDB6;"
+                required>
             </p>
 
             <p>
-                <label for="school">School:</label>
-                <input type="text" id="school" name="school" placeholder="Enter your school" check
-                    style="background-color: #40DDB6;" required>
+            <div class="text-field">School</div>
+            <label for="school"></label>
+            <input type="text" id="school" name="school" check {{user.school}} style="background-color: #40DDB6;"
+                required>
             </p>
 
             <p>
-                <label for="student">Student ID:</label>
-                <input type="text" id="student" name="student" placeholder="Enter your student ID" check
-                    style="background-color: #40DDB6;" required>
+            <div class="text-field">Student course</div>
+            <label for="course"></label>
+            <input type="text" id="course" name="course" check {{user.studentCourse}} style="background-color: #40DDB6;"
+                required>
             </p>
 
-            <p>
-                <label for="course">Course:</label>
-                <input type="text" id="course" name="course" placeholder="Enter your course" check
-                    style="background-color: #40DDB6;" required>
-            </p>
+            {{!-- <p>
+            <div class="text-field">GPA</div>
 
-            <p>
-                <label for="gpa">GPA:</label>
-                <input type="text" id="gpa" name="gpa" placeholder="Enter your GPA" check
-                    style="background-color: #40DDB6;" required>
-            </p>
+            <input type="text" id="gpa" name="gpa" check style="background-color: #40DDB6;" {{user.GPA}} required>
+            </p> --}}
 
-            <p>
-                <button class="btn" type="submit">Save your changes</button>
+            <p class="wrapper-btn-submit ">
+                <button class="btn" id="btn-submit" type="submit">Save your changes</button>
             </p>
         </form>
     </div>
     <div class="image">
-        <img src="./images/team-2.png" id="profile-pic">
-        <label class="btn" for="input-file">Update avatar</label>
+
+
+
         <input type="file" accept="image/jpeg, image/png, image/jpg" id="input-file" check style="display: none;">
+        <label class="btn" for="input-file"  id="custom-button"></label>
+        <span id="file-label"> <img src="/images/{{user.avatar}}" id="profile-pic"></span>
     </div>
 
 </section>
@@ -179,4 +182,13 @@
     inputFile.onchange = function () {
         profilePic.src = URL.createObjectURL(inputFile.files[0]);
     }
+
+    // Xử lý sự kiện khi chọn file
+    document.getElementById('file-input').addEventListener('change', function () {
+        // Lấy tên file đã chọn
+        var fileName = this.files[0].name;
+
+        // Hiển thị tên file lên label
+        document.getElementById('file-label').textContent = fileName;
+    });
 </script>

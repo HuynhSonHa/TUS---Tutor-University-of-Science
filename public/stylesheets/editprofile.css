@@ -193,7 +193,7 @@ i.fas.fa-play-circle {
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     gap: 3rem;
-    background-color: #40DDB6;
+    background-color: #DDD;
 }
 
 .home .image {
@@ -436,3 +436,40 @@ label.btn {
         font-size: 3rem;
     }
 }
+
+
+.wrapper-header{
+    padding-bottom: 4rem;
+    border-bottom: 4px solid #000;
+}
+
+.text-field{
+    font-size: 28px;
+}
+
+input{
+    background-color: inherit !important;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #000;
+    width: 100%;
+}
+
+.image input,
+    .image label{
+    display: none;
+}
+
+.image:hover{
+    cursor: pointer;
+}
+
+.wrapper-btn-submit{
+    display: flex;
+    justify-content: center;
+}
+
+#btn-submit{
+    
+}
+
+ 

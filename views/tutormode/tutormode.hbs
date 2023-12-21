@@ -19,17 +19,17 @@
 
     <nav class="navbar">
 
-        <a href="/" class="logo">
+        <a href="/tutor" class="logo">
             <img src="./images/logo-small.svg" alt="">
             <img src="./images/Logo.svg" alt="">
             <div class="links">
-                <a href="/">Home</a>
+                <a href="/tutor">Home</a>
                 <a href="/">About Us</a>
                 <a href="/courses">Tutor</a>
                 <a href="/">News & Blog</a>
                 <a href="/">Contact Us</a>
-                <a href="./tutormode.html" class="btn">Tutor Mode</a>
-                <a href="/login">Login</a>
+                <a href="/tutor/tutor-mode" class="btn">Tutor Mode</a>
+                <a href="/logout">Logout</a>
             </div>
 
             <div id="menu-btn" class="fa fa-bars"></div>
@@ -43,32 +43,28 @@
 <!--body section starts -->
 <section class="home" id="home">
     <div class="content">
-        <h3>
-            <a href="./editprofile.html"><i class="ri-arrow-right-s-fill"></i> Edit Profile</a>
+        <h3 class="wrapper-mode">
+            <a href="/tutor/profile"><i class="ri-arrow-right-s-fill"></i>Edit profile</a>
             <br>
-            <a>________________________</a>
+            {{!-- <a>________________________</a> --}}
         </h3>
-        <h3>
-            <a href="./createcourse.html"><i class="ri-arrow-right-s-fill"></i>Create course</a>
+        <h3 class="wrapper-mode">
+            <a href="/tutor/create"><i class="ri-arrow-right-s-fill"></i>Create course</a>
             <br>
-            <a>________________________</a>
+            {{!-- <a>________________________</a> --}}
         </h3>
-        <h3>
+        <h3 class="wrapper-mode">
             <a href=""><i class="ri-arrow-right-s-fill"></i>Student Waiting List</a>
             <br>
-            <a>________________________</a>
+            {{!-- <a>________________________</a> --}}
         </h3>
-        <h3>
+        <h3 class="wrapper-mode">
             <a href=""><i class="ri-arrow-right-s-fill"></i>View Courses</a>
             <br>
-            <a>________________________</a>
+            {{!-- <a>________________________</a> --}}
         </h3>
-        <!-- <h3>
-                <a href=""><i class="ri-arrow-right-s-fill"></i>Term & Conditions</a>
-                <br>
-                <a>________________________</a>
-            </h3> -->
-        <h3>
+      
+        <h3 class="wrapper-log-out">
             <a href="#" class="btn">Log out</a>
         </h3>
 
