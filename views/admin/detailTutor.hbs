@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,12 +9,22 @@
     <link rel="stylesheet" href="\assets\styleViewAccountList.css">
     <link rel="stylesheet" href="/assetsViewDetailForm/styleViewDetailAccount.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
+
 <body>
-     {{> SideBarAdmin }}
+    <div class="alert alert-success  text-center align-items-center">
+
+    </div>
+    <div class="alert alert-danger  text-center align-items-center">
+
+    </div>
+    {{> SideBarAdmin }}
+
     <div class="page-view-detail-account">
         <div class="main--content">
             <div class="header--wrapper">
@@ -37,45 +48,41 @@
                 <h3 class="main--title">User information</h3>
                 <div class="profile-account">
                     <div class="img-account">
-                        <img class="img-detail" src="/images/{{tutor.avatar}}" alt="">
+                        <img class="img-detail" src="/images/{{tutor.tutorId.avatar}}" alt="">
                     </div>
                     <div class="information-account">
                         <div class="name-account">name: {{tutor.tutorId.username}}</div>
                         <div class="email-account">
                             <i class="fa-solid fa-envelope"></i>
-                            <span>{{tutor}}</span>
+                            <span>{{tutor.tutorId.email}}</span>
                         </div>
                         <div class="phone-account">
-                            <i class="fa-solid fa-phone"></i>
+                            <i class="fa-solid fa-money-check-dollar"></i>
                             <span>{{tutor.price}}</span>
                         </div>
                         <div class="address-account">
-                            <i class="fa-solid fa-location-dot"></i>
-                            <span>{{tutor.school}}</span>
+                            <i class="fa-solid fa-graduation-cap"></i>
+                            <span>{{tutor.tutorId.school}}</span>
                         </div>
 
 
 
                     </div>
                     <div class="information-expenditure-account">
-                        <div class="rank-account golden">Rank: golden</div>
-                        <div class="money-account">
-                            <i class="fa-solid fa-money-check-dollar"></i>
-                            <span>500.00$</span>
-                        </div>
+
                         <div class="voucher-account">
-                            <i class="fa-solid fa-ticket"></i>
-                            <span>23 vouchers</span>
+
+                            <span>GPA: {{tutor.tutorId.GPA}}</span>
                         </div>
                         <div class="favourite-account">
-                            <i class="fa-regular fa-heart"></i>
-                            <span>34 favourite items</span>
+                            <i class="bi bi-chat"></i>
+                            <span>comment: {{tutor.comment}}</span>
                         </div>
 
                     </div>
                     <div class="wrapper-control-access-account">
-                        <button class="ban-account">Accept to tutor </button>
-                        <button class="unban-account">Deny to tutor</button>
+                        <button class="ban-account" id="deny-tutor">Deny to tutor </button>
+                        <button class="unban-account" id="accept-tutor">Accept to tutor</button>
                     </div>
                 </div>
 
@@ -83,40 +90,99 @@
             </div>
             <div class="wrapper-activities-expenditure-account">
                 <div class="expenditure-account-container">
-                    <h3 class="main--title">Expenditure User</h3>
+                    <h3 class="main--title">Image GPA</h3>
 
 
-                    <div class="graph-box">
-
-                        <div class="chart-categories-account">
-                            <div id="user_chart"></div>
-                        </div>
-
-                    </div>
+                    <img src="/images/{{tutor.tutorId.GPAfile}}" alt="">
 
                 </div>
-                <div class="activities-month-account-container">
-                    <h3 class="main--title">Activities</h3>
-                    <div class="wrapper-activities-account">
-                        <div class="cart-shopping-account">
-                            <i class="fa-solid fa-cart-shopping icon"></i>
-                            <div class="num-order-account">5 orders</div>
-                        </div>
-    
-    
-                        <div class="visit-shopping-account">
-                            <i class="fa-regular fa-eye icon"></i>
-                            <div class="num-visit-account">34 visits</div>
-                        </div>
-    
-                    </div>
-    
-    
-                </div>
+
+
             </div>
-            
-        </div>
 
-    </div>
+        </div>
 </body>
+<script>
+    const $ = document.querySelector.bind(document)
+    const $$ = document.querySelectorAll.bind(document)
+    const acceptTutor = $('#accept-tutor');
+    const denyTutor = $('#deny-tutor');
+
+    let currentUrl = new URL(window.location.href);
+    var parts = currentUrl.pathname.split('/')
+    var id = parts[parts.length - 1];
+
+
+    acceptTutor.addEventListener('click', function () {
+        const apiUrl = `/admin/accepted/${id}`;
+        fetch(apiUrl, {
+            method: 'GET', // Use the GET method
+            headers: {
+                'Content-Type': 'application/json',
+                // Add any other headers if needed, such as authentication headers
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    console.log(response);
+                    throw new Error(`Network response was not ok: ${response.statusText}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Handle the successful response from the server
+                const alertSuccess = document.querySelector('.alert-success');
+                alertSuccess.innerHTML = `${data.msg}`
+
+                alertSuccess.style.opacity = "1";
+                alertSuccess.style.display = "block";
+                setTimeout(function () {
+                    alertSuccess.style.opacity = "0";
+                    setTimeout(function () {
+                        alertSuccess.style.display = "none";
+                    }, 500);
+                }, 3000);
+            })
+            .catch(error => {
+                // Handle errors during the fetch
+                console.error('Fetch error:', error);
+            });
+    });
+    denyTutor.addEventListener('click', function () {
+        const apiUrl = `/admin/denied/${id}`;
+        fetch(apiUrl, {
+            method: 'GET', // Use the GET method
+            headers: {
+                'Content-Type': 'application/json',
+                // Add any other headers if needed, such as authentication headers
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    console.log(response);
+                    throw new Error(`Network response was not ok: ${response.statusText}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Handle the successful response from the server
+                const alertSuccess = document.querySelector('.alert-success');
+                alertSuccess.innerHTML = `${data.msg}`
+
+                alertSuccess.style.opacity = "1";
+                alertSuccess.style.display = "block";
+                setTimeout(function () {
+                    alertSuccess.style.opacity = "0";
+                    setTimeout(function () {
+                        alertSuccess.style.display = "none";
+                    }, 500);
+                }, 3000);
+            })
+            .catch(error => {
+                // Handle errors during the fetch
+                console.error('Fetch error:', error);
+            });
+    });
+</script>
+
 </html>

@@ -12,11 +12,11 @@
     padding: 2rem;
     border-radius: 10px;
 }
-.activities-month-account-container,
+
 .expenditure-account-container{
  
    margin: 1rem 0;
-    width: 50%;
+    width: 100%;
 }
 
 .activities-month-account-container{
