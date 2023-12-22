@@ -1,8 +1,15 @@
-<style>@import url(/stylesheets/createcourse.css);</style>
+<style>
+    @import url(/stylesheets/createcourse.css);
+</style>
 <!-- header section starts  -->
 
 <header class="header">
+    <div class="alert alert-success  text-center align-items-center">
 
+    </div>
+    <div class="alert alert-danger  text-center align-items-center">
+
+    </div>
     <div class="contact-info">
         <p> <i class="fas fa-map-marker-alt"></i>227 Nguyễn Văn Cừ, District 5, HCMC</p>
         <p> <i class="fas fa-envelope"></i>lynhathao.it@gmail.com</p>
@@ -48,58 +55,48 @@
             <a>_____________________</a>
         </h3>
         <form action="">
-            <p>
+            <p class="wrapper-input">
                 <label for="subject">Course Name:</label>
-                <select name="subject" id="subject" check style="background-color: #40DDB6;">
-                    <option value="none">None</option>
-                    <option value="nhập môn công nghệ phần mềm">Nhập môn công nghệ phần mềm</option>
-                    <option value="cơ sở trí tuệ nhân tạo">Cơ sở trí tuệ nhân tạo</option>
-                    <option value="hệ điều hành">Hệ điều hành</option>
-                    <option value="mạng máy tính">Mạng máy tính</option>
-                </select>
+                <input type="" id="subject" name="subject" placeholder="Enter your course" check required>
             </p>
 
-            <p>
+            <p class="wrapper-input">
                 <label for="schedule">Schedule:</label>
-                <input type="" id="phone" name="phone" placeholder="Enter your schedule" check
-                    style="background-color: #40DDB6;" required>
+                <input type="" id="schedule" name="schedule" placeholder="Enter your schedule" check required>
             </p>
 
-            <p>
+            <p class="wrapper-input">
                 <label for="faculty">Faculty:</label>
-                <select name="faculty" id="faculty" check style="background-color: #40DDB6;">
+                <select name="faculty" id="faculty" check>
                     <option value="none">None</option>
                     <option value="information technology">Information Technology</option>
                     <option value="math">Math</option>
                 </select>
             </p>
 
-            <p>
+            <p class="wrapper-input">
                 <label for="school">School:</label>
-                <input type="text" id="school" name="school" placeholder="Enter your school" check
-                    style="background-color: #40DDB6;" required>
+                <input type="text" id="school" name="school" placeholder="Enter your school" check required>
             </p>
 
-            <p>
-                <label for="studentcourse">Student Course:</label>
-                <input type="text" id="student" name="student" placeholder="Enter your student course" check
-                    style="background-color: #40DDB6;" required>
-            </p>
-
-
-            <p>
+            <p class="wrapper-input">
                 <label for="price">Price:</label>
-                <input type="text" id="price" name="price" placeholder="Enter your price/ Week" check
-                    style="background-color: #40DDB6;" required>
+                <input type="text" id="price" name="price" placeholder="Enter your price/ Week" check required>
             </p>
 
-            <p>
-                <button class="btn" type="submit">Create Course</button>
+            <p class="wrapper-input">
+                <label for="description">Description:</label>
+                <input type="text" id="description" name="description" placeholder="Enter your description about course"
+                    check required>
+            </p>
+
+            <p class="wrapper-input">
+                <button class="btn" id="btn-submit" type="submit">Create Course</button>
             </p>
         </form>
     </div>
     <div class="image">
-        <img src="./images/team-2.png">
+        <img src="/images/{{user.avatar}}">
     </div>
 
 </section>
@@ -154,6 +151,9 @@
 <!-- footer section ends -->
 
 <script>
+
+    const $ = document.querySelector.bind(document)
+    const $$ = document.querySelectorAll.bind(document)
     let menu = document.querySelector('#menu-btn');
     let navbarLinks = document.querySelector('.header .navbar .links');
 
@@ -173,4 +173,70 @@
         }
     }
 
+    const submit = $('#btn-submit');
+    console.log(submit)
+    submit.addEventListener('click', function () {
+        event.preventDefault();
+
+        const curUrl = new URL(window.location.href);
+        let isError = false;
+
+       
+
+      
+        const formData = {
+            'name': $('#subject').value,
+            'schedule': $('#schedule').value,
+            'faculty': $('#faculty').value,
+            'school': $('#school').value,
+            'price': $('#price').value,
+            'description': $('#description').value,
+
+        };
+
+
+
+        console.log(formData);
+        console.log($('#price').value);
+
+        fetch('/tutor/createNewCourse', {
+            method: 'POST',
+            body: JSON.stringify(formData),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        }).then(response => {
+            if (!response.ok) {
+                isError = true;
+                // Handle errors here, e.g., display an error message
+
+            }
+            // If signup was successful, redirect to the signin page
+            return response.json();
+        })
+            .then(data => {
+                if (isError == true) {
+                    alert(data.error)
+                } else {
+                    // Redirect to the signin page (adjust the URL as needed)
+
+                    const alertReview = $('.alert-success')
+                    alertReview.innerHTML = `${data.msg}`
+                    alertReview.style.opacity = "1";
+                    alertReview.style.display = "block"
+                    console.log(alertReview)
+                    setTimeout(function () {
+                        alertReview.style.opacity = "0";
+                        setTimeout(function () {
+                            alertReview.style.display = "none";
+                        }, 500);
+                    }, 3000);
+                }
+
+            })
+            .catch(error => {
+                // Handle other errors here
+                console.error('Error:', error);
+            });
+    });
 </script>

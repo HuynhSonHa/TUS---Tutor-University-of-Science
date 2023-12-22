@@ -47,7 +47,7 @@ const CourseScheme = new Schema({
     },
     status: {
         type: String,
-        required: [true, `Please provide status`],
+        
         default: "Available"
     },
     faculty: {
@@ -72,6 +72,7 @@ const CourseScheme = new Schema({
     ],
 
 });
+
 
 
 module.exports = mongoose.model('Course', CourseScheme);

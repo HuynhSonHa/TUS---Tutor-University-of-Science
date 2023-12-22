@@ -205,12 +205,12 @@
         const formData = new FormData();
 
         // Thêm các trường dữ liệu vào formData
-        formData.append('fullname', $('#name').val());
-        formData.append('phoneNumber', $('#phone').val());
-        formData.append('faculty', $('#faculty').val());
-        formData.append('school', $('#school').val());
-        formData.append('studentCourse', $('#course').val());
-        formData.append('avatar', inputFile.files[0], inputFile.files[0]);
+        formData.append('fullname', $('#name').value);
+        formData.append('phoneNumber', $('#phone').value);
+        formData.append('faculty', $('#faculty').value);
+        formData.append('school', $('#school').value);
+        formData.append('studentCourse', $('#course').value);
+        formData.append('avatar', inputFile.files[0]);
 
         
 

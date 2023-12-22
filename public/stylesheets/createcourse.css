@@ -193,7 +193,7 @@ i.fas.fa-play-circle {
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     gap: 3rem;
-    background-color: #40DDB6;
+    background-color: #ddd;
 }
 
 .home .image {
@@ -239,11 +239,12 @@ form p input {
     width: 100%;
     height: 100%;
     outline: 0;
-    padding: 0 30px;
+ 
     line-height: 40px;
     border-width: 0 0 2px;
     border-style: solid;
     border-color: var(--light-color);
+    background-color: inherit;
 }
 
 input {
@@ -263,10 +264,11 @@ form p select {
     width: 100%;
     height: 100%;
     outline: 0;
-    padding: 0 30px;
+   
     border-width: 0 0 2px;
     border-style: solid;
     border-color: var(--light-color);
+    background-color: inherit;
 }
 
 
@@ -445,4 +447,12 @@ form p select {
     .heading {
         font-size: 3rem;
     }
+}
+
+.wrapper-input{
+    padding-bottom: 1rem;
+}
+.wrapper-input input,
+.wrapper-input select{
+    padding-bottom: 1rem;
 }
