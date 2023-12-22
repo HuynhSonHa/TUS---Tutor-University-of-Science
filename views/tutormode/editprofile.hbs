@@ -3,6 +3,14 @@
 </style>
 <!-- header section starts  -->
 
+<div class="alert alert-success  text-center align-items-center">
+
+</div>
+<div class="alert alert-danger  text-center align-items-center">
+
+</div>
+
+
 <header class="header">
 
     <div class="contact-info">
@@ -53,7 +61,7 @@
             <p>
             <div class="text-field">Name</div>
             <label for="name"></label>
-            <input type="text" id="name" name="name" check value="{{user.fullname}}" style="background-color: #40DDB6;"
+            <input type="text" id="name" name="name"  value="{{user.fullname}}" style="background-color: #40DDB6;"
                 required>
 
             </p>
@@ -61,36 +69,31 @@
             <p>
             <div class="text-field">Phone</div>
             <label for="phone"></label>
-            <input type="tel" id="phone" name="phone" check {{user.phoneNumber}} style="background-color: #40DDB6;"
+            <input type="tel" id="phone" name="phone" value="{{user.phoneNumber}}" style="background-color: #40DDB6;"
                 required>
             </p>
 
             <p>
             <div class="text-field">Faculty</div>
             <label for="faculty"></label>
-            <input type="text" id="faculty" name="faculty" check {{user.faculty}} style="background-color: #40DDB6;"
+            <input type="text" id="faculty" name="faculty"  value="{{user.faculty}}" style="background-color: #40DDB6;"
                 required>
             </p>
 
             <p>
             <div class="text-field">School</div>
             <label for="school"></label>
-            <input type="text" id="school" name="school" check {{user.school}} style="background-color: #40DDB6;"
+            <input type="text" id="school" name="school"  value="{{user.school}}" style="background-color: #40DDB6;"
                 required>
             </p>
 
             <p>
             <div class="text-field">Student course</div>
             <label for="course"></label>
-            <input type="text" id="course" name="course" check {{user.studentCourse}} style="background-color: #40DDB6;"
+            <input type="text" id="course" name="course"  value="{{user.studentCourse}}" style="background-color: #40DDB6;"
                 required>
             </p>
 
-            {{!-- <p>
-            <div class="text-field">GPA</div>
-
-            <input type="text" id="gpa" name="gpa" check style="background-color: #40DDB6;" {{user.GPA}} required>
-            </p> --}}
 
             <p class="wrapper-btn-submit ">
                 <button class="btn" id="btn-submit" type="submit">Save your changes</button>
@@ -102,8 +105,9 @@
 
 
         <input type="file" accept="image/jpeg, image/png, image/jpg" id="input-file" check style="display: none;">
-        <label class="btn" for="input-file"  id="custom-button"></label>
+
         <span id="file-label"> <img src="/images/{{user.avatar}}" id="profile-pic"></span>
+        <label class="btn" for="input-file" id="custom-button">choose new avatar</label>
     </div>
 
 </section>
@@ -157,6 +161,9 @@
 <!-- footer section ends -->
 
 <script>
+    const $ = document.querySelector.bind(document)
+    const $$ = document.querySelectorAll.bind(document)
+
     let menu = document.querySelector('#menu-btn');
     let navbarLinks = document.querySelector('.header .navbar .links');
 
@@ -180,15 +187,73 @@
     let inputFile = document.getElementById("input-file");
 
     inputFile.onchange = function () {
+
         profilePic.src = URL.createObjectURL(inputFile.files[0]);
     }
 
-    // Xử lý sự kiện khi chọn file
-    document.getElementById('file-input').addEventListener('change', function () {
-        // Lấy tên file đã chọn
-        var fileName = this.files[0].name;
 
-        // Hiển thị tên file lên label
-        document.getElementById('file-label').textContent = fileName;
+
+
+    // handle submit edit profile
+    const submit = $('#btn-submit');
+    submit.addEventListener('click', function () {
+        event.preventDefault();
+
+        const curUrl = new URL(window.location.href);
+        let isError = false;
+
+        const formData = new FormData();
+
+        // Thêm các trường dữ liệu vào formData
+        formData.append('fullname', $('#name').val());
+        formData.append('phoneNumber', $('#phone').val());
+        formData.append('faculty', $('#faculty').val());
+        formData.append('school', $('#school').val());
+        formData.append('studentCourse', $('#course').val());
+        formData.append('avatar', inputFile.files[0], inputFile.files[0]);
+
+        
+
+        console.log(formData);
+
+        fetch('/tutor/profile', {
+            method: 'POST',
+            body: JSON.stringify(formData),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        }).then(response => {
+            if (!response.ok) {
+                isError = true;
+                // Handle errors here, e.g., display an error message
+
+            }
+            // If signup was successful, redirect to the signin page
+            return response.json();
+        })
+            .then(data => {
+                if (isError == true) {
+                    alert(data.error)
+                } else {
+                    // Redirect to the signin page (adjust the URL as needed)
+                    const alertReview = $('.alert-success')
+                    alertReview.innerHTML = `${data.msg}`
+                    alertReview.style.opacity = "1";
+                    alertReview.style.display = "block"
+                    console.log(alertReview)
+                    setTimeout(function () {
+                        alertReview.style.opacity = "0";
+                        setTimeout(function () {
+                            alertReview.style.display = "none";
+                        }, 500);
+                    }, 3000);
+                }
+
+            })
+            .catch(error => {
+                // Handle other errors here
+                console.error('Error:', error);
+            });
     });
+
 </script>
