@@ -5,9 +5,12 @@ const {isTutor} = require('../middlewares/isAuthenticated');
 
 router.get('/create', isTutor, courseController.createCourse);
 router.post('/store', isTutor, courseController.store);
-router.get('/:id/edit', isTutor, courseController.edit);
-router.put('/:id', isTutor, courseController.update);
+
+router.get('/edit/:id', isTutor, courseController.edit);
+router.get('/clone/:id', courseController.clone);
+router.put('/:id', isTutor, courseController.update)
 router.delete('/:id', isTutor, courseController.destroy);
+
 router.get('/:id', courseController.detail);
 router.get('/', courseController.showAll);
 
