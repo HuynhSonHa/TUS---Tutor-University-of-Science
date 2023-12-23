@@ -8,7 +8,7 @@ const { mutipleMongooseToObject, mongooseToObject } = require("../util/mongoose"
 
 // [GET] /user/stored/courses
 const storedCourses = async (req, res, next) => {
-  const orders = Order.find({userId: req.user._id}).populate('courseId userId');
+  const orders = Order.find({ userId: req.user._id }).populate('courseId userId');
   res.render("user/stored-courses", {
     orders: mutipleMongooseToObject(orders),
   });
@@ -31,30 +31,30 @@ const profile = async (req, res, next) => {
     const user = await User.findById(userId).populate('avatar');
 
     if (!user) {
-        return res.status(404).json({ success: false, error: 'User not found' });
+      return res.status(404).json({ success: false, error: 'User not found' });
     }
 
     res.render('tutormode/editprofile', { user });
-} catch (error) {
+  } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: 'Internal Server Error' });
-}
+  }
 }
 //[POST] /tutor/profile
-const editProfile = async(req, res, next) => {
+const editProfile = async (req, res, next) => {
   // Verify user input
   const result = validationResult(req);
   if (!result.isEmpty()) {
-      res.status(400).json({ errors: result.array() });
-      return;
+    res.status(400).json({ errors: result.array() });
+    return;
   }
   try {
     if (req.file) {
       req.body.avatar = req.file.filename;
     }
-    User.updateOne({_id: req.user._id}, req.body)
-    .then(res.status(200).json({msg: 'Cập nhật thông tin thành công'}))
-  } catch(error) {
+    User.updateOne({ _id: req.user._id }, req.body)
+      .then(res.status(200).json({ msg: 'Cập nhật thông tin thành công' }))
+  } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: 'Internal Server Error' });
   }
@@ -67,31 +67,31 @@ const getPremium = (req, res, next) => {
 // [GET] /user/formTutor/123
 const getFormTutor = (req, res, next) => {
   let price;
-  if(req.params.page == '1') {price = 199000} 
-  else if(req.params.page == '2') {price = 1999000} 
-  else if(req.params.page == '3') {price = 3999000};
+  if (req.params.page == '1') { price = 199000 }
+  else if (req.params.page == '2') { price = 1999000 }
+  else if (req.params.page == '3') { price = 3999000 };
 
-  res.render('user/formbetutor', { 
+  res.render('user/formbetutor', {
     user: req.user,
-    price: price, 
+    price: price,
     page: req.params.page,
   });
 }
 // [POST] /user/formTutor/123
 //fullname, phoneNumber, GPA, GPAfile
-const postFormTutor = async(req, res, next) => {
+const postFormTutor = async (req, res, next) => {
   // Verify user input
   const result = validationResult(req);
   if (!result.isEmpty()) {
-      res.status(400).json({ errors: result.array() });
-      return;
+    res.status(400).json({ errors: result.array() });
+    return;
   }
 
   let price;
-  console.log('haha')
-  if(req.params.page == '1') {price = 199000} 
-  else if(req.params.page == '2') {price = 1999000} 
-  else if(req.params.page == '3') {price = 3999000};
+
+  if (req.params.page == '1') { price = 199000 }
+  else if (req.params.page == '2') { price = 1999000 }
+  else if (req.params.page == '3') { price = 3999000 };
   try {
     const { fullname, phoneNumber, GPA, comment } = req.body;
     var savedUser = {
@@ -105,7 +105,7 @@ const postFormTutor = async(req, res, next) => {
 
     // Lưu user vào database
     try {
-      await User.updateOne({_id: req.user._id}, savedUser);
+      await User.updateOne({ _id: req.user._id }, savedUser);
     } catch (updateError) {
       console.error(updateError);
       return res.status(400).json({ success: false, error: 'Cập nhật thông tin không thành công' });
@@ -122,24 +122,29 @@ const postFormTutor = async(req, res, next) => {
       console.error(saveError);
       return res.status(400).json({ success: false, error: 'Gửi thất bại' });
     }
-    return res.status(200).json({ success: true, msg: "Đã gửi yêu cầu tới admin!"})
-    
+    return res.status(200).json({ success: true, msg: "Đã gửi yêu cầu tới admin!" })
+
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: 'Internal Server Error' });
   }
 }
-// [GET] /user/formTutor/courseId
-const getContact = async(req, res, next) => {
-  const course = await Course.findById(req.params.id).populate('tutor');
-    if (!course) {
-      return res.status(404).render("404"); // Handle the case where the product is not found
-    }
+// [GET] /user/contact/courseId
+const getContact = async (req, res, next) => {
 
-  res.render('user/contacttutor', { 
-    user: req.user,
-    course: course,
-  });
+  const course = await Course.findById(req.params.id).populate('tutor');
+  console.log(course)
+  if (!course) {
+    return res.status(404).render("404"); // Handle the case where the product is not found
+  }
+ 
+  return res.status(200).json({ success: true, msg: `/user/contactToTutor/${req.params.id}` })
+  //return res.status(200).json({ success: true, msg: `/user/contacttutor` })
+}
+
+
+const getContactToTutor = (req, res, next) => {
+  res.render('user/contactToTutor', { user: req.user });
 }
 
 //[GET] /user/home
@@ -157,4 +162,5 @@ module.exports = {
   postFormTutor,
   getContact,
   getHomePage,
+  getContactToTutor,
 };

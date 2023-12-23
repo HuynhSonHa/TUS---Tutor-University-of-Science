@@ -23,7 +23,9 @@ const storedCourses = async (req, res, next) => {
 
 // [GET] /tutor/stored/waiting-list
 const storedStudents = async (req, res, next) => {
-  const orders = await Order.find({ 'courseId.tutor': req.user._id }).populate('userId courseId');
+  const orders = await Order.find({ 'courseId.tutor': req.user._id ,status: "waiting"}).populate('userId courseId');
+  const userId = req.user._id;
+  const user = await User.findById(userId).populate('avatar');
   let amountOfStudents;
   if (orders === null || orders.length === 0) {
     amountOfStudents = 0;
@@ -33,6 +35,7 @@ const storedStudents = async (req, res, next) => {
   res.render("tutormode/studentWaittingList", {
     orders: mutipleMongooseToObject(orders),
     amountOfStudents: amountOfStudents,
+    user: mongooseToObject(user) ,
   })
 }
 

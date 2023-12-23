@@ -15,6 +15,7 @@ router.get('/premium', isUser, userController.getPremium);
 router.get('/formTutor/:page', isUser, userController.getFormTutor);
 router.post('/formTutor/:page', isUser, upload.single('GPAfile'), userController.postFormTutor);
 router.get('/contact/:id', isUser, userController.getContact);
+router.get('/contactToTutor/:id', isUser, userController.getContactToTutor);
 
 router.get('/', isUser, userController.getHomePage);
 

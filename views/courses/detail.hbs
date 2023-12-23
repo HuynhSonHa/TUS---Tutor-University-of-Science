@@ -71,16 +71,12 @@
                     </ul>
                 </div>
 
-                <button class="btn-contact">Contact</button>
-
-
-
-
+                <button class="btn-contact" id="btn-contact">Contact</button>
 
             </div>
             <div class="wrapper-discription ">
                 <!-- handled description: none -->
-                <div class="row description">
+                {{!-- <div class="row description">
                     <div class="col-6">
                         <div class="text-header">Description</div>
                         <div class="text-content">Keep your home organized, yet elegant with storage cabinets by
@@ -106,9 +102,9 @@
                             <li>Mauris in nisl scelerisque massa consectetur pretium sed et mauris.</li>
                         </ul>
                     </div>
-                </div>
+                </div> --}}
 
-                <div class="row features">
+                {{!-- <div class="row features">
                     <div class="col-3 feature">
 
                         <img loading="lazy" decoding="async" class="alignnone size-full wp-image-1903"
@@ -154,7 +150,7 @@
                             Use on walls, furniture, doors and many more surfaces. The possibilities are endless.
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
             </div>
 
@@ -175,9 +171,7 @@
 
                                     <div class="star-1"></div>
                                 </div>
-                                <div class="num-ratings">
-                                    (2 Ratings)
-                                </div>
+
 
                             </div>
                         </div>
@@ -201,8 +195,6 @@
 
                                                 <div class="star-1"></div>
                                             </div>
-
-
                                         </div>
                                     </div>
 
@@ -214,35 +206,6 @@
                                 </div>
                             </li>
                             {{/each}}
-                            {{!-- <li class="user-review">
-                                <img alt=""
-                                    src="https://secure.gravatar.com/avatar/b992087ca24c735ade838a3cf92d0d29?s=100&amp;d=mm&amp;r=g"
-                                    srcset="https://secure.gravatar.com/avatar/b992087ca24c735ade838a3cf92d0d29?s=200&amp;d=mm&amp;r=g 2x"
-                                    class="avatar avatar-100 photo" height="100" width="100" loading="lazy"
-                                    decoding="async">
-                                <div class="detail-review-user">
-                                    <div class="score-rating-user">
-                                        <div class="num-review">
-                                            <div class="rating">
-                                                <div class="star-5"></div>
-                                                <div class="star-4"></div>
-                                                <div class="star-3"></div>
-                                                <div class="star-2"></div>
-                                                <div class="star-1"></div>
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-
-                                    <div class="name-user">Tony Nguyen</div>
-                                    <div class="time-review"> 11/03/2023</div>
-                                    <div class="content-user-review">
-                                        The fashion brand’s online shopping experience is seamless. The website is
-                                        user-friendly, the product images are clear, and the checkout process is quick.
-                                    </div>
-                                </div>
-                            </li> --}}
                         </ul>
                     </div>
                 </div>
@@ -345,9 +308,6 @@
             }
             const submitButton = $("#submit-review");
 
-
-
-
             submitButton.addEventListener("click", async function (event) {
 
                 event.preventDefault();
@@ -376,7 +336,7 @@
                         if (!response.ok) {
                             isError = true;
                         }
-                        return response.json(); // Hoặc response.text() tùy thuộc vào định dạng dữ liệu bạn mong đợi từ server
+                        return response.json();
                     })
                     .then(data => {
                         console.log(data)
@@ -388,8 +348,6 @@
 
                             window.location.href = curUrl.toString();
                         }
-
-
                     })
                     .catch(error => {
                         console.error('There has been a problem with your fetch operation:', error);
@@ -398,30 +356,40 @@
             });
 
 
+            // handle contact to Tutor
+            const contactButton = $("#btn-contact");
 
-            // xử lý ảnh
-            containerImage.addEventListener('mousemove', (e) => {
-                const x = e.clientX - e.target.offsetLeft;
-                const y = e.clientY - e.target.offsetTop;
-                mainImage.style.transformOrigin = `${x}px ${y}px`;
-                mainImage.style.transform = "scale(1.1)"
-            })
+            contactButton.addEventListener("click", async function (event) {
+                event.preventDefault();
+                let isError = false;
+                const curUrl = window.location.href;
+                const parts = curUrl.split('/');
+                const lastPart = parts[parts.length - 1];
+                console.log(`/user/formTutor/${lastPart}`);
+                fetch(`/user/contact/${lastPart}`, {
+                    method: 'GET',
+                 
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            isError = true;
+                            console.log(response)
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log(data);
 
-            containerImage.addEventListener('mouseleave', () => {
-
-                mainImage.style.transformOrigin = "center";
-                mainImage.style.transform = "scale(1)"
-            })
-
-
-
-
-
-
-
-
-
-
+                        if (isError) {
+                            alert(data.error);
+                        } else {
+                            window.location.href = data.msg.toString()
+                        }
+                    })
+                    .catch(error => {
+                        console.error('There has been a problem with your fetch operation:', error);
+                    });
+            });
 
 
         </script>

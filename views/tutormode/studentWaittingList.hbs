@@ -62,6 +62,7 @@
                             <div class="product-list has-bg">
                                 <div class="table-content">
                                     <ul>
+                                        {{#each courses}}
                                         <li class="dotgrid">
                                             <div class="grouping wrapper">
                                                 <div class="thumbnail ob-cover">
@@ -83,7 +84,7 @@
                                                 </div>
                                             </div>
                                         </li>
-
+                                        {{/each}}
                                     </ul>
                                 </div>
 
@@ -97,7 +98,7 @@
     </div>
 
     <div class="image">
-        <img src="./images/team-2.png" id="profile-pic">
+        <img src="/images/{{user.avatar}}" id="profile-pic">
     </div>
 
 </section>
