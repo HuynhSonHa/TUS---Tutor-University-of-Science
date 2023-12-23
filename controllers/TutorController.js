@@ -3,6 +3,7 @@ const User = require("../models/User");
 const Order = require("../models/Order");
 const { validationResult } = require("express-validator");
 const { mutipleMongooseToObject, mongooseToObject } = require("../util/mongoose");
+const BeTutor = require("../models/BeTutor");
 
 
 // [GET] /tutor/stored/courses
@@ -97,8 +98,21 @@ const editProfile = async (req, res, next) => {
   }
 }
 //[GET] /tutor/tutor-mode
-const getTutorMode = (req, res, next) => {
-  res.render('tutormode/tutormode', { user: req.user });
+const getTutorMode = async(req, res, next) => {
+  var leftDay=Number.MAX_SAFE_INTEGER;
+  const beTutors = await BeTutor.find({tutorId: req.user._id, status: "accepted"}).populate('tutorId');
+  for(let i=0; i<beTutors.length; i++) {
+    const uploadDuration = beTutors[i].tutorId.amountDayUpload * 24 * 60 * 60 * 1000; // Convert days to milliseconds
+    const timeSincePost = Date.now() - new Date(beTutors[i].datePost).getTime(); // Calculate time since post in milliseconds
+    const temp = uploadDuration - timeSincePost;
+    if(temp > 0 && temp < leftDay) leftDay = temp;
+  }
+  leftDay = leftDay === Number.MAX_SAFE_INTEGER ? 0 : Math.ceil(leftDay / (24 * 60 * 60 * 1000));
+  console.log(leftDay);
+  res.render('tutormode/tutormode', { 
+    user: req.user,
+    leftDay: leftDay,
+  });
 }
 //[GET] /tutor/
 const getHomePage = (req, res, next) => {
