@@ -2,6 +2,8 @@ const Course = require("../models/Course");
 const User = require("../models/User");
 const BeTutor = require("../models/BeTutor");
 const Order = require("../models/Order");
+const Review = require("../models/Review");
+
 const { validationResult } = require("express-validator");
 const { mutipleMongooseToObject, mongooseToObject } = require("../util/mongoose");
 
@@ -137,14 +139,24 @@ const getContact = async (req, res, next) => {
   if (!course) {
     return res.status(404).render("404"); // Handle the case where the product is not found
   }
- 
+
   return res.status(200).json({ success: true, msg: `/user/contactToTutor/${req.params.id}` })
   //return res.status(200).json({ success: true, msg: `/user/contacttutor` })
 }
 
 
-const getContactToTutor = (req, res, next) => {
-  res.render('user/contactToTutor', { user: req.user });
+const getContactToTutor = async (req, res, next) => {
+  const course = await Course.findById(req.params.id).populate('tutor');
+  const reviews = await Review.find({ courseId: req.params.id }).populate('userId');
+  let amountOfReviews;
+
+  if (reviews === null || reviews.length === 0) {
+    amountOfReviews = 0;
+  } else {
+    amountOfReviews = reviews.length;
+  }
+  console.log(amountOfReviews)
+  res.render('user/contactToTutor', { course: mongooseToObject(course), amountOfReviews: amountOfReviews, });
 }
 
 //[GET] /user/home

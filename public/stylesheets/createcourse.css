@@ -271,10 +271,15 @@ form p select {
     background-color: inherit;
 }
 
+.wrapper-header{
+    border-bottom: 4px solid #000000;
+}
 
 
-
-
+.wrapper-input label{
+    font-size: 28px;
+    color: #000000;
+}
 
 
 
