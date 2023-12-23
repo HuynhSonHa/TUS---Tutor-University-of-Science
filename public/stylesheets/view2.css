@@ -72,7 +72,7 @@ h4 {
     font-size: 1.7rem;
     text-transform: capitalize;
     color: #000000;
-    border: 0.2rem solid #334;
+  
     border-radius: 15px;
 }
 
@@ -193,7 +193,7 @@ i.fas.fa-play-circle {
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     gap: 3rem;
-    background-color: #40DDB6;
+    background-color: #fff;
 }
 
 .home .image {
@@ -516,6 +516,8 @@ ul {
     }
 
 }
+
+
 
 @media (max-width: 450px) {
     html {

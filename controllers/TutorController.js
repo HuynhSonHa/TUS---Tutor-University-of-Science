@@ -7,10 +7,14 @@ const { mutipleMongooseToObject, mongooseToObject } = require("../util/mongoose"
 
 // [GET] /tutor/stored/courses
 const storedCourses = async (req, res, next) => {
+  const userId = req.user._id;
+  const user = await User.findById(userId).populate('avatar');
+  console.log(user)
   Course.find({ tutor: req.user._id })
     .then((courses) => {
-      res.render("tutormode/viewcourse", {
+      res.render("tutormode/viewCourseList", {
         courses: mutipleMongooseToObject(courses),
+         user: mongooseToObject(user) ,
       });
     })
     .catch(next);
@@ -26,7 +30,7 @@ const storedStudents = async (req, res, next) => {
   } else {
     amountOfStudents = orders.length;
   }
-  res.render("tutormode/studentwait", {
+  res.render("tutormode/studentWaittingList", {
     orders: mutipleMongooseToObject(orders),
     amountOfStudents: amountOfStudents,
   })
@@ -38,7 +42,7 @@ const createCourse = async (req, res, next) => {
   const user = await User.findById(userId).populate('avatar');
   console.log(user)
   res.render("tutormode/createcourse", { user: mongooseToObject(user) });
- 
+
 }
 
 const createNewCourse = async (req, res, next) => {
