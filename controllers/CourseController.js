@@ -98,7 +98,7 @@ const store = async(req, res, next) => {
     return res.status(304).json({error: 'Bạn đã đăng khóa học này rồi!'})
   }
   const formData = req.body;
-  
+  formData.tutor = req.user._id;
   const course = new Course(formData);
   course.save().then;
   return res.status(200).json({success: true, redirectUrl: '/tutor', msg: "Đăng khóa học thành công!"})
@@ -106,11 +106,22 @@ const store = async(req, res, next) => {
 
 }
 
-// [GET] /courses/:id/edit
+// [GET] /courses/edit/:id
 const edit = (req, res, next) => {
   Course.findById(req.params.id)
   .then((course) =>
-    res.render("tutormode/editprofile", {
+    res.render("tutormode/editcourse", {
+      course: mongooseToObject(course),
+    })
+  )
+  .catch(next);
+}
+
+// [GET] /courses/clone/:id
+const clone = (req, res, next) => {
+  Course.findById(req.params.id)
+  .then((course) =>
+    res.render("tutormode/clonecourse", {
       course: mongooseToObject(course),
     })
   )
@@ -149,6 +160,7 @@ module.exports = {
   createCourse,
   store,
   edit,
+  clone,
   update,
   destroy,
 };
