@@ -109,8 +109,9 @@ const getTutorMode = async(req, res, next) => {
   }
   leftDay = leftDay === Number.MAX_SAFE_INTEGER ? 0 : Math.ceil(leftDay / (24 * 60 * 60 * 1000));
   console.log(leftDay);
+  const user = await User.findById(req.user._id).lean();
   res.render('tutormode/tutormode', { 
-    user: req.user,
+    user: user,
     leftDay: leftDay,
   });
 }

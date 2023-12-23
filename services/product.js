@@ -58,7 +58,7 @@ const filteredAndSorted = async function (searchField, name, tutorName, faculty,
     }
 
     try {
-        const result = await Course.find(fliter).sort(sort).populate('tutor');
+        const result = await Course.find(fliter).sort(sort).populate('tutor').lean();
 
         return result;
     } catch (error) {
@@ -117,7 +117,7 @@ const filteredSortedPaging = async function (searchField, name, tutorName, facul
     }
 
     try {
-        const result = await Course.find(fliter).sort(sort).populate('tutor').skip(skipAmount).limit(pageSize);
+        const result = await Course.find(fliter).sort(sort).populate('tutor').skip(skipAmount).limit(pageSize).lean();
         return result;
     } catch (error) {
         console.log("Error in PrfilteredAndSortedProducts of Product Services", error);
