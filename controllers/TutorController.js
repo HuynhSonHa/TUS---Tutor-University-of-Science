@@ -38,17 +38,11 @@ const createCourse = (req, res, next) => {
 }
 
 const createNewCourse = async (req, res, next) => {
-  console.log(req.body)
   try {
-  
     const formData = req.body;
     formData.tutor = req.user._id;
     const course = new Course(formData);
-    console.log('haha2')
-    console.log(course)
-
     await course.save();
-
 
     return res.status(200).json({ success: true, msg: "Thêm course thành công!" });
     //return res.send("Thêm review thành công!").redirect("/user/home");
