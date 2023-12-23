@@ -3,6 +3,7 @@ const User = require("../models/User");
 const BeTutor = require("../models/BeTutor");
 const Order = require("../models/Order");
 const Review = require("../models/Review");
+const Contact = require("../models/Contact");
 
 const { validationResult } = require("express-validator");
 const { mutipleMongooseToObject, mongooseToObject } = require("../util/mongoose");
@@ -159,6 +160,26 @@ const getContactToTutor = async (req, res, next) => {
   res.render('user/contactToTutor', { course: mongooseToObject(course), amountOfReviews: amountOfReviews, });
 }
 
+const postContactToTutor = async (req, res, next) => {
+  const result = validationResult(req);
+  if (!result.isEmpty()) {
+    res.status(400).json({ errors: result.array() });
+    return;
+  }
+  try {
+    const formData = req.body;
+    formData.courseId = req.params.id;
+    formData.userId = req.user._id;
+    const contact = new Contact(formData);
+    await contact.save();
+    return res.status(200).json({ success: true, msg: "Thêm contact thành công!" });
+    //return res.send("Thêm review thành công!").redirect("/user/home");
+  }
+  catch (err) {
+    next(err);
+  }
+}
+
 //[GET] /user/home
 const getHomePage = (req, res, next) => {
   res.render('home/userHome', { user: req.user });
@@ -175,4 +196,5 @@ module.exports = {
   getContact,
   getHomePage,
   getContactToTutor,
+  postContactToTutor,
 };

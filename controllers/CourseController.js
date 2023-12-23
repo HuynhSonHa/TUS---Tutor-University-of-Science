@@ -126,7 +126,7 @@ const edit = (req, res, next) => {
 const clone = (req, res, next) => {
   Course.findById(req.params.id)
   .then((course) =>
-    res.render("tutormode/clonecourse", {
+    res.render("tutormode/cloneCourse", {
       course: mongooseToObject(course),
     })
   )
