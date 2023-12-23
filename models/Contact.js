@@ -20,12 +20,7 @@ const contactSchema = new mongoose.Schema({
   phoneNumber: {
     type: String
   },
-  desiredGPA: {
-    type: Number
-  },
-  comment: {
-    type: String,
-  },
+  
   datePost: {
     type: Date,
     default: Date.now(),

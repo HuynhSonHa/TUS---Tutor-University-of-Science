@@ -10,6 +10,12 @@ const OrderScheme = new Schema({
         ref: 'Course', // Tham chiếu đến schema sản phẩm (Product)
         required: true
     },
+    desiredGPA: {
+        type: Number
+    },
+    comment: {
+        type: String,
+    },
     status: {
         type: String,
         default: "Subscribing",
