@@ -40,7 +40,7 @@ const showAll = async (req, res, next) => {
     console.log(courses.length);
   
     res.render('catalog/category', {
-      courses: mutipleMongooseToObject(courses),
+      courses: courses,
       pages: pages,
       prevPage: prevPage,
       currentPage: currentPage,
