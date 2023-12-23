@@ -98,7 +98,7 @@ const store = async(req, res, next) => {
     return res.status(304).json({error: 'Bạn đã đăng khóa học này rồi!'})
   }
   const formData = req.body;
-  
+  formData.tutor = req.user._id;
   const course = new Course(formData);
   course.save().then;
   return res.status(200).json({success: true, redirectUrl: '/tutor', msg: "Đăng khóa học thành công!"})
