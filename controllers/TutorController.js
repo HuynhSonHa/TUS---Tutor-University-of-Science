@@ -9,7 +9,7 @@ const { mutipleMongooseToObject, mongooseToObject } = require("../util/mongoose"
 const storedCourses = async (req, res, next) => {
   Course.find({ tutor: req.user._id })
     .then((courses) => {
-      res.render("me/stored-courses", {
+      res.render("tutormode/viewcourse", {
         courses: mutipleMongooseToObject(courses),
       });
     })
@@ -26,7 +26,7 @@ const storedStudents = async (req, res, next) => {
   } else {
     amountOfStudents = orders.length;
   }
-  res.render("tutormode/waitingStudent", {
+  res.render("tutormode/studentwait", {
     orders: mutipleMongooseToObject(orders),
     amountOfStudents: amountOfStudents,
   })
