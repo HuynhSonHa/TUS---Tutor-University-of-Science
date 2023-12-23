@@ -1,18 +1,17 @@
 <style>
     @import url(/stylesheets/editprofile.css);
+    @import url(/styleGeneralTemp.css);
+</style>
+<style type="stylesheets">
+    @import url(https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous");
 </style>
 <!-- header section starts  -->
 
-<div class="alert alert-success  text-center align-items-center">
 
-</div>
-<div class="alert alert-danger  text-center align-items-center">
-
-</div>
 
 
 <header class="header">
-
+    
     <div class="contact-info">
         <p> <i class="fas fa-map-marker-alt"></i>227 Nguyễn Văn Cừ, District 5, HCMC</p>
         <p> <i class="fas fa-envelope"></i>lynhathao.it@gmail.com</p>
@@ -61,7 +60,7 @@
             <p>
             <div class="text-field">Name</div>
             <label for="name"></label>
-            <input type="text" id="name" name="name"  value="{{user.fullname}}" style="background-color: #40DDB6;"
+            <input type="text" id="name" name="name" value="{{user.fullname}}" style="background-color: #40DDB6;"
                 required>
 
             </p>
@@ -76,22 +75,22 @@
             <p>
             <div class="text-field">Faculty</div>
             <label for="faculty"></label>
-            <input type="text" id="faculty" name="faculty"  value="{{user.faculty}}" style="background-color: #40DDB6;"
+            <input type="text" id="faculty" name="faculty" value="{{user.faculty}}" style="background-color: #40DDB6;"
                 required>
             </p>
 
             <p>
             <div class="text-field">School</div>
             <label for="school"></label>
-            <input type="text" id="school" name="school"  value="{{user.school}}" style="background-color: #40DDB6;"
+            <input type="text" id="school" name="school" value="{{user.school}}" style="background-color: #40DDB6;"
                 required>
             </p>
 
             <p>
             <div class="text-field">Student course</div>
             <label for="course"></label>
-            <input type="text" id="course" name="course"  value="{{user.studentCourse}}" style="background-color: #40DDB6;"
-                required>
+            <input type="text" id="course" name="course" value="{{user.studentCourse}}"
+                style="background-color: #40DDB6;" required>
             </p>
 
 
@@ -196,39 +195,38 @@
 
     // handle submit edit profile
     const submit = $('#btn-submit');
-    submit.addEventListener('click', function () {
+    submit.addEventListener('click', async function () {
         event.preventDefault();
-
         const curUrl = new URL(window.location.href);
         let isError = false;
 
         const formData = new FormData();
 
+        const fullname = document.getElementById('name').value;
+        const phoneNumber = document.getElementById('phone').value;
+        const faculty = document.getElementById('faculty').value;
+        const school = document.getElementById('school').value;
+        const studentCourse = document.getElementById('course').value;
+
         // Thêm các trường dữ liệu vào formData
-        formData.append('fullname', $('#name').value);
-        formData.append('phoneNumber', $('#phone').value);
-        formData.append('faculty', $('#faculty').value);
-        formData.append('school', $('#school').value);
-        formData.append('studentCourse', $('#course').value);
+        formData.append('fullname', fullname);
+        formData.append('phoneNumber', phoneNumber);
+        formData.append('faculty', faculty);
+        formData.append('school', school);
+        formData.append('studentCourse', studentCourse);
         formData.append('avatar', inputFile.files[0]);
 
-        
-
-        console.log(formData);
-
-        fetch('/tutor/profile', {
+        await fetch('/tutor/profile', {
             method: 'POST',
-            body: JSON.stringify(formData),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-            },
+            body: formData,
+
         }).then(response => {
             if (!response.ok) {
                 isError = true;
-                // Handle errors here, e.g., display an error message
+
 
             }
-            // If signup was successful, redirect to the signin page
+
             return response.json();
         })
             .then(data => {
@@ -240,7 +238,7 @@
                     alertReview.innerHTML = `${data.msg}`
                     alertReview.style.opacity = "1";
                     alertReview.style.display = "block"
-                    console.log(alertReview)
+
                     setTimeout(function () {
                         alertReview.style.opacity = "0";
                         setTimeout(function () {

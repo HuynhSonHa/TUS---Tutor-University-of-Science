@@ -33,8 +33,12 @@ const storedStudents = async (req, res, next) => {
 }
 
 // [GET] /tutor/create
-const createCourse = (req, res, next) => {
-  res.render("tutormode/createcourse");
+const createCourse = async (req, res, next) => {
+  const userId = req.user._id;
+  const user = await User.findById(userId).populate('avatar');
+  console.log(user)
+  res.render("tutormode/createcourse", { user: mongooseToObject(user) });
+ 
 }
 
 const createNewCourse = async (req, res, next) => {
@@ -73,12 +77,7 @@ const profile = async (req, res, next) => {
 }
 //[POST] /tutor/profile
 const editProfile = async (req, res, next) => {
-  // Verify user input
-  const result = validationResult(req);
-  if (!result.isEmpty()) {
-    res.status(400).json({ errors: result.array() });
-    return;
-  }
+
   try {
     if (req.file) {
       req.body.avatar = req.file.filename;

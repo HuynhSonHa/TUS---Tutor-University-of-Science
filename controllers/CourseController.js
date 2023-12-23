@@ -1,4 +1,5 @@
 const Course = require("../models/Course");
+const User = require("../models/User");
 const Review = require("../models/Review");
 const { mongooseToObject, mutipleMongooseToObject } = require("../util/mongoose");
 const CourseService = require("../services/product");
@@ -81,8 +82,12 @@ const detail = async(req, res, next) => {
   }
 }
 // [GET] /courses/create
-const createCourse = (req, res, next) => {
-  res.render("tutormode/createcourse");
+const createCourse = async (req, res, next) => {
+  const userId = req.user._id;
+  const user = await User.findById(userId).populate('avatar');
+  console.log(user)
+  console.log('haha')
+  res.render("tutormode/createcourse", { user: mongooseToObject(user) });
 }
 // [POST] /courses/store
 const store = async(req, res, next) => {

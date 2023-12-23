@@ -199,7 +199,7 @@
         console.log(formData);
         console.log($('#price').value);
 
-        fetch('/tutor/createNewCourse', {
+        fetch('/courses/store', {
             method: 'POST',
             body: JSON.stringify(formData),
             headers: {
@@ -208,17 +208,17 @@
         }).then(response => {
             if (!response.ok) {
                 isError = true;
-                // Handle errors here, e.g., display an error message
+               
 
             }
-            // If signup was successful, redirect to the signin page
+           
             return response.json();
         })
             .then(data => {
                 if (isError == true) {
                     alert(data.error)
                 } else {
-                    // Redirect to the signin page (adjust the URL as needed)
+                  
 
                     const alertReview = $('.alert-success')
                     alertReview.innerHTML = `${data.msg}`

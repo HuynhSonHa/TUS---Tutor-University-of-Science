@@ -1,0 +1,24 @@
+.alert-success,
+.alert-danger {
+    display: none;
+    position: fixed !important;
+    top: 2%;
+    right: 10%;
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.5s;
+    border-radius: 1rem;
+    padding: 0.5rem 2rem;
+    font-size: 24px;
+  
+}
+
+.alert-success{
+    background-color: #00FF00;
+   
+}
+
+.alert-sucdangercess{
+    background-color: red;
+    color: #fff;
+}
