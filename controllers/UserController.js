@@ -49,6 +49,9 @@ const editProfile = async(req, res, next) => {
       return;
   }
   try {
+    if (req.file) {
+      req.body.avatar = req.file.filename;
+    }
     User.updateOne({_id: req.user._id}, req.body)
     .then(res.status(200).json({msg: 'Cập nhật thông tin thành công'}))
   } catch(error) {
