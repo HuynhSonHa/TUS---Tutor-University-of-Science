@@ -8,6 +8,7 @@ const upload = multer({ storage: storage });
 
 
 router.get('/stored/courses', isTutor, tutorController.storedCourses);
+router.get('/stored/coursesAjax', isTutor, tutorController.storedCoursesAjax);
 router.get('/stored/waiting-list', isTutor, tutorController.storedStudents);
 router.get('/create', isTutor, tutorController.createCourse);
 router.post('/createNewCourse', isTutor, tutorController.createNewCourse);

@@ -22,6 +22,28 @@ const storedCourses = async (req, res, next) => {
   //res.render("me/stored-courses");
 }
 
+const storedCoursesAjax = async (req, res, next) => {
+  try {
+    const userId = req.user._id;
+    const user = await User.findById(userId).populate('avatar');
+    console.log('cat1');
+
+    Course.find({ tutor: req.user._id })
+      .then((courses) => {
+        console.log(courses);
+
+        res.status(200).json({
+          courses: mutipleMongooseToObject(courses),
+        });
+      })
+      .catch(next);
+  } catch (err) {
+    // Handle errors specific to the initial user retrieval (e.g., user not found)
+    console.error(err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
 
 // [GET] /tutor/stored/waiting-list
 const storedStudents = async (req, res, next) => {
@@ -102,7 +124,7 @@ const courseDetail = async (req, res, next) => {
     if (!course) {
       return res.status(404).json({ success: false, error: 'User not found' });
     }
-   
+
 
     res.render('tutormode/courseDetail', { course: mongooseToObject(course) });
   } catch (error) {
@@ -196,4 +218,5 @@ module.exports = {
   denyStudent,
   createNewCourse,
   courseDetail,
+  storedCoursesAjax,
 };

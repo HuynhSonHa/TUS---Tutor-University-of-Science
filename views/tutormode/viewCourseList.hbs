@@ -59,7 +59,7 @@
                         <div class="cart-table">
                             <div class="product-list has-bg">
                                 <div class="table-content">
-                                    <ul>
+                                    <ul id="list-course">
                                         {{#each courses}}
                                         <li class="dotgrid row">
                                             <div class="grouping wrapper col-9">
@@ -77,9 +77,10 @@
 
                                             <div class="choose col-3">
                                                 <button class="deny"
-                                                    onclick="deleteCourse({{this._id}})">Remove</button>
-                                                <button class="edit" onclick="editCourse({{this._id}})">Edit </button>
-                                                <button class="clone" onclick="cloneCourse({{this._id}})">Clone</button>
+                                                    onclick="deleteCourse('{{this._id}}')">Delete</button>
+                                                <button class="edit" onclick="editCourse('{{this._id}}')">Edit </button>
+                                                <button class="clone"
+                                                    onclick="cloneCourse('{{this._id}}')">Clone</button>
                                             </div>
                                         </li>
                                         {{/each}}
@@ -170,16 +171,14 @@
         }
     }
 
+    const listCourse = $('#list-course');
+    function editCourse(idCourse) {
 
-    //    const remove = $('.remove')
-    //  const edit = $('.edit')
-    // const clone = $('.clone')
-
-
-    async function deleteCourse(id) {
-        console.log(id)
+    }
+    async function deleteCourse(idCourse) {
+        console.log(idCourse)
         try {
-            const response = await fetch(`/courses/${id}`, {
+            const response = await fetch(`/courses/${idCourse}`, {
                 method: 'DELETE',
 
             });
@@ -208,6 +207,7 @@
                 }, 3000);
             } else {
                 // Xử lý phản hồi thành công ở đây
+
                 const alertReview = document.querySelector('.alert-success'); // Change to document.querySelector
                 alertReview.innerHTML = `${data.msg}`;
                 alertReview.style.opacity = "1";
@@ -219,26 +219,62 @@
                         alertReview.style.display = "none";
                     }, 500);
                 }, 3000);
+
+
+                loadCourse();
+
             }
         } catch (error) {
             console.error('Error:', error.message);
         }
     }
 
+    async function loadCourse() {
+        console.log('111')
+        try {
+            const response = await fetch('/tutor/stored/coursesAjax', {
+                method: 'GET',
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            listCourse.innerHTML = ``
 
 
-    remove.addEventListener("click", async function (event) {
-        window.location.href = ``
 
+            data.courses.forEach((course, key) => {
+                let tempCourse = document.createElement('li');
+                tempCourse.classList.add('dotgrid', 'row');
+                tempCourse.innerHTML = `
+                <div class="grouping wrapper col-9">
+                    <div class="variants">
+                        <h4 class="dot-title"><a href=""> ${course.name}</a></h4>
+                        <div class="price grey-color">
+                            <span>Price: ${course.price} VNĐ</span>
+                        </div>
+                        <div class="schedule">
+                            <span>${course.schedule}</span>
+                        </div>
+                    </div>
+                </div>
 
-        edit.addEventListener("click", async function (event) {
+                <div class="choose col-3">
+                    <button class="deny" onclick="deleteCourse('${course._id}')">Delete</button>
+                    <button class="edit" onclick="editCourse('${course._id}')">Edit </button>
+                    <button class="clone" onclick="cloneCourse('${course._id}')">Clone</button>
+                </div>
+            `;
+                listCourse.appendChild(tempCourse);
+            });
 
-
-
+        } catch (error) {
+            console.error('Error:', error.message);
         }
-     clone.addEventListener("click", async function (event) {
+    }
 
 
-
-        }
 </script>
