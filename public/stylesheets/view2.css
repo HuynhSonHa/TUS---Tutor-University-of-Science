@@ -72,7 +72,7 @@ h4 {
     font-size: 1.7rem;
     text-transform: capitalize;
     color: #000000;
-  
+
     border-radius: 15px;
 }
 
@@ -531,4 +531,71 @@ ul {
     .heading {
         font-size: 3rem;
     }
+
+}
+
+.content .wrapper-header {
+    border-bottom: #000000 4px solid;
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+}
+
+.grouping.wrapper {
+    display: block;
+}
+
+
+.choose button {
+    border-radius: 8px;
+    padding: 4px 12px;
+    margin: 1rem 3rem;
+    font-size: 22px;
+    display: inline-block;
+    color: #fff;
+    width: 100%;
+}
+
+.choose button:hover {
+    cursor: pointer;
+}
+
+.deny {
+    background: linear-gradient(to right, #ff0000, #cc0000);
+
+}
+
+.accept {
+    background: linear-gradient(to right, #00ff00, #00cc00);
+}
+
+
+
+.dotgrid {
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #c2c2c2 ;
+}
+
+.choose {
+    display: inline;
+}
+
+.schedule {
+    background-color: #F0F0F0;
+    border-radius: 8px;
+    padding: 4px 12px;
+}
+
+.edit {
+    background: linear-gradient(to right, #3498db, #2980b9);
+}
+
+.clone {
+    background: linear-gradient(to right, #2ecc71, #27ae60);
+}
+.schedule,
+.price{
+    font-size: 16px !important;
 }
