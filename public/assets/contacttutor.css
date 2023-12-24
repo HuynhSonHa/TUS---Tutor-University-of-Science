@@ -207,3 +207,13 @@
     padding: 8px 2rem;
     font-weight: 500;
 }
+
+
+.needs-validation{
+    width: 1160px;
+}
+
+.needs-validation input,
+.needs-validation textarea{
+    
+}

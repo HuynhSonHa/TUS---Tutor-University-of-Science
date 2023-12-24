@@ -5,9 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/assets/contacttutor.css">
-
-
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Document</title>
@@ -30,11 +27,11 @@
                 </div>
             </div>
             <div class="col-6 container-method-contact">
-            <div class="header-product">{{course.tutor.school}} - {{course.name}}</div>
+                <div class="header-product">{{course.tutor.fullname}} - {{course.name}}</div>
                 <div class="num-review">
                     <div class="rating">
 
-                        {{course.average}} 
+                        {{course.average}}
                         <div class="star-1"></div>
                     </div>
                     ({{amountOfReviews}} Customer Reviews)
@@ -48,7 +45,7 @@
                 </div>
 
                 <div class="discription-product">
-                    ĐÃ HỌC LẠI MÔN NÀY NHIỀU LẦN NÊN RẤT CÓ NHIỀU KINH NGHIỆM
+                    {{course.description}}
                 </div>
 
                 <ul class="list-contact-method">
@@ -95,7 +92,7 @@
         </div>
         <div class="form-to-contact row">
             <form class="row g-3 needs-validation" novalidate>
-                <div class="col-md-6">
+                {{!-- <div class="col-md-6">
                     <label for="your-name" class="form-label"></label>
                     <input type="text" class="form-control" id="your-name" placeholder="Your Name" required>
                     <!-- <div class="valid-feedback">
@@ -115,29 +112,22 @@
                     <!-- <div class="valid-feedback">
                         Looks good!
                     </div> -->
-                </div>
-                <div class="col-md-6">
-
-
+                </div> --}}
+                <div class="col-12">
                     <label for="desired-gpa" class="form-label"></label>
-                    <input type="text" class="form-control" id="desired-gpa" name="desired-gpa" aria-describedby="inputGroupFileAddon04"
-                        aria-label="Upload" placeholder="Desired GPA">
-
-
-
-
+                    <input type="text" class="form-control" id="desired-gpa" name="desired-gpa"
+                        aria-describedby="inputGroupFileAddon04" aria-label="Upload" placeholder="Desired GPA">
                 </div>
-                <div class="col-md-12  ">
+                <div class="col-12  ">
                     <label for="message" class="form-label"></label>
-                    <textarea type="text" rows="4" cols="50" class="form-control" id="message" placeholder="message">
+                    <textarea type="text" rows="3" class="form-control" id="message" placeholder="message to tutor">
                     </textarea>
-                    <!-- <div class="valid-feedback">
-                        Looks good!-->
+
                 </div>
 
 
                 <div class="col-12 wrapper-button-summit text-center">
-                    <button class="btn btn-primary" type="submit">CONTACT</button>
+                    <button class="btn btn-primary" id="contact-tutor" type="submit">CONTACT</button>
                 </div>
             </form>
         </div>
@@ -153,110 +143,81 @@
         const $ = document.querySelector.bind(document)
         const $$ = document.querySelectorAll.bind(document)
 
-        const containerImage = $('.img-main-product');
-        const mainImage = $('.main-img');
+        let currentUrl = new URL(window.location.href);
+        var parts = currentUrl.href.split('/');
+        let number = parts[parts.length - 1];
 
+        const contactTutor = $('#contact-tutor')
 
-        // add to cart
-        let closeShopping = $('.closeShopping')
-        let listCard = $('.listCard')
-        let total = $('.total')
-        let body = $('body')
+        contactTutor.addEventListener("click", async function (event) {
+            event.preventDefault(); // Ngăn chặn hành vi gửi form tự động
 
+            // Tạo đối tượng FormData từ form
+            //const formData = new FormData();
+            // formData.append('fullname', $('#your-name').value);
+            //   formData.append('phoneNumber', $('#phone-number').value);
+            //formData.append('email', $('email-address').value);
+            // formData.append('desiredGPA', $('#desired-gpa').value);
+            // formData.append('comment', $('#message').value);
+            const formData = {
+                'desiredGPA': $('#desired-gpa').value,
+                'comment': $('#message').value,
+            };
 
-        const addToCart = $('.add-to-cart')
-        const backgroundOverlay = document.getElementById('backgroundOverlay');
+            let isError = false;
+          
+            try {
+                const response = await fetch(`/user/contactToTutor/${number}`, {
+                    method: 'POST',
+                    body: JSON.stringify(formData), // Sử dụng FormData thay vì plain object
+                    headers: {
+                        'Content-type': 'application/json; charset=UTF-8',
+                    },
+                });
 
-
-        addToCart.addEventListener('click', function () {
-
-            body.classList.add('active')
-
-        });
-
-        closeShopping.addEventListener('click', function () {
-
-            body.classList.remove('active')
-
-        });
-
-
-
-        // xử lý ảnh
-        containerImage.addEventListener('mousemove', (e) => {
-            const x = e.clientX - e.target.offsetLeft;
-            const y = e.clientY - e.target.offsetTop;
-            mainImage.style.transformOrigin = `${x}px ${y}px`;
-            mainImage.style.transform = "scale(1.1)"
-        })
-
-        containerImage.addEventListener('mouseleave', () => {
-
-            mainImage.style.transformOrigin = "center";
-            mainImage.style.transform = "scale(1)"
-        })
-
-
-        // adjust number of products
-        const plus = $(".plus")
-        const num = $(".num")
-        const minus = $(".minus")
-
-
-
-
-        function initApp() {
-            products.forEach((value, key) => {
-                let newDiv = document.createElement('div');
-                newDiv.classList.add('item');
-                newDiv.innerHTML = `
-            <img src="image/${value.image}">
-            <div class="title">${value.name}</div>
-            <div class="price">${value.price.toLocaleString()}</div>
-            <button onclick="addToCard(${key})">Add To Card</button>`;
-                list.appendChild(newDiv);
-            })
-        }
-        function reloadCard() {
-            listCard.innerHTML = '';
-            let count = 0;
-            let totalPrice = 0;
-            listCards.forEach((value, key) => {
-                totalPrice = totalPrice + value.price;
-                count = count + value.quantity;
-                if (value != null) {
-                    let newDiv = document.createElement('li');
-                    newDiv.innerHTML = `
-              
-                <div><img src="assets\\main-img.jpg"/></div>
-                <div>BROOKS MEN'S LAUNCH 9 ROAD-RUNNING SHOES</div>
-                <div>80.00</div>
-                <div>
-                    <button onclick="changeQuantity(${key}, ${value.quantity - 1})">-</button>
-                    <div class="count">${value.quantity}</div>
-                    <button onclick="changeQuantity(${key}, ${value.quantity + 1})">+</button>
-                </div>`;
-                    listCard.appendChild(newDiv);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
                 }
-            })
-            total.innerText = totalPrice.toLocaleString();
-            quantity.innerText = count;
-        }
 
+                const data = await response.json();
 
-        let a = 1;
-        plus.addEventListener("click", () => {
-            a++;
-            num.innerText = a;
-        })
-        minus.addEventListener("click", () => {
+                if (data.error) {
+                    const alertError = document.querySelector('.alert-danger');
+                    const errorMessages = data.errors.map(error => error.msg).join(', ');
 
-            a--;
-            if (a <= 1) {
-                a = 1;
+                    // Display or handle the error messages
+                    console.error('Error:', errorMessages);
+                    alertError.innerHTML = `${errorMessages}`
+
+                    alertError.style.opacity = "1";
+                    alertError.style.display = "block";
+                    setTimeout(function () {
+                        alertError.style.opacity = "0";
+                        setTimeout(function () {
+                            alertError.style.display = "none";
+                        }, 500);
+                    }, 3000);
+                } else {
+                    // Xử lý phản hồi thành công ở đây
+                    const alertReview = $('.alert-success')
+                    alertReview.innerHTML = `${data.msg}`
+                    alertReview.style.opacity = "1";
+                    alertReview.style.display = "block"
+                    console.log(alertReview)
+                    console.log(data.msg)
+                    setTimeout(function () {
+                        alertReview.style.opacity = "0";
+                        setTimeout(function () {
+                            alertReview.style.display = "none";
+                        }, 500);
+                    }, 3000);
+                    window.location.href = '/'
+                }
+            } catch (error) {
+                console.error('Error:', error.message);
             }
-            num.innerText = a;
-        })
+        });
+
 
     </script>
 

@@ -152,7 +152,7 @@
 
 
 .wrapper-discription {
-    max-width: 1160px;
+    width: 1160px;
     margin: 0 140px;
 }
 
@@ -489,5 +489,48 @@ button[class*="btn"]:hover{
     width: 60%;
     margin-left: 12%;
 }
+
+
+.header.relative{
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 2rem;
+    padding: 4px;
+}
+
+
+.features{
+    width: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    
+}
+
+
+.feature{
+    width: fit-content;
+    height: fit-content;
+    padding: 0;
+    margin-right: 2.5rem;
+}
+
+.feature img{
+    border-radius: 1rem;
+    width: 204px;
+    height: 192px;
+}
+
+
+
+.feature img:hover{
+    cursor: pointer;
+}
+
+.feature .text-content{
+    margin-bottom: 2rem;
+}
+
+
+
 
 

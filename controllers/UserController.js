@@ -167,12 +167,14 @@ const postContactToTutor = async (req, res, next) => {
     return;
   }
   try {
-    const formData = req.body;
+    const formData = req;
     formData.courseId = req.params.id;
     formData.userId = req.user._id;
-    const contact = new Contact(formData);
-    await contact.save();
-    return res.status(200).json({ success: true, msg: "Thêm contact thành công!" });
+    
+    const order = new Order(formData);
+    await order.save();
+    console.log(order)
+    return res.status(200).json({ success: true, msg: "đã gửi contact thành công! Vui lòng chờ đợi phản hồi" });
     //return res.send("Thêm review thành công!").redirect("/user/home");
   }
   catch (err) {
