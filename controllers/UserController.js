@@ -167,7 +167,7 @@ const postContactToTutor = async (req, res, next) => {
     return;
   }
   try {
-    const formData = req;
+    const formData = req.body;
     formData.courseId = req.params.id;
     formData.userId = req.user._id;
     

@@ -199,7 +199,7 @@
         console.log(formData);
         console.log($('#price').value);
 
-        fetch('/courses/store', {
+        fetch('/tutor/createNewCourse', {
             method: 'POST',
             body: JSON.stringify(formData),
             headers: {
