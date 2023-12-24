@@ -12,6 +12,7 @@ router.get('/stored/waiting-list', isTutor, tutorController.storedStudents);
 router.get('/create', isTutor, tutorController.createCourse);
 router.post('/createNewCourse', isTutor, tutorController.createNewCourse);
 router.get('/profile', isTutor, tutorController.profile);
+router.get('/courseDetail/:id', isTutor, tutorController.courseDetail);
 router.post('/profile', isTutor, upload.single('avatar'), tutorController.editProfile);
 router.get('/tutor-mode', tutorController.getTutorMode);
 router.get('/waitingStudent/:id', tutorController.getDetailStudent);

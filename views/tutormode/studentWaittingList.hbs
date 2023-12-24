@@ -51,10 +51,10 @@
 <!--body section starts -->
 <section class="home" id="home">
     <div class="content">
-        <h3>
+        <h3 class="wrapper-header">
             <a href=""><i class="ri-arrow-right-s-fill"></i> Student Waiting List</a>
             <br>
-            <a>_________________________</a>
+
         </h3>
         <div class="section">
             <div class="container wide">
@@ -64,29 +64,32 @@
                             <div class="product-list has-bg">
                                 <div class="table-content">
                                     <ul>
-                                        {{#each courses}}
+                                        {{#each orders}}
                                         <li class="dotgrid row">
                                             <div class="grouping wrapper col-9">
-                                                <div class="thumbnail ob-cover">
-                                                    <a href="">
-                                                        <img src="/images/team-1.png" alt="">
-                                                    </a>
-                                                    
-                                                </div>
+
 
                                                 <div class="variants">
-                                                    <h4 class="dot-title"><a href="">DSA Nguyễn Văn A</a></h4>
+                                                    <h4 class="dot-title"
+                                                        onclick="moveToCourse('{{this.courseId._id}}')">
+                                                        <a>{{this.userId.fullname}}-{{this.courseId.name}}</a>
+                                                    </h4>
                                                     <div class="price grey-color">
-                                                        <span>Price: 5000000vnd</span>
+                                                        <span>Price: {{this.courseId.price}}</span>
                                                     </div>
                                                     <div class="btn">
-                                                        <span>T2-T4-T6</span>
+                                                        <span>Schedule: {{this.courseId.schedule}}</span>
+                                                    </div>
+                                                    <div class="comment">
+                                                        <span>Comment: {{this.comment}}</span>
                                                     </div>
                                                 </div>
                                             </div>
-                                                <div class="choose col-3">
-                                                <button class="deny">Deny</button>
-                                                <button class="accept">Accept</button>
+                                            <div class="choose col-3">
+                                                <button class="accept"
+                                                    onclick="acceptOrder('{{this._id}}')">Accept</button>
+                                                <button class="deny" onclick="denyOrder('{{this._id}}')">Deny</button>
+
                                             </div>
                                         </li>
                                         {{/each}}
@@ -157,6 +160,9 @@
 <!-- footer section ends -->
 
 <script>
+    const $ = document.querySelector.bind(document)
+    const $$ = document.querySelectorAll.bind(document)
+
     let menu = document.querySelector('#menu-btn');
     let navbarLinks = document.querySelector('.header .navbar .links');
 
@@ -181,5 +187,79 @@
 
     inputFile.onchange = function () {
         profilePic.src = URL.createObjectURL(inputFile.files[0]);
+    }
+
+
+    function moveToCourse(idCourse) {
+
+        window.location.href = `/tutor/courseDetail/${idCourse}`
+    }
+
+    function denyOrder(idOrder) {
+        fetch(`/tutor/denied/${idOrder}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                // Thêm các headers khác nếu cần thiết
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Xử lý dữ liệu nhận được từ API
+                const alertReview = $('.alert-success')
+                alertReview.innerHTML = `${data.msg}`
+                alertReview.style.opacity = "1";
+                alertReview.style.display = "block"
+
+                setTimeout(function () {
+                    alertReview.style.opacity = "0";
+                    setTimeout(function () {
+                        alertReview.style.display = "none";
+                    }, 500);
+                }, 3000);
+            })
+            .catch(error => {
+                // Xử lý lỗi nếu có
+                console.error('Fetch error:', error);
+            });
+    }
+    function acceptOrder(idOrder) {
+        fetch(`/tutor/accepted/${idOrder}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                // Thêm các headers khác nếu cần thiết
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Xử lý dữ liệu nhận được từ API
+                const alertReview = $('.alert-success')
+                alertReview.innerHTML = `${data.msg}`
+                alertReview.style.opacity = "1";
+                alertReview.style.display = "block"
+
+                setTimeout(function () {
+                    alertReview.style.opacity = "0";
+                    setTimeout(function () {
+                        alertReview.style.display = "none";
+                    }, 500);
+                }, 3000);
+            })
+            .catch(error => {
+                // Xử lý lỗi nếu có
+                console.error('Fetch error:', error);
+            });
+
     }
 </script>

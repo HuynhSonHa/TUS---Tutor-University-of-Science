@@ -15,16 +15,22 @@ const storedCourses = async (req, res, next) => {
     .then((courses) => {
       res.render("tutormode/viewCourseList", {
         courses: mutipleMongooseToObject(courses),
-         user: mongooseToObject(user) ,
+        user: mongooseToObject(user),
       });
     })
     .catch(next);
   //res.render("me/stored-courses");
 }
 
+
 // [GET] /tutor/stored/waiting-list
 const storedStudents = async (req, res, next) => {
-  const orders = await Order.find({ 'courseId.tutor': req.user._id ,status: "waiting"}).populate('userId courseId');
+  //const orders = await Order.find({ courseId.tutor: req.user._id ,status: "Subscribing"}).populate('userId courseId');
+  const courses = await Course.find({ tutor: req.user._id }).select('_id');
+  const courseIds = courses.map(course => course._id);
+
+  // Find orders for those courses
+  const orders = await Order.find({ courseId: { $in: courseIds }, status: "Subscribing" }).populate('userId courseId');
   const userId = req.user._id;
   const user = await User.findById(userId).populate('avatar');
   let amountOfStudents;
@@ -33,12 +39,14 @@ const storedStudents = async (req, res, next) => {
   } else {
     amountOfStudents = orders.length;
   }
+  console.log(orders);
   res.render("tutormode/studentWaittingList", {
     orders: mutipleMongooseToObject(orders),
     amountOfStudents: amountOfStudents,
-    user: mongooseToObject(user) ,
+    user: mongooseToObject(user),
   })
 }
+
 
 // [GET] /tutor/create
 const createCourse = async (req, res, next) => {
@@ -83,6 +91,25 @@ const profile = async (req, res, next) => {
     res.status(500).json({ success: false, error: 'Internal Server Error' });
   }
 }
+
+const courseDetail = async (req, res, next) => {
+  try {
+    const courseId = req.params.id;
+
+    const course = await Course.findById(courseId);
+    console.log(course)
+    console.log('haha')
+    if (!course) {
+      return res.status(404).json({ success: false, error: 'User not found' });
+    }
+   
+
+    res.render('tutormode/courseDetail', { course: mongooseToObject(course) });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, error: 'Internal Server Error' });
+  }
+}
 //[POST] /tutor/profile
 const editProfile = async (req, res, next) => {
 
@@ -98,19 +125,19 @@ const editProfile = async (req, res, next) => {
   }
 }
 //[GET] /tutor/tutor-mode
-const getTutorMode = async(req, res, next) => {
-  var leftDay=Number.MAX_SAFE_INTEGER;
-  const beTutors = await BeTutor.find({tutorId: req.user._id, status: "accepted"}).populate('tutorId');
-  for(let i=0; i<beTutors.length; i++) {
+const getTutorMode = async (req, res, next) => {
+  var leftDay = Number.MAX_SAFE_INTEGER;
+  const beTutors = await BeTutor.find({ tutorId: req.user._id, status: "accepted" }).populate('tutorId');
+  for (let i = 0; i < beTutors.length; i++) {
     const uploadDuration = beTutors[i].tutorId.amountDayUpload * 24 * 60 * 60 * 1000; // Convert days to milliseconds
     const timeSincePost = Date.now() - new Date(beTutors[i].datePost).getTime(); // Calculate time since post in milliseconds
     const temp = uploadDuration - timeSincePost;
-    if(temp > 0 && temp < leftDay) leftDay = temp;
+    if (temp > 0 && temp < leftDay) leftDay = temp;
   }
   leftDay = leftDay === Number.MAX_SAFE_INTEGER ? 0 : Math.ceil(leftDay / (24 * 60 * 60 * 1000));
   console.log(leftDay);
   const user = await User.findById(req.user._id).lean();
-  res.render('tutormode/tutormode', { 
+  res.render('tutormode/tutormode', {
     user: user,
     leftDay: leftDay,
   });
@@ -168,4 +195,5 @@ module.exports = {
   acceptStudent,
   denyStudent,
   createNewCourse,
+  courseDetail,
 };

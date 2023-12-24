@@ -1,15 +1,17 @@
 <style>
-    @import url(/stylesheets/createcourse.css);
+    @import url(/stylesheets/editprofile.css);
+    @import url(/styleGeneralTemp.css);
+</style>
+<style type="stylesheets">
+    @import url(https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous");
 </style>
 <!-- header section starts  -->
 
+
+
+
 <header class="header">
-    <div class="alert alert-success  text-center align-items-center">
-
-    </div>
-    <div class="alert alert-danger  text-center align-items-center">
-
-    </div>
+    
     <div class="contact-info">
         <p> <i class="fas fa-map-marker-alt"></i>227 Nguyễn Văn Cừ, District 5, HCMC</p>
         <p> <i class="fas fa-envelope"></i>lynhathao.it@gmail.com</p>
@@ -25,17 +27,17 @@
 
     <nav class="navbar">
 
-        <a href="/" class="logo">
+        <a href="/tutor" class="logo">
             <img src="./images/logo-small.svg" alt="">
             <img src="./images/Logo.svg" alt="">
             <div class="links">
-                <a href="/">Home</a>
+                <a href="/tutor">Home</a>
                 <a href="/">About Us</a>
                 <a href="/courses">Tutor</a>
                 <a href="/">News & Blog</a>
                 <a href="/">Contact Us</a>
-                <a href="./tutormode.html" class="btn">Tutor Mode</a>
-                <a href="/login">Login</a>
+                <a href="/tutor/tutor-mode" class="btn">Tutor Mode</a>
+                <a href="/logout">Logout</a>
             </div>
 
             <div id="menu-btn" class="fa fa-bars"></div>
@@ -50,57 +52,64 @@
 <section class="home" id="home">
     <div class="content">
         <h3 class="wrapper-header">
-            <a href=""><i class="ri-arrow-right-s-fill"></i> Create courses</a>
+            <a href=""><i class="ri-arrow-right-s-fill"></i> Edit Profile</a>
             <br>
-         
+
         </h3>
         <form action="">
-            <p class="wrapper-input">
-                <label for="subject">Course Name:</label>
-                <input type="" id="subject" name="subject" placeholder="Enter your course" check required>
+            <p>
+            <div class="text-field">Name</div>
+            <label for="name"></label>
+            <input type="text" id="name" name="name" value="{{user.fullname}}" style="background-color: #40DDB6;"
+                required>
+
             </p>
 
-            <p class="wrapper-input">
-                <label for="schedule">Schedule:</label>
-                <input type="" id="schedule" name="schedule" placeholder="Enter your schedule" check required>
+            <p>
+            <div class="text-field">Phone</div>
+            <label for="phone"></label>
+            <input type="tel" id="phone" name="phone" value="{{user.phoneNumber}}" style="background-color: #40DDB6;"
+                required>
             </p>
 
-            <p class="wrapper-input">
-                <label for="faculty">Faculty:</label>
-                <select name="faculty" id="faculty" check>
-                    <option value="none">None</option>
-                    <option value="information technology">Information Technology</option>
-                    <option value="math">Math</option>
-                </select>
+            <p>
+            <div class="text-field">Faculty</div>
+            <label for="faculty"></label>
+            <input type="text" id="faculty" name="faculty" value="{{user.faculty}}" style="background-color: #40DDB6;"
+                required>
             </p>
 
-            <p class="wrapper-input">
-                <label for="school">School:</label>
-                <input type="text" id="school" name="school" placeholder="Enter your school" check required>
+            <p>
+            <div class="text-field">School</div>
+            <label for="school"></label>
+            <input type="text" id="school" name="school" value="{{user.school}}" style="background-color: #40DDB6;"
+                required>
             </p>
 
-            <p class="wrapper-input">
-                <label for="price">Price:</label>
-                <input type="text" id="price" name="price" placeholder="Enter your price/ Week" check required>
+            <p>
+            <div class="text-field">Student course</div>
+            <label for="course"></label>
+            <input type="text" id="course" name="course" value="{{user.studentCourse}}"
+                style="background-color: #40DDB6;" required>
             </p>
 
-            <p class="wrapper-input">
-                <label for="description">Description:</label>
-                <input type="text" id="description" name="description" placeholder="Enter your description about course"
-                    check required>
-            </p>
 
-            <p class="wrapper-input">
-                <button class="btn" id="btn-submit" type="submit">Create Course</button>
+            <p class="wrapper-btn-submit ">
+                <button class="btn" id="btn-submit" type="submit">Save your changes</button>
             </p>
         </form>
     </div>
     <div class="image">
-        <img src="/images/{{user.avatar}}">
+
+
+
+        <input type="file" accept="image/jpeg, image/png, image/jpg" id="input-file" check style="display: none;">
+
+        <span id="file-label"> <img src="/images/{{user.avatar}}" id="profile-pic"></span>
+        <label class="btn" for="input-file" id="custom-button">choose new avatar</label>
     </div>
 
 </section>
-
 
 <!--body section ends -->
 <!-- footer section starts  -->
@@ -113,7 +122,7 @@
             <h3>quick links</h3>
             <a class="link" href="#home"> <i class="fas fa-angle-right"></i> Home</a>
             <a class="link" href="#about"> <i class="fas fa-angle-right"></i> About</a>
-            <a class="link" href="#"> <i class="fas fa-angle-right"></i>Tutor</a>
+            <a class="link" href="./category.hbs"> <i class="fas fa-angle-right"></i>Tutor</a>
             <a class="link" href="#services"> <i class="fas fa-angle-right"></i>News & Blog</a>
             <a class="link" href="#contact"> <i class="fas fa-angle-right"></i> Contact</a>
             <a class="link" href="#"> <i class="fas fa-angle-right"></i> Login</a>
@@ -151,9 +160,9 @@
 <!-- footer section ends -->
 
 <script>
-
     const $ = document.querySelector.bind(document)
     const $$ = document.querySelectorAll.bind(document)
+
     let menu = document.querySelector('#menu-btn');
     let navbarLinks = document.querySelector('.header .navbar .links');
 
@@ -173,53 +182,63 @@
         }
     }
 
-    const submit = $('#btn-submit');
-    console.log(submit)
-    submit.addEventListener('click', function () {
-        event.preventDefault();
+    let profilePic = document.getElementById("profile-pic");
+    let inputFile = document.getElementById("input-file");
 
+    inputFile.onchange = function () {
+
+        profilePic.src = URL.createObjectURL(inputFile.files[0]);
+    }
+
+
+
+
+    // handle submit edit profile
+    const submit = $('#btn-submit');
+    submit.addEventListener('click', async function () {
+        event.preventDefault();
         const curUrl = new URL(window.location.href);
         let isError = false;
 
-       
+        const formData = new FormData();
 
-      
-        const formData = {
-            'name': $('#subject').value,
-            'schedule': $('#schedule').value,
-            'faculty': $('#faculty').value,
-            'school': $('#school').value,
-            'price': $('#price').value,
-            'description': $('#description').value,
+        const fullname = document.getElementById('name').value;
+        const phoneNumber = document.getElementById('phone').value;
+        const faculty = document.getElementById('faculty').value;
+        const school = document.getElementById('school').value;
+        const studentCourse = document.getElementById('course').value;
 
-        };
-        console.log(formData);
-        console.log($('#price').value);
+        // Thêm các trường dữ liệu vào formData
+        formData.append('fullname', fullname);
+        formData.append('phoneNumber', phoneNumber);
+        formData.append('faculty', faculty);
+        formData.append('school', school);
+        formData.append('studentCourse', studentCourse);
+        formData.append('avatar', inputFile.files[0]);
 
-        fetch('/tutor/createNewCourse', {
+        await fetch('/tutor/profile', {
             method: 'POST',
-            body: JSON.stringify(formData),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-            },
+            body: formData,
+
         }).then(response => {
             if (!response.ok) {
                 isError = true;
+
+
             }
-           
+
             return response.json();
         })
             .then(data => {
                 if (isError == true) {
                     alert(data.error)
                 } else {
-                  
-
+                    // Redirect to the signin page (adjust the URL as needed)
                     const alertReview = $('.alert-success')
                     alertReview.innerHTML = `${data.msg}`
                     alertReview.style.opacity = "1";
                     alertReview.style.display = "block"
-                    console.log(alertReview)
+
                     setTimeout(function () {
                         alertReview.style.opacity = "0";
                         setTimeout(function () {
@@ -234,4 +253,5 @@
                 console.error('Error:', error);
             });
     });
+
 </script>
