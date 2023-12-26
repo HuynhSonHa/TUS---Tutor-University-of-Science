@@ -16,6 +16,7 @@ const storedCourses = async (req, res, next) => {
       res.render("tutormode/viewCourseList", {
         courses: mutipleMongooseToObject(courses),
         user: mongooseToObject(user),
+        layout: 'tutor',
       });
     })
     .catch(next);
@@ -34,6 +35,7 @@ const storedCoursesAjax = async (req, res, next) => {
 
         res.status(200).json({
           courses: mutipleMongooseToObject(courses),
+          layout: 'tutor',
         });
       })
       .catch(next);
@@ -66,6 +68,7 @@ const storedStudents = async (req, res, next) => {
     orders: mutipleMongooseToObject(orders),
     amountOfStudents: amountOfStudents,
     user: mongooseToObject(user),
+    layout: 'tutor',
   })
 }
 
@@ -75,7 +78,7 @@ const createCourse = async (req, res, next) => {
   const userId = req.user._id;
   const user = await User.findById(userId).populate('avatar');
   console.log(user)
-  res.render("tutormode/createcourse", { user: mongooseToObject(user) });
+  res.render("tutormode/createcourse", { user: mongooseToObject(user), layout: 'tutor', });
 
 }
 
@@ -107,7 +110,7 @@ const profile = async (req, res, next) => {
     }
     console.log(user)
 
-    res.render('tutormode/editprofile', { user: mongooseToObject(user) });
+    res.render('tutormode/editprofile', { user: mongooseToObject(user), layout: 'tutor', });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: 'Internal Server Error' });
@@ -126,7 +129,7 @@ const courseDetail = async (req, res, next) => {
     }
 
 
-    res.render('tutormode/courseDetail', { course: mongooseToObject(course) });
+    res.render('tutormode/courseDetail', { course: mongooseToObject(course), layout: 'tutor', });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: 'Internal Server Error' });
@@ -162,11 +165,12 @@ const getTutorMode = async (req, res, next) => {
   res.render('tutormode/tutormode', {
     user: user,
     leftDay: leftDay,
+    layout: 'tutor',
   });
 }
 //[GET] /tutor/
 const getHomePage = (req, res, next) => {
-  res.render('home/tutorhome');
+  res.render('home/tutorhome', {layout: 'tutor',});
 }
 //[GET] /tutor/waitingStudent/Order._Id
 const getDetailStudent = async (req, res, next) => {
@@ -174,6 +178,7 @@ const getDetailStudent = async (req, res, next) => {
 
   res.render('tutormode/detailStudent', {
     order: mongooseToObject(order),
+    layout: 'tutor',
   })
 }
 //[GET] /tutor/accepted/Order._id
@@ -205,6 +210,84 @@ const denyStudent = async (req, res, next) => {
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 }
+// [GET] /tutor/courses?page=*;
+const showAll = async (req, res, next) => {
+  try {
+    const searchField = req.query.searchField;
+    const courseName = req.query.courseName;
+    const tutorName = req.query.tutorName;
+    const faculty = req.query.faculty;
+    const average = req.query.average;
+    const minPrice = req.query.minPrice;
+    const maxPrice = req.query.maxPrice;
+    const sortByField = req.query.sortByField;
+    const sortByOrder = req.query.sortByOrder;
+
+
+    const pageSize = 12;
+    //filter thay vào trên đây (filter xong lấy ra coursesFull, courses)
+    const coursesFull = await CourseService.filteredAndSorted(
+      searchField, courseName, tutorName, faculty, average, minPrice, maxPrice, sortByField, sortByOrder
+    );
+    const totalCourses = coursesFull.length;
+    const totalPages = Math.ceil(totalCourses / pageSize);
+    const pageNumber = parseInt(req.query.page) || 1;
+    const skipAmount = (pageNumber - 1) * pageSize;
+    const courses = await CourseService.filteredSortedPaging(
+      searchField, courseName, tutorName, faculty, average, minPrice, maxPrice, sortByField, sortByOrder, skipAmount, pageSize
+    );
+      
+    const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+    const currentPage = Math.max(1, Math.min(totalPages, pageNumber));
+    var nextPage = currentPage + 1; if(nextPage > totalPages) nextPage = totalPages;
+    var prevPage = currentPage - 1; if(prevPage < 1) prevPage = 1;
+    console.log(courses.length);
+  
+    res.render('catalog/category', {
+      courses: courses,
+      pages: pages,
+      prevPage: prevPage,
+      currentPage: currentPage,
+      nextPage: nextPage,
+      layout: 'tutor',
+    });
+  } catch (error) {
+    console.error('Error fetching courses:', error);
+    next(error);
+  }
+}
+
+// [GET] /tutor/courses/:id
+const detail = async(req, res, next) => {
+  try {
+    const course = await Course.findById(req.params.id).populate('tutor');
+    if (!course) {
+      return res.status(404).render("404"); // Handle the case where the product is not found
+    }
+
+    const coursesListOfTutor = await Course.find({tutor: course.tutor}).populate('tutor');
+    const reviews = await Review.find({ courseId: req.params.id }).populate('userId');
+    let amountOfReviews;
+    if (reviews === null || reviews.length === 0) {
+      amountOfReviews = 0;
+    } else {
+      amountOfReviews = reviews.length;
+    }
+    const coursesListOfName = await Course.find({name: course.name}).populate('tutor');
+    console.log(coursesListOfName);
+    res.render("courses/detail", {
+      course: mongooseToObject(course),
+      coursesListOfTutor: mutipleMongooseToObject(coursesListOfTutor),
+      reviews: mutipleMongooseToObject(reviews),
+      amountOfReviews: amountOfReviews,
+      coursesListOfName: mutipleMongooseToObject(coursesListOfName),
+      layout: 'tutor',
+    });
+  } catch (err) {
+    next(err);
+  }
+}
+
 module.exports = {
   storedCourses,
   storedStudents,
@@ -219,4 +302,6 @@ module.exports = {
   createNewCourse,
   courseDetail,
   storedCoursesAjax,
+  showAll,
+  detail,
 };

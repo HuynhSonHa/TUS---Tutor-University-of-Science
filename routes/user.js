@@ -17,6 +17,8 @@ router.post('/formTutor/:page', isUser, upload.single('GPAfile'), userController
 router.get('/contact/:id', isUser, userController.getContact);
 router.get('/contactToTutor/:id', isUser, userController.getContactToTutor);
 router.post('/contactToTutor/:id', isUser, userController.postContactToTutor);
+router.get('/courses/:id', userController.detail);
+router.get('/courses/', userController.showAll);
 router.get('/', isUser, userController.getHomePage);
 
 module.exports = router;
