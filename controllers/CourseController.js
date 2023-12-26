@@ -45,6 +45,7 @@ const showAll = async (req, res, next) => {
       prevPage: prevPage,
       currentPage: currentPage,
       nextPage: nextPage,
+      layout: 'guest',
     });
   } catch (error) {
     console.error('Error fetching courses:', error);
@@ -76,6 +77,7 @@ const detail = async(req, res, next) => {
       reviews: mutipleMongooseToObject(reviews),
       amountOfReviews: amountOfReviews,
       coursesListOfName: mutipleMongooseToObject(coursesListOfName),
+      layout: 'guest',
     });
   } catch (err) {
     next(err);
@@ -87,7 +89,7 @@ const createCourse = async (req, res, next) => {
   const user = await User.findById(userId).populate('avatar');
   console.log(user)
   console.log('haha')
-  res.render("tutormode/createcourse", { user: mongooseToObject(user) });
+  res.render("tutormode/createcourse", { user: mongooseToObject(user),   layout: 'tutor', });
 }
 // [POST] /courses/store
 const store = async(req, res, next) => {
@@ -117,6 +119,7 @@ const edit = (req, res, next) => {
   .then((course) =>
     res.render("tutormode/editcourse", {
       course: mongooseToObject(course),
+      layout: 'tutor',
     })
   )
   .catch(next);
@@ -128,6 +131,7 @@ const clone = (req, res, next) => {
   .then((course) =>
     res.render("tutormode/cloneCourse", {
       course: mongooseToObject(course),
+      layout: 'tutor',
     })
   )
   .catch(next);

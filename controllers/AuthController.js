@@ -6,7 +6,7 @@ const { validationResult } = require("express-validator");
 
 //[GET] /
 const getHomePage = (req, res, next) => {
-  res.render('home/home');
+  res.render('home/home', {  layout: 'guest',});
 };
 
 //[GET] /signin
@@ -16,7 +16,7 @@ const getSignIn = (req, res, next) => {
   //   //messages: messages,
   //   //hasErrors: messages.length > 0,
   // });
-  res.render("auth/signin");
+  res.render("auth/signin", {  layout: 'guest',});
 };
 
 //[POST] /signin
@@ -59,7 +59,7 @@ const getSignUp = (req, res, next) => {
   //   //messages: messages,
   //   //hasErrors: messages.length > 0,
   // });
-  res.render("auth/signup");
+  res.render("auth/signup", {  layout: 'guest',});
 };
 
 // [POST] /signup
@@ -111,6 +111,7 @@ const getForgetPassword = (req, res, next) => {
   res.render('auth/forgetPassword', {
     messages: messages,
     hasErrors: messages.length > 0,
+    layout: 'guest',
   });
 };
 
@@ -177,7 +178,7 @@ const getResetPassword = async(req, res, next) => {
         // }
 
         // Successfull because error will throw 
-        res.render("auth/resetPassword", { id: user._id })
+        res.render("auth/resetPassword", { id: user._id,   layout: 'guest', })
     }
   } catch (error) {
     next(error);

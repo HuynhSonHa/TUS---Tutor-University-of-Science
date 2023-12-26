@@ -164,6 +164,7 @@ const getWaitingListTutor = async (req, res, next) => {
         prevPage: prevPage,
         currentPage: currentPage,
         nextPage: nextPage,
+        layout: 'admin',
     })
 }
 //[GET] /admin/waitingTutor/BeTutor._Id
@@ -173,6 +174,7 @@ const getDetailTutor = async (req, res, next) => {
     console.log(tutor)
     res.render('admin/detailTutor', {
         tutor: mongooseToObject(tutor),
+        layout: 'admin',
     })
 }
 //[GET] /admin/accepted/BeTutor._id
