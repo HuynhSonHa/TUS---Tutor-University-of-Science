@@ -54,7 +54,7 @@ const profile = async (req, res, next) => {
       return res.status(404).json({ success: false, error: 'User not found' });
     }
 
-    res.render('tutormode/editprofile', { user, layout: 'user', });
+    res.render('tutormode/editprofile', { user: mongooseToObject(user), layout: 'user', });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: 'Internal Server Error' });
@@ -234,7 +234,7 @@ const showAll = async (req, res, next) => {
     const courses = await CourseService.filteredSortedPaging(
       searchField, courseName, tutorName, faculty, average, minPrice, maxPrice, sortByField, sortByOrder, skipAmount, pageSize
     );
-      
+    const role = "user";
     const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
     const currentPage = Math.max(1, Math.min(totalPages, pageNumber));
     var nextPage = currentPage + 1; if(nextPage > totalPages) nextPage = totalPages;
@@ -248,6 +248,7 @@ const showAll = async (req, res, next) => {
       currentPage: currentPage,
       nextPage: nextPage,
       layout: 'user',
+      role: role,
     });
   } catch (error) {
     console.error('Error fetching courses:', error);

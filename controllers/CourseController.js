@@ -32,7 +32,7 @@ const showAll = async (req, res, next) => {
     const courses = await CourseService.filteredSortedPaging(
       searchField, courseName, tutorName, faculty, average, minPrice, maxPrice, sortByField, sortByOrder, skipAmount, pageSize
     );
-      
+    const role = "guest";
     const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
     const currentPage = Math.max(1, Math.min(totalPages, pageNumber));
     var nextPage = currentPage + 1; if(nextPage > totalPages) nextPage = totalPages;
@@ -46,6 +46,7 @@ const showAll = async (req, res, next) => {
       currentPage: currentPage,
       nextPage: nextPage,
       layout: 'guest',
+      role: role,
     
     });
   } catch (error) {
