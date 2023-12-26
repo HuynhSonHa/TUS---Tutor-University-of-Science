@@ -21,7 +21,7 @@ const storedCourses = async (req, res, next) => {
   const currentPage = Math.max(1, Math.min(totalPages, pageNumber));
   var nextPage = currentPage + 1; if(nextPage > totalPages) nextPage = totalPages;
   var prevPage = currentPage - 1; if(prevPage < 1) prevPage = 1;
-  console.log(courses.length);
+  console.log(coursesFull.length);
   const userId = req.user._id;
   const user = await User.findById(userId).populate('avatar');
   console.log(user)
