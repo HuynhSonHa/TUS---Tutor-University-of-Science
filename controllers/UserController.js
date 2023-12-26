@@ -12,8 +12,22 @@ const { mutipleMongooseToObject, mongooseToObject } = require("../util/mongoose"
 // [GET] /user/stored/courses
 const storedCourses = async (req, res, next) => {
   const orders = Order.find({ userId: req.user._id }).populate('courseId userId');
+  
+  const pageSize = 4;
+  //filter thay vào trên đây (filter xong lấy ra coursesFull, courses)
+  const totalCourses = orders.length;
+  const totalPages = Math.ceil(totalCourses / pageSize);
+  const pageNumber = parseInt(req.query.page) || 1;
+  const skipAmount = (pageNumber - 1) * pageSize;
+  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  const currentPage = Math.max(1, Math.min(totalPages, pageNumber));
+  var nextPage = currentPage + 1; if(nextPage > totalPages) nextPage = totalPages;
+  var prevPage = currentPage - 1; if(prevPage < 1) prevPage = 1;
+  console.log(orders.length);
+
+  const orderList = Order.find({ userId: req.user._id }).populate('courseId userId').skip(skipAmount).limit(pageSize);
   res.render("user/stored-courses", {
-    orders: mutipleMongooseToObject(orders),
+    orders: mutipleMongooseToObject(orderList),
     layout: 'user',
   });
 }

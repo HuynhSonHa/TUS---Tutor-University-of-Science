@@ -8,14 +8,32 @@ const BeTutor = require("../models/BeTutor");
 
 // [GET] /tutor/stored/courses
 const storedCourses = async (req, res, next) => {
+  const pageSize = 4;
+  //filter thay vào trên đây (filter xong lấy ra coursesFull, courses)
+  const coursesFull = await Course.find({ tutor: req.user._id });
+  const totalCourses = coursesFull.length;
+  const totalPages = Math.ceil(totalCourses / pageSize);
+  const pageNumber = parseInt(req.query.page) || 1;
+  const skipAmount = (pageNumber - 1) * pageSize;
+  //const courses = await Course.find({ tutor: req.user._id })
+    
+  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  const currentPage = Math.max(1, Math.min(totalPages, pageNumber));
+  var nextPage = currentPage + 1; if(nextPage > totalPages) nextPage = totalPages;
+  var prevPage = currentPage - 1; if(prevPage < 1) prevPage = 1;
+  console.log(courses.length);
   const userId = req.user._id;
   const user = await User.findById(userId).populate('avatar');
   console.log(user)
-  Course.find({ tutor: req.user._id })
+  Course.find({ tutor: req.user._id }).skip(skipAmount).limit(pageSize)
     .then((courses) => {
       res.render("tutormode/viewCourseList", {
         courses: mutipleMongooseToObject(courses),
         user: mongooseToObject(user),
+        pages: pages,
+        prevPage: prevPage,
+        currentPage: currentPage,
+        nextPage: nextPage,
         layout: 'tutor',
       });
     })
@@ -25,16 +43,35 @@ const storedCourses = async (req, res, next) => {
 
 const storedCoursesAjax = async (req, res, next) => {
   try {
+    const pageSize = 4;
+    //filter thay vào trên đây (filter xong lấy ra coursesFull, courses)
+    const coursesFull = await Course.find({ tutor: req.user._id });
+    const totalCourses = coursesFull.length;
+    const totalPages = Math.ceil(totalCourses / pageSize);
+    const pageNumber = parseInt(req.query.page) || 1;
+    const skipAmount = (pageNumber - 1) * pageSize;
+    //const courses = await Course.find({ tutor: req.user._id });
+      
+    const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+    const currentPage = Math.max(1, Math.min(totalPages, pageNumber));
+    var nextPage = currentPage + 1; if(nextPage > totalPages) nextPage = totalPages;
+    var prevPage = currentPage - 1; if(prevPage < 1) prevPage = 1;
+    console.log(courses.length);
+
     const userId = req.user._id;
     const user = await User.findById(userId).populate('avatar');
     console.log('cat1');
 
-    Course.find({ tutor: req.user._id })
+    Course.find({ tutor: req.user._id }).skip(skipAmount).limit(pageSize)
       .then((courses) => {
         console.log(courses);
 
         res.status(200).json({
           courses: mutipleMongooseToObject(courses),
+          pages: pages,
+          prevPage: prevPage,
+          currentPage: currentPage,
+          nextPage: nextPage,
           layout: 'tutor',
         });
       })
@@ -55,6 +92,20 @@ const storedStudents = async (req, res, next) => {
 
   // Find orders for those courses
   const orders = await Order.find({ courseId: { $in: courseIds }, status: "Subscribing" }).populate('userId courseId');
+
+  const pageSize = 4;
+  //filter thay vào trên đây (filter xong lấy ra coursesFull, courses)
+  const totalCourses = orders.length;
+  const totalPages = Math.ceil(totalCourses / pageSize);
+  const pageNumber = parseInt(req.query.page) || 1;
+  const skipAmount = (pageNumber - 1) * pageSize;
+    
+  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  const currentPage = Math.max(1, Math.min(totalPages, pageNumber));
+  var nextPage = currentPage + 1; if(nextPage > totalPages) nextPage = totalPages;
+  var prevPage = currentPage - 1; if(prevPage < 1) prevPage = 1;
+  console.log(orders.length);
+
   const userId = req.user._id;
   const user = await User.findById(userId).populate('avatar');
   let amountOfStudents;
@@ -63,11 +114,16 @@ const storedStudents = async (req, res, next) => {
   } else {
     amountOfStudents = orders.length;
   }
-  console.log(orders);
+  const orderList = await Order.find({ courseId: { $in: courseIds }, status: "Subscribing" }).populate('userId courseId').skip(skipAmount).limit(pageSize);
+  //console.log(orders);
   res.render("tutormode/studentWaittingList", {
-    orders: mutipleMongooseToObject(orders),
+    orders: mutipleMongooseToObject(orderList),
     amountOfStudents: amountOfStudents,
     user: mongooseToObject(user),
+    pages: pages,
+    prevPage: prevPage,
+    currentPage: currentPage,
+    nextPage: nextPage,
     layout: 'tutor',
   })
 }
