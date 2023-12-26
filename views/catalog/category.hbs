@@ -15,38 +15,7 @@
     @import url(https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/css/lightgallery.min.css);</style>
 
 
-<header class="header">
-    <div class="contact-info">
-        <p> <i class="fas fa-map-marker-alt"></i>227 Nguyễn Văn Cừ, District 5, HCMC</p>
-        <p> <i class="fas fa-envelope"></i>lynhathao.it@gmail.com</p>
-        <p> <i class="fas fa-clock"></i>24/7
-            <a href="https://instagram.com/nauxbachh/"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.facebook.com/bach0807/"><i class="fab fa-facebook"></i></a>
-            <i class="fab fa-twitter"></i>
-            <i class="fab fa-pinterest"></i>
-            </i>
-        </p>
-    </div>
-    <nav class="navbar">
 
-        <a href="/" class="logo">
-            <img src="./images/logo-small.svg" alt="">
-            <img src="./images/Logo.svg" alt="">
-            <div class="links">
-                <a href="/">Home</a>
-                <a href="">About Us</a>
-                <a href="/courses">Tutor</a>
-                <a href="/">News & Blog</a>
-                <a href="/">Contact Us</a>
-                <a href="" class="btn">Become Tutor</a>
-                <a href="/login">Login</a>
-            </div>
-
-            <div id="menu-btn" class="fa fa-bars"></div>
-
-    </nav>
-
-</header>
 <div id="page" class="page-category">
     <main>
         <div class="section">
@@ -266,12 +235,12 @@
                                                 <div class="dot-image">
                                                     <a href="/courses/{{this._id}}" class="product-permalink"></a>
                                                     <div class="thumbnail">
-                                                        <img src="./images/team-1.png" alt="">
+                                                        <img src="/images/{{this.tutor.avatar}}" alt="">
                                                     </div>
-                                                    <div class="thumbnail hover">
+                                                    {{!-- <div class="thumbnail hover">
                                                         <img src="./images/team-2.png" alt="">
-                                                    </div>
-                                                    <div class="actions">
+                                                    </div> --}}
+                                                    {{!-- <div class="actions">
                                                         <ul>
                                                             <li><a href=""><i class="ri-star-line"></i></a>
                                                             </li>
@@ -280,7 +249,7 @@
                                                             <li><a href=""><i class="ri-eye-line"></i></a>
                                                             </li>
                                                         </ul>
-                                                    </div>
+                                                    </div> --}}
                                                     <div class="label"><span>-{{percent this.discount
                                                             this.price}}%</span></div>
                                                 </div>
@@ -311,14 +280,9 @@
                             </div>
                             <!-- <div class="button"><a href="" class="primary-btn">Load more</a></div> -->
                             <div class="pagination">
-                                <a id="prev_page" href="/courses?page={{prevPage}}">
-                                    < </a>
-                                        {{#each pages}}
-                                        <a id="{{this}}" href="/courses?page={{this}}"
-                                            class="{{#if (eq this ../currentPage)}}active{{/if}}">{{this}}</a>
-                                        {{/each}}
-                                        <a id="next_page" href="/courses?page={{nextPage}}"> > </a>
+                                {{generatePaginationLinks pages currentPage prevPage nextPage role}}
                             </div>
+
                         </div>
                     </div>
                 </div>

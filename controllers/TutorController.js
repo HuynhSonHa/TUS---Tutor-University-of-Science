@@ -4,6 +4,7 @@ const Order = require("../models/Order");
 const { validationResult } = require("express-validator");
 const { mutipleMongooseToObject, mongooseToObject } = require("../util/mongoose");
 const BeTutor = require("../models/BeTutor");
+const CourseService = require("../services/product");
 
 
 // [GET] /tutor/stored/courses
@@ -16,14 +17,15 @@ const storedCourses = async (req, res, next) => {
   const pageNumber = parseInt(req.query.page) || 1;
   const skipAmount = (pageNumber - 1) * pageSize;
   //const courses = await Course.find({ tutor: req.user._id })
-    
+
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
   const currentPage = Math.max(1, Math.min(totalPages, pageNumber));
-  var nextPage = currentPage + 1; if(nextPage > totalPages) nextPage = totalPages;
-  var prevPage = currentPage - 1; if(prevPage < 1) prevPage = 1;
+  var nextPage = currentPage + 1; if (nextPage > totalPages) nextPage = totalPages;
+  var prevPage = currentPage - 1; if (prevPage < 1) prevPage = 1;
   console.log(coursesFull.length);
   const userId = req.user._id;
   const user = await User.findById(userId).populate('avatar');
+  const namePage = "courses";
   console.log(user)
   Course.find({ tutor: req.user._id }).skip(skipAmount).limit(pageSize)
     .then((courses) => {
@@ -34,7 +36,9 @@ const storedCourses = async (req, res, next) => {
         prevPage: prevPage,
         currentPage: currentPage,
         nextPage: nextPage,
+        namePage: namePage,
         layout: 'tutor',
+
       });
     })
     .catch(next);
@@ -51,13 +55,13 @@ const storedCoursesAjax = async (req, res, next) => {
     const pageNumber = parseInt(req.query.page) || 1;
     const skipAmount = (pageNumber - 1) * pageSize;
     //const courses = await Course.find({ tutor: req.user._id });
-      
+    console.log('abc')
     const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
     const currentPage = Math.max(1, Math.min(totalPages, pageNumber));
-    var nextPage = currentPage + 1; if(nextPage > totalPages) nextPage = totalPages;
-    var prevPage = currentPage - 1; if(prevPage < 1) prevPage = 1;
-    console.log(courses.length);
-
+    var nextPage = currentPage + 1; if (nextPage > totalPages) nextPage = totalPages;
+    var prevPage = currentPage - 1; if (prevPage < 1) prevPage = 1;
+    
+    const namePage = "courses";
     const userId = req.user._id;
     const user = await User.findById(userId).populate('avatar');
     console.log('cat1');
@@ -72,6 +76,7 @@ const storedCoursesAjax = async (req, res, next) => {
           prevPage: prevPage,
           currentPage: currentPage,
           nextPage: nextPage,
+          namePage: namePage,
           layout: 'tutor',
         });
       })
@@ -99,11 +104,11 @@ const storedStudents = async (req, res, next) => {
   const totalPages = Math.ceil(totalCourses / pageSize);
   const pageNumber = parseInt(req.query.page) || 1;
   const skipAmount = (pageNumber - 1) * pageSize;
-    
+  const namePage = "waiting-list";
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
   const currentPage = Math.max(1, Math.min(totalPages, pageNumber));
-  var nextPage = currentPage + 1; if(nextPage > totalPages) nextPage = totalPages;
-  var prevPage = currentPage - 1; if(prevPage < 1) prevPage = 1;
+  var nextPage = currentPage + 1; if (nextPage > totalPages) nextPage = totalPages;
+  var prevPage = currentPage - 1; if (prevPage < 1) prevPage = 1;
   console.log(orders.length);
 
   const userId = req.user._id;
@@ -124,6 +129,7 @@ const storedStudents = async (req, res, next) => {
     prevPage: prevPage,
     currentPage: currentPage,
     nextPage: nextPage,
+    namePage: namePage,
     layout: 'tutor',
   })
 }
@@ -226,7 +232,7 @@ const getTutorMode = async (req, res, next) => {
 }
 //[GET] /tutor/
 const getHomePage = (req, res, next) => {
-  res.render('home/tutorhome', {layout: 'tutor',});
+  res.render('home/tutorhome', { layout: 'tutor', });
 }
 //[GET] /tutor/waitingStudent/Order._Id
 const getDetailStudent = async (req, res, next) => {
@@ -292,20 +298,22 @@ const showAll = async (req, res, next) => {
     const courses = await CourseService.filteredSortedPaging(
       searchField, courseName, tutorName, faculty, average, minPrice, maxPrice, sortByField, sortByOrder, skipAmount, pageSize
     );
-      
+    const role = "tutor"
     const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
     const currentPage = Math.max(1, Math.min(totalPages, pageNumber));
-    var nextPage = currentPage + 1; if(nextPage > totalPages) nextPage = totalPages;
-    var prevPage = currentPage - 1; if(prevPage < 1) prevPage = 1;
+    var nextPage = currentPage + 1; if (nextPage > totalPages) nextPage = totalPages;
+    var prevPage = currentPage - 1; if (prevPage < 1) prevPage = 1;
     console.log(courses.length);
-  
+
     res.render('catalog/category', {
       courses: courses,
       pages: pages,
       prevPage: prevPage,
       currentPage: currentPage,
       nextPage: nextPage,
+      role: role,
       layout: 'tutor',
+
     });
   } catch (error) {
     console.error('Error fetching courses:', error);
@@ -314,14 +322,14 @@ const showAll = async (req, res, next) => {
 }
 
 // [GET] /tutor/courses/:id
-const detail = async(req, res, next) => {
+const detail = async (req, res, next) => {
   try {
     const course = await Course.findById(req.params.id).populate('tutor');
     if (!course) {
       return res.status(404).render("404"); // Handle the case where the product is not found
     }
 
-    const coursesListOfTutor = await Course.find({tutor: course.tutor}).populate('tutor');
+    const coursesListOfTutor = await Course.find({ tutor: course.tutor }).populate('tutor');
     const reviews = await Review.find({ courseId: req.params.id }).populate('userId');
     let amountOfReviews;
     if (reviews === null || reviews.length === 0) {
@@ -329,7 +337,7 @@ const detail = async(req, res, next) => {
     } else {
       amountOfReviews = reviews.length;
     }
-    const coursesListOfName = await Course.find({name: course.name}).populate('tutor');
+    const coursesListOfName = await Course.find({ name: course.name }).populate('tutor');
     console.log(coursesListOfName);
     res.render("courses/detail", {
       course: mongooseToObject(course),

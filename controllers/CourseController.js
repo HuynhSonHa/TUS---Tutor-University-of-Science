@@ -46,6 +46,7 @@ const showAll = async (req, res, next) => {
       currentPage: currentPage,
       nextPage: nextPage,
       layout: 'guest',
+    
     });
   } catch (error) {
     console.error('Error fetching courses:', error);
