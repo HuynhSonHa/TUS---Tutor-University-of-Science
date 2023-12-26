@@ -16,7 +16,7 @@ const getSignIn = (req, res, next) => {
   //   //messages: messages,
   //   //hasErrors: messages.length > 0,
   // });
-  res.render("auth/signin", {  layout: 'guest',});
+  res.render("auth/signin");
 };
 
 //[POST] /signin
@@ -59,7 +59,7 @@ const getSignUp = (req, res, next) => {
   //   //messages: messages,
   //   //hasErrors: messages.length > 0,
   // });
-  res.render("auth/signup", {  layout: 'guest',});
+  res.render("auth/signup");
 };
 
 // [POST] /signup
@@ -111,7 +111,7 @@ const getForgetPassword = (req, res, next) => {
   res.render('auth/forgetPassword', {
     messages: messages,
     hasErrors: messages.length > 0,
-    layout: 'guest',
+   
   });
 };
 
@@ -178,7 +178,7 @@ const getResetPassword = async(req, res, next) => {
         // }
 
         // Successfull because error will throw 
-        res.render("auth/resetPassword", { id: user._id,   layout: 'guest', })
+        res.render("auth/resetPassword", { id: user._id})
     }
   } catch (error) {
     next(error);
