@@ -31,7 +31,16 @@ const adminController = require("../controllers/AdminController.js");
 
 router.get("/waitingTutor/:id", adminController.getDetailTutor);
 router.get("/waitingTutor", adminController.getWaitingListTutor);
-
 router.get("/accepted/:id", adminController.acceptTutor);
 router.get("/denied/:id", adminController.denyTutor);
+
+router.get("/account/edit/:id", adminControllers.getEditUserPage);
+router.put("/account/edit/:id", adminControllers.putEditUserPage);
+router.delete("/account/:id", adminControllers.destroyUser);
+router.get("/account", adminControllers.getAccountPage);
+
+router.get("product/edit/:id", adminControllers.getEditCoursePage);
+router.put("product/edit/:id", adminControllers.putEditCoursePage);
+router.delete("product/:id", adminControllers.destroyCourse);
+router.get("/product", adminControllers.getCoursePage);
 module.exports = router;

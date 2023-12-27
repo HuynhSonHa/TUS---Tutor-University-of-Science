@@ -10,7 +10,7 @@ const BeTutor = require("../models/BeTutor.js");
 
 
 //Service
-const ProductService = require("../services/product.js")
+const courseService = require("../services/course.js")
 const { mongooseToObject, mutipleMongooseToObject } = require("../util/mongoose");
 
 //const { use } = require("passport");
@@ -23,7 +23,7 @@ require('dotenv').config();
 
 const getHomePage = async (req, res, next) => {
     try {
-        const productName = req.query.productName;
+        const courseName = req.query.courseName;
         const catalogId = req.query.catalogId;
         const minPrice = req.query.minPrice;
         const maxPrice = req.query.maxPrice;
@@ -31,9 +31,9 @@ const getHomePage = async (req, res, next) => {
         const sortByField = req.query.sortByField;
         const sortByOrder = req.query.sortByOrder;
 
-        const productList = await ProductService.PrfilteredAndSortedProducts(productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
-        if (productList) {
-            res.render("HomePage_1.ejs", { productList: productList });
+        const courseList = await courseService.PrfilteredAndSortedcourses(courseName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
+        if (courseList) {
+            res.render("HomePage_1.ejs", { courseList: courseList });
         }
         else {
             res.status(404).json({ message: "Not found" });
@@ -55,19 +55,19 @@ const getDashBoard = (req, res, next) => {
     }
 }
 
-const getProductDetail = async (req, res, next) => {
+const getcourseDetail = async (req, res, next) => {
     try {
 
-        const productId = req.params.productId;
+        const courseId = req.params.courseId;
 
-        const { productInfo, relatedProducts, productReviews } = await ProductService.getAnProductDetail(productId);
+        const { courseInfo, relatedcourses, courseReviews } = await courseService.getAncourseDetail(courseId);
 
 
-        if (productInfo) {
+        if (courseInfo) {
 
             // Render file in here! Pleases!!!!!!!!!
 
-            res.status(200).json({ productInfo, relatedProducts, productReviews });
+            res.status(200).json({ courseInfo, relatedcourses, courseReviews });
         }
         else {
             res.status(404).json({ message: "Not found" });
@@ -79,10 +79,10 @@ const getProductDetail = async (req, res, next) => {
     }
 }
 
-const getFormCreateNewProduct = (req, res, next) => {
+const getFormCreateNewcourse = (req, res, next) => {
     try {
 
-        res.render("CreateNewProduct.ejs");
+        res.render("CreateNewcourse.ejs");
     }
     catch (error) {
         console.log(error);
@@ -92,27 +92,27 @@ const getFormCreateNewProduct = (req, res, next) => {
 
 
 
-const postANewProduct = async (req, res, next) => {
+const postANewcourse = async (req, res, next) => {
     if (!req.files) {
         return res.status(400).json({ error: "No file uploaded" });
     }
     try {
-        const product = {};
-        const { thumbnail, gallery } = await ProductService.saveFileAndGetUrlFromThumbnailAndGallery(req.files);
+        const course = {};
+        const { thumbnail, gallery } = await courseService.saveFileAndGetUrlFromThumbnailAndGallery(req.files);
 
-        product.thumbnail = thumbnail;
-        product.gallery = gallery;
-        product.catalogId = new mongoose.Types.ObjectId(req.body.catalogId);
-        product.name = req.body.name;
-        product.price = req.body.price;
-        product.description = req.body.description;
-        product.discount = req.body.discount;
-        product.status = req.body.status;
-        product.manufacturer = req.body.manufacturer;
+        course.thumbnail = thumbnail;
+        course.gallery = gallery;
+        course.catalogId = new mongoose.Types.ObjectId(req.body.catalogId);
+        course.name = req.body.name;
+        course.price = req.body.price;
+        course.description = req.body.description;
+        course.discount = req.body.discount;
+        course.status = req.body.status;
+        course.manufacturer = req.body.manufacturer;
 
-        const newProduct = new Product(product);
-        await newProduct.save();
-        res.status(201).json({ message: "Create product successfully", newProduct });
+        const newcourse = new course(course);
+        await newcourse.save();
+        res.status(201).json({ message: "Create course successfully", newcourse });
 
     }
     catch (error) {
@@ -121,9 +121,9 @@ const postANewProduct = async (req, res, next) => {
     }
 }
 
-const getProductList = async (req, res, next) => {
+const getcourseList = async (req, res, next) => {
     try {
-        const productName = req.query.productName;
+        const courseName = req.query.courseName;
         const catalogId = req.query.catalogId;
         const minPrice = req.query.minPrice;
         const maxPrice = req.query.maxPrice;
@@ -131,9 +131,9 @@ const getProductList = async (req, res, next) => {
         const sortByField = req.query.sortByField;
         const sortByOrder = req.query.sortByOrder;
 
-        const productList = await ProductService.PrfilteredAndSortedProducts(productName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
-        if (productList) {
-            res.render("AdminProducts.ejs", { productList: productList });
+        const courseList = await courseService.PrfilteredAndSortedcourses(courseName, catalogId, manufacturer, minPrice, maxPrice, sortByField, sortByOrder);
+        if (courseList) {
+            res.render("Admincourses.ejs", { courseList: courseList });
         }
         else {
             res.status(404).json({ message: "Not found" });
@@ -236,15 +236,92 @@ const denyTutor = async(req, res, next) => {
         return res.status(500).json({ error: 'Internal Server Error' });
     }   
 }
+
+const getAccountPage = async (req, res, next) => {
+    // 1 list user, amount of user
+    const userList = await User.find();
+    res.render('admin/account/admin-account', {
+        userList: userList,
+        amountOfUser: userList.length,
+    });
+}
+const getEditUserPage = async (req, res, next) => {
+    const user = await User.findById(req.params.id);
+    res.render("", {
+        user: user,
+    })
+}
+const putEditUserPage = async (req, res, next) => {
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+      res.status(400).json({ errors: result.array() });
+      return;
+    }
+    User.updateOne({ _id: req.params.id }, req.body)
+    .then(() => res.status(200).json({success: true, redirectUrl: '/admin', msg: "Chỉnh sửa khóa học thành công!"}))
+    .catch(next);
+}
+const destroyUser = async (req, res, next) => {
+    var id = new mongoose.Types.ObjectId(req.params.id);
+    User.deleteOne({ _id: id })
+    .then(() => res.status(200).json({success: true, redirectUrl: '/admin', msg: "Xóa user thành công!"}))
+    .catch((error) => {
+        console.error("Lỗi khi xóa bản ghi:", error);
+        next(error); // Chuyển error cho middleware xử lý lỗi
+    });
+}
+
+const getCoursePage = async(req, res, next) => {
+    const courseList = await Course.find();
+    res.render("", {
+        courseList: courseList,
+        amountOfCourse: courseList.length,
+    })
+}
+const getEditCoursePage = async(req, res, next) => {
+    //Edit sản phẩm 
+    const course = await Course.findById(req.params.id)
+    res.render('admin/edit/edit', {
+      course: course,
+    })
+}
+const putEditCoursePage = async(req, res, next) => {
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+      res.status(400).json({ errors: result.array() });
+      return;
+    }
+    Course.updateOne({ _id: req.params.id }, req.body)
+    .then(() => res.status(200).json({success: true, redirectUrl: '/admin', msg: "Chỉnh sửa môn học thành công!"}))
+    .catch(next);
+}
+const destroyCourse = async (req, res, next) => {
+    var id = new mongoose.Types.ObjectId(req.params.id);
+    Course.deleteOne({ _id: id })
+    .then(() => res.status(200).json({success: true, redirectUrl: '/admin', msg: "Xóa môn học thành công!"}))
+    .catch((error) => {
+        console.error("Lỗi khi xóa bản ghi:", error);
+        next(error); // Chuyển error cho middleware xử lý lỗi
+    });
+}
+
 module.exports = {
     getHomePage,
     getDashBoard,
-    getProductDetail,
-    getFormCreateNewProduct,
-    postANewProduct,
-    getProductList,
+    getcourseDetail,
+    getFormCreateNewcourse,
+    postANewcourse,
+    getcourseList,
     getWaitingListTutor,
     getDetailTutor,
     acceptTutor,
     denyTutor,
+    getEditUserPage,
+    putEditUserPage,
+    destroyUser,
+    getAccountPage,
+    getEditCoursePage,
+    putEditCoursePage,
+    destroyCourse, 
+    getCoursePage,
 }
