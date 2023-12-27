@@ -105,7 +105,11 @@
 
     const listCourse = $('#list-course');
     function editCourse(idCourse) {
-
+       
+        window.location.assign(`/courses/edit/${idCourse}`)
+    }
+      function cloneCourse(idCourse) {
+         window.location.assign(`/courses/clone/${idCourse}`)
     }
     async function deleteCourse(idCourse) {
         console.log(idCourse)

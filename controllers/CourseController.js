@@ -117,7 +117,7 @@ const store = async(req, res, next) => {
 
 // [GET] /courses/edit/:id
 const edit = (req, res, next) => {
-  Course.findById(req.params.id)
+  Course.findById(req.params.id).populate('tutor')
   .then((course) =>
     res.render("tutormode/editCourse", {
       course: mongooseToObject(course),
