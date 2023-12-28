@@ -129,7 +129,7 @@ const edit = (req, res, next) => {
 
 // [GET] /courses/clone/:id
 const clone = (req, res, next) => {
-  Course.findById(req.params.id)
+  Course.findById(req.params.id).populate('tutor')
   .then((course) =>
     res.render("tutormode/cloneCourse", {
       course: mongooseToObject(course),
@@ -163,7 +163,20 @@ const destroy = (req, res, next) => {
     next(error); // Chuyển error cho middleware xử lý lỗi
   });
 }
+const createNewCourse = async (req, res, next) => {
+  try {
+    const formData = req.body;
+    formData.tutor = req.user._id;
+    const course = new Course(formData);
+    await course.save();
 
+    return res.status(200).json({ success: true, msg: "Thêm course thành công!" });
+    //return res.send("Thêm review thành công!").redirect("/user/home");
+  }
+  catch (err) {
+    next(err);
+  }
+}
 
 module.exports = {
   showAll,
@@ -174,4 +187,5 @@ module.exports = {
   clone,
   update,
   destroy,
+  createNewCourse,
 };

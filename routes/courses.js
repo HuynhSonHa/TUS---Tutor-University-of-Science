@@ -10,6 +10,7 @@ router.get('/edit/:id', isTutor, courseController.edit);
 router.get('/clone/:id', isTutor, courseController.clone);
 router.put('/:id', isTutor, courseController.update)
 router.delete('/:id', isTutor, courseController.destroy);
+router.post('/createNewCourse', isTutor, courseController.createNewCourse);
 
 router.get('/:id', courseController.detail);
 router.get('/', courseController.showAll);

@@ -18,46 +18,53 @@
         <form action="">
             <p class="wrapper-input">
                 <label for="subject">Course Name:</label>
-                <input type="" id="subject" name="subject" placeholder="Enter your course" check required>
+                <input type="" id="subject" name="subject" placeholder="Enter your course" value="{{course.name}}"
+                    required>
             </p>
 
             <p class="wrapper-input">
                 <label for="schedule">Schedule:</label>
-                <input type="" id="schedule" name="schedule" placeholder="Enter your schedule" check required>
+                <input type="" id="schedule" name="schedule" placeholder="Enter your schedule"
+                    value="{{course.schedule}}" required>
             </p>
 
             <p class="wrapper-input">
                 <label for="faculty">Faculty:</label>
-                <select name="faculty" id="faculty" check>
-                    <option value="none">None</option>
-                    <option value="information technology">Information Technology</option>
-                    <option value="math">Math</option>
+                <select name="faculty" id="faculty">
+                    <option value="none" {{#if (eq course.faculty 'none' )}}selected{{/if}}>None</option>
+                    <option value="information technology" {{#if (eq course.faculty 'information technology'
+                        )}}selected{{/if}}>Information Technology</option>
+                    <option value="math" {{#if (eq course.faculty 'math' )}}selected{{/if}}>Math</option>
                 </select>
             </p>
 
+
+
             <p class="wrapper-input">
                 <label for="school">School:</label>
-                <input type="text" id="school" name="school" placeholder="Enter your school" check required>
+                <input type="text" id="school" name="school" placeholder="Enter your school" value="{{course.school}}"
+                    required>
             </p>
 
             <p class="wrapper-input">
                 <label for="price">Price:</label>
-                <input type="text" id="price" name="price" placeholder="Enter your price/ Week" check required>
+                <input type="text" id="price" name="price" placeholder="Enter your price/ Week" value="{{course.price}}"
+                    required>
             </p>
 
             <p class="wrapper-input">
                 <label for="description">Description:</label>
                 <input type="text" id="description" name="description" placeholder="Enter your description about course"
-                    check required>
+                    value="{{course.description}}" required>
             </p>
 
             <p class="wrapper-input">
-                <button class="btn" id="btn-submit" type="submit">Create Course</button>
+                <button class="btn" id="btn-submit" type="submit">Clone Course</button>
             </p>
         </form>
     </div>
     <div class="image">
-        <img src="/images/{{user.avatar}}">
+        <img src="/images/{{course.tutor.avatar}}">
     </div>
 
 </section>
@@ -101,9 +108,9 @@
         const curUrl = new URL(window.location.href);
         let isError = false;
 
-       
 
-      
+
+
         const formData = {
             'name': $('#subject').value,
             'schedule': $('#schedule').value,
@@ -119,7 +126,7 @@
         console.log(formData);
         console.log($('#price').value);
 
-        fetch('/courses/store', {
+        fetch('/courses/createNewCourse', {
             method: 'POST',
             body: JSON.stringify(formData),
             headers: {
@@ -128,17 +135,17 @@
         }).then(response => {
             if (!response.ok) {
                 isError = true;
-               
+
 
             }
-           
+
             return response.json();
         })
             .then(data => {
                 if (isError == true) {
                     alert(data.error)
                 } else {
-                  
+
 
                     const alertReview = $('.alert-success')
                     alertReview.innerHTML = `${data.msg}`
