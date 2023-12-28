@@ -60,7 +60,7 @@ const storedCoursesAjax = async (req, res, next) => {
     const currentPage = Math.max(1, Math.min(totalPages, pageNumber));
     var nextPage = currentPage + 1; if (nextPage > totalPages) nextPage = totalPages;
     var prevPage = currentPage - 1; if (prevPage < 1) prevPage = 1;
-    
+
     const namePage = "courses";
     const userId = req.user._id;
     const user = await User.findById(userId).populate('avatar');
@@ -84,6 +84,50 @@ const storedCoursesAjax = async (req, res, next) => {
   } catch (err) {
     // Handle errors specific to the initial user retrieval (e.g., user not found)
     console.error(err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+
+const storedWaitingListAjax = async (req, res, next) => {
+  try {
+    const courses = await Course.find({ tutor: req.user._id }).select('_id');
+    const courseIds = courses.map(course => course._id);
+
+    const orders = await Order.find({ courseId: { $in: courseIds }, status: "Subscribing" }).populate('userId courseId');
+
+    const pageSize = 4;
+    const totalCourses = orders.length;
+    const totalPages = Math.ceil(totalCourses / pageSize);
+    const pageNumber = parseInt(req.query.page) || 1;
+    const skipAmount = (pageNumber - 1) * pageSize;
+    const namePage = "waiting-list";
+    const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+    const currentPage = Math.max(1, Math.min(totalPages, pageNumber));
+    var nextPage = currentPage + 1; if (nextPage > totalPages) nextPage = totalPages;
+    var prevPage = currentPage - 1; if (prevPage < 1) prevPage = 1;
+
+    const userId = req.user._id;
+    const user = await User.findById(userId).populate('avatar');
+
+    let amountOfStudents = orders.length;
+
+    const orderList = await Order.find({ courseId: { $in: courseIds }, status: "Subscribing" })
+      .populate('userId courseId')
+      .skip(skipAmount)
+      .limit(pageSize);
+
+    res.status(200).json({
+      orders: mutipleMongooseToObject(orderList),
+      amountOfStudents: amountOfStudents,
+      pages: pages,
+      prevPage: prevPage,
+      currentPage: currentPage,
+      nextPage: nextPage,
+      namePage: namePage,
+    });
+  } catch (error) {
+    console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
@@ -121,6 +165,9 @@ const storedStudents = async (req, res, next) => {
   }
   const orderList = await Order.find({ courseId: { $in: courseIds }, status: "Subscribing" }).populate('userId courseId').skip(skipAmount).limit(pageSize);
   //console.log(orders);
+  console.log(amountOfStudents);
+  console.log('hahahaha111');
+
   res.render("tutormode/studentWaittingList", {
     orders: mutipleMongooseToObject(orderList),
     amountOfStudents: amountOfStudents,
@@ -368,4 +415,5 @@ module.exports = {
   storedCoursesAjax,
   showAll,
   detail,
+  storedWaitingListAjax,
 };
