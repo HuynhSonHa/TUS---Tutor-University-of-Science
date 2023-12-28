@@ -10,7 +10,7 @@ const BeTutor = require("../models/BeTutor.js");
 
 
 //Service
-const courseService = require("../services/course.js")
+const courseService = require("../services/product.js")
 const { mongooseToObject, mutipleMongooseToObject } = require("../util/mongoose");
 
 //const { use } = require("passport");

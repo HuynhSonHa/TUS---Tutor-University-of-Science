@@ -20,7 +20,7 @@ const adminController = require("../controllers/AdminController.js");
 
 
 
-// router.get("/admin/home-page", passport.authenticate('jwt', { session: false }), checkAdmin, adminControllers.getHomePage);
+// router.get("/admin/home-page", passport.authenticate('jwt', { session: false }), checkAdmin, adminController.getHomePage);
 // router.get("/admin/product/:productId", passport.authenticate('jwt', { session: false }), checkAdmin, adminControllers.getProductDetail)
 
 // router.get("/admin/product", passport.authenticate('jwt', { session: false }), checkAdmin, adminControllers.getFormCreateNewProduct)
@@ -34,13 +34,13 @@ router.get("/waitingTutor", adminController.getWaitingListTutor);
 router.get("/accepted/:id", adminController.acceptTutor);
 router.get("/denied/:id", adminController.denyTutor);
 
-router.get("/account/edit/:id", adminControllers.getEditUserPage);
-router.put("/account/edit/:id", adminControllers.putEditUserPage);
-router.delete("/account/:id", adminControllers.destroyUser);
-router.get("/account", adminControllers.getAccountPage);
+router.get("/account/edit/:id", adminController.getEditUserPage);
+router.put("/account/edit/:id", adminController.putEditUserPage);
+router.delete("/account/:id", adminController.destroyUser);
+router.get("/account", adminController.getAccountPage);
 
-router.get("product/edit/:id", adminControllers.getEditCoursePage);
-router.put("product/edit/:id", adminControllers.putEditCoursePage);
-router.delete("product/:id", adminControllers.destroyCourse);
-router.get("/product", adminControllers.getCoursePage);
+router.get("product/edit/:id", adminController.getEditCoursePage);
+router.put("product/edit/:id", adminController.putEditCoursePage);
+router.delete("product/:id", adminController.destroyCourse);
+router.get("/product", adminController.getCoursePage);
 module.exports = router;
