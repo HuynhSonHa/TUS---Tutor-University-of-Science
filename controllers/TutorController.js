@@ -65,13 +65,14 @@ const storedCoursesAjax = async (req, res, next) => {
     const userId = req.user._id;
     const user = await User.findById(userId).populate('avatar');
     console.log('cat1');
-
+    const numCourse = coursesFull.length
     Course.find({ tutor: req.user._id }).skip(skipAmount).limit(pageSize)
       .then((courses) => {
         console.log(courses);
 
         res.status(200).json({
           courses: mutipleMongooseToObject(courses),
+          numCourse: numCourse,
           pages: pages,
           prevPage: prevPage,
           currentPage: currentPage,

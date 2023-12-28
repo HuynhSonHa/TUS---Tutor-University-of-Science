@@ -86,6 +86,8 @@
 
 
     let currentPage = {{ currentPage }};
+    let numCourse = 0;
+    const pagination = $('.pagination')
 
     menu.onclick = () => {
         menu.classList.toggle('fa-times');
@@ -105,11 +107,11 @@
 
     const listCourse = $('#list-course');
     function editCourse(idCourse) {
-       
+
         window.location.assign(`/courses/edit/${idCourse}`)
     }
-      function cloneCourse(idCourse) {
-         window.location.assign(`/courses/clone/${idCourse}`)
+    function cloneCourse(idCourse) {
+        window.location.assign(`/courses/clone/${idCourse}`)
     }
     async function deleteCourse(idCourse) {
         console.log(idCourse)
@@ -164,10 +166,39 @@
             console.error('Error:', error.message);
         }
     }
+    function generateTutorPaginationLinks(pages, currentPage, prevPage, nextPage, namePage) {
+        // Adjust currentPage if the number of students is 1 more than a multiple of 4
 
+
+        let links = '';
+        //function handle first and last
+        function handleArrow(pageNumber, text) {
+            return `<a id="${pageNumber}" href="/tutor/stored/${namePage}?page=${pageNumber}">${text}</a>`;
+        }
+        // Function to generate individual links
+        function generateLink(pageNumber, text) {
+            const isActive = pageNumber === currentPage ? 'active' : '';
+            return `<a id="${pageNumber}" href="/tutor/stored/${namePage}?page=${pageNumber}" class="${isActive}">${text}</a>`;
+        }
+
+        // Add previous page link
+        links += handleArrow(prevPage, '<');
+
+        // Add individual page links
+        pages.forEach((pageNumber) => {
+            links += generateLink(pageNumber, pageNumber);
+        });
+
+        // Add next page link
+        links += handleArrow(nextPage, '>');
+
+
+        return links;
+    }
     async function loadCourse() {
-        console.log('111')
-        console.log(currentPage)
+        if (numCourse % 4 === 1) {
+            currentPage -= 1;
+        }
         try {
             const response = await fetch(`/tutor/stored/coursesAjax?page=${currentPage}`, {
                 method: 'GET',
@@ -180,7 +211,7 @@
             const data = await response.json();
 
             listCourse.innerHTML = ``
-
+            pagination.innerHTML = ``
 
 
             data.courses.forEach((course, key) => {
@@ -208,6 +239,10 @@
                 listCourse.appendChild(tempCourse);
             });
 
+            numCourse = data.numCourse;
+            
+
+            pagination.innerHTML = generateTutorPaginationLinks(data.pages, data.currentPage, data.prevPage, data.nextPage, data.namePage);
         } catch (error) {
             console.error('Error:', error.message);
         }
