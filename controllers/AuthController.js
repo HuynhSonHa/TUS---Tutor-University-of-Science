@@ -3,6 +3,7 @@ const User = require('../models/User');
 const storage = require('../config/multer');
 const { sendMail } = require("./mailAPI");
 const { validationResult } = require("express-validator");
+require("dotenv").config();
 
 //[GET] /
 const getHomePage = (req, res, next) => {
@@ -139,7 +140,7 @@ const postForgetPassword = async(req, res, next) => {
     else {
         //const secret = process.env.JWT_SECRET + user.password;
         //const token = jwt.sign({ id: user._id, email: user.email }, secret, { expiresIn: "30m" });
-        const reserPasswordLink = `http://localhost:10000/reset-password?id=${user._id}`;
+        const reserPasswordLink = `${process.env.WEBSITE_URL}/reset-password?id=${user._id}`;
 
         const mailOption = {
             //from: `Admin Le Nguyen Thai <lnthai21@clc.fitus.edu.vn>`,
