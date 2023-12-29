@@ -233,7 +233,8 @@
                                             {{#each courses}}
                                             <div class="item">
                                                 <div class="dot-image">
-                                                    <a href="/courses/{{this._id}}" class="product-permalink"></a>
+                                                    <a onclick="loadDetail( '{{this._id}}')"
+                                                        class="product-permalink"></a>
                                                     <div class="thumbnail">
                                                         <img src="/images/{{this.tutor.avatar}}" alt="">
                                                     </div>
@@ -419,6 +420,9 @@
         window.location.href = currentUrl.toString();
 
     });
-
+    // handle
+    function loadDetail( id) {
+        window.location.href = `/{{role}}/courses/${id}`
+    }
 
 </script>
