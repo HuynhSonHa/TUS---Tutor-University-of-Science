@@ -29,6 +29,12 @@ const storedCourses = async (req, res, next) => {
   const orderList = Order.find({ userId: req.user._id }).populate('courseId userId').skip(skipAmount).limit(pageSize);
   res.render("user/stored-courses", {
     orders: mutipleMongooseToObject(orderList),
+    user: mongooseToObject(req.user),
+    pages: pages,
+    prevPage: prevPage,
+    currentPage: currentPage,
+    nextPage: nextPage,
+    namePage: namePage,
     layout: 'user',
   });
 }
