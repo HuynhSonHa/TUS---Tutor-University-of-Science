@@ -11,9 +11,19 @@ const isTutor = (req, res, next) => {
     if(req.user.role === "tutor") {
       return next();
     }
-    res.redirect('user/premium');
+    res.redirect('/user/premium');
   }
   res.redirect('/login');
 };
 
-module.exports = {isUser, isTutor,};
+const isAdmin = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    if(req.user.role === "admin") {
+      return next();
+    }
+    res.redirect('/login');
+  }
+  res.redirect('/login');
+};
+
+module.exports = {isUser, isTutor, isAdmin};

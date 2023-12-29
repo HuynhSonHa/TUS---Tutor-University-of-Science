@@ -45,7 +45,11 @@ const postSignIn = (req, res, next) => {
         return next(err);
       }
       // Check user role and set the successRedirect accordingly
-      const successRedirect = (user.role === 'tutor') ? '/tutor/' : '/user/';
+      let successRedirect;
+      if(user.role === 'admin') successRedirect = '/admin';
+      else if(user.role === 'tutor') successRedirect = '/tutor';
+      else successRedirect = '/user';
+      //const successRedirect = (user.role === 'tutor') ? '/tutor/' : '/user/';
       //return res.redirect(successRedirect);
       return res.status(200).json({ success: true, redirectUrl: successRedirect, msg: "Đăng nhập thành công!" });
     });
