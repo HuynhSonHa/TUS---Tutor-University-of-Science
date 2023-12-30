@@ -8,7 +8,7 @@ const CourseScheme = new Schema({
     name: {
         type: String,
         trim: true,
-        required: [true, "Please provide name"],
+        required: [true, "Please provide name of course"],
     },
     price: {
         type: Number,
@@ -18,7 +18,7 @@ const CourseScheme = new Schema({
     description: {
         type: String,
         trim: true,
-        default: "None",
+        required: [true, 'Please provide description of course'],
     },
     discount: {
         type: Number,
@@ -52,9 +52,11 @@ const CourseScheme = new Schema({
     },
     faculty: {
         type: String,
+        required: [true, 'Please provide your faculty'],
     },
     school: {
         type: String,
+        required: [true, 'Please provide your school'],
     },
     studentCourse: {
         type: String,
@@ -68,6 +70,7 @@ const CourseScheme = new Schema({
     schedule: [
         {
             type: String,
+            required: [true, 'Please provide schedule'],
         }
     ],
 

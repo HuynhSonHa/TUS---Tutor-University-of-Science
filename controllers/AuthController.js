@@ -139,6 +139,7 @@ const getSignUp = (req, res, next) => {
 const postSignUp = (req, res, next) => {
   // Verify user input
   const result = validationResult(req);
+  console.log("haha"+result.toObject());
   if (!result.isEmpty()) {
     res.status(400).json({ errors: result.array() });
     return;

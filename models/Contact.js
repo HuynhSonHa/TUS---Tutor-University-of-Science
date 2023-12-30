@@ -12,13 +12,16 @@ const contactSchema = new mongoose.Schema({
     required: true
   },
   fullname: {
-    type: String
+    type: String,
+    //required: [true, 'Please provide fullname'],
   },
   email: {
-    type: String
+    type: String,
+    //required: [true, 'Please provide email'],
   },
   phoneNumber: {
-    type: String
+    type: String,
+    //required: [true, 'Please provide phone number'],
   },
   
   datePost: {

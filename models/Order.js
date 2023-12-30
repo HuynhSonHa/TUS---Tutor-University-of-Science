@@ -11,10 +11,12 @@ const OrderScheme = new Schema({
         required: true
     },
     desiredGPA: {
-        type: Number
+        type: Number,
+        required: [true, 'Please provide desired GPA'],
     },
     comment: {
         type: String,
+        required: [true, 'Please provide comment'],
     },
     status: {
         type: String,

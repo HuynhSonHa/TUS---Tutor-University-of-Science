@@ -11,6 +11,7 @@ const tutorSchema = new mongoose.Schema({
   },
   comment: {
     type: String,
+    required: [true, 'Please provide comment'],
   },
   datePost: {
     type: Date,
