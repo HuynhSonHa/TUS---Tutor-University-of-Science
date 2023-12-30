@@ -156,7 +156,8 @@ const update = (req, res, next) => {
 // [DELETE] /courses/:id
 const destroy = async(req, res, next) => {
   var id = new mongoose.Types.ObjectId(req.params.id);
-  const reviewList = await Review.deleteMany({courseId: id});
+  await Review.deleteMany({courseId: id});
+  await Order.deleteMany({courseId: id});
   Course.deleteOne({ _id: id })
   .then(() => res.status(200).json({success: true, redirectUrl: '/tutor', msg: "Xóa khóa học thành công!"}))
   .catch((error) => {
