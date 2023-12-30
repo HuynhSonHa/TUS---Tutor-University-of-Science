@@ -36,7 +36,7 @@ const store = async (req, res, next) => {
         }
         if(n>0) {
             const average = sum / n;
-            const course = await Course.findOne({courseId: req.params.id});
+            const course = await Course.findOne({_id: req.params.id});
             course.average = average;
             await course.save();
         }
