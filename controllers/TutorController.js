@@ -280,8 +280,24 @@ const getTutorMode = async (req, res, next) => {
   });
 }
 //[GET] /tutor/
-const getHomePage = (req, res, next) => {
-  res.render('home/tutorhome', { layout: 'tutor', });
+const getHomePage = async(req, res, next) => {
+  const reviewList = await Review.aggregate([
+    {
+      $project: {
+        courseId: 1, // Include other fields as needed
+        userId: 1,
+        rating: 1,
+        comment: 1,
+        datePost: 1,
+        commentLength: { $strLenCP: "$comment" } // Calculate the length of comment
+      }
+    },
+    {
+      $sort: { rating: -1, commentLength: -1, } // Sort by comment length in ascending order
+    }
+  ]).skip(0).limit(3);
+  console.log(reviewList);
+  res.render('home/tutorhome', {user: req.user, layout: 'tutor', reviewList: reviewList});
 }
 //[GET] /tutor/waitingStudent/Order._Id
 const getDetailStudent = async (req, res, next) => {

@@ -211,8 +211,24 @@ const postContactToTutor = async (req, res, next) => {
 }
 
 //[GET] /user/home
-const getHomePage = (req, res, next) => {
-  res.render('home/userHome', { user: req.user, layout: 'user', });
+const getHomePage = async (req, res, next) => {
+  const reviewList = await Review.aggregate([
+    {
+      $project: {
+        courseId: 1, // Include other fields as needed
+        userId: 1,
+        rating: 1,
+        comment: 1,
+        datePost: 1,
+        commentLength: { $strLenCP: "$comment" } // Calculate the length of comment
+      }
+    },
+    {
+      $sort: { rating: -1, commentLength: -1, } // Sort by comment length in ascending order
+    }
+  ]).skip(0).limit(3);
+  console.log(reviewList);
+  res.render('home/userHome', { user: req.user, layout: 'user', reviewList: reviewList});
 }
 // [GET] /user/courses?page=*;
 const showAll = async (req, res, next) => {
