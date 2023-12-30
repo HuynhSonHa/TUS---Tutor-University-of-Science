@@ -114,7 +114,7 @@
         window.location.assign(`/courses/clone/${idCourse}`)
     }
     async function deleteCourse(idCourse) {
-        console.log(idCourse)
+        
         try {
             const response = await fetch(`/courses/${idCourse}`, {
                 method: 'DELETE',

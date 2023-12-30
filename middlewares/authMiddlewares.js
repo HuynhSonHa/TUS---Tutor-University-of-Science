@@ -13,6 +13,7 @@ const signupValidator = [
         .isEmail().withMessage("Email is invalid")
         .escape()
         .custom(async value => {
+          
             const foundedUser = await User.findOne({ email: value });
             if (!foundedUser) {
                 return true;
@@ -43,8 +44,10 @@ const signupValidator = [
         .notEmpty().withMessage("Confirm password must not be empty")
         .escape()
         .custom((value, { req }) => {
+            console.log(value, req.body.password)
         if (value !== req.body.password) {
-            throw new Error("Password confirmation does not match password");
+           
+            throw new Error("Password not match");
         }
         return true;
     })

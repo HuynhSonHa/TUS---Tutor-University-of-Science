@@ -96,6 +96,7 @@ const postSignIn = (req, res, next) => {
   //   failureFlash: true,
   // })(req, res, next);// Thêm dòng này để gọi hàm authenticate
   // Verify user input
+
   const result = validationResult(req);
   if (!result.isEmpty()) {
     res.status(400).json({ errors: result.array() });
@@ -138,8 +139,9 @@ const getSignUp = (req, res, next) => {
 // [POST] /signup
 const postSignUp = (req, res, next) => {
   // Verify user input
+  
   const result = validationResult(req);
-  console.log("haha"+result.toObject());
+  console.log("haha", result.array());
   if (!result.isEmpty()) {
     res.status(400).json({ errors: result.array() });
     return;

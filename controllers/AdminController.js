@@ -192,7 +192,7 @@ const acceptTutor = async(req, res, next) => {
             };
             beTutor.status = "accepted";
             await beTutor.save();
-            User.updateOne({_id: beTutor.tutorId}, formData);
+            await User.updateOne({_id: beTutor.tutorId}, formData);
             return res.status(200).json({ msg: 'Accepted thành công!' });
         } else if(beTutor.price == 1999000) {
             let formData = {
@@ -202,7 +202,7 @@ const acceptTutor = async(req, res, next) => {
             };
             beTutor.status = "accepted";
             await beTutor.save();
-            User.updateOne({_id: beTutor.tutorId}, formData);
+            await User.updateOne({_id: beTutor.tutorId}, formData);
             return res.status(200).json({ msg: 'Accepted thành công!' });
         } else if(beTutor.price == 3999000) {
             let formData = {
@@ -212,7 +212,7 @@ const acceptTutor = async(req, res, next) => {
             };
             beTutor.status = "accepted";
             await beTutor.save();
-            User.updateOne({_id: beTutor.tutorId}, formData);
+            await User.updateOne({_id: beTutor.tutorId}, formData);
             return res.status(200).json({ msg: 'Accepted thành công!' });
         }
     } catch {

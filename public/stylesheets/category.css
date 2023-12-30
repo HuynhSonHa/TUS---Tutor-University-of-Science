@@ -85,7 +85,7 @@ h3,
 h4 {
     font-family: var(--second-font);
     font-weight: 400;
-    
+
     line-height: normal;
 }
 
@@ -463,7 +463,7 @@ input.checker:checked::after {
 
 .dotgrid .dot-image .label {
     top: auto;
-    
+
     bottom: 20px;
 }
 
@@ -1348,11 +1348,11 @@ h4 {
     margin-top: 1rem;
     padding: 1rem 3rem;
     cursor: pointer;
-    
+
     font-size: 1.7rem;
     text-transform: capitalize;
     color: #000000;
-    
+
     border-radius: 15px;
 }
 
@@ -1559,13 +1559,15 @@ i.fas.fa-play-circle {
 
 .input-box {
     position: relative;
-    height: 76px;
+   
     max-width: 900px;
-    width: 65%;
+    width: 100%;
     background: #fff;
     margin: 0 20px;
     border-radius: 8px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem 2rem 1.5rem 0;
+    margin-top: 12px;
 }
 
 .input-box i,
@@ -1573,6 +1575,13 @@ i.fas.fa-play-circle {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+}
+
+#sort_selection {
+    font-size: 20px;
+    padding: 8px 15px;
+    border-radius: 8px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
 .input-box i {
@@ -1588,7 +1597,7 @@ i.fas.fa-play-circle {
     font-size: 18px;
     font-weight: 400;
     border: none;
-    padding: 0 155px 0 65px;
+    padding: 0 0px 0 65px;
     background-color: transparent;
 }
 
@@ -1607,3 +1616,13 @@ i.fas.fa-play-circle {
 .input-box .button:active {
     transform: translateY(-50%) scale(0.98);
 }
+
+input[type='range'] {
+    /* Other styles... */
+    background: linear-gradient(to right, #FF0000 0%, #FF0000 var(--value), #DEE2E6 var(--value), #DEE2E6 100%);
+}
+
+input[type='range']:before {
+    width: var(--value);
+}
+

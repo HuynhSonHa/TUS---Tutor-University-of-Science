@@ -107,3 +107,25 @@ input[id*="input"]{
     background-color: inherit;
     border: none;
 }
+
+
+.wrapper-input{
+    position: relative;
+
+}
+
+.error {
+    color: red;
+    text-align: end;
+    padding-top: 8px;
+    font-weight: 500;
+
+    position: absolute;
+    bottom: -24px;
+    right: 0;
+    display: none;
+}
+
+.error.active {
+    display: block;
+}
