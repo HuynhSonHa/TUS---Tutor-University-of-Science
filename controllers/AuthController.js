@@ -6,93 +6,28 @@ const Review = require("../models/Review");
 const storage = require('../config/multer');
 const { sendMail } = require("./mailAPI");
 const { validationResult } = require("express-validator");
-
+const UserService = require("../services/user");
 require("dotenv").config();
 
 //[GET] /
-// const getHomePage = async(req, res, next) => {
-//   const reviewList = await Review.aggregate([
-//     {
-//       $project: {
-//         courseId: 1, // Include other fields as needed
-//         userId: 1,
-//         rating: 1,
-//         comment: 1,
-//         datePost: 1,
-//         commentLength: { $strLenCP: "$comment" } // Calculate the length of comment
-//       }
-//     },
-//     {
-//       $sort: { rating: -1, commentLength: -1, } // Sort by comment length in ascending order
-//     }
-//   ]).populate('userId').populate('courseId').skip(0).limit(3);
-//   console.log(reviewList);
-//   res.render('home/home', {  layout: 'guest', reviewList: reviewList});
-
-// };
-
-
-const getHomePage = async (req, res, next) => {
-  try {
-    const reviewList = await Review.aggregate([
-      // {
-      //   $lookup: {
-      //     from: "users",
-      //     localField: "userId",
-      //     foreignField: "_id",
-      //     as: "user"
-      //   }
-      // },
-      // {
-      //   $unwind: "$user"
-      // },
-      {
-        $addFields: {
-          courseId: { $toObjectId: "$courseId" }
-        }
-      },
-      {
-        $lookup: {
-          from: "courses",
-          localField: "courseId",
-          foreignField: "_id",
-          as: "course"
-        }
-      },
-      {
-        $unwind: "$course"
-      },
-      // {
-      //   $project: {
-      //     courseId: 1,
-      //     userId: 1,
-      //     rating: 1,
-      //     comment: 1,
-      //     datePost: 1,
-      //     commentLength: { $strLenCP: "$comment" },
-      //     user: {
-      //       _id: "$user._id",
-      //       username: "$user.username",
-      //       // Add more fields as needed
-      //     },
-      //     course: {
-      //       _id: "$course._id",
-      //       courseName: "$course.courseName",
-      //       // Add more fields as needed
-      //     }
-      //   }
-      // },
-      // {
-      //   $sort: { rating: -1, commentLength: -1 }
-      // }
-    ]).limit(3);
-
-    console.log(JSON.stringify(reviewList, null, 2));
-    res.render('home/home', { layout: 'guest', reviewList: reviewList });
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
+const getHomePage = async(req, res, next) => {
+  const reviewList = await Review.aggregate([
+    {
+      $project: {
+        courseId: 1, // Include other fields as needed
+        userId: 1,
+        rating: 1,
+        comment: 1,
+        datePost: 1,
+        commentLength: { $strLenCP: "$comment" } // Calculate the length of comment
+      }
+    },
+    {
+      $sort: { rating: -1, commentLength: -1, } // Sort by comment length in ascending order
+    }
+  ]).skip(0).limit(3);
+  console.log(reviewList);
+  res.render('home/home', {  layout: 'guest', reviewList: reviewList});
 };
 
 //[GET] /signin

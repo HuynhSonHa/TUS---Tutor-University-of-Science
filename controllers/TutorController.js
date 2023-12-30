@@ -6,7 +6,7 @@ const { validationResult } = require("express-validator");
 const { mutipleMongooseToObject, mongooseToObject } = require("../util/mongoose");
 const BeTutor = require("../models/BeTutor");
 const CourseService = require("../services/product");
-
+const UserService = require("../services/user");
 
 // [GET] /tutor/stored/courses
 const storedCourses = async (req, res, next) => {
@@ -296,8 +296,25 @@ const getHomePage = async(req, res, next) => {
       $sort: { rating: -1, commentLength: -1, } // Sort by comment length in ascending order
     }
   ]).skip(0).limit(3);
-  console.log(reviewList);
-  res.render('home/tutorhome', {user: req.user, layout: 'tutor', reviewList: reviewList});
+  //console.log(reviewList);
+
+  const tutors = await User.find({role: 'tutor'});
+  let userList = await Promise.all(tutors.map(async (tutor) => {
+      let averageRating = await UserService.getAverageRatingForTutor(tutor._id.toString());
+      //console.log(averageRating);
+      return {
+          ...tutor.toObject(),
+          averageRating: averageRating ? averageRating.averageRating : 0
+      };
+  }));
+  // Sort the userList based on averageRating in descending order
+  userList.sort((a, b) => b.averageRating - a.averageRating);
+
+  // Apply skip and limit - here skip 0 and limit 4
+  userList = userList.slice(0, 4);
+  //console.log(userList);
+
+  res.render('home/tutorhome', {user: req.user, layout: 'tutor', reviewList: reviewList, userList: userList});
 }
 //[GET] /tutor/waitingStudent/Order._Id
 const getDetailStudent = async (req, res, next) => {
