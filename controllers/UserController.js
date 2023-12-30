@@ -13,7 +13,7 @@ const UserService = require("../services/user");
 // [GET] /user/stored/courses
 const storedCourses = async (req, res, next) => {
   const orders = Order.find({ userId: req.user._id }).populate('courseId userId');
-  
+
   const pageSize = 4;
   //filter thay vào trên đây (filter xong lấy ra coursesFull, courses)
   const totalCourses = orders.length;
@@ -22,8 +22,8 @@ const storedCourses = async (req, res, next) => {
   const skipAmount = (pageNumber - 1) * pageSize;
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
   const currentPage = Math.max(1, Math.min(totalPages, pageNumber));
-  var nextPage = currentPage + 1; if(nextPage > totalPages) nextPage = totalPages;
-  var prevPage = currentPage - 1; if(prevPage < 1) prevPage = 1;
+  var nextPage = currentPage + 1; if (nextPage > totalPages) nextPage = totalPages;
+  var prevPage = currentPage - 1; if (prevPage < 1) prevPage = 1;
   console.log(orders.length);
 
   const orderList = Order.find({ userId: req.user._id }).populate('courseId userId').skip(skipAmount).limit(pageSize);
@@ -181,9 +181,9 @@ const getContactToTutor = async (req, res, next) => {
     amountOfReviews = reviews.length;
   }
   console.log(amountOfReviews)
-  res.render('user/contactToTutor', { 
-    course: mongooseToObject(course), 
-    amountOfReviews: amountOfReviews, 
+  res.render('user/contactToTutor', {
+    course: mongooseToObject(course),
+    amountOfReviews: amountOfReviews,
     layout: 'user',
   });
 }
@@ -198,7 +198,7 @@ const postContactToTutor = async (req, res, next) => {
     const formData = req.body;
     formData.courseId = req.params.id;
     formData.userId = req.user._id;
-    
+
     const order = new Order(formData);
     await order.save();
     console.log(order)
@@ -211,42 +211,110 @@ const postContactToTutor = async (req, res, next) => {
 }
 
 //[GET] /user/home
-const getHomePage = async (req, res, next) => {
-  const reviewList = await Review.aggregate([
-    {
-      $project: {
-        courseId: 1, // Include other fields as needed
-        userId: 1,
-        rating: 1,
-        comment: 1,
-        datePost: 1,
-        commentLength: { $strLenCP: "$comment" } // Calculate the length of comment
-      }
-    },
-    {
-      $sort: { rating: -1, commentLength: -1, } // Sort by comment length in ascending order
-    }
-  ]).skip(0).limit(3);
-  //console.log(reviewList);
+// const getHomePage = async (req, res, next) => {
+//   const reviewList = await Review.aggregate([
+//     {
+//       $project: {
+//         courseId: 1, // Include other fields as needed
+//         userId: 1,
+//         rating: 1,
+//         comment: 1,
+//         datePost: 1,
+//         commentLength: { $strLenCP: "$comment" } // Calculate the length of comment
+//       }
+//     },
+//     {
+//       $sort: { rating: -1, commentLength: -1, } // Sort by comment length in ascending order
+//     }
+//   ]).skip(0).limit(3);
+//   //console.log(reviewList);
 
-  const tutors = await User.find({role: 'tutor'});
-  let userList = await Promise.all(tutors.map(async (tutor) => {
+//   const tutors = await User.find({role: 'tutor'});
+//   let userList = await Promise.all(tutors.map(async (tutor) => {
+//       let averageRating = await UserService.getAverageRatingForTutor(tutor._id.toString());
+//       //console.log(averageRating);
+//       return {
+//           ...tutor.toObject(),
+//           averageRating: averageRating ? averageRating.averageRating : 0
+//       };
+//   }));
+//   // Sort the userList based on averageRating in descending order
+//   userList.sort((a, b) => b.averageRating - a.averageRating);
+
+//   // Apply skip and limit - here skip 0 and limit 4
+//   userList = userList.slice(0, 4);
+//   //console.log(userList);
+
+//   res.render('home/userHome', { user: req.user, layout: 'user', reviewList: reviewList, userList: userList});
+// }
+
+
+const getHomePage = async (req, res, next) => {
+  try {
+    const reviewList = await Review.aggregate([
+      {
+        $lookup: {
+          from: "users",
+          localField: "userId",
+          foreignField: "_id",
+          as: "user"
+        }
+      },
+      {
+        $unwind: "$user"
+      },
+      {
+        $lookup: {
+          from: "courses",
+          localField: "courseId",
+          foreignField: "_id",
+          as: "course"
+        }
+      },
+      {
+        $unwind: "$course"
+      },
+      {
+        $project: {
+          courseId: 1,
+          userId: 1,
+          rating: 1,
+          comment: 1,
+          datePost: 1,
+          commentLength: { $strLenCP: "$comment" },
+          user: 1, // include all fields from the user document
+          course: 1 // include all fields from the course document
+        }
+      },
+      {
+        $sort: { rating: -1, commentLength: -1 }
+      }
+    ]).limit(3);
+
+    const tutors = await User.find({ role: 'tutor' });
+    let userList = await Promise.all(tutors.map(async (tutor) => {
       let averageRating = await UserService.getAverageRatingForTutor(tutor._id.toString());
       //console.log(averageRating);
       return {
-          ...tutor.toObject(),
-          averageRating: averageRating ? averageRating.averageRating : 0
+        ...tutor.toObject(),
+        averageRating: averageRating ? averageRating.averageRating : 0
       };
-  }));
-  // Sort the userList based on averageRating in descending order
-  userList.sort((a, b) => b.averageRating - a.averageRating);
+    }));
+    // Sort the userList based on averageRating in descending order
+    userList.sort((a, b) => b.averageRating - a.averageRating);
 
-  // Apply skip and limit - here skip 0 and limit 4
-  userList = userList.slice(0, 4);
-  //console.log(userList);
+    // Apply skip and limit - here skip 0 and limit 4
+    userList = userList.slice(0, 4);
+    console.log(userList);
 
-  res.render('home/userHome', { user: req.user, layout: 'user', reviewList: reviewList, userList: userList});
-}
+
+    // console.log(JSON.stringify(reviewList, null, 2));
+    res.render('home/userhome', {user: req.user, layout: 'user', reviewList: reviewList, userList: userList });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+};
 // [GET] /user/courses?page=*;
 const showAll = async (req, res, next) => {
   try {
@@ -276,10 +344,10 @@ const showAll = async (req, res, next) => {
     const role = "user";
     const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
     const currentPage = Math.max(1, Math.min(totalPages, pageNumber));
-    var nextPage = currentPage + 1; if(nextPage > totalPages) nextPage = totalPages;
-    var prevPage = currentPage - 1; if(prevPage < 1) prevPage = 1;
+    var nextPage = currentPage + 1; if (nextPage > totalPages) nextPage = totalPages;
+    var prevPage = currentPage - 1; if (prevPage < 1) prevPage = 1;
     console.log(courses.length);
-  
+
     res.render('catalog/category', {
       courses: courses,
       pages: pages,
@@ -296,14 +364,14 @@ const showAll = async (req, res, next) => {
 }
 
 // [GET] /user/courses/:id
-const detail = async(req, res, next) => {
+const detail = async (req, res, next) => {
   try {
     const course = await Course.findById(req.params.id).populate('tutor');
     if (!course) {
       return res.status(404).render("404"); // Handle the case where the product is not found
     }
 
-    const coursesListOfTutor = await Course.find({tutor: course.tutor}).populate('tutor');
+    const coursesListOfTutor = await Course.find({ tutor: course.tutor }).populate('tutor');
     const reviews = await Review.find({ courseId: req.params.id }).populate('userId');
     let amountOfReviews;
     if (reviews === null || reviews.length === 0) {
@@ -311,7 +379,7 @@ const detail = async(req, res, next) => {
     } else {
       amountOfReviews = reviews.length;
     }
-    const coursesListOfName = await Course.find({name: course.name}).populate('tutor');
+    const coursesListOfName = await Course.find({ name: course.name }).populate('tutor');
     console.log(coursesListOfName);
     res.render("courses/detail", {
       course: mongooseToObject(course),

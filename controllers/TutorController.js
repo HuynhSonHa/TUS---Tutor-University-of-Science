@@ -281,40 +281,72 @@ const getTutorMode = async (req, res, next) => {
 }
 //[GET] /tutor/
 const getHomePage = async(req, res, next) => {
-  const reviewList = await Review.aggregate([
-    {
-      $project: {
-        courseId: 1, // Include other fields as needed
-        userId: 1,
-        rating: 1,
-        comment: 1,
-        datePost: 1,
-        commentLength: { $strLenCP: "$comment" } // Calculate the length of comment
+  try {
+    const reviewList = await Review.aggregate([
+      {
+        $lookup: {
+          from: "users",
+          localField: "userId",
+          foreignField: "_id",
+          as: "user"
+        }
+      },
+      {
+        $unwind: "$user"
+      },
+      {
+        $lookup: {
+          from: "courses",
+          localField: "courseId",
+          foreignField: "_id",
+          as: "course"
+        }
+      },
+      {
+        $unwind: "$course"
+      },
+      {
+        $project: {
+          courseId: 1,
+          userId: 1,
+          rating: 1,
+          comment: 1,
+          datePost: 1,
+          commentLength: { $strLenCP: "$comment" },
+          user: 1, // include all fields from the user document
+          course: 1 // include all fields from the course document
+        }
+      },
+      {
+        $sort: { rating: -1, commentLength: -1 }
       }
-    },
-    {
-      $sort: { rating: -1, commentLength: -1, } // Sort by comment length in ascending order
-    }
-  ]).skip(0).limit(3);
-  //console.log(reviewList);
+    ]).limit(3);
 
-  const tutors = await User.find({role: 'tutor'});
-  let userList = await Promise.all(tutors.map(async (tutor) => {
+    const tutors = await User.find({ role: 'tutor' });
+    let userList = await Promise.all(tutors.map(async (tutor) => {
       let averageRating = await UserService.getAverageRatingForTutor(tutor._id.toString());
       //console.log(averageRating);
       return {
-          ...tutor.toObject(),
-          averageRating: averageRating ? averageRating.averageRating : 0
+        ...tutor.toObject(),
+        averageRating: averageRating ? averageRating.averageRating : 0
       };
-  }));
-  // Sort the userList based on averageRating in descending order
-  userList.sort((a, b) => b.averageRating - a.averageRating);
+    }));
+    // Sort the userList based on averageRating in descending order
+    userList.sort((a, b) => b.averageRating - a.averageRating);
 
-  // Apply skip and limit - here skip 0 and limit 4
-  userList = userList.slice(0, 4);
-  //console.log(userList);
+    // Apply skip and limit - here skip 0 and limit 4
+    userList = userList.slice(0, 4);
+    console.log(userList);
 
-  res.render('home/tutorhome', {user: req.user, layout: 'tutor', reviewList: reviewList, userList: userList});
+
+    // console.log(JSON.stringify(reviewList, null, 2));
+    res.render('home/tutorhome', {user: req.user, layout: 'tutor', reviewList: reviewList, userList: userList});
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+
+  
 }
 //[GET] /tutor/waitingStudent/Order._Id
 const getDetailStudent = async (req, res, next) => {
