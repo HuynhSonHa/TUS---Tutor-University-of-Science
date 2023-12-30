@@ -8,10 +8,10 @@ const handlebars = exphbs.create({
     eq: (a, b) => a === b,
     percent: (a, b) => (100 - a * 100 / b).toFixed(0),
     // Add other helpers if needed
-    generatePaginationLinks: function (pages, currentPage,prevPage,nextPage ,role) {
+    generatePaginationLinks: function (pages, currentPage, prevPage, nextPage, role) {
       let links = '';
       //function handle first and last
-      function handleArrow(pageNumber, text){
+      function handleArrow(pageNumber, text) {
         return `<a id="${pageNumber}" href="/${role}/courses?page=${pageNumber}">${text}</a>`;
       }
       // Function to generate individual links
@@ -34,10 +34,10 @@ const handlebars = exphbs.create({
 
       return new Handlebars.SafeString(links);
     },
-    generateTutorPaginationLinks: function (pages, currentPage,prevPage,nextPage,namePage ) {
+    generateTutorPaginationLinks: function (pages, currentPage, prevPage, nextPage, namePage) {
       let links = '';
       //function handle first and last
-      function handleArrow(pageNumber, text){
+      function handleArrow(pageNumber, text) {
         return `<a id="${pageNumber}" href="/tutor/stored/${namePage}?page=${pageNumber}">${text}</a>`;
       }
       // Function to generate individual links
@@ -59,8 +59,12 @@ const handlebars = exphbs.create({
 
 
       return new Handlebars.SafeString(links);
-    }
+    },
+    starRating: function (rating) {
+      return new Array(rating);
+    },
   }
+
 
 });
 

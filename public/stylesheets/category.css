@@ -85,7 +85,7 @@ h3,
 h4 {
     font-family: var(--second-font);
     font-weight: 400;
-    text-align: center;
+    
     line-height: normal;
 }
 
@@ -1348,11 +1348,11 @@ h4 {
     margin-top: 1rem;
     padding: 1rem 3rem;
     cursor: pointer;
-    background: #40DDB6;
+    
     font-size: 1.7rem;
     text-transform: capitalize;
     color: #000000;
-    border: 0.2rem solid #334;
+    
     border-radius: 15px;
 }
 
