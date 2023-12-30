@@ -1,5 +1,5 @@
 const Order = require("../models/Order");
-const { body } = require('express-validator');
+const { body, check } = require('express-validator');
 
 const postValidator = [
     body("fullname")
@@ -18,9 +18,21 @@ const postValidator = [
     body("comment")
         .notEmpty().withMessage("Please provide comment")
         .escape(),
-    // body("GPAfile")
-    //     .notEmpty().withMessage("Please provide images of your GPA")
-    //     .escape(),
+    // Custom validator for GPAfile
+    check('GPAfile')
+        .custom((value, { req }) => {
+            if (!req.file) { // Check if file is uploaded
+                throw new Error('Please upload a file');
+            }
+
+            // Allowed mime types for images
+            const allowedTypes = ['image/jpg','image/jpeg', 'image/png', 'image/gif'];
+            if (!allowedTypes.includes(req.file.mimetype)) {
+                throw new Error('Only image files are allowed');
+            }
+
+            return true; // Validation passed
+        }),
 ];
 
 module.exports = {
