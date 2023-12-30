@@ -61,7 +61,7 @@ const handlebars = exphbs.create({
       return new Handlebars.SafeString(links);
     },
     starRating: function (rating) {
-      return new Array(rating);
+      return Array(rating).fill(1);
     },
   }
 

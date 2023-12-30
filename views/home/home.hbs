@@ -181,7 +181,18 @@
     <h1 class="heading">Weekly Ranking<span> Top 5</span> </h1>
 
     <div class="box-container">
+
+        {{#each userList as |tutor|}}
         <div class="box">
+            <img src="images/{{tutor.avatar}}" alt="">
+            <div class="content">
+                <h3>{{tutor.fullname}}</h3>
+                <p>{{tutor.discription}}</p>
+
+            </div>
+        </div>
+        {{/each}}
+        {{!-- <div class="box">
             <img src="images/team-1.png" alt="">
             <div class="content">
                 <h3>Trịnh Xuân Bách</h3>
@@ -235,7 +246,7 @@
                     <a href="#" class="fab fa-linkedin"></a>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
     </div>
 
@@ -259,76 +270,15 @@
             </div>
             <div class="text">
                 <i class="fas fa-quote-right"></i>
-                <p>{{review.content}}</p>
+                <p>{{review.comment}}</p>
             </div>
             <div class="user">
-                <img src="images/team-1.png" alt="">
-                <h3>{{review.user}}</h3>
+                <img src="images/{{review.user.avatar}}" alt="">
+                <h3>{{review.user.fullname}}</h3>
             </div>
         </div>
         {{/each}}
-        {{!-- <div class="box">
-            <div class="star">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-            </div>
-            <div class="text">
-                <i class="fas fa-quote-right"></i>
-                <p>“ Mình đã học thử một lần trong môn DSA và thấy rất hiệu quả, vì thế tuần sau mình sẽ đăng ký để học
-                    lại môn này.
-                    Những môn học thú vị, nếu như học một lần vẫn chưa thoả mãn, ta nên học lại nhiều lần!
-                </p>
-            </div>
-            <div class="user">
-                <img src="images/team-1.png" alt="">
-                <h3>Bách</h3>
-            </div>
-        </div>
 
-        <div class="box">
-            <div class="star">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-            </div>
-            <div class="text">
-                <i class="fas fa-quote-right"></i>
-                <p>“ Mình đã học thử một lần trong môn DSA và thấy rất hiệu quả, vì thế tuần sau mình sẽ đăng ký để học
-                    lại môn này.
-                    Những môn học thú vị, nếu như học một lần vẫn chưa thoả mãn, ta nên học lại nhiều lần!
-                </p>
-            </div>
-            <div class="user">
-                <img src="images/team-4.png" alt="">
-                <h3>Hà</h3>
-            </div>
-        </div>
-
-        <div class="box">
-            <div class="star">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-            </div>
-            <div class="text">
-                <i class="fas fa-quote-right"></i>
-                <p>“ Mình đã học thử một lần trong môn DSA và thấy rất hiệu quả, vì thế tuần sau mình sẽ đăng ký để học
-                    lại môn này.
-                    Những môn học thú vị, nếu như học một lần vẫn chưa thoả mãn, ta nên học lại nhiều lần!
-                </p>
-            </div>
-            <div class="user">
-                <img src="images/team-2.png" alt="">
-                <h3>john deo</h3>
-            </div>
-        </div> --}}
 
     </div>
 

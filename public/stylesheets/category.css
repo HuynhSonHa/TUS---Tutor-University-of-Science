@@ -1617,12 +1617,5 @@ i.fas.fa-play-circle {
     transform: translateY(-50%) scale(0.98);
 }
 
-input[type='range'] {
-    /* Other styles... */
-    background: linear-gradient(to right, #FF0000 0%, #FF0000 var(--value), #DEE2E6 var(--value), #DEE2E6 100%);
-}
 
-input[type='range']:before {
-    width: var(--value);
-}
 
