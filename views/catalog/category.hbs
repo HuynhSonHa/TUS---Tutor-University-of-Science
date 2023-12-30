@@ -411,11 +411,11 @@
     $('.fa-search').addEventListener('click', function () {
         const tutorName = $('#search-tutor').value
         console.log(tutorName)
-        if (currentUrl.searchParams.has('tutorName')) {
-            currentUrl.searchParams.set('tutorName', tutorName);
+        if (currentUrl.searchParams.has('searchField')) {
+            currentUrl.searchParams.set('searchField', tutorName);
         }
         else {
-            currentUrl.searchParams.append('tutorName', tutorName);
+            currentUrl.searchParams.append('searchField', tutorName);
         }
         window.location.href = currentUrl.toString();
 
@@ -423,6 +423,17 @@
     // handle
     function loadDetail( id) {
         window.location.href = `/{{role}}/courses/${id}`
+    }
+    // changePage
+
+    function changePage(page) {
+        if (currentUrl.searchParams.has('page')) {
+            currentUrl.searchParams.set('page', page);
+        }
+        else {
+            currentUrl.searchParams.append('page', page);
+        }
+        window.location.href = currentUrl.toString();
     }
 
 </script>
