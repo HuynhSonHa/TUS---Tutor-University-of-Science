@@ -118,6 +118,8 @@ const postFormTutor = async (req, res, next) => {
   const checkBeTutor = await BeTutor.find({tutorId: req.user._id, status: "waiting"});
   if(checkBeTutor.length>0) return res.status(304).json({success: true, error: "Bạn đã đăng ký rồi! Hãy chờ admin phản hồi bạn!"});
 
+  var leftDay = Number.MAX_SAFE_INTEGER;
+  var leftCourse = Number.MAX_SAFE_INTEGER;
   const beTutors = await BeTutor.find({ tutorId: req.user._id, status: "accepted" }).populate('tutorId');
   for (let i = 0; i < beTutors.length; i++) {
     const uploadDuration = beTutors[i].tutorId.amountDayUpload * 24 * 60 * 60 * 1000; // Convert days to milliseconds
@@ -132,7 +134,7 @@ const postFormTutor = async (req, res, next) => {
   }
   leftDay = leftDay === Number.MAX_SAFE_INTEGER ? 0 : Math.ceil(leftDay / (24 * 60 * 60 * 1000));
   leftCourse = leftCourse === Number.MAX_SAFE_INTEGER ? 0 : leftCourse;
-  if (leftDay > 0 && leftCourse > 0) {
+  if (leftDay > 0 || leftCourse > 0) {
     return res.status(304).json({success: true, error: "Bạn đã là tutor rồi! Hãy chờ hết hạn để đăng ký mới!"});
   }
 
