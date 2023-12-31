@@ -6,7 +6,7 @@ const User = require("../models/User.js");
 
 const mongoose = require("mongoose");
 
-const filteredAndSorted = async function (searchField, name, tutorName, faculty, average, minPrice, maxPrice, sortByField, sortByOrder) {
+const filteredAndSorted = async function (searchField, name, tutorName, faculty, studentCourse, average, minPrice, maxPrice, sortByField, sortByOrder) {
     const fliter = {};
     const sort = {};
 
@@ -35,6 +35,9 @@ const filteredAndSorted = async function (searchField, name, tutorName, faculty,
     }
     if (faculty !== `None` && faculty) {
         fliter.faculty = faculty;
+    }
+    if (studentCourse !== `None` && studentCourse) {
+        fliter.studentCourse = studentCourse;
     }
     if(average) {
         fliter.average = average;
@@ -68,7 +71,7 @@ const filteredAndSorted = async function (searchField, name, tutorName, faculty,
 
 }
 
-const filteredSortedPaging = async function (searchField, name, tutorName, faculty, average, minPrice, maxPrice, sortByField, sortByOrder, skipAmount, pageSize) {
+const filteredSortedPaging = async function (searchField, name, tutorName, faculty, studentCourse,average, minPrice, maxPrice, sortByField, sortByOrder, skipAmount, pageSize) {
     const fliter = {};
     const sort = {};
 
@@ -98,6 +101,9 @@ const filteredSortedPaging = async function (searchField, name, tutorName, facul
     }
     if (faculty !== `None` && faculty) {
         fliter.faculty = faculty;
+    }
+    if (studentCourse !== `None` && studentCourse) {
+        fliter.studentCourse = studentCourse;
     }
     if(average) {
         fliter.average = average;
