@@ -6,7 +6,7 @@ const Review = require("../models/Review");
 const Contact = require("../models/Contact");
 const CourseService = require("../services/product");
 
-const { validationResult } = require("express-validator");
+const { validationResult, check } = require("express-validator");
 const { mutipleMongooseToObject, mongooseToObject } = require("../util/mongoose");
 const UserService = require("../services/user");
 
@@ -116,7 +116,7 @@ const postFormTutor = async (req, res, next) => {
   }
   //chống spam
   const checkBeTutor = await BeTutor.find({tutorId: req.user._id, status: "waiting"});
-  if(checkBeTutor) return res.status(304).json({success: true, error: "Bạn đã đăng ký rồi! Hãy chờ admin phản hồi bạn!"});
+  if(checkBeTutor.length>0) return res.status(304).json({success: true, error: "Bạn đã đăng ký rồi! Hãy chờ admin phản hồi bạn!"});
 
   let price;
   if (req.params.page == '1') { price = 199000 }
@@ -199,8 +199,9 @@ const postContactToTutor = async (req, res, next) => {
   }
   try {
     //Chống spam
-    const checkOrder = await Order.find({userId: req.user._id, courseId: req.params.id, status: "Subscribing"});
-    if(checkOrder) return res.status(304).json({success: true, error: "Bạn đã đăng ký khóa học rồi! Hãy chờ tutor accept bạn vào khóa học!"})
+    const checkOrder = await Order.find({userId: req.user._id, courseId: req.params.id, status: "Subscribing" || "Learning"});
+    //console.log(checkOrder.length);
+    if(checkOrder.length >0) return res.status(304).json({success: true, error: "Bạn đã đăng ký khóa học rồi! Hãy chờ tutor accept bạn vào khóa học!"})
 
     const formData = req.body;
     formData.courseId = req.params.id;
