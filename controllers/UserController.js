@@ -88,7 +88,8 @@ const editProfile = async (req, res, next) => {
 
 // [GET] /user/premium
 const getPremium = (req, res, next) => {
-  res.render('user/signuptotutor', { user: req.user, layout: 'user', });
+  const role = req.user.role;
+  res.render('user/signuptotutor', { user: req.user, layout: role, role: role});
 }
 // [GET] /user/formTutor/123
 const getFormTutor = (req, res, next) => {
@@ -97,11 +98,13 @@ const getFormTutor = (req, res, next) => {
   else if (req.params.page == '2') { price = 1999000 }
   else if (req.params.page == '3') { price = 3999000 };
 
+  const role = req.user.role;
   res.render('user/formbetutor', {
     user: req.user,
     price: price,
     page: req.params.page,
-    layout: 'user',
+    layout: role,
+    role: role,
   });
 }
 // [POST] /user/formTutor/123
@@ -204,10 +207,12 @@ const getContactToTutor = async (req, res, next) => {
     amountOfReviews = reviews.length;
   }
   console.log(amountOfReviews)
+  const role = req.user.role;
   res.render('user/contactToTutor', {
     course: mongooseToObject(course),
     amountOfReviews: amountOfReviews,
-    layout: 'user',
+    layout: role,
+    role: role,
   });
 }
 
