@@ -145,9 +145,9 @@
                                             </div>
                                         </div>
                                         <div class="button-container">
-                                            <div class="button"><a href="#" class="primary-btn"
+                                            <div class="button"><a  class="primary-btn"
                                                     onclick="clearForm()">Clear all</a></div>
-                                            <div class="button"><a href="#" class="primary-btn"
+                                            <div class="button"><a  class="primary-btn"
                                                     id="primary-btn">Submit</a></div>
                                         </div>
                                     </form>
@@ -380,7 +380,7 @@
         currentUrl.searchParams.delete('studentCourse');
         currentUrl.searchParams.delete('minPrice');
         currentUrl.searchParams.delete('maxPrice');
-        window.location.href = currentUrl.toString();
+       // window.location.href = currentUrl.toString();
     }
     submitBtn.addEventListener('click', function () {
 
