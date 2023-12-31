@@ -38,12 +38,12 @@ const handlebars = exphbs.create({
       let links = '';
       //function handle first and last
       function handleArrow(pageNumber, text) {
-        return `<a id="${pageNumber}" href="/tutor/stored/${namePage}?page=${pageNumber}">${text}</a>`;
+        return `<a id="${pageNumber}"  onclick="loadCourse(${pageNumber})">${text}</a>`;
       }
       // Function to generate individual links
       function generateLink(pageNumber, text) {
         const isActive = pageNumber === currentPage ? 'active' : '';
-        return `<a id="${pageNumber}" href="/tutor/stored/${namePage}?page=${pageNumber}" class="${isActive}">${text}</a>`;
+        return `<a id="${pageNumber}"  onclick="loadCourse(${pageNumber})" class="${isActive}">${text}</a>`;
       }
 
       // Add previous page link
