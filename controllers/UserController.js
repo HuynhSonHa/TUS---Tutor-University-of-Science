@@ -424,7 +424,7 @@ module.exports = {
   getPremium,
   getFormTutor,
   postFormTutor,
-  getContact,
+
   getHomePage,
   getContactToTutor,
   postContactToTutor,

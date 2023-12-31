@@ -270,7 +270,7 @@ const getTutorMode = async (req, res, next) => {
     const timeSincePost = Date.now() - new Date(beTutors[i].datePost).getTime(); // Calculate time since post in milliseconds
     const temp = uploadDuration - timeSincePost;
     if (temp > 0 && temp < leftDay) leftDay = temp;
-   
+
     const amountCourseUploaded = await Course.find({ tutor: req.user._id }).countDocuments();
     console.log(beTutors[i].tutorId.amountCourseUpload, amountCourseUploaded)
     const tempCourse = beTutors[i].tutorId.amountCourseUpload - amountCourseUploaded;
@@ -487,7 +487,7 @@ const detail = async (req, res, next) => {
 // [GET] /tutor/premium
 const getPremium = (req, res, next) => {
   const role = req.user.role;
-  res.render('user/signuptotutor', { user: req.user, layout: role, role: role});
+  res.render('user/signuptotutor', { user: req.user, layout: role, role: role });
 }
 // [GET] /tutor/formTutor/123
 const getFormTutor = (req, res, next) => {
@@ -516,8 +516,8 @@ const postFormTutor = async (req, res, next) => {
     return;
   }
   //chống spam
-  const checkBeTutor = await BeTutor.find({tutorId: req.user._id, status: "waiting"});
-  if(checkBeTutor.length>0) return res.status(304).json({success: true, error: "Bạn đã đăng ký rồi! Hãy chờ admin phản hồi bạn!"});
+  const checkBeTutor = await BeTutor.find({ tutorId: req.user._id, status: "waiting" });
+  if (checkBeTutor.length > 0) return res.status(304).json({ success: true, error: "Bạn đã đăng ký rồi! Hãy chờ admin phản hồi bạn!" });
 
   var leftDay = Number.MAX_SAFE_INTEGER;
   var leftCourse = Number.MAX_SAFE_INTEGER;
@@ -527,7 +527,7 @@ const postFormTutor = async (req, res, next) => {
     const timeSincePost = Date.now() - new Date(beTutors[i].datePost).getTime(); // Calculate time since post in milliseconds
     const temp = uploadDuration - timeSincePost;
     if (temp > 0 && temp < leftDay) leftDay = temp;
-   
+
     const amountCourseUploaded = await Course.find({ tutor: req.user._id }).countDocuments();
     console.log(beTutors[i].tutorId.amountCourseUpload, amountCourseUploaded)
     const tempCourse = beTutors[i].tutorId.amountCourseUpload - amountCourseUploaded;
@@ -536,7 +536,7 @@ const postFormTutor = async (req, res, next) => {
   leftDay = leftDay === Number.MAX_SAFE_INTEGER ? 0 : Math.ceil(leftDay / (24 * 60 * 60 * 1000));
   leftCourse = leftCourse === Number.MAX_SAFE_INTEGER ? 0 : leftCourse;
   if (leftDay > 0 || leftCourse > 0) {
-    return res.status(304).json({success: true, error: "Bạn đã là tutor rồi! Hãy chờ hết hạn để đăng ký mới!"});
+    return res.status(304).json({ success: true, error: "Bạn đã là tutor rồi! Hãy chờ hết hạn để đăng ký mới!" });
   }
 
   let price;
@@ -612,9 +612,9 @@ const postContactToTutor = async (req, res, next) => {
   }
   try {
     //Chống spam
-    const checkOrder = await Order.find({userId: req.user._id, courseId: req.params.id, status: "Subscribing" || "Learning"});
+    const checkOrder = await Order.find({ userId: req.user._id, courseId: req.params.id, status: "Subscribing" || "Learning" });
     //console.log(checkOrder.length);
-    if(checkOrder.length >0) return res.status(304).json({success: true, error: "Bạn đã đăng ký khóa học rồi! Hãy chờ tutor accept bạn vào khóa học!"})
+    if (checkOrder.length > 0) return res.status(304).json({ success: true, error: "Bạn đã đăng ký khóa học rồi! Hãy chờ tutor accept bạn vào khóa học!" })
 
     const formData = req.body;
     formData.courseId = req.params.id;
@@ -653,5 +653,5 @@ module.exports = {
   postFormTutor,
   getContactToTutor,
   postContactToTutor,
-  getContact,
+
 };
