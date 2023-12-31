@@ -16,7 +16,7 @@ router.get('/profile', isUser, userController.profile);
 router.post('/profile', isUser, profileMiddleware.postValidator, upload.single('avatar'), userController.editProfile);
 router.get('/premium', isUser, userController.getPremium);
 router.get('/formTutor/:page', isUser, userController.getFormTutor);
-router.post('/formTutor/:page', isUser, beTutorMiddleware.postValidator, upload.single('GPAfile'), userController.postFormTutor);
+router.post('/formTutor/:page', isUser, upload.single('GPAfile'), beTutorMiddleware.postValidator, userController.postFormTutor);
 router.get('/contact/:id', isUser, userController.getContact);
 router.get('/contactToTutor/:id', isUser, userController.getContactToTutor);
 router.post('/contactToTutor/:id', isUser, orderMiddleware.postValidator,userController.postContactToTutor);

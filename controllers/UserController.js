@@ -110,6 +110,7 @@ const postFormTutor = async (req, res, next) => {
   // Verify user input
   const result = validationResult(req);
   if (!result.isEmpty()) {
+    console.log(result.array());
     res.status(400).json({ errors: result.array() });
     return;
   }
@@ -147,7 +148,7 @@ const postFormTutor = async (req, res, next) => {
       await newTutor.save();
     } catch (saveError) {
       console.error(saveError);
-      return res.status(400).json({ success: false, error: 'Gửi thất bại' });
+      return res.status(401).json({ success: false, error: 'Gửi thất bại' });
     }
     return res.status(200).json({ success: true, msg: "Đã gửi yêu cầu tới admin!" })
 

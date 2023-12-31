@@ -188,7 +188,7 @@
                 }
 
                 const data = await response.json();
-
+                
                 if (data.error) {
                     const alertError = document.querySelector('.alert-danger');
                     const errorMessages = data.errors.map(error => error.msg).join(', ');

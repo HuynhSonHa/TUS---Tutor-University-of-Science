@@ -119,7 +119,6 @@
 
 
 
-
 <!-- services section ends -->
 
 <!-- gallery section starts  -->
@@ -182,61 +181,18 @@
     <h1 class="heading">Weekly Ranking<span> Top 5</span> </h1>
 
     <div class="box-container">
-        <div class="box">
-            <img src="images/team-1.png" alt="">
-            <div class="content">
-                <h3>Trịnh Xuân Bách</h3>
-                <p>Chủ nợ của Hà</p>
-                <div class="share">
-                    <a href="https://www.facebook.com/bach0807/" class="fab fa-facebook-f"></a>
-                    <a href="#" class="fab fa-twitter"></a>
-                    <a href="#" class="fab fa-instagram"></a>
-                    <a href="#" class="fab fa-linkedin"></a>
-                </div>
-            </div>
-        </div>
 
+        {{#each userList as |tutor|}}
         <div class="box">
-            <img src="images/team-2.png" alt="">
+            <img src="images/{{tutor.avatar}}" alt="">
             <div class="content">
-                <h3>Lý Nhật Hào</h3>
-                <p>One champ Amily</p>
-                <div class="share">
-                    <a href="https://www.facebook.com/LNH.1105" class="fab fa-facebook-f"></a>
-                    <a href="#" class="fab fa-twitter"></a>
-                    <a href="#" class="fab fa-instagram"></a>
-                    <a href="#" class="fab fa-linkedin"></a>
-                </div>
-            </div>
-        </div>
+                <h3>{{tutor.fullname}}</h3>
+                <p>{{tutor.discription}}</p>
 
-        <div class="box">
-            <img src="images/team-3.png" alt="">
-            <div class="content">
-                <h3>Trần Hoàng Duy</h3>
-                <p>Ngu học</p>
-                <div class="share">
-                    <a href="https://www.facebook.com/hoangduy.tran.370177" class="fab fa-facebook-f"></a>
-                    <a href="#" class="fab fa-twitter"></a>
-                    <a href="#" class="fab fa-instagram"></a>
-                    <a href="#" class="fab fa-linkedin"></a>
-                </div>
             </div>
         </div>
-
-        <div class="box">
-            <img src="images/team-4.png" alt="">
-            <div class="content">
-                <h3>Huỳnh Sơn Hà</h3>
-                <p>Thiếu nợ</p>
-                <div class="share">
-                    <a href="https://www.facebook.com/sonha.huynh.39545" class="fab fa-facebook-f"></a>
-                    <a href="#" class="fab fa-twitter"></a>
-                    <a href="#" class="fab fa-instagram"></a>
-                    <a href="#" class="fab fa-linkedin"></a>
-                </div>
-            </div>
-        </div>
+        {{/each}}
+        
 
     </div>
 
@@ -251,69 +207,24 @@
     <h1 class="heading"> What our's <span> Client Says</span> </h1>
 
     <div class="box-container">
-
+        {{#each reviewList as |review|}}
         <div class="box">
             <div class="star">
+                {{#each (starRating review.rating)}}
                 <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
+                {{/each}}
             </div>
             <div class="text">
                 <i class="fas fa-quote-right"></i>
-                <p>“ Mình đã học thử một lần trong môn DSA và thấy rất hiệu quả, vì thế tuần sau mình sẽ đăng ký để học
-                    lại môn này.
-                    Những môn học thú vị, nếu như học một lần vẫn chưa thoả mãn, ta nên học lại nhiều lần!
-                </p>
+                <p>{{review.comment}}</p>
             </div>
             <div class="user">
-                <img src="images/team-1.png" alt="">
-                <h3>Bách</h3>
+                <img src="images/{{review.user.avatar}}" alt="">
+                <h3>{{review.user.fullname}}</h3>
             </div>
         </div>
+        {{/each}}
 
-        <div class="box">
-            <div class="star">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-            </div>
-            <div class="text">
-                <i class="fas fa-quote-right"></i>
-                <p>“ Mình đã học thử một lần trong môn DSA và thấy rất hiệu quả, vì thế tuần sau mình sẽ đăng ký để học
-                    lại môn này.
-                    Những môn học thú vị, nếu như học một lần vẫn chưa thoả mãn, ta nên học lại nhiều lần!
-                </p>
-            </div>
-            <div class="user">
-                <img src="images/team-4.png" alt="">
-                <h3>Hà</h3>
-            </div>
-        </div>
-
-        <div class="box">
-            <div class="star">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-            </div>
-            <div class="text">
-                <i class="fas fa-quote-right"></i>
-                <p>“ Mình đã học thử một lần trong môn DSA và thấy rất hiệu quả, vì thế tuần sau mình sẽ đăng ký để học
-                    lại môn này.
-                    Những môn học thú vị, nếu như học một lần vẫn chưa thoả mãn, ta nên học lại nhiều lần!
-                </p>
-            </div>
-            <div class="user">
-                <img src="images/team-2.png" alt="">
-                <h3>john deo</h3>
-            </div>
-        </div>
 
     </div>
 

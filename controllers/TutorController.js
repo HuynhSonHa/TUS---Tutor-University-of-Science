@@ -263,24 +263,41 @@ const editProfile = async (req, res, next) => {
 //[GET] /tutor/tutor-mode
 const getTutorMode = async (req, res, next) => {
   var leftDay = Number.MAX_SAFE_INTEGER;
+  var leftCourse = Number.MAX_SAFE_INTEGER;
   const beTutors = await BeTutor.find({ tutorId: req.user._id, status: "accepted" }).populate('tutorId');
   for (let i = 0; i < beTutors.length; i++) {
     const uploadDuration = beTutors[i].tutorId.amountDayUpload * 24 * 60 * 60 * 1000; // Convert days to milliseconds
     const timeSincePost = Date.now() - new Date(beTutors[i].datePost).getTime(); // Calculate time since post in milliseconds
     const temp = uploadDuration - timeSincePost;
     if (temp > 0 && temp < leftDay) leftDay = temp;
+   
+    const amountCourseUploaded = await Course.find({ tutor: req.user._id }).countDocuments();
+    console.log(beTutors[i].tutorId.amountCourseUpload, amountCourseUploaded)
+    const tempCourse = beTutors[i].tutorId.amountCourseUpload - amountCourseUploaded;
+    if (tempCourse > 0 && tempCourse < leftCourse) leftCourse = tempCourse;
   }
   leftDay = leftDay === Number.MAX_SAFE_INTEGER ? 0 : Math.ceil(leftDay / (24 * 60 * 60 * 1000));
-  console.log(leftDay);
+  leftCourse = leftCourse === Number.MAX_SAFE_INTEGER ? 0 : leftCourse;
+  console.log(leftDay, leftCourse);
+  if (leftDay > 90000) {
+    leftDay = "Unlimited";
+  }
+  if (leftCourse > 90000) {
+    leftCourse = "Unlimited";
+  }
+  console.log(leftDay, leftCourse)
+
+
   const user = await User.findById(req.user._id).lean();
   res.render('tutormode/tutormode', {
     user: user,
     leftDay: leftDay,
+    leftCourse: leftCourse,
     layout: 'tutor',
   });
 }
 //[GET] /tutor/
-const getHomePage = async(req, res, next) => {
+const getHomePage = async (req, res, next) => {
   try {
     const reviewList = await Review.aggregate([
       {
@@ -340,13 +357,13 @@ const getHomePage = async(req, res, next) => {
 
 
     // console.log(JSON.stringify(reviewList, null, 2));
-    res.render('home/tutorhome', {user: req.user, layout: 'tutor', reviewList: reviewList, userList: userList});
+    res.render('home/tutorhome', { user: req.user, layout: 'tutor', reviewList: reviewList, userList: userList });
   } catch (error) {
     console.error(error);
     next(error);
   }
 
-  
+
 }
 //[GET] /tutor/waitingStudent/Order._Id
 const getDetailStudent = async (req, res, next) => {

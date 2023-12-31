@@ -5,28 +5,25 @@ const postValidator = [
     body("fullname")
         .notEmpty().withMessage("Please provide full name")
         .escape(),
-    body("email")
-        .notEmpty().withMessage("Please provide email")
-        .escape(),
     body("phoneNumber")
         .notEmpty().withMessage("Please provide phone number")
         .escape(),
     body("GPA")
         .notEmpty().withMessage("Please provide GPA")
         .escape(),
-    
+
     body("comment")
         .notEmpty().withMessage("Please provide comment")
         .escape(),
     // Custom validator for GPAfile
-    check('GPAfile')
+    body('GPAfile')
         .custom((value, { req }) => {
             if (!req.file) { // Check if file is uploaded
                 throw new Error('Please upload a file');
             }
 
             // Allowed mime types for images
-            const allowedTypes = ['image/jpg','image/jpeg', 'image/png', 'image/gif'];
+            const allowedTypes = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
             if (!allowedTypes.includes(req.file.mimetype)) {
                 throw new Error('Only image files are allowed');
             }
@@ -34,7 +31,6 @@ const postValidator = [
             return true; // Validation passed
         }),
 ];
-
 module.exports = {
     postValidator,
 }
