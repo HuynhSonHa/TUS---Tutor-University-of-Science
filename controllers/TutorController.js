@@ -412,6 +412,7 @@ const showAll = async (req, res, next) => {
     const courseName = req.query.courseName;
     const tutorName = req.query.tutorName;
     const faculty = req.query.faculty;
+    const studentCourse = req.query.studentCourse;
     const average = req.query.average;
     const minPrice = req.query.minPrice;
     const maxPrice = req.query.maxPrice;
@@ -422,14 +423,14 @@ const showAll = async (req, res, next) => {
     const pageSize = 12;
     //filter thay vào trên đây (filter xong lấy ra coursesFull, courses)
     const coursesFull = await CourseService.filteredAndSorted(
-      searchField, courseName, tutorName, faculty, average, minPrice, maxPrice, sortByField, sortByOrder
+      searchField, courseName, tutorName, faculty, studentCourse, average, minPrice, maxPrice, sortByField, sortByOrder
     );
     const totalCourses = coursesFull.length;
     const totalPages = Math.ceil(totalCourses / pageSize);
     const pageNumber = parseInt(req.query.page) || 1;
     const skipAmount = (pageNumber - 1) * pageSize;
     const courses = await CourseService.filteredSortedPaging(
-      searchField, courseName, tutorName, faculty, average, minPrice, maxPrice, sortByField, sortByOrder, skipAmount, pageSize
+      searchField, courseName, tutorName, faculty, studentCourse, average, minPrice, maxPrice, sortByField, sortByOrder, skipAmount, pageSize
     );
     const role = "tutor"
     const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
