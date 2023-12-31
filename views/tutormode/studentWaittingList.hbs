@@ -136,7 +136,7 @@
                 return response.json();
             })
             .then(data => {
-                loadCourse();
+                loadCourse(currentPage);
                 // Xử lý dữ liệu nhận được từ API
                 const alertReview = $('.alert-success')
                 alertReview.innerHTML = `${data.msg}`
@@ -172,7 +172,7 @@
             .then(data => {
                 // Xử lý dữ liệu nhận được từ API
 
-                loadCourse();
+                loadCourse(currentPage);
                 const alertReview = $('.alert-success')
                 alertReview.innerHTML = `${data.msg}`
                 alertReview.style.opacity = "1";
@@ -199,12 +199,12 @@
         let links = '';
         //function handle first and last
         function handleArrow(pageNumber, text) {
-            return `<a id="${pageNumber}" href="/tutor/stored/${namePage}?page=${pageNumber}">${text}</a>`;
+            return `<a id="${pageNumber}" onclick="loadCourse(${pageNumber})">${text}</a>`;
         }
         // Function to generate individual links
         function generateLink(pageNumber, text) {
             const isActive = pageNumber === currentPage ? 'active' : '';
-            return `<a id="${pageNumber}" href="/tutor/stored/${namePage}?page=${pageNumber}" class="${isActive}">${text}</a>`;
+            return `<a id="${pageNumber}" onclick="loadCourse(${pageNumber})" class="${isActive}">${text}</a>`;
         }
 
         // Add previous page link
@@ -221,12 +221,13 @@
 
         return links;
     }
-    async function loadCourse() {
+    async function loadCourse(currentPage) {
+
         amountOfStudents -= 1;
         if (amountOfStudents % 4 === 0) {
             currentPage -= 1;
         }
-
+        console.log(currentPage)
         try {
             const response = await fetch(`/tutor/stored/waiting-listAjax?page=${currentPage}`, {
                 method: 'GET',
