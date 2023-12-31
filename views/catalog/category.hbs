@@ -343,8 +343,31 @@
 
 
     })
-    submitBtn.addEventListener('click', function () {
 
+    function clearForm() {
+        currentUrl.searchParams.delete('faculty');
+        currentUrl.searchParams.delete('studentCourse');
+        currentUrl.searchParams.delete('minPrice');
+        currentUrl.searchParams.delete('maxPrice');
+        window.location.href = currentUrl.toString();
+    }
+    submitBtn.addEventListener('click', function () {
+        const faculty = $('input[name="faculty"]:checked').value;
+        const studentCourse = $('input[name="studentCourse"]:checked').value;
+
+        if (currentUrl.searchParams.has('faculty')) {
+            currentUrl.searchParams.set('faculty', faculty);
+        }
+        else {
+            currentUrl.searchParams.append('faculty', faculty);
+        }
+
+        if (currentUrl.searchParams.has('studentCourse')) {
+            currentUrl.searchParams.set('studentCourse', studentCourse);
+        }
+        else {
+            currentUrl.searchParams.append('studentCourse', studentCourse);
+        }
 
 
         if (currentUrl.searchParams.has('minPrice')) {

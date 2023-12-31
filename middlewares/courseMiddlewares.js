@@ -11,7 +11,7 @@ const createValidator = [
     body("faculty")
         .notEmpty().withMessage("Please provide your faculty")
         .escape(),
-    body("school")
+    body("studentCourse")
         .notEmpty().withMessage("Please provide your school")
         .escape(),
     body("price")

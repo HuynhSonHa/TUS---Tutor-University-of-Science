@@ -30,11 +30,26 @@
 
             <p class="wrapper-input">
                 <label for="faculty">Faculty:</label>
-                <select name="faculty" id="faculty">
+                <select name="faculty" id="faculty" check>
                     <option value="none" {{#if (eq course.faculty 'none' )}}selected{{/if}}>None</option>
-                    <option value="information technology" {{#if (eq course.faculty 'information technology'
-                        )}}selected{{/if}}>Information Technology</option>
-                    <option value="math" {{#if (eq course.faculty 'math' )}}selected{{/if}}>Math</option>
+                    <option value="Công nghệ thông tin" {{#if (eq course.faculty 'Công nghệ thông tin'
+                        )}}selected{{/if}}>Công nghệ thông tin</option>
+                    <option value="Toán - Tin học" {{#if (eq course.faculty 'Toán - Tin học' )}}selected{{/if}}>Toán-Tin
+                        học</option>
+                    <option value="Vật lý - Vật lý Kỹ thuật" {{#if (eq course.faculty 'Vật lý - Vật lý Kỹ thuật'
+                        )}}selected{{/if}}>Vật lý - Vật lý Kỹ thuật</option>
+                    <option value="Hóa học" {{#if (eq course.faculty 'Hóa học' )}}selected{{/if}}>Hóa học</option>
+                    <option value="Sinh học & Công nghệ Sinh học" {{#if (eq
+                        course.faculty 'Sinh học & Công nghệ Sinh học' )}}selected{{/if}}>Sinh học & Công nghệ Sinh học
+                    </option>
+                    <option value="Môi trường" {{#if (eq course.faculty 'Môi trường' )}}selected{{/if}}>Môi trường
+                    </option>
+                    <option value="Khoa học & Công nghệ vật liệu" {{#if (eq
+                        course.faculty 'Khoa học & Công nghệ vật liệu' )}}selected{{/if}}>Khoa học & Công nghệ vật liệu
+                    </option>
+                    <option value="Địa chất" {{#if (eq course.faculty 'Địa chất' )}}selected{{/if}}>Địa chất</option>
+                    <option value="Điện tử Viễn thông" {{#if (eq course.faculty 'Điện tử Viễn thông' )}}selected{{/if}}>
+                        Điện tử Viễn thông</option>
                 </select>
             </p>
 
