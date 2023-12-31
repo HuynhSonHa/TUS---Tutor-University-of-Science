@@ -195,8 +195,16 @@ const createCourse = async (req, res, next) => {
 
 const createNewCourse = async (req, res, next) => {
   try {
+ 
+    const result = validationResult(req);
+    console.log("haha", result.array());
+    if (!result.isEmpty()) {
+      res.status(400).json({ errors: result.array() });
+      return;
+    }
     const formData = req.body;
     formData.tutor = req.user._id;
+    console.log(req)
     const course = new Course(formData);
     await course.save();
 

@@ -11,7 +11,7 @@
 <section class="home" id="home">
     <div class="content">
         <h3>
-            <a href=""><i class="ri-arrow-right-s-fill"></i> Create courses</a>
+            <a href=""><i class="ri-arrow-right-s-fill"></i> Clone courses</a>
             <br>
             <a>_____________________</a>
         </h3>
@@ -56,9 +56,9 @@
 
 
             <p class="wrapper-input">
-                <label for="school">School:</label>
-                <input type="text" id="school" name="school" placeholder="Enter your school" value="{{course.school}}"
-                    required>
+                <label for="school">Student Course:</label>
+                <input type="text" id="school" name="school" placeholder="Enter your Student Course"
+                    value="{{course.studentCourse}}" required>
             </p>
 
             <p class="wrapper-input">
@@ -130,7 +130,7 @@
             'name': $('#subject').value,
             'schedule': $('#schedule').value,
             'faculty': $('#faculty').value,
-            'school': $('#school').value,
+            'studentCourse': $('#school').value,
             'price': $('#price').value,
             'description': $('#description').value,
 
@@ -149,6 +149,7 @@
             },
         }).then(response => {
             if (!response.ok) {
+                console.log(response)
                 isError = true;
 
 

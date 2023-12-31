@@ -170,15 +170,24 @@ const destroy = async(req, res, next) => {
 }
 const createNewCourse = async (req, res, next) => {
   try {
+    const result = validationResult(req);
+    console.log("haha", result.array());
+    if (!result.isEmpty()) {
+      res.status(400).json({ errors: result.array() });
+      return;
+    }
+    console.log(req.body)
     const formData = req.body;
     formData.tutor = req.user._id;
     const course = new Course(formData);
+    console.log(course)
     await course.save();
 
     return res.status(200).json({ success: true, msg: "Thêm course thành công!" });
     //return res.send("Thêm review thành công!").redirect("/user/home");
   }
   catch (err) {
+
     next(err);
   }
 }

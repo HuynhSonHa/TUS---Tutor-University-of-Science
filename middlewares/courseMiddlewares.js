@@ -2,6 +2,7 @@ const Review = require("../models/Review");
 const { body } = require('express-validator');
 
 const createValidator = [
+    
     body("name")
         .notEmpty().withMessage("Please provide name of course")
         .escape(),
@@ -12,11 +13,7 @@ const createValidator = [
         .notEmpty().withMessage("Please provide your faculty")
         .escape(),
     body("studentCourse")
-<<<<<<< HEAD
-        .notEmpty().withMessage("Please provide your school")
-=======
-        .notEmpty().withMessage("Please provide your student course")
->>>>>>> 5da7463c6313585d3b43e600f6a8b9ffe1f94b4a
+        .notEmpty().withMessage("Please provide your studentCourse")
         .escape(),
     body("price")
         .notEmpty().withMessage("Please provide price")

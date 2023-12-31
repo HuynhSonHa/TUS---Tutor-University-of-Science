@@ -56,7 +56,8 @@ const CourseScheme = new Schema({
     },
     school: {
         type: String,
-        required: [true, 'Please provide your school'],
+        //required: [true, 'Please provide your school'],
+        default: "HCMUS",
     },
     studentCourse: {
         type: String,
