@@ -100,199 +100,384 @@
                             <li>Mauris in nisl scelerisque massa consectetur pretium sed et mauris.</li>
                         </ul>
                     </div>
-            </div> --}}
-            <div class="header relative">Relative Course</div>
-            <div class="features">
+                </div> --}}
+                <div class="header relative">Relative Course</div>
+                <div class="features">
 
-                {{#each coursesListOfName}}
-                <div class="feature text-center">
+                    {{#each coursesListOfName}}
+                    <div class="feature text-center">
 
-                    <img src="/images/{{this.tutor.avatar}}" onclick="changeCourse('{{this._id}}')" alt="">
-                    <div class="text-header">
+                        <img src="/images/{{this.tutor.avatar}}" onclick="changeCourse('{{this._id}}')" alt="">
+                        <div class="text-header">
 
-                    </div>
-                    <div class="text-content ">
-                        {{this.name}}
-                    </div>
-                </div>
-                {{/each }}
-
-
-            </div>
-
-
-            <div class="wrapper-review">
-                <div class="header-review">
-                    Reviews({{amountOfReviews}})
-                </div>
-                <div class="row reviews">
-
-                    <div class="col-3 ">
-                        <div class="wrapper-score-review">
-                            <div class="score-review">
-                                {{course.average}}
-                            </div>
-                            <div class="num-review">
-                                <div class="rating">
-
-                                    <div class="star-1"></div>
-                                </div>
-
-
-                            </div>
+                        </div>
+                        <div class="text-content ">
+                            {{this.name}}
                         </div>
                     </div>
+                    {{/each }}
 
-                    <div class="col-9">
-                        <ul class="user-reviews">
-                            {{#each reviews}}
-                            <li class="user-review">
-                                <img alt=""
-                                    src="https://secure.gravatar.com/avatar/b992087ca24c735ade838a3cf92d0d29?s=100&amp;d=mm&amp;r=g"
-                                    srcset="https://secure.gravatar.com/avatar/b992087ca24c735ade838a3cf92d0d29?s=200&amp;d=mm&amp;r=g 2x"
-                                    class="avatar avatar-100 photo" height="100" width="100" loading="lazy"
-                                    decoding="async">
 
-                                <div class="detail-review-user">
-                                    <div class="score-rating-user">
-                                        <div class="num-review">
-                                            {{this.rating}}
-                                            <div class="rating">
+                </div>
 
-                                                <div class="star-1"></div>
+
+                <div class="wrapper-review">
+                    <div class="header-review">
+                        Reviews({{amountOfReviews}})
+                    </div>
+                    <div class="row reviews">
+
+                        <div class="col-3 ">
+                            <div class="wrapper-score-review">
+                                <div class="score-review">
+                                    {{course.average}}
+                                </div>
+                                <div class="num-review">
+                                    <div class="rating">
+
+                                        <div class="star-1"></div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-9">
+                            <ul class="user-reviews">
+                                {{#each reviews}}
+                                <li class="user-review">
+                                    <img alt=""
+                                        src="https://secure.gravatar.com/avatar/b992087ca24c735ade838a3cf92d0d29?s=100&amp;d=mm&amp;r=g"
+                                        srcset="https://secure.gravatar.com/avatar/b992087ca24c735ade838a3cf92d0d29?s=200&amp;d=mm&amp;r=g 2x"
+                                        class="avatar avatar-100 photo" height="100" width="100" loading="lazy"
+                                        decoding="async">
+
+                                    <div class="detail-review-user">
+                                        <div class="score-rating-user">
+                                            <div class="num-review">
+                                                {{this.rating}}
+                                                <div class="rating">
+
+                                                    <div class="star-1"></div>
+                                                </div>
                                             </div>
                                         </div>
+
+                                        <div class="name-user"> {{this.userId.fullname}} </div>
+                                        <div class="time-review"> {{this.datePost }}</div>
+                                        <div class="content-user-review">
+                                            {{this.comment}}
+                                        </div>
                                     </div>
+                                </li>
+                                {{/each}}
+                            </ul>
 
-                                    <div class="name-user"> {{this.userId.fullname}} </div>
-                                    <div class="time-review"> {{this.datePost }}</div>
-                                    <div class="content-user-review">
-                                        {{this.comment}}
-                                    </div>
-                                </div>
-                            </li>
-                            {{/each}}
-                        </ul>
-                    </div>
-                </div>
-            </div>
+                            <div class="pagination">
 
-            <div class="add-review">
-                <div class="header-add-review">Add A Review</div>
-                <div class="sub-instruction">
-                    Your email address will not be published. Required fields are marked *
-                </div>
-                <div class="rating-form">
-                    <div class="text-rating">Rating:* </div>
-                    <div class="rating">
-                        <input type="radio" id="star-5" name="rating" value="5">
-                        <label for="star-5"></label>
-                        <input type="radio" id="star-4" name="rating" value="4">
-                        <label for="star-4"></label>
-                        <input type="radio" id="star-3" name="rating" value="3">
-                        <label for="star-3"></label>
-                        <input type="radio" id="star-2" name="rating" value="2">
-                        <label for="star-2"></label>
-                        <input type="radio" id="star-1" name="rating" value="1">
-                        <label for="star-1"></label>
-
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-
-                <form class="row g-3 needs-review" novalidate>
-                    {{!-- <div class="col-md-6">
-                        <label for="nameReview" class="form-label"></label>
-                        <input type="text" class="form-control" id="nameReview" placeholder="Your name" required>
-                        <div class="valid-feedback">
-                            Looks good!
-                        </div>
+                <div class="add-review">
+                    <div class="header-add-review">Add A Review</div>
+                    <div class="sub-instruction">
+                        Your email address will not be published. Required fields are marked *
                     </div>
-                    <div class="col-md-6">
-                        <label for="emailReview" class="form-label"></label>
-                        <input type="text" class="form-control" id="emailReview" placeholder="Your email" required>
-                        <div class="valid-feedback">
-                            Looks good!
-                        </div>
-                    </div> --}}
+                    <div class="rating-form">
+                        <div class="text-rating">Rating:* </div>
+                        <div class="rating">
+                            <input type="radio" id="star-5" name="rating" value="5">
+                            <label for="star-5"></label>
+                            <input type="radio" id="star-4" name="rating" value="4">
+                            <label for="star-4"></label>
+                            <input type="radio" id="star-3" name="rating" value="3">
+                            <label for="star-3"></label>
+                            <input type="radio" id="star-2" name="rating" value="2">
+                            <label for="star-2"></label>
+                            <input type="radio" id="star-1" name="rating" value="1">
+                            <label for="star-1"></label>
 
-                    <div class="col-md-12">
-                        <label for="feedback" class="form-label"></label>
-
-                        <!-- phan van textarea co lay duoc data vo khong -->
-                        <!-- <input type="text" class="form-control" id="feedback" placeholder="Your review" rows="4" required> -->
-                        <textarea type="text" class="form-control" id="feedback" placeholder="Your review"
-                            rows="4"></textarea>
-                        <div class="invalid-feedback">
-                            Please provide a review.
                         </div>
                     </div>
 
-                    <div class="col-12">
-                        <button class="btn btn-primary" id="submit-review" onc type="submit">Submit form</button>
-                    </div>
-                </form>
+
+                    <form class="row g-3 needs-review" novalidate>
+                        {{!-- <div class="col-md-6">
+                            <label for="nameReview" class="form-label"></label>
+                            <input type="text" class="form-control" id="nameReview" placeholder="Your name" required>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="emailReview" class="form-label"></label>
+                            <input type="text" class="form-control" id="emailReview" placeholder="Your email" required>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div> --}}
+
+                        <div class="col-md-12">
+                            <label for="feedback" class="form-label"></label>
+
+                            <!-- phan van textarea co lay duoc data vo khong -->
+                            <!-- <input type="text" class="form-control" id="feedback" placeholder="Your review" rows="4" required> -->
+                            <textarea type="text" class="form-control" id="feedback" placeholder="Your review"
+                                rows="4"></textarea>
+                            <div class="invalid-feedback">
+                                Please provide a review.
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <button class="btn btn-primary" id="submit-review" type="submit">Submit form</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
-        <div class="card">
-            <h1>Card</h1>
-            <ul class="listCard">
-            </ul>
-            <div class="checkOut">
-                <div class="total">0</div>
-                <div class="closeShopping">Close</div>
+            <div class="card">
+                <h1>Card</h1>
+                <ul class="listCard">
+                </ul>
+                <div class="checkOut">
+                    <div class="total">0</div>
+                    <div class="closeShopping">Close</div>
+                </div>
             </div>
-        </div>
 
 
 
-        <script>
-            const $ = document.querySelector.bind(document)
-            const $$ = document.querySelectorAll.bind(document)
-
-            // load courses change
-            function changeCourse(id) {
-                window.location.href = `/courses/${id}`
-            }
-
+            <script>
+                const $ = document.querySelector.bind(document)
+                const $$ = document.querySelectorAll.bind(document)
+                let pages = [];
+                let currentPage = 0;
+                let prevPage = 0;
+                let nextPage = 0;
 
 
-            // handle review
 
-            function getRating() {
-                var ratingElements = $$('.rating-form .rating input');
-                var selectedRating;
+                document.addEventListener('DOMContentLoaded', async function () {
+                    currentPage = 1;
+                    await loadReview(currentPage);
+                })
 
-                for (var i = 0; i < ratingElements.length; i++) {
-                    if (ratingElements[i].checked) {
-                        selectedRating = ratingElements[i].value;
-                        break;
-                    }
+                // load courses change
+                function changeCourse(id) {
+                    window.location.href = `/courses/${id}`
                 }
 
-                return selectedRating;
-            }
-            const submitButton = $("#submit-review");
-
-            function linkToForm (id) {
-                console.log(id)
-                window.location.href = `/{{layout}}/contactToTutor/${id}`
-            }
 
 
-
-        </script>
-
-
-    </div>
+                // handle pagination
+                function generateTutorPaginationLinks(pages, currentPage, prevPage, nextPage) {
+                    // Adjust currentPage if the number of students is 1 more than a multiple of 4
 
 
+                    let links = '';
+                    //function handle first and last
+                    function handleArrow(pageNumber, text) {
+                        return `<a id="${pageNumber}" onclick="loadReview(${pageNumber})">${text}</a>`;
+                    }
+                    // Function to generate individual links
+                    function generateLink(pageNumber, text) {
+                        const isActive = pageNumber === currentPage ? 'active' : '';
+                        return `<a id="${pageNumber}" onclick="loadReview(${pageNumber})" class="${isActive}">${text}</a>`;
+                    }
+
+                    // Add previous page link
+                    if (prevPage !== null) {
+                        console.log('haha')
+                        links += handleArrow(prevPage, '<');
+                    }
+
+
+                    // Add individual page links
+                    pages.forEach((pageNumber) => {
+                        links += generateLink(pageNumber, pageNumber);
+                    });
+
+                    // Add next page link
+                    if (nextPage !== null) {
+                        links += handleArrow(nextPage, '>');
+                    }
+
+
+                    return links;
+                }
 
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+                // handle review
+
+                function getRating() {
+                    var ratingElements = $$('.rating-form .rating input');
+                    var selectedRating;
+
+                    for (var i = 0; i < ratingElements.length; i++) {
+                        if (ratingElements[i].checked) {
+                            selectedRating = ratingElements[i].value;
+                            break;
+                        }
+                    }
+
+                    return selectedRating;
+                }
+
+
+                const curUrl = window.location.href;
+                const parts = curUrl.split('/');
+                const lastPart = parts[parts.length - 1];
+
+
+                const submitButton = $("#submit-review");
+                submitButton.addEventListener("click", async function (event) {
+                    event.preventDefault();
+                    console.log("submit review")
+                    let isError = false;
+                    const numRating = getRating();
+                    const feedback = $('#feedback').value
+                    const formData = {
+                        'rating': numRating,
+                        'comment': feedback
+                    };
+
+                    console.log(numRating);
+                    console.log(`/review/store/${lastPart}`);
+                    fetch(`/review/store/${lastPart}`, {
+                        method: 'POST',
+                        body: JSON.stringify(formData),
+                        headers: {
+                            'Content-type': 'application/json; charset=UTF-8',
+                        },
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                isError = true;
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log(data)
+                            if (isError == true) {
+                                const alertReview = $('.alert-danger')
+                                alertReview.innerHTML = `${data.error}`;
+                                alertReview.style.opacity = "1";
+                                alertReview.style.display = "block"
+                                console.log(alertReview)
+                                setTimeout(function () {
+                                    alertReview.style.opacity = "0";
+                                    setTimeout(function () {
+                                        alertReview.style.display = "none";
+                                    }, 500);
+                                }, 3000);
+                            }
+                            if (isError == false) {
+                                loadReview();
+                                // window.location.href = curUrl.toString();
+                            }
+                        })
+                        .catch(error => {
+                            console.error('There has been a problem with your fetch operation:', error);
+                        });
+                });
+                function linkToForm(id) {
+                    console.log(id)
+                    window.location.href = `/{{layout}}/contactToTutor/${id}`
+                }
+
+
+                // load Review Ajax
+
+
+                function loadReview(currentPage) {
+                    // call api /review/:id
+
+                    console.log(`/review/${lastPart}/?page=${currentPage}`)
+                    fetch(`/review/${lastPart}/?page=${currentPage}`, {
+                        method: 'GET',
+
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                isError = true;
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+
+                            // update pages,...
+
+                            pages = Array.from({ length: data.reviews.totalPages }, (_, i) => i + 1);
+
+
+                            currentPage = data.reviews.page;
+                            console.log(data.reviews.page)
+                            prevPage = data.reviews.prevPage;
+                            nextPage = data.reviews.nextPage;
+
+
+                            const userReviews = $('.user-reviews');
+
+                            let html = '';
+
+
+                            data.reviews.docs.forEach(review => {
+                                html += `
+            <li class="user-review">
+                <img alt="" src="https://secure.gravatar.com/avatar/b992087ca24c735ade838a3cf92d0d29?s=100&amp;d=mm&amp;r=g"
+                    srcset="https://secure.gravatar.com/avatar/b992087ca24c735ade838a3cf92d0d29?s=200&amp;d=mm&amp;r=g 2x"
+                    class="avatar avatar-100 photo" height="100" width="100" loading="lazy" decoding="async">
+                <div class="detail-review-user">
+                    <div class="score-rating-user">
+                        <div class="num-review">
+                            ${review.rating}
+                            <div class="rating">
+                                <div class="star-1"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="name-user">${review.userId.fullname}</div>
+                    <div class="time-review">${review.datePost}</div>
+                    <div class="content-user-review">${review.comment}</div>
+                </div>
+            </li>`;
+                            });
+
+                            userReviews.innerHTML = `${html}`;
+                            
+                            generatePaging(pages, currentPage, prevPage, nextPage);
+
+                        })
+                        .catch(error => {
+                            console.error('There has been a problem with your fetch operation:', error);
+                        });
+
+                }
+
+                function generatePaging(pages, currentPage, prevPage, nextPage) {
+                    let pagination = $('.pagination')
+                    console.log(currentPage)
+                    console.log(pages, currentPage, prevPage, nextPage)
+                    const result = generateTutorPaginationLinks(pages, currentPage, prevPage, nextPage);
+                    pagination.innerHTML = `${result}`
+                }
+
+            </script>
+
+
+        </div>
+
+
+
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
 </body>
 
 </html>

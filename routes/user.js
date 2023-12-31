@@ -20,6 +20,9 @@ router.post('/formTutor/:page', isUser, upload.single('GPAfile'), beTutorMiddlew
 
 router.get('/contactToTutor/:id', isUser, userController.getContactToTutor);
 router.post('/contactToTutor/:id', isUser, orderMiddleware.postValidator,userController.postContactToTutor);
+
+
+
 router.get('/courses/:id', userController.detail);
 router.get('/courses/', userController.showAll);
 router.get('/', isUser, userController.getHomePage);
