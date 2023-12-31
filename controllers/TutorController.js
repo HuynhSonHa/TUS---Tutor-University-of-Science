@@ -484,6 +484,148 @@ const detail = async (req, res, next) => {
     next(err);
   }
 }
+// [GET] /tutor/premium
+const getPremium = (req, res, next) => {
+  const role = req.user.role;
+  res.render('user/signuptotutor', { user: req.user, layout: role, role: role});
+}
+// [GET] /tutor/formTutor/123
+const getFormTutor = (req, res, next) => {
+  let price;
+  if (req.params.page == '1') { price = 199000 }
+  else if (req.params.page == '2') { price = 1999000 }
+  else if (req.params.page == '3') { price = 3999000 };
+
+  const role = req.user.role;
+  res.render('user/formbetutor', {
+    user: req.user,
+    price: price,
+    page: req.params.page,
+    layout: role,
+    role: role,
+  });
+}
+// [POST] /tutor/formTutor/123
+//fullname, phoneNumber, GPA, GPAfile
+const postFormTutor = async (req, res, next) => {
+  // Verify user input
+  const result = validationResult(req);
+  if (!result.isEmpty()) {
+    console.log(result.array());
+    res.status(400).json({ errors: result.array() });
+    return;
+  }
+  //chống spam
+  const checkBeTutor = await BeTutor.find({tutorId: req.user._id, status: "waiting"});
+  if(checkBeTutor.length>0) return res.status(304).json({success: true, error: "Bạn đã đăng ký rồi! Hãy chờ admin phản hồi bạn!"});
+
+  var leftDay = Number.MAX_SAFE_INTEGER;
+  var leftCourse = Number.MAX_SAFE_INTEGER;
+  const beTutors = await BeTutor.find({ tutorId: req.user._id, status: "accepted" }).populate('tutorId');
+  for (let i = 0; i < beTutors.length; i++) {
+    const uploadDuration = beTutors[i].tutorId.amountDayUpload * 24 * 60 * 60 * 1000; // Convert days to milliseconds
+    const timeSincePost = Date.now() - new Date(beTutors[i].datePost).getTime(); // Calculate time since post in milliseconds
+    const temp = uploadDuration - timeSincePost;
+    if (temp > 0 && temp < leftDay) leftDay = temp;
+   
+    const amountCourseUploaded = await Course.find({ tutor: req.user._id }).countDocuments();
+    console.log(beTutors[i].tutorId.amountCourseUpload, amountCourseUploaded)
+    const tempCourse = beTutors[i].tutorId.amountCourseUpload - amountCourseUploaded;
+    if (tempCourse > 0 && tempCourse < leftCourse) leftCourse = tempCourse;
+  }
+  leftDay = leftDay === Number.MAX_SAFE_INTEGER ? 0 : Math.ceil(leftDay / (24 * 60 * 60 * 1000));
+  leftCourse = leftCourse === Number.MAX_SAFE_INTEGER ? 0 : leftCourse;
+  if (leftDay > 0 || leftCourse > 0) {
+    return res.status(304).json({success: true, error: "Bạn đã là tutor rồi! Hãy chờ hết hạn để đăng ký mới!"});
+  }
+
+  let price;
+  if (req.params.page == '1') { price = 199000 }
+  else if (req.params.page == '2') { price = 1999000 }
+  else if (req.params.page == '3') { price = 3999000 };
+  try {
+    const { fullname, phoneNumber, GPA, comment } = req.body;
+    var savedUser = {
+      fullname: req.body.fullname,
+      phoneNumber: req.body.phoneNumber,
+      GPA: req.body.GPA,
+    }
+    if (req.file) {
+      savedUser.GPAfile = req.file.filename;
+    }
+
+    // Lưu user vào database
+    try {
+      await User.updateOne({ _id: req.user._id }, savedUser);
+    } catch (updateError) {
+      console.error(updateError);
+      return res.status(400).json({ success: false, error: 'Cập nhật thông tin không thành công' });
+    }
+    let newTutor;
+    newTutor = new BeTutor({
+      price: price,
+      tutorId: req.user._id,
+      comment: req.body.comment,
+    });
+    try {
+      await newTutor.save();
+    } catch (saveError) {
+      console.error(saveError);
+      return res.status(401).json({ success: false, error: 'Gửi thất bại' });
+    }
+    return res.status(200).json({ success: true, msg: "Đã gửi yêu cầu tới admin!" })
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, error: 'Internal Server Error' });
+  }
+}
+const getContactToTutor = async (req, res, next) => {
+  const course = await Course.findById(req.params.id).populate('tutor');
+  const reviews = await Review.find({ courseId: req.params.id }).populate('userId');
+  let amountOfReviews;
+
+  if (reviews === null || reviews.length === 0) {
+    amountOfReviews = 0;
+  } else {
+    amountOfReviews = reviews.length;
+  }
+  console.log(amountOfReviews)
+  const role = req.user.role;
+  res.render('user/contactToTutor', {
+    course: mongooseToObject(course),
+    amountOfReviews: amountOfReviews,
+    layout: role,
+    role: role,
+  });
+}
+
+const postContactToTutor = async (req, res, next) => {
+  const result = validationResult(req);
+  if (!result.isEmpty()) {
+    res.status(400).json({ errors: result.array() });
+    return;
+  }
+  try {
+    //Chống spam
+    const checkOrder = await Order.find({userId: req.user._id, courseId: req.params.id, status: "Subscribing" || "Learning"});
+    //console.log(checkOrder.length);
+    if(checkOrder.length >0) return res.status(304).json({success: true, error: "Bạn đã đăng ký khóa học rồi! Hãy chờ tutor accept bạn vào khóa học!"})
+
+    const formData = req.body;
+    formData.courseId = req.params.id;
+    formData.userId = req.user._id;
+
+    const order = new Order(formData);
+    await order.save();
+    console.log(order)
+    return res.status(200).json({ success: true, msg: "đã gửi contact thành công! Vui lòng chờ đợi phản hồi" });
+    //return res.send("Thêm review thành công!").redirect("/user/home");
+  }
+  catch (err) {
+    next(err);
+  }
+}
 
 module.exports = {
   storedCourses,
@@ -502,4 +644,9 @@ module.exports = {
   showAll,
   detail,
   storedWaitingListAjax,
+  getPremium,
+  getFormTutor,
+  postFormTutor,
+  getContactToTutor,
+  postContactToTutor,
 };
