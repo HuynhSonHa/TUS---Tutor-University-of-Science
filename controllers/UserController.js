@@ -118,6 +118,24 @@ const postFormTutor = async (req, res, next) => {
   const checkBeTutor = await BeTutor.find({tutorId: req.user._id, status: "waiting"});
   if(checkBeTutor.length>0) return res.status(304).json({success: true, error: "Bạn đã đăng ký rồi! Hãy chờ admin phản hồi bạn!"});
 
+  const beTutors = await BeTutor.find({ tutorId: req.user._id, status: "accepted" }).populate('tutorId');
+  for (let i = 0; i < beTutors.length; i++) {
+    const uploadDuration = beTutors[i].tutorId.amountDayUpload * 24 * 60 * 60 * 1000; // Convert days to milliseconds
+    const timeSincePost = Date.now() - new Date(beTutors[i].datePost).getTime(); // Calculate time since post in milliseconds
+    const temp = uploadDuration - timeSincePost;
+    if (temp > 0 && temp < leftDay) leftDay = temp;
+   
+    const amountCourseUploaded = await Course.find({ tutor: req.user._id }).countDocuments();
+    console.log(beTutors[i].tutorId.amountCourseUpload, amountCourseUploaded)
+    const tempCourse = beTutors[i].tutorId.amountCourseUpload - amountCourseUploaded;
+    if (tempCourse > 0 && tempCourse < leftCourse) leftCourse = tempCourse;
+  }
+  leftDay = leftDay === Number.MAX_SAFE_INTEGER ? 0 : Math.ceil(leftDay / (24 * 60 * 60 * 1000));
+  leftCourse = leftCourse === Number.MAX_SAFE_INTEGER ? 0 : leftCourse;
+  if (leftDay > 0 && leftCourse > 0) {
+    return res.status(304).json({success: true, error: "Bạn đã là tutor rồi! Hãy chờ hết hạn để đăng ký mới!"});
+  }
+
   let price;
   if (req.params.page == '1') { price = 199000 }
   else if (req.params.page == '2') { price = 1999000 }
