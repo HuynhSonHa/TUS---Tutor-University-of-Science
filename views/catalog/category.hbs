@@ -42,48 +42,48 @@
                                                     <div class="wrap">
                                                         <label>
                                                             Công nghệ thông tin
-                                                            <input type="radio" id="it"
-                                                                name="faculty" value="information technology">
+                                                            <input type="radio" id="it" name="faculty"
+                                                                value="Công nghệ thông tin">
                                                         </label>
                                                         <label>
                                                             Toán – Tin học
-                                                            <input type="radio" id="math"
-                                                                name="faculty" value="math">
+                                                            <input type="radio" id="math" name="faculty"
+                                                                value="Toán – Tin học">
                                                         </label>
                                                         <label>
                                                             Vật lý – Vật lý Kỹ thuật
-                                                            <input type="radio" id="physics"
-                                                                name="faculty" value="physics">
+                                                            <input type="radio" id="physics" name="faculty"
+                                                                value="Vật lý – Vật lý Kỹ thuật">
                                                         </label>
                                                         <label>
                                                             Hóa học
-                                                            <input type="radio" id="chemistry"
-                                                                name="faculty" value="chemistry">
+                                                            <input type="radio" id="chemistry" name="faculty"
+                                                                value="Hóa học">
                                                         </label>
                                                         <label>
                                                             Sinh học & Công nghệ Sinh học
-                                                            <input type="radio" id="biology"
-                                                                name="faculty" value="biology">
+                                                            <input type="radio" id="biology" name="faculty"
+                                                                value="Sinh học & Công nghệ Sinh học">
                                                         </label>
                                                         <label>
                                                             Môi trường
-                                                            <input type="radio" id="environment"
-                                                                name="faculty" value="environment">
+                                                            <input type="radio" id="environment" name="faculty"
+                                                                value="Môi trường">
                                                         </label>
                                                         <label>
                                                             Khoa học và Công nghệ vật liệu
-                                                            <input type="radio" id="material"
-                                                                name="faculty" value="material">
+                                                            <input type="radio" id="material" name="faculty"
+                                                                value="Khoa học & Công nghệ vật liệu">
                                                         </label>
                                                         <label>
                                                             Địa chất
-                                                            <input type="radio" id="geological"
-                                                                name="faculty" value="geological">
+                                                            <input type="radio" id="geological" name="faculty"
+                                                                value="Địa chất">
                                                         </label>
                                                         <label>
-                                                            Điện tử Viễn thông.
-                                                            <input type="radio" id="electronics"
-                                                                name="faculty" value="electronics">
+                                                            Điện tử Viễn thông
+                                                            <input type="radio" id="electronics" name="faculty"
+                                                                value="Điện tử Viễn thông">
                                                         </label>
                                                     </div>
                                                 </div>
@@ -101,34 +101,34 @@
                                                     <div class="wrap">
                                                         <label>
                                                             K19
-                                                            <input type="radio" id="K19"
-                                                                name="studentCourse" value="K19">
+                                                            <input type="radio" id="K19" name="studentCourse"
+                                                                value="K19">
                                                         </label>
                                                         <label>
                                                             K20
-                                                            <input type="radio" id="K20"
-                                                                name="studentCourse" value="K20">
+                                                            <input type="radio" id="K20" name="studentCourse"
+                                                                value="K20">
                                                         </label>
                                                         <label>
                                                             K21
-                                                            <input type="radio" id="K21"
-                                                                name="studentCourse" value="K21">
+                                                            <input type="radio" id="K21" name="studentCourse"
+                                                                value="K21">
                                                         </label>
                                                         <label>
                                                             K22
-                                                            <input type="radio" id="K22"
-                                                                name="studentCourse" value="K22">
+                                                            <input type="radio" id="K22" name="studentCourse"
+                                                                value="K22">
                                                         </label>
                                                         <label>
                                                             K23
-                                                            <input type="radio" id="K23"
-                                                                name="studentCourse" value="K23">
+                                                            <input type="radio" id="K23" name="studentCourse"
+                                                                value="K23">
                                                         </label>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-    
+
                                         <div class="widget">
                                             <div class="sumary">
                                                 <label><span>Price</span></label>
@@ -303,10 +303,11 @@
     const $$ = document.querySelectorAll.bind(document)
     const rangeInput = $('#range-price');
     const submitBtn = $('#primary-btn');
-
+    let faculty = "None";
+    let studentCourse = "None";
     // handle sort and filter
 
-    let maxPrice = 0;
+    let maxPrice = 20000000;
     let minPrice = 0;
     // Thêm sự kiện 'input' để theo dõi sự thay đổi giá trị
     rangeInput.addEventListener('input', function () {
@@ -316,7 +317,37 @@
         console.log('Giá trị hiện tại:', maxPrice);
     });
     let currentUrl = new URL(window.location.href);
+    //handle uncheck radio
+    let selectedRadio = null;
 
+
+
+    // Select both "studentCourse" and "faculty" radio buttons
+    document.querySelectorAll('input[type=radio][name="faculty"]').forEach(radio => {
+        radio.addEventListener('click', function () {
+            
+            let deselect = (this == faculty);
+            if (deselect) {
+                faculty = `None`;
+            } else {
+                faculty = this.value;
+            }
+            this.checked = !deselect;
+        });
+    });
+
+    document.querySelectorAll('input[type=radio][name="studentCourse"]').forEach(radio => {
+        radio.addEventListener('click', function () {
+
+            let deselect = (this == studentCourse);
+            if (deselect) {
+                studentCourse = `None`;
+            } else {
+                studentCourse = this.value;
+            }
+            this.checked = !deselect;
+        });
+    });
     const sortSelection = document.getElementById("sort_selection");
     console.log(sortSelection)
     sortSelection.addEventListener("change", async function () {
@@ -352,8 +383,10 @@
         window.location.href = currentUrl.toString();
     }
     submitBtn.addEventListener('click', function () {
-        const faculty = $('input[name="faculty"]:checked').value;
-        const studentCourse = $('input[name="studentCourse"]:checked').value;
+
+        console.log(faculty)
+        console.log(studentCourse)
+
 
         if (currentUrl.searchParams.has('faculty')) {
             currentUrl.searchParams.set('faculty', faculty);
