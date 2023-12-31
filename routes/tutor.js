@@ -27,11 +27,12 @@ router.get("/accepted/:id", tutorController.acceptStudent);
 router.get("/denied/:id", tutorController.denyStudent);
 router.get('/courses/:id', tutorController.detail);
 router.get('/courses/',isTutor ,tutorController.showAll);
-router.get('/premium', isUser, tutorController.getPremium);
-router.get('/formTutor/:page', isUser, tutorController.getFormTutor);
-router.post('/formTutor/:page', isUser, upload.single('GPAfile'), beTutorMiddleware.postValidator, tutorController.postFormTutor);
-router.get('/contactToTutor/:id', isUser, tutorController.getContactToTutor);
-router.post('/contactToTutor/:id', isUser, orderMiddleware.postValidator,tutorController.postContactToTutor);
+router.get('/premium', isTutor, tutorController.getPremium);
+router.get('/formTutor/:page', isTutor, tutorController.getFormTutor);
+router.post('/formTutor/:page', isTutor, upload.single('GPAfile'), beTutorMiddleware.postValidator, tutorController.postFormTutor);
+router.get('/contact/:id', isTutor, tutorController.getContact);
+router.get('/contactToTutor/:id', isTutor, tutorController.getContactToTutor);
+router.post('/contactToTutor/:id', isTutor, orderMiddleware.postValidator,tutorController.postContactToTutor);
 
 router.get('/', isTutor, tutorController.getHomePage);
 

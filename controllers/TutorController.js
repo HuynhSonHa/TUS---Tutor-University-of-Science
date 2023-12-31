@@ -580,6 +580,7 @@ const postFormTutor = async (req, res, next) => {
     res.status(500).json({ success: false, error: 'Internal Server Error' });
   }
 }
+
 const getContactToTutor = async (req, res, next) => {
   const course = await Course.findById(req.params.id).populate('tutor');
   const reviews = await Review.find({ courseId: req.params.id }).populate('userId');
@@ -599,6 +600,9 @@ const getContactToTutor = async (req, res, next) => {
     role: role,
   });
 }
+
+
+
 
 const postContactToTutor = async (req, res, next) => {
   const result = validationResult(req);
@@ -649,4 +653,5 @@ module.exports = {
   postFormTutor,
   getContactToTutor,
   postContactToTutor,
+  getContact,
 };

@@ -182,18 +182,7 @@ const postFormTutor = async (req, res, next) => {
     res.status(500).json({ success: false, error: 'Internal Server Error' });
   }
 }
-// [GET] /user/contact/courseId
-const getContact = async (req, res, next) => {
 
-  const course = await Course.findById(req.params.id).populate('tutor');
-  console.log(course)
-  if (!course) {
-    return res.status(404).render("404"); // Handle the case where the product is not found
-  }
-
-  return res.status(200).json({ success: true, msg: `/user/contactToTutor/${req.params.id}` })
-  //return res.status(200).json({ success: true, msg: `/user/contacttutor` })
-}
 
 
 const getContactToTutor = async (req, res, next) => {
