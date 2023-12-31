@@ -396,7 +396,9 @@ const denyStudent = async (req, res, next) => {
     if (!order) {
       return res.status(404).json({ error: 'Không tìm thấy thông tin' });
     }
-    await order.deleteOne({ _id: req.params.id });
+    //await order.deleteOne({ _id: req.params.id });
+    order.status = "denied";
+    await order.save();
     return res.status(200).json({ msg: 'Denied thành công!' });
   } catch {
     console.error(error);

@@ -13,7 +13,7 @@ router.get('/stored/courses/:id', isUser, userController.detailCourses);
 router.get('/stored/courses', isUser, userController.storedCourses);
 
 router.get('/profile', isUser, userController.profile);
-router.post('/profile', isUser, profileMiddleware.postValidator, upload.single('avatar'), userController.editProfile);
+router.post('/profile', isUser,upload.single('avatar'), profileMiddleware.postValidator,  userController.editProfile);
 router.get('/premium', isUser, userController.getPremium);
 router.get('/formTutor/:page', isUser, userController.getFormTutor);
 router.post('/formTutor/:page', isUser, upload.single('GPAfile'), beTutorMiddleware.postValidator, userController.postFormTutor);

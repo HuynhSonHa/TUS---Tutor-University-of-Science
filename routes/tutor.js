@@ -17,7 +17,7 @@ router.get('/create', isTutor, tutorController.createCourse);
 router.post('/createNewCourse', isTutor, courseMiddleware.createValidator, tutorController.createNewCourse);
 router.get('/profile', isTutor, tutorController.profile);
 router.get('/courseDetail/:id', isTutor, tutorController.courseDetail);
-router.post('/profile', isTutor, profileMiddleware.postValidator, upload.single('avatar'), tutorController.editProfile);
+router.post('/profile', isTutor,  upload.single('avatar'), profileMiddleware.postValidator, tutorController.editProfile);
 router.get('/tutor-mode', tutorController.getTutorMode);
 router.get('/waitingStudent/:id', tutorController.getDetailStudent);
 router.get("/accepted/:id", tutorController.acceptStudent);

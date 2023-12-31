@@ -114,9 +114,11 @@ const postFormTutor = async (req, res, next) => {
     res.status(400).json({ errors: result.array() });
     return;
   }
+  //chống spam
+  const checkBeTutor = await BeTutor.find({tutorId: req.user._id, status: "waiting"});
+  if(checkBeTutor) return res.status(304).json({success: true, error: "Bạn đã đăng ký rồi! Hãy chờ admin phản hồi bạn!"});
 
   let price;
-
   if (req.params.page == '1') { price = 199000 }
   else if (req.params.page == '2') { price = 1999000 }
   else if (req.params.page == '3') { price = 3999000 };
@@ -196,6 +198,10 @@ const postContactToTutor = async (req, res, next) => {
     return;
   }
   try {
+    //Chống spam
+    const checkOrder = await Order.find({userId: req.user._id, courseId: req.params.id, status: "Subscribing"});
+    if(checkOrder) return res.status(304).json({success: true, error: "Bạn đã đăng ký khóa học rồi! Hãy chờ tutor accept bạn vào khóa học!"})
+
     const formData = req.body;
     formData.courseId = req.params.id;
     formData.userId = req.user._id;

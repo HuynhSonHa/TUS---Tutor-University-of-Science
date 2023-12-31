@@ -3,7 +3,7 @@ const { body, check } = require('express-validator');
 
 const postValidator = [
     // Custom validator for GPAfile
-    check('avatar')
+    body('avatar')
         .custom((value, { req }) => {
             // Allowed mime types for images
             const allowedTypes = ['image/jpg','image/jpeg', 'image/png', 'image/gif'];

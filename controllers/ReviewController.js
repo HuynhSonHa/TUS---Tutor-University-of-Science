@@ -14,7 +14,7 @@ const store = async (req, res, next) => {
     }
     try {
         const order = await Order.findOne({courseId: req.params.id, userId: req.user._id});
-        if (!order) {
+        if (!order || (order && order.status === "denied")) {
             return res.status(400).json({error: "Bạn chưa đăng ký khóa học!"});
         }
         else if (order && order.status === "Subscribing") {
