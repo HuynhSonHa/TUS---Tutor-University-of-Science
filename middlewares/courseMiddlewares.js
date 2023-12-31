@@ -12,7 +12,11 @@ const createValidator = [
         .notEmpty().withMessage("Please provide your faculty")
         .escape(),
     body("studentCourse")
+<<<<<<< HEAD
         .notEmpty().withMessage("Please provide your school")
+=======
+        .notEmpty().withMessage("Please provide your student course")
+>>>>>>> 5da7463c6313585d3b43e600f6a8b9ffe1f94b4a
         .escape(),
     body("price")
         .notEmpty().withMessage("Please provide price")
