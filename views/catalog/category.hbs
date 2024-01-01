@@ -145,10 +145,9 @@
                                             </div>
                                         </div>
                                         <div class="button-container">
-                                            <div class="button"><a  class="primary-btn"
-                                                    onclick="clearForm()">Clear all</a></div>
-                                            <div class="button"><a  class="primary-btn"
-                                                    id="primary-btn">Submit</a></div>
+                                            <div class="button"><a class="primary-btn" onclick="clearForm()">Clear
+                                                    all</a></div>
+                                            <div class="button"><a class="primary-btn" id="primary-btn">Submit</a></div>
                                         </div>
                                     </form>
                                 </div>
@@ -197,19 +196,6 @@
                                                     <div class="thumbnail">
                                                         <img src="/images/{{this.tutor.avatar}}" alt="">
                                                     </div>
-                                                    {{!-- <div class="thumbnail hover">
-                                                        <img src="./images/team-2.png" alt="">
-                                                    </div> --}}
-                                                    {{!-- <div class="actions">
-                                                        <ul>
-                                                            <li><a href=""><i class="ri-star-line"></i></a>
-                                                            </li>
-                                                            <li><a href=""><i class="ri-arrow-left-right-line"></i></a>
-                                                            </li>
-                                                            <li><a href=""><i class="ri-eye-line"></i></a>
-                                                            </li>
-                                                        </ul>
-                                                    </div> --}}
                                                     <div class="label"><span>-{{percent this.discount
                                                             this.price}}%</span></div>
                                                 </div>
@@ -238,7 +224,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- <div class="button"><a href="" class="primary-btn">Load more</a></div> -->
                             <div class="pagination">
                                 {{generatePaginationLinks pages currentPage prevPage nextPage role}}
                             </div>
@@ -325,7 +310,7 @@
     // Select both "studentCourse" and "faculty" radio buttons
     document.querySelectorAll('input[type=radio][name="faculty"]').forEach(radio => {
         radio.addEventListener('click', function () {
-            
+
             let deselect = (this == faculty);
             if (deselect) {
                 faculty = `None`;
@@ -380,7 +365,7 @@
         currentUrl.searchParams.delete('studentCourse');
         currentUrl.searchParams.delete('minPrice');
         currentUrl.searchParams.delete('maxPrice');
-       // window.location.href = currentUrl.toString();
+        // window.location.href = currentUrl.toString();
     }
     submitBtn.addEventListener('click', function () {
 
