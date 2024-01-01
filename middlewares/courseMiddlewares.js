@@ -17,6 +17,7 @@ const createValidator = [
         .escape(),
     body("price")
         .notEmpty().withMessage("Please provide price")
+        .isNumeric().withMessage("Price is a number")
         .escape(),
     body("description")
         .notEmpty().withMessage("Please provide description of course")
