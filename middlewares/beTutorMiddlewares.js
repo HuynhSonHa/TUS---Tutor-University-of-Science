@@ -10,7 +10,7 @@ const postValidator = [
         .escape(),
     body("GPA")
         .notEmpty().withMessage("Please provide GPA")
-        
+        .isNumeric().withMessage("GPA is a number")
         .escape(),
 
     body("comment")
