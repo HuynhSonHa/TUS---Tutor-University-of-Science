@@ -17,6 +17,7 @@
     "express-handlebars": "^7.1.2",
     "express-session": "^1.17.3",
     "express-validator": "^7.0.1",
+    "fs": "^0.0.1-security",
     "google-auth-library": "^9.2.0",
     "handlebars": "^4.7.8",
     "hbs": "^4.2.0",
@@ -30,9 +31,11 @@
     "nodemailer": "^6.9.7",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
+    "sharp": "^0.33.1",
     "svg-to-jsx": "^1.0.4",
     "svg.js": "^2.7.1",
-    "svg2png": "^4.1.1"
+    "svg2png": "^4.1.1",
+    "util": "^0.12.5"
   },
   "devDependencies": {
     "nodemon": "^3.0.2"

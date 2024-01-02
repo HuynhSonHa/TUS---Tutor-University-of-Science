@@ -8,6 +8,12 @@ const BeTutor = require("../models/BeTutor");
 const CourseService = require("../services/product");
 const UserService = require("../services/user");
 
+const sharp = require('sharp');
+const path = require('path');
+const fs = require('fs');
+const util = require('util');
+const rename = util.promisify(fs.rename);
+
 // [GET] /tutor/stored/courses
 const storedCourses = async (req, res, next) => {
   const pageSize = 4;
@@ -195,7 +201,7 @@ const createCourse = async (req, res, next) => {
 
 const createNewCourse = async (req, res, next) => {
   try {
- 
+
     const result = validationResult(req);
     console.log("haha", result.array());
     if (!result.isEmpty()) {
@@ -255,14 +261,37 @@ const courseDetail = async (req, res, next) => {
   }
 }
 //[POST] /tutor/profile
-const editProfile = async (req, res, next) => {
 
+
+const editProfile = async (req, res, next) => {
   try {
     if (req.file) {
+      const filePath = path.join('public/images/', req.file.filename);
+      const outputFilePath = path.join('public/images/', 'output-' + req.file.filename);
+      console.log(filePath);
+
+      // Wrap sharp in a Promise
+      await new Promise((resolve, reject) => {
+        sharp(filePath)
+          .resize(500, 500)
+          .toFile(outputFilePath, (err, info) => {
+            if (err) {
+              console.error(err);
+              reject(err);
+            } else {
+              console.log(info);
+              resolve();
+            }
+          });
+      });
+
+      // Rename the output file to the original file
+      await rename(outputFilePath, filePath);
+
       req.body.avatar = req.file.filename;
     }
-    User.updateOne({ _id: req.user._id }, req.body)
-      .then(res.status(200).json({ msg: 'Cập nhật thông tin thành công' }))
+    await User.updateOne({ _id: req.user._id }, req.body);
+    res.status(200).json({ msg: 'Cập nhật thông tin thành công' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: 'Internal Server Error' });

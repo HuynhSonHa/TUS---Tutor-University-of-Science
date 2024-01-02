@@ -6,8 +6,9 @@ const {isUser} = require('../middlewares/isAuthenticated');
 const orderMiddleware = require("../middlewares/orderMiddlewares");
 const beTutorMiddleware = require("../middlewares/beTutorMiddlewares");
 const profileMiddleware = require("../middlewares/profileMiddlewares");
-const storage = require('../config/multer');
-const upload = multer({ storage: storage });
+
+const {upload, storage} = require('../config/multer');
+
 
 router.get('/stored/courses/:id', isUser, userController.detailCourses);
 router.get('/stored/courses', isUser, userController.storedCourses);
