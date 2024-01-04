@@ -68,7 +68,6 @@ const getHomePage = async(req, res, next) => {
     userList = userList.slice(0, 4);
     console.log(userList);
 
-
     // console.log(JSON.stringify(reviewList, null, 2));
     res.render('home/home', {  layout: 'guest', reviewList: reviewList, userList: userList});
   } catch (error) {
