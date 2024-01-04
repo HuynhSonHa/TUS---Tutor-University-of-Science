@@ -12,6 +12,7 @@ const profileService = require("../services/profile");
 
 // [GET] /tutor/stored/courses
 const storedCourses = async (req, res, next) => {
+  //tính toán phân trang
   const pageSize = 4;
   //filter thay vào trên đây (filter xong lấy ra coursesFull, courses)
   const coursesFull = await Course.find({ tutor: req.user._id });
@@ -26,10 +27,12 @@ const storedCourses = async (req, res, next) => {
   var nextPage = currentPage + 1; if (nextPage > totalPages) nextPage = totalPages;
   var prevPage = currentPage - 1; if (prevPage < 1) prevPage = 1;
   console.log(coursesFull.length);
+
   const userId = req.user._id;
   const user = await User.findById(userId).populate('avatar');
   const namePage = "courses";
   console.log(user)
+  //Tìm những khóa học của tutor này đăng
   Course.find({ tutor: req.user._id }).skip(skipAmount).limit(pageSize)
     .then((courses) => {
       res.render("tutormode/viewCourseList", {
@@ -49,6 +52,7 @@ const storedCourses = async (req, res, next) => {
 }
 
 const storedCoursesAjax = async (req, res, next) => {
+  //Dùng để xử lý ajax trang phía trên
   try {
     const pageSize = 4;
     //filter thay vào trên đây (filter xong lấy ra coursesFull, courses)
@@ -94,6 +98,7 @@ const storedCoursesAjax = async (req, res, next) => {
 
 
 const storedWaitingListAjax = async (req, res, next) => {
+  //Dùng để xử lý ajax trang ở dưới
   try {
     const courses = await Course.find({ tutor: req.user._id }).select('_id');
     const courseIds = courses.map(course => course._id);
@@ -140,12 +145,14 @@ const storedWaitingListAjax = async (req, res, next) => {
 // [GET] /tutor/stored/waiting-list
 const storedStudents = async (req, res, next) => {
   //const orders = await Order.find({ courseId.tutor: req.user._id ,status: "Subscribing"}).populate('userId courseId');
+  //TÌm ra những khóa học của chính tutor này. Sau đó lấy ra được 1 list courseId để đem qua order
   const courses = await Course.find({ tutor: req.user._id }).select('_id');
   const courseIds = courses.map(course => course._id);
 
   // Find orders for those courses
   const orders = await Order.find({ courseId: { $in: courseIds }, status: "Subscribing" }).populate('userId courseId');
 
+  //tính toán phân trang
   const pageSize = 4;
   //filter thay vào trên đây (filter xong lấy ra coursesFull, courses)
   const totalCourses = orders.length;
@@ -279,6 +286,7 @@ const editProfile = async (req, res, next) => {
 }
 //[GET] /tutor/tutor-mode
 const getTutorMode = async (req, res, next) => {
+  //Tính toán leftDay, leftCourse 
   var leftDay = Number.MAX_SAFE_INTEGER;
   var leftCourse = Number.MAX_SAFE_INTEGER;
   const beTutors = await BeTutor.find({ tutorId: req.user._id, status: "accepted" }).populate('tutorId');
@@ -502,6 +510,7 @@ const detail = async (req, res, next) => {
     next(err);
   }
 }
+//Giống bên user
 // [GET] /tutor/premium
 const getPremium = (req, res, next) => {
   const role = req.user.role;

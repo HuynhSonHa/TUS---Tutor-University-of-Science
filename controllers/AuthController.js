@@ -12,6 +12,7 @@ require("dotenv").config();
 //[GET] /
 const getHomePage = async(req, res, next) => {
   try {
+    //Tìm kiếm 3 bài review có rating cao nhất và viết comment dài nhất
     const reviewList = await Review.aggregate([
       {
         $lookup: {
@@ -52,6 +53,8 @@ const getHomePage = async(req, res, next) => {
       }
     ]).limit(3);
 
+    // Tìm kiếm 4 tutor có rating cao nhất dựa trên các bài review
+    // Gọi service để tính average rating cho từng tutor
     const tutors = await User.find({ role: 'tutor' });
     let userList = await Promise.all(tutors.map(async (tutor) => {
       let averageRating = await UserService.getAverageRatingForTutor(tutor._id.toString());
@@ -61,10 +64,9 @@ const getHomePage = async(req, res, next) => {
         averageRating: averageRating ? averageRating.averageRating : 0
       };
     }));
-    // Sort the userList based on averageRating in descending order
+    // Sort danh sách tutor theo average rating đã tính ở trên
     userList.sort((a, b) => b.averageRating - a.averageRating);
-
-    // Apply skip and limit - here skip 0 and limit 4
+    // Lấy ra 4 tutor có average rating cao nhất
     userList = userList.slice(0, 4);
     console.log(userList);
 
@@ -79,11 +81,6 @@ const getHomePage = async(req, res, next) => {
 
 //[GET] /signin
 const getSignIn = (req, res, next) => {
-  //var messages = req.flash('error');
-  // res.status(302).render('auth/signin', {
-  //   //messages: messages,
-  //   //hasErrors: messages.length > 0,
-  // });
   res.render("auth/signin");
 };
 
@@ -94,13 +91,14 @@ const postSignIn = (req, res, next) => {
   //   failureRedirect: '/signin',
   //   failureFlash: true,
   // })(req, res, next);// Thêm dòng này để gọi hàm authenticate
-  // Verify user input
 
+  // Verify user input by middleware express-validator
   const result = validationResult(req);
   if (!result.isEmpty()) {
     res.status(400).json({ errors: result.array() });
     return;
   }
+  //Sử dụng passport.local để xác thực
   passport.authenticate('local', (err, user, info) => {
     if (err) {
       return next(err);
@@ -127,45 +125,43 @@ const postSignIn = (req, res, next) => {
 
 //[GET] /signup
 const getSignUp = (req, res, next) => {
-  // //var messages = req.flash('error');
-  // res.render('auth/signup', {
-  //   //messages: messages,
-  //   //hasErrors: messages.length > 0,
-  // });
   res.render("auth/signup");
 };
 
 // [POST] /signup
 const postSignUp = (req, res, next) => {
-  // Verify user input
-  
+  // Verify user input by middleware express-validator
   const result = validationResult(req);
-  console.log("haha", result.array());
+  console.log(result.array());
   if (!result.isEmpty()) {
     res.status(400).json({ errors: result.array() });
     return;
   }
-
+  // Kiểm tra xem password và confirm password có khớp nhau không
   if (req.body.password != req.body.passwordConfirmation) {
     return res.status(400).json({ error: 'Confirm Password is not match with Password!' });
   }
+  //Tìm trong db xem có user nào thỏa không
   User.findOne({ 'username': req.body.username })
     .then((user) => {
+      //Nếu tồn tại, báo lỗi
       if (user) {
         return res.status(400).json({ error: 'Username is already in use.' });
       }
       else {
+        //Tạo user mới
         var newUser = new User();
         newUser.username = req.body.username;
         newUser.email = req.body.email;
+        //Hashing password
         newUser.password = newUser.encryptPassword(req.body.password);
 
         // Nếu có ảnh đại diện được tải lên
-        if (req.file) {
-          // Gán id của ảnh đại diện cho user
-          console.log(req.file.filename);
-          newUser.avatar = req.file.filename;
-        }
+        // if (req.file) {
+        //   // Gán id của ảnh đại diện cho user
+        //   console.log(req.file.filename);
+        //   newUser.avatar = req.file.filename;
+        // }
         newUser.save()
           .then(() => {
             res.status(200).json({ success: true, redirectUrl: '/signin' });
@@ -201,8 +197,7 @@ const postForgetPassword = async (req, res, next) => {
   try {
     const { email } = req.body;
     console.log(email);
-
-
+    //Tìm kiếm user đã đăng ký email này
     const user = await User.findOne({ email: email });
     if (!user) {
       res.status(404).json({ error: "Email này không tồn tại" });
@@ -210,20 +205,19 @@ const postForgetPassword = async (req, res, next) => {
     else {
       //const secret = process.env.JWT_SECRET + user.password;
       //const token = jwt.sign({ id: user._id, email: user.email }, secret, { expiresIn: "30m" });
-      const reserPasswordLink = `${process.env.WEBSITE_URL}/reset-password?id=${user._id}`;
-
+      const resetPasswordLink = `${process.env.WEBSITE_URL}/reset-password?id=${user._id}`;
+      // Nội dung gửi email
       const mailOption = {
-        //from: `Admin Le Nguyen Thai <lnthai21@clc.fitus.edu.vn>`,
         to: email,
         subject: "Reset Password",
         text: ``,
         html: `<h3>Dear ${user.username} </h3>, <br>
             <p>We will give user the reset link below:<br>
-            ${reserPasswordLink}<br>
+            ${resetPasswordLink}<br>
             access to this link reset your password.<br>
             Regrad</p>`
       }
-
+      //Gọi hàm gửi email bên ./mailAPI.js
       sendMail(mailOption).then(result => { console.log(result) }).catch(e => { console.log(e) });
       res.send("Please check your email to reset password .....");
     }
@@ -233,7 +227,7 @@ const postForgetPassword = async (req, res, next) => {
   }
 };
 
-//[GET] /reset-password
+//[GET] /reset-password?id=
 const getResetPassword = async (req, res, next) => {
   try {
     const { id } = req.query;
@@ -244,14 +238,6 @@ const getResetPassword = async (req, res, next) => {
       res.status(404).json({ error: "Not found" });
     }
     else {
-
-      // const secret = process.env.JWT_SECRET + user.password;
-      // const payload = jwt.verify(token, secret);
-
-      // if (payload.id !== id) {
-      //     res.status(401).json({ msg: "Invalid token or id" });
-      // }
-
       // Successfull because error will throw 
       res.render("auth/resetPassword", { id: user._id })
     }
@@ -260,7 +246,7 @@ const getResetPassword = async (req, res, next) => {
   }
 };
 
-//[POST] /reset-password
+//[POST] /reset-password?id=
 const postResetPassword = async (req, res, next) => {
   // Verify user input
   const result = validationResult(req);
@@ -269,6 +255,7 @@ const postResetPassword = async (req, res, next) => {
     return;
   }
   try {
+    //Nhập password và confirm password mới
     const { password, password2 } = req.body;
 
     if (password !== password2) {
@@ -283,12 +270,6 @@ const postResetPassword = async (req, res, next) => {
       res.status(404).json({ error: "Not found user or id invalid!" });
     }
     else {
-      // const secret = process.env.JWT_SECRET + user.password;
-      // const payload = jwt.verify(token, secret);
-
-      // if (payload.id !== user.id) {
-      //     res.status(401).json({ message: "Id invalid or token invalid" });
-      // }
 
       user.password = user.encryptPassword(password);
       await user.save();
@@ -302,6 +283,7 @@ const postResetPassword = async (req, res, next) => {
 };
 
 const Logout = async (req, res) => {
+  //Sử dụng passport
   req.logout(() => {
     res.redirect('/');
   });

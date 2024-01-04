@@ -14,7 +14,7 @@ const store = async (req, res, next) => {
         //Chống spam
         const checkOrder = await Order.find({userId: req.user._id, courseId: req.params.id, status: "Subscribing"});
         if(checkOrder) return res.status(304).json({success: true, error: "Bạn đã đăng ký khóa học rồi! Hãy chờ tutor accept bạn vào khóa học!"})
-
+        //Lưu Order mới
         const formData = req.body;
         formData.courseId = req.params.id;
         formData.userId = req.user._id;
