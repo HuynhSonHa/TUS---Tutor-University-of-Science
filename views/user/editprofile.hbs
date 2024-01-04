@@ -180,12 +180,16 @@
         formData.append('faculty', faculty);
         formData.append('school', school);
         formData.append('studentCourse', studentCourse);
-         if (inputFile.files[0] != undefined) {
-         
+        if (inputFile.files[0] != undefined) {
+            console.log(inputFile.files[0])
             formData.append('avatar', inputFile.files[0]);
-        } 
+        } else {
+            console.log(profilePic)
+         
+        }
 
-        await fetch('/tutor/profile', {
+
+        await fetch('/user/profile', {
             method: 'POST',
             body: formData,
 

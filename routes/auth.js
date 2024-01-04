@@ -2,11 +2,22 @@ const express = require("express");
 const multer = require('multer');
 const router = express.Router();
 const storage = require('../config/multer');
-
+const passport = require("../middlewares/passport");
 const authController = require("../controllers/AuthController");
 const authMiddlewares = require("../middlewares/authMiddlewares");
 const upload = multer({ storage: storage });
 
+
+
+router.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile'] }));
+
+router.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+  });
 router.get("/signin", authController.getSignIn);
 router.get("/login", authController.getSignIn);
 router.get("/signup", authController.getSignUp);

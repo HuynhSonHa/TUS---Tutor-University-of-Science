@@ -1,0 +1,290 @@
+<style>
+    @import url(/stylesheets/waitlist.css);
+    @import url(/pagination1.css);
+</style>
+<style>
+    @import url('https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css');
+</style>
+
+
+
+<!-- header section ends -->
+
+<!--body section starts -->
+<section class="home" id="home">
+    <div class="content">
+        <h3 class="wrapper-header">
+            <a href=""><i class="ri-arrow-right-s-fill"></i> Student Waiting List</a>
+            <br>
+
+        </h3>
+        <div class="section">
+            <div class="container wide">
+                <div class="wrap">
+                    <div class="content">
+                        <div class="cart-table">
+                            <div class="product-list has-bg">
+                                <div class="table-content">
+                                    <ul id="list-student-waiting">
+                                        {{#each orders}}
+                                        <li class="dotgrid row">
+                                            <div class="grouping wrapper col-9">
+                                                <div class="variants">
+                                                    <h4 class="dot-title"
+                                                        onclick="moveToCourse('{{this.courseId._id}}')">
+                                                        <a>{{this.userId.fullname}}-{{this.courseId.name}}</a>
+                                                    </h4>
+                                                    <div class="price grey-color">
+                                                        <span>Price: {{this.courseId.price}}</span>
+                                                    </div>
+                                                    <div class="btn">
+                                                        <span>Schedule: {{this.courseId.schedule}}</span>
+                                                    </div>
+                                                    <div class="comment">
+                                                        <span>Comment: {{this.comment}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="choose col-3">
+                                                <button class="accept"
+                                                    onclick="acceptOrder('{{this._id}}')">Accept</button>
+                                                <button class="deny" onclick="denyOrder('{{this._id}}')">Deny</button>
+
+                                            </div>
+                                        </li>
+                                        {{/each}}
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="pagination">
+                    {{generateTutorPaginationLinks pages currentPage prevPage nextPage namePage }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="image">
+        <img src="/images/{{user.avatar}}" id="profile-pic">
+    </div>
+
+</section>
+
+<!--body section ends -->
+<!-- footer section starts  -->
+
+
+<!-- footer section ends -->
+
+<script>
+    const $ = document.querySelector.bind(document)
+    const $$ = document.querySelectorAll.bind(document)
+
+    let menu = document.querySelector('#menu-btn');
+    let navbarLinks = document.querySelector('.header .navbar .links');
+    let listWaiting = $('#list-student-waiting');
+    let currentPage = {{ currentPage }}
+
+    let amountOfStudents = {{ amountOfStudents }};
+    const pagination = $('.pagination')
+
+    menu.onclick = () => {
+        menu.classList.toggle('fa-times');
+        navbarLinks.classList.toggle('active');
+    }
+
+    window.onscroll = () => {
+        menu.classList.remove('fa-times');
+        navbarLinks.classList.remove('active');
+
+        if (window.scrollY > 60) {
+            document.querySelector('.header .navbar').classList.add('active');
+        } else {
+            document.querySelector('.header .navbar').classList.remove('active');
+        }
+    }
+
+    let profilePic = document.getElementById("profile-pic");
+    let inputFile = document.getElementById("input-file");
+
+    inputFile.onchange = function () {
+        profilePic.src = URL.createObjectURL(inputFile.files[0]);
+    }
+
+
+    function moveToCourse(idCourse) {
+
+        window.location.href = `/tutor/courseDetail/${idCourse}`
+    }
+
+    function denyOrder(idOrder) {
+        fetch(`/tutor/denied/${idOrder}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                // Thêm các headers khác nếu cần thiết
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                loadCourse(currentPage);
+                // Xử lý dữ liệu nhận được từ API
+                const alertReview = $('.alert-success')
+                alertReview.innerHTML = `${data.msg}`
+                alertReview.style.opacity = "1";
+                alertReview.style.display = "block"
+
+                setTimeout(function () {
+                    alertReview.style.opacity = "0";
+                    setTimeout(function () {
+                        alertReview.style.display = "none";
+                    }, 500);
+                }, 3000);
+            })
+            .catch(error => {
+                // Xử lý lỗi nếu có
+                console.error('Fetch error:', error);
+            });
+    }
+    function acceptOrder(idOrder) {
+        fetch(`/tutor/accepted/${idOrder}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                // Thêm các headers khác nếu cần thiết
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Xử lý dữ liệu nhận được từ API
+
+                loadCourse(currentPage);
+                const alertReview = $('.alert-success')
+                alertReview.innerHTML = `${data.msg}`
+                alertReview.style.opacity = "1";
+                alertReview.style.display = "block"
+
+                setTimeout(function () {
+                    alertReview.style.opacity = "0";
+                    setTimeout(function () {
+                        alertReview.style.display = "none";
+                    }, 500);
+                }, 3000);
+
+            })
+            .catch(error => {
+                // Xử lý lỗi nếu có
+                console.error('Fetch error:', error);
+            });
+
+    }
+    function generateTutorPaginationLinks(pages, currentPage, prevPage, nextPage, namePage) {
+        // Adjust currentPage if the number of students is 1 more than a multiple of 4
+
+
+        let links = '';
+        //function handle first and last
+        function handleArrow(pageNumber, text) {
+            return `<a id="${pageNumber}" onclick="loadCourse(${pageNumber})">${text}</a>`;
+        }
+        // Function to generate individual links
+        function generateLink(pageNumber, text) {
+            const isActive = pageNumber === currentPage ? 'active' : '';
+            return `<a id="${pageNumber}" onclick="loadCourse(${pageNumber})" class="${isActive}">${text}</a>`;
+        }
+
+        // Add previous page link
+        links += handleArrow(prevPage, '<');
+
+        // Add individual page links
+        pages.forEach((pageNumber) => {
+            links += generateLink(pageNumber, pageNumber);
+        });
+
+        // Add next page link
+        links += handleArrow(nextPage, '>');
+
+
+        return links;
+    }
+    async function loadCourse(currentPage) {
+
+        amountOfStudents -= 1;
+        if (amountOfStudents % 4 === 0) {
+            currentPage -= 1;
+        }
+        console.log(currentPage)
+        try {
+            const response = await fetch(`/tutor/stored/waiting-listAjax?page=${currentPage}`, {
+                method: 'GET',
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+
+            listWaiting.innerHTML = ``
+            pagination.innerHTML = ``;
+
+
+            data.orders.forEach((order, key) => {
+                let tempStudent = document.createElement('li');
+                tempStudent.classList.add('dotgrid', 'row');
+                tempStudent.innerHTML = `
+                <div class="grouping wrapper col-9">
+
+
+                                                <div class="variants">
+                                                    <h4 class="dot-title"
+                                                        onclick="moveToCourse('${order._id}')">
+                                                        <a>${order.userId.fullname}-${order.courseId.name}</a>
+                                                    </h4>
+                                                    <div class="price grey-color">
+                                                        <span>Price: ${order.courseId.price}</span>
+                                                    </div>
+                                                    <div class="btn">
+                                                        <span>Schedule: ${order.courseId.schedule}</span>
+                                                    </div>
+                                                    <div class="comment">
+                                                        <span>Comment: ${order.comment}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="choose col-3">
+                                                <button class="accept"
+                                                    onclick="acceptOrder('${order._id}}')">Accept</button>
+                                                <button class="deny" onclick="denyOrder('${order._id}')">Deny</button>
+
+                                            </div>
+            `;
+                listWaiting.appendChild(tempStudent);
+            });
+            console.log()
+            console.log('haha1111')
+
+            pagination.innerHTML = generateTutorPaginationLinks(data.pages, data.currentPage, data.prevPage, data.nextPage, data.namePage);
+
+
+
+
+        } catch (error) {
+            console.error('Error:', error.message);
+        }
+    }
+</script>

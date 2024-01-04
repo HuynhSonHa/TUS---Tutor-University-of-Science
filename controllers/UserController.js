@@ -9,10 +9,11 @@ const CourseService = require("../services/product");
 const { validationResult, check } = require("express-validator");
 const { mutipleMongooseToObject, mongooseToObject } = require("../util/mongoose");
 const UserService = require("../services/user");
+const profileService = require("../services/profile");
 
 // [GET] /user/stored/courses
 const storedCourses = async (req, res, next) => {
-  const orders = Order.find({ userId: req.user._id }).populate('courseId userId');
+  const orders = await Order.find({ userId: req.user._id });
 
   const pageSize = 4;
   //filter thay vào trên đây (filter xong lấy ra coursesFull, courses)
@@ -25,10 +26,10 @@ const storedCourses = async (req, res, next) => {
   var nextPage = currentPage + 1; if (nextPage > totalPages) nextPage = totalPages;
   var prevPage = currentPage - 1; if (prevPage < 1) prevPage = 1;
   console.log(orders.length);
-
-  const orderList = Order.find({ userId: req.user._id }).populate('courseId userId').skip(skipAmount).limit(pageSize);
-  res.render("user/stored-courses", {
-    orders: mutipleMongooseToObject(orderList),
+  const namePage = "courses";
+  const orderList = await Order.find({ userId: req.user._id }).populate('courseId userId').skip(skipAmount).limit(pageSize).lean();
+  res.render("user/courses", {
+    orders: orderList,
     user: mongooseToObject(req.user),
     pages: pages,
     prevPage: prevPage,
@@ -48,6 +49,19 @@ const detailCourses = async (req, res, next) => {
   });
 }
 
+
+const getUserMode = async (req, res, next) => {
+
+
+
+  const user = await User.findById(req.user._id).lean();
+  res.render('user/userMode', {
+    user: user,
+    layout: 'user',
+  });
+}
+
+
 // [GET] /user/profile
 const profile = async (req, res, next) => {
   try {
@@ -60,7 +74,7 @@ const profile = async (req, res, next) => {
       return res.status(404).json({ success: false, error: 'User not found' });
     }
 
-    res.render('tutormode/editprofile', { user: mongooseToObject(user), layout: 'user', });
+    res.render('user/editprofile', { user: mongooseToObject(user), layout: 'user', });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: 'Internal Server Error' });
@@ -71,11 +85,13 @@ const editProfile = async (req, res, next) => {
   // Verify user input
   const result = validationResult(req);
   if (!result.isEmpty()) {
+    console.log(result.array());
     res.status(400).json({ errors: result.array() });
     return;
   }
   try {
     if (req.file) {
+      await profileService.cropImage(req.file.filename);
       req.body.avatar = req.file.filename;
     }
     User.updateOne({ _id: req.user._id }, req.body)
@@ -89,7 +105,7 @@ const editProfile = async (req, res, next) => {
 // [GET] /user/premium
 const getPremium = (req, res, next) => {
   const role = req.user.role;
-  res.render('user/signuptotutor', { user: req.user, layout: role, role: role});
+  res.render('user/signuptotutor', { user: req.user, layout: role, role: role });
 }
 // [GET] /user/formTutor/123
 const getFormTutor = (req, res, next) => {
@@ -118,8 +134,8 @@ const postFormTutor = async (req, res, next) => {
     return;
   }
   //chống spam
-  const checkBeTutor = await BeTutor.find({tutorId: req.user._id, status: "waiting"});
-  if(checkBeTutor.length>0) return res.status(304).json({success: true, error: "Bạn đã đăng ký rồi! Hãy chờ admin phản hồi bạn!"});
+  const checkBeTutor = await BeTutor.find({ tutorId: req.user._id, status: "waiting" });
+  if (checkBeTutor.length > 0) return res.status(304).json({ success: true, error: "Bạn đã đăng ký rồi! Hãy chờ admin phản hồi bạn!" });
 
   var leftDay = Number.MAX_SAFE_INTEGER;
   var leftCourse = Number.MAX_SAFE_INTEGER;
@@ -129,7 +145,7 @@ const postFormTutor = async (req, res, next) => {
     const timeSincePost = Date.now() - new Date(beTutors[i].datePost).getTime(); // Calculate time since post in milliseconds
     const temp = uploadDuration - timeSincePost;
     if (temp > 0 && temp < leftDay) leftDay = temp;
-   
+
     const amountCourseUploaded = await Course.find({ tutor: req.user._id }).countDocuments();
     console.log(beTutors[i].tutorId.amountCourseUpload, amountCourseUploaded)
     const tempCourse = beTutors[i].tutorId.amountCourseUpload - amountCourseUploaded;
@@ -138,7 +154,7 @@ const postFormTutor = async (req, res, next) => {
   leftDay = leftDay === Number.MAX_SAFE_INTEGER ? 0 : Math.ceil(leftDay / (24 * 60 * 60 * 1000));
   leftCourse = leftCourse === Number.MAX_SAFE_INTEGER ? 0 : leftCourse;
   if (leftDay > 0 || leftCourse > 0) {
-    return res.status(304).json({success: true, error: "Bạn đã là tutor rồi! Hãy chờ hết hạn để đăng ký mới!"});
+    return res.status(304).json({ success: true, error: "Bạn đã là tutor rồi! Hãy chờ hết hạn để đăng ký mới!" });
   }
 
   let price;
@@ -213,9 +229,9 @@ const postContactToTutor = async (req, res, next) => {
   }
   try {
     //Chống spam
-    const checkOrder = await Order.find({userId: req.user._id, courseId: req.params.id, status: "Subscribing" || "Learning"});
+    const checkOrder = await Order.find({ userId: req.user._id, courseId: req.params.id, status: "Subscribing" || "Learning" });
     //console.log(checkOrder.length);
-    if(checkOrder.length >0) return res.status(304).json({success: true, error: "Bạn đã đăng ký khóa học rồi! Hãy chờ tutor accept bạn vào khóa học!"})
+    if (checkOrder.length > 0) return res.status(304).json({ success: true, error: "Bạn đã đăng ký khóa học rồi! Hãy chờ tutor accept bạn vào khóa học!" })
 
     const formData = req.body;
     formData.courseId = req.params.id;
@@ -331,7 +347,7 @@ const getHomePage = async (req, res, next) => {
 
 
     // console.log(JSON.stringify(reviewList, null, 2));
-    res.render('home/userhome', {user: req.user, layout: 'user', reviewList: reviewList, userList: userList });
+    res.render('home/userhome', { user: req.user, layout: 'user', reviewList: reviewList, userList: userList });
   } catch (error) {
     console.error(error);
     next(error);
@@ -355,14 +371,14 @@ const showAll = async (req, res, next) => {
     const pageSize = 12;
     //filter thay vào trên đây (filter xong lấy ra coursesFull, courses)
     const coursesFull = await CourseService.filteredAndSorted(
-      searchField, courseName, tutorName, faculty,studentCourse, average, minPrice, maxPrice, sortByField, sortByOrder
+      searchField, courseName, tutorName, faculty, studentCourse, average, minPrice, maxPrice, sortByField, sortByOrder
     );
     const totalCourses = coursesFull.length;
     const totalPages = Math.ceil(totalCourses / pageSize);
     const pageNumber = parseInt(req.query.page) || 1;
     const skipAmount = (pageNumber - 1) * pageSize;
     const courses = await CourseService.filteredSortedPaging(
-      searchField, courseName, tutorName, faculty,studentCourse, average, minPrice, maxPrice, sortByField, sortByOrder, skipAmount, pageSize
+      searchField, courseName, tutorName, faculty, studentCourse, average, minPrice, maxPrice, sortByField, sortByOrder, skipAmount, pageSize
     );
     const role = "user";
     const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
@@ -425,7 +441,7 @@ module.exports = {
   getPremium,
   getFormTutor,
   postFormTutor,
-
+  getUserMode,
   getHomePage,
   getContactToTutor,
   postContactToTutor,

@@ -1,6 +1,9 @@
 const passport = require("passport");
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/User');
+require('dotenv').config();
+
+
 
 // Configure passport-local strategy
 passport.use(
@@ -34,5 +37,20 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
+
+// login with google
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_MAILER_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_MAILER_CLIENT_SECRET,
+    callbackURL: "http://localhost:10000/auth/google/callback"
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    User.findOrCreate({ googleId: profile.id }, function (err, user) {
+      return cb(err, user);
+    });
+  }
+));
 module.exports = passport;
   

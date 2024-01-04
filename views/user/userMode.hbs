@@ -1,0 +1,61 @@
+<style>
+    @import url(/stylesheets/tutormode.css);
+</style>
+
+<!-- header section starts  -->
+
+
+
+<!-- header section ends -->
+
+<!--body section starts -->
+<section class="home" id="home">
+    <div class="content">
+        <h3 class="wrapper-mode">
+            <a href="/user/profile"><i class="ri-arrow-right-s-fill"></i>Edit profile</a>
+            <br>
+        </h3>
+       
+        <h3 class="wrapper-mode">
+            <a href="/user/stored/courses"><i class="ri-arrow-right-s-fill"></i>Course status</a>
+            <br>
+        </h3>
+        
+       
+        <h3 class="wrapper-log-out">
+            <a href="#" class="btn">Log out</a>
+        </h3>
+    </div>
+    <div class="image">
+        <img src="/images/{{user.avatar}}" alt="">
+    </div>
+
+</section>
+
+<!--body section ends -->
+
+<!-- footer section starts  -->
+
+
+
+<!-- footer section ends -->
+<script>
+    let menu = document.querySelector('#menu-btn');
+    let navbarLinks = document.querySelector('.header .navbar .links');
+
+    menu.onclick = () => {
+        menu.classList.toggle('fa-times');
+        navbarLinks.classList.toggle('active');
+    }
+
+    window.onscroll = () => {
+        menu.classList.remove('fa-times');
+        navbarLinks.classList.remove('active');
+
+        if (window.scrollY > 60) {
+            document.querySelector('.header .navbar').classList.add('active');
+        } else {
+            document.querySelector('.header .navbar').classList.remove('active');
+        }
+    }
+</script>
