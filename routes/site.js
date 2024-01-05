@@ -8,6 +8,7 @@ router.get("/test", (req, res, next) => {
     res.render("index", {layout: 'admin'});
     //res.render();
 })
+router.get("/aboutUs", siteController.aboutUs);
 router.get("/", siteController.getHomePage);
 
 module.exports = router;
