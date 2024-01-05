@@ -35,7 +35,17 @@ const getHomePage = async(req, res, next) => {
 const search = (req, res) => {
     res.render("search");
 }
+
+const aboutUs = (req, res) => {
+  let role;
+  if(req.user) {
+    role = req.user.role;
+  }
+  else role = "guest";
+  res.render("aboutUs", {layout: role});
+}
 module.exports = {
   getHomePage,
   search,
+  aboutUs,
 };
