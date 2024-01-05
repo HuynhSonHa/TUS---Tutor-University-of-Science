@@ -14,9 +14,22 @@ router.get('/auth/google',
 
 router.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/login' }),
-  function(req, res) {
-    // Successful authentication, redirect home.
-    res.redirect('/');
+  function(req, res, next) {
+    // The user should be attached to the request object after successful authentication
+    const user = req.user;
+
+    req.logIn(user, (err) => {
+      if (err) {
+        return next(err);
+      }
+      // Check user role and set the successRedirect accordingly
+      let successRedirect;
+      if (user.role === 'admin') successRedirect = '/admin';
+      else if (user.role === 'tutor') successRedirect = '/tutor';
+      else successRedirect = '/user';
+      return res.redirect(successRedirect);
+      //return res.status(200).json({ success: true, redirectUrl: successRedirect, msg: "Đăng nhập thành công!" });
+    });
   });
 router.get("/signin", authController.getSignIn);
 router.get("/login", authController.getSignIn);
