@@ -15,13 +15,14 @@ const store = async (req, res, next) => {
     }
     try {
         const order = await Order.findOne({ courseId: req.params.id, userId: req.user._id });
+        //Kiểm tra xem user có được tutor accept vào khóa học không
         if (!order || (order && order.status === "denied")) {
             return res.status(400).json({ error: "Bạn chưa đăng ký khóa học!" });
         }
         else if (order && order.status === "Subscribing") {
             return res.status(400).json({ error: "Hãy đợi tutor accept bạn vào khóa học!" });
         }
-
+        //Lưu review lại
         const formData = req.body;
         formData.courseId = req.params.id;
         formData.userId = req.user._id;
@@ -51,7 +52,6 @@ const store = async (req, res, next) => {
 }
 
 // [GET] /review/:id
-
 const getReviewsForPaging = async (req, res, next) => {
     try {
         const courseId = req.params.id || "None"; // Lấy id từ req.params.id

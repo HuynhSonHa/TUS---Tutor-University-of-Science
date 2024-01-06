@@ -1341,21 +1341,6 @@ h4 {
     font-family: ui-monospace;
 }
 
-
-
-.btn {
-    display: inline-block;
-    margin-top: 1rem;
-    padding: 1rem 3rem;
-    cursor: pointer;
-
-    font-size: 1.7rem;
-    text-transform: capitalize;
-    color: #000000;
-
-    border-radius: 15px;
-}
-
 .frame {
     display: inline-block;
     margin-top: 1rem;
@@ -1559,7 +1544,7 @@ i.fas.fa-play-circle {
 
 .input-box {
     position: relative;
-   
+
     max-width: 900px;
     width: 100%;
     background: #fff;
@@ -1577,12 +1562,12 @@ i.fas.fa-play-circle {
     transform: translateY(-50%);
 }
 
-#sort_selection {
+/* #sort_selection {
     font-size: 20px;
     padding: 8px 15px;
     border-radius: 8px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-}
+} */
 
 .input-box i {
     left: 20px;
@@ -1617,5 +1602,30 @@ i.fas.fa-play-circle {
     transform: translateY(-50%) scale(0.98);
 }
 
+select#sort_selection {
+    font-size: var(--fs14);
+    border: 1px solid var(--light-color);
+    outline: 0;
+    background-color: transparent;
+    padding: 10px 20px;
+    transition: border .3s;
+}
 
+.category-content :where(.sorter, .right) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
+.btn {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 1rem 3rem;
+    cursor: pointer;
+    background: #40DDB6;
+    font-size: 1.7rem;
+    text-transform: capitalize;
+    color: #000000;
+    border: 0.2rem solid #334;
+    border-radius: 15px;
+}

@@ -145,6 +145,7 @@ const getcourseList = async (req, res, next) => {
 }
 //[GET] /admin/waitingTutor?page=*
 const getWaitingListTutor = async (req, res, next) => {
+    //tính toán phân trang
     const pageSize = 12;
     const tutorListFull = await BeTutor.find({status: "waiting"}).populate('tutorId');
     const totalTutor = tutorListFull.length;
@@ -157,6 +158,7 @@ const getWaitingListTutor = async (req, res, next) => {
     var prevPage = currentPage - 1; if(prevPage < 1) prevPage = 1;
     const tutorList = await BeTutor.find({status: "waiting"}).populate('tutorId').skip(skipAmount).limit(pageSize);
     console.log(tutorList);
+
     res.render('admin/waitingTutor', {
         tutorList: mutipleMongooseToObject(tutorList),
         amountTutor: tutorList.length,
@@ -184,6 +186,7 @@ const acceptTutor = async(req, res, next) => {
         if(!beTutor) {
             return res.status(404).json({error: 'Không tìm thấy thông tin'});
         }
+        //Xử lí khi accept user đăng ký gói rẻ nhất 
         if(beTutor.price == 199000) {
             let formData = {
                 amountCourseUpload: 5,
@@ -194,7 +197,8 @@ const acceptTutor = async(req, res, next) => {
             await beTutor.save();
             await User.updateOne({_id: beTutor.tutorId}, formData);
             return res.status(200).json({ msg: 'Accepted thành công!' });
-        } else if(beTutor.price == 1999000) {
+        }//Xử lí khi accept user đăng ký gói trung bình  
+        else if(beTutor.price == 1999000) {
             let formData = {
                 amountCourseUpload: 10,
                 amountDayUpload: 365,
@@ -204,7 +208,8 @@ const acceptTutor = async(req, res, next) => {
             await beTutor.save();
             await User.updateOne({_id: beTutor.tutorId}, formData);
             return res.status(200).json({ msg: 'Accepted thành công!' });
-        } else if(beTutor.price == 3999000) {
+        }//Xử lí khi accept user đăng ký gói mắc nhất  
+        else if(beTutor.price == 3999000) {
             let formData = {
                 amountCourseUpload: 999999,
                 amountDayUpload: 999999,

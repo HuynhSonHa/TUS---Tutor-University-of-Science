@@ -11,6 +11,7 @@ const { validationResult } = require("express-validator");
 // [GET] /courses?page=*;
 const showAll = async (req, res, next) => {
   try {
+    //Lấy giá trị trên query về để filter
     const searchField = req.query.searchField;
     const courseName = req.query.courseName;
     const tutorName = req.query.tutorName;
@@ -22,7 +23,7 @@ const showAll = async (req, res, next) => {
     const sortByField = req.query.sortByField;
     const sortByOrder = req.query.sortByOrder;
 
-
+    //tính toán phân trang
     const pageSize = 12;
     //filter thay vào trên đây (filter xong lấy ra coursesFull, courses)
     const coursesFull = await CourseService.filteredAndSorted(
@@ -65,8 +66,9 @@ const detail = async(req, res, next) => {
     if (!course) {
       return res.status(404).render("404"); // Handle the case where the product is not found
     }
-
+    //Tìm kiếm những khóa học của cùng tutor
     const coursesListOfTutor = await Course.find({tutor: course.tutor}).populate('tutor');
+    //Tìm kiếm những review của khóa học này
     const reviews = await Review.find({ courseId: req.params.id }).populate('userId');
     let amountOfReviews;
     if (reviews === null || reviews.length === 0) {
@@ -74,6 +76,7 @@ const detail = async(req, res, next) => {
     } else {
       amountOfReviews = reviews.length;
     }
+    //TÌm kiếm những khóa học khác cùng môn học
     const coursesListOfName = await Course.find({name: course.name}).populate('tutor');
     console.log(coursesListOfName);
     res.render("courses/detail", {
@@ -98,17 +101,19 @@ const createCourse = async (req, res, next) => {
 }
 // [POST] /courses/store
 const store = async(req, res, next) => {
-  // Verify user input
+  // Verify user input 
+  // Kiểm tra bằng middleware xem người dùng nhập đúng không
   const result = validationResult(req);
   if (!result.isEmpty()) {
       res.status(400).json({ errors: result.array() });
       return;
   }
-  //res.json(req.body);
+  //Kiểm tra spam
   const checkList = await Course.find({name: req.body.name, tutor: req.user._id});
   if(checkList!=null) {
     return res.status(304).json({error: 'Bạn đã đăng khóa học này rồi!'})
   }
+  //Tạo khóa học mới
   const formData = req.body;
   formData.tutor = req.user._id;
   const course = new Course(formData);
@@ -159,6 +164,7 @@ const update = (req, res, next) => {
 // [DELETE] /courses/:id
 const destroy = async(req, res, next) => {
   var id = new mongoose.Types.ObjectId(req.params.id);
+  //Xóa khóa học, cùng với các review và order liên quan đến nó 
   await Review.deleteMany({courseId: id});
   await Order.deleteMany({courseId: id});
   Course.deleteOne({ _id: id })
@@ -177,6 +183,7 @@ const createNewCourse = async (req, res, next) => {
       return;
     }
     console.log(req.body)
+    //Tạo khóa học mới
     const formData = req.body;
     formData.tutor = req.user._id;
     const course = new Course(formData);

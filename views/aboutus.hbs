@@ -1,0 +1,108 @@
+<style>
+    @import url(/stylesheets/aboutus.css);
+</style>
+
+<!--body section starts -->
+<section class="team" id="team">
+    <h1 class="heading">About Our Team </h1>
+    <div class="box-container">
+        <div class="box">
+            <img src="/images/team-1.png" alt="">
+            <div class="content">
+                <h3>Trịnh Xuân Bách</h3>
+                <p>DoB: 08/07/2003</p>
+                <p>Class: 21CLC04</p>
+                <p>Front-end Developer</p>
+                <div class="share">
+                    <a href="https://www.facebook.com/bach0807/" class="fab fa-facebook-f"></a>
+                    <a href="#" class="fab fa-instagram"></a>
+                    <a href="https://github.com/PUPMKINN" class="fab fa-github"></a>
+                </div>
+            </div>
+        </div>
+        <div class="box">
+            <img src="/images/team-3.png" alt="">
+            <div class="content">
+                <h3>Trần Hoàng Duy</h3>
+                <p>DoB: 16/11/2003</p>
+                <p>Class: 21CLC04</p>
+                <p>Backend Developer</p>
+                <div class="share">
+                    <a href="https://www.facebook.com/hoangduy.tran.370177" class="fab fa-facebook-f"></a>
+                    <a href="#" class="fab fa-instagram"></a>
+                    <a href="https://github.com/thduy161103" class="fab fa-github"></a>
+                </div>
+            </div>
+        </div>
+        <div class="box">
+            <img src="/images/team-5.png" alt="">
+            <div class="content">
+                <h3>Nguyễn Quang Thái</h3>
+                <p>DoB: 22/10/2003</p>
+                <p>Class: 21CLC04</p>
+                <p>Leader Project</p>
+                <div class="share">
+                    <a href="https://www.facebook.com/profile.php?id=100028190565859" class="fab fa-facebook-f"></a>
+                    <a href="#" class="fab fa-instagram"></a>
+                    <a href="https://github.com/qthai2210" class="fab fa-github"></a>
+                </div>
+            </div>
+        </div>
+        <div class="box">
+            <img src="/images/team-4.png" alt="">
+            <div class="content">
+                <h3>Huỳnh Sơn Hà</h3>
+                <p>DoB: 26/10/2003</p>
+                <p>Class: 21CLC04</p>
+                <p>Developer</p>
+                <div class="share">
+                    <a href="https://www.facebook.com/sonha.huynh.39545" class="fab fa-facebook-f"></a>
+                    <a href="#" class="fab fa-instagram"></a>
+                    <a href="https://github.com/SonHa" class="fab fa-github"></a>
+                </div>
+            </div>
+        </div>
+        <div class="box">
+            <img src="/images/team-2.png" alt="">
+            <div class="content">
+                <h3>Lý Nhật Hào</h3>
+                <p>DoB: 08/07/2003</p>
+                <p>Class: 21CLC04</p>
+                <p>Front-end Developer</p>
+                <div class="share">
+                    <a href="https://www.facebook.com/LNH.1105" class="fab fa-facebook-f"></a>
+                    <a href="#" class="fab fa-instagram"></a>
+                    <a href="https://github.com/LyNhatHao1105" class="fab fa-github"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    let menu = document.querySelector('#menu-btn');
+    let navbarLinks = document.querySelector('.header .navbar .links');
+
+    menu.onclick = () => {
+        menu.classList.toggle('fa-times');
+        navbarLinks.classList.toggle('active');
+    }
+
+    window.onscroll = () => {
+        menu.classList.remove('fa-times');
+        navbarLinks.classList.remove('active');
+
+        if (window.scrollY > 60) {
+            document.querySelector('.header .navbar').classList.add('active');
+        } else {
+            document.querySelector('.header .navbar').classList.remove('active');
+        }
+    }
+
+    let profilePic = document.getElementById("profile-pic");
+    let inputFile = document.getElementById("input-file");
+
+    inputFile.onchange = function () {
+        profilePic.src = URL.createObjectURL(inputFile.files[0]);
+    }
+</script>

@@ -1,4 +1,5 @@
 const passport = require("passport");
+const crypto = require("crypto");
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/User');
 require('dotenv').config();
@@ -46,10 +47,42 @@ passport.use(new GoogleStrategy({
     clientSecret: process.env.GOOGLE_MAILER_CLIENT_SECRET,
     callbackURL: "http://localhost:10000/auth/google/callback"
   },
-  function(accessToken, refreshToken, profile, cb) {
-    User.findOrCreate({ googleId: profile.id }, function (err, user) {
-      return cb(err, user);
-    });
+  async function(accessToken, refreshToken, profile, cb) {
+    console.log(profile);
+    try {
+      const user = await User.findOne({ googleId: profile.id });
+      console.log("User: " + user);
+      if (!user) {
+        const newProfile = {
+          username: crypto.randomBytes(16).toString('hex'),
+          password: crypto.randomBytes(16).toString('hex'),
+          fullname: profile._json.name,
+          email: profile._json.email,
+          avatar: profile._json.picture,
+          fullname: profile._json.name,
+          active: profile._json.email_verified,
+          googleId: profile.id,
+          status: "active",
+        }
+        const newUser = await User.create(newProfile);
+        console.log("new User: ", newUser);
+        cb(null, newUser);
+      }
+      else {
+        User.findOneAndUpdate({ googleId: profile.id }, {
+          avatar: profile._json.picture,
+          fullname: profile._json.name,
+          active: profile._json.email_verified,
+          googleId: profile.id,
+          status: "active",
+        })
+        cb(null, user);
+      }
+
+    } catch (err) {
+      console.log("error: ", err);
+      cb(err, null);
+    }
   }
 ));
 module.exports = passport;
