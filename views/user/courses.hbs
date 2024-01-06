@@ -27,28 +27,30 @@
                             <div class="product-list has-bg">
                                 <div class="table-content">
                                     <ul id="list-course">
-                                        {{#each courses}}
+                                        {{#each orders}}
                                         <li class="dotgrid row">
                                             <div class="grouping wrapper col-9">
                                                 <div class="variants">
-                                                    <h4 class="dot-title"><a href="">{{this.name}}</a></h4>
+                                                    <h4 class="dot-title"><a href="">{{this.courseId.name}}</a></h4>
                                                     <div class="price grey-color">
-                                                        <span>Price: {{this.price}} VNĐ</span>
+                                                        <span>Price: {{this.courseId.price}} VNĐ</span>
                                                     </div>
                                                     <div class="schedule">
-                                                        <span>{{this.schedule}}</span>
+                                                        <span>{{this.courseId.schedule}}</span>
                                                     </div>
-
+                                                    <div class="schedule">
+                                                        <span>{{this.status}}</span>
+                                                    </div>
                                                 </div>
                                             </div>
 
-                                            <div class="choose col-3">
+                                            {{!-- <div class="choose col-3">
                                                 <button class="deny"
                                                     onclick="deleteCourse('{{this._id}}')">Delete</button>
                                                 <button class="edit" onclick="editCourse('{{this._id}}')">Edit </button>
                                                 <button class="clone"
                                                     onclick="cloneCourse('{{this._id}}')">Clone</button>
-                                            </div>
+                                            </div> --}}
                                         </li>
                                         {{/each}}
                                     </ul>
@@ -106,66 +108,7 @@
     }
 
     const listCourse = $('#list-course');
-    function editCourse(idCourse) {
 
-        window.location.assign(`/courses/edit/${idCourse}`)
-    }
-    function cloneCourse(idCourse) {
-        window.location.assign(`/courses/clone/${idCourse}`)
-    }
-    async function deleteCourse(idCourse) {
-        
-        try {
-            const response = await fetch(`/courses/${idCourse}`, {
-                method: 'DELETE',
-
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-
-            const data = await response.json();
-
-            if (data.error) {
-                const alertError = document.querySelector('.alert-danger');
-                const errorMessages = data.errors.map(error => error.msg).join(', ');
-
-                // Display or handle the error messages
-                console.error('Error:', errorMessages);
-                alertError.innerHTML = `${errorMessages}`;
-
-                alertError.style.opacity = "1";
-                alertError.style.display = "block";
-                setTimeout(function () {
-                    alertError.style.opacity = "0";
-                    setTimeout(function () {
-                        alertError.style.display = "none";
-                    }, 500);
-                }, 3000);
-            } else {
-                // Xử lý phản hồi thành công ở đây
-
-                const alertReview = document.querySelector('.alert-success'); // Change to document.querySelector
-                alertReview.innerHTML = `${data.msg}`;
-                alertReview.style.opacity = "1";
-                alertReview.style.display = "block";
-                console.log(alertReview);
-                setTimeout(function () {
-                    alertReview.style.opacity = "0";
-                    setTimeout(function () {
-                        alertReview.style.display = "none";
-                    }, 500);
-                }, 3000);
-
-
-                loadCourse(currentPage);
-
-            }
-        } catch (error) {
-            console.error('Error:', error.message);
-        }
-    }
     function generateTutorPaginationLinks(pages, currentPage, prevPage, nextPage, namePage) {
         // Adjust currentPage if the number of students is 1 more than a multiple of 4
 
@@ -200,7 +143,7 @@
             currentPage -= 1;
         }
         try {
-            const response = await fetch(`/tutor/stored/coursesAjax?page=${currentPage}`, {
+            const response = await fetch(`/user/stored/coursesAjax?page=${currentPage}`, {
                 method: 'GET',
             });
 
@@ -212,35 +155,35 @@
 
             listCourse.innerHTML = ``
             pagination.innerHTML = ``
+            console.log(data);
 
-
-            data.courses.forEach((course, key) => {
-                let tempCourse = document.createElement('li');
-                tempCourse.classList.add('dotgrid', 'row');
-                tempCourse.innerHTML = `
+            data.orders.forEach((Order, key) => {
+                console.log(Order);
+                let tempOrder = document.createElement('li');
+                tempOrder.classList.add('dotgrid', 'row');
+                tempOrder.innerHTML = `
                 <div class="grouping wrapper col-9">
                     <div class="variants">
-                        <h4 class="dot-title"><a href=""> ${course.name}</a></h4>
+                        <h4 class="dot-title"><a href=""> ${Order.courseId.name}</a></h4>
                         <div class="price grey-color">
-                            <span>Price: ${course.price} VNĐ</span>
+                            <span>Price: ${Order.courseId.price} VNĐ</span>
                         </div>
                         <div class="schedule">
-                            <span>${course.schedule}</span>
+                            <span>${Order.courseId.schedule}</span>
+                        </div>
+                          <div class="schedule">
+                            <span>${Order.status}</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="choose col-3">
-                    <button class="deny" onclick="deleteCourse('${course._id}')">Delete</button>
-                    <button class="edit" onclick="editCourse('${course._id}')">Edit </button>
-                    <button class="clone" onclick="cloneCourse('${course._id}')">Clone</button>
-                </div>
+               
             `;
-                listCourse.appendChild(tempCourse);
+                listCourse.appendChild(tempOrder);
             });
 
             numCourse = data.numCourse;
-            
+
 
             pagination.innerHTML = generateTutorPaginationLinks(data.pages, data.currentPage, data.prevPage, data.nextPage, data.namePage);
         } catch (error) {

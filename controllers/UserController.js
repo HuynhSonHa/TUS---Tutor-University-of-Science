@@ -40,6 +40,34 @@ const storedCourses = async (req, res, next) => {
   });
 }
 
+const storedCoursesAjax = async (req, res, next) => {
+  const orders = await Order.find({ userId: req.user._id });
+
+  const pageSize = 4;
+  //filter thay vào trên đây (filter xong lấy ra coursesFull, courses)
+  const totalCourses = orders.length;
+  const totalPages = Math.ceil(totalCourses / pageSize);
+  const pageNumber = parseInt(req.query.page) || 1;
+  const skipAmount = (pageNumber - 1) * pageSize;
+  const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+  const currentPage = Math.max(1, Math.min(totalPages, pageNumber));
+  var nextPage = currentPage + 1; if (nextPage > totalPages) nextPage = totalPages;
+  var prevPage = currentPage - 1; if (prevPage < 1) prevPage = 1;
+  console.log(orders.length);
+  const namePage = "courses";
+  const orderList = await Order.find({ userId: req.user._id }).populate('courseId userId').skip(skipAmount).limit(pageSize).lean();
+  res.status(200).json( {
+    orders: orderList,
+    user: mongooseToObject(req.user),
+    pages: pages,
+    prevPage: prevPage,
+    currentPage: currentPage,
+    nextPage: nextPage,
+    namePage: namePage,
+    layout: 'user',
+  });
+}
+
 // [GET] /user/stored/courses/Order._id
 const detailCourses = async (req, res, next) => {
   const order = Order.findById(req.params.id).populate('courseId userId');
@@ -447,4 +475,5 @@ module.exports = {
   postContactToTutor,
   showAll,
   detail,
+  storedCoursesAjax,
 };

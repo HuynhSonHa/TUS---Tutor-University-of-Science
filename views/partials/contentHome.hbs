@@ -1,0 +1,320 @@
+<section class="home" id="home">
+    <div class="content">
+        <h3>The Best</h3>
+        <h3>
+            Tutor Website for
+        </h3>
+        <h4>
+            HCMUS
+        </h4>
+        <h3>
+            Students
+        </h3>
+       
+    </div>
+    <div class="image">
+        <img src="images/home-logo.svg" alt="">
+    </div>
+</section>
+
+<!-- home section ends -->
+
+<!-- fun fact section starts  -->
+
+<section class="fun-fact">
+    <div class="box">
+        <img src="images/quality.svg" alt="">
+        <div class="info">
+            <h3>200+</h3>
+            <p>High Qualities</p>
+        </div>
+    </div>
+
+    <div class="box">
+        <img src="images/student.svg" alt="">
+        <div class="info">
+            <h3>2000+</h3>
+            <p>University Students</p>
+        </div>
+    </div>
+
+    <div class="box">
+        <img src="images/course-logo.png" alt="">
+        <div class="info">
+            <h3>30000+</h3>
+            <p>Qualities-Courses</p>
+        </div>
+    </div>
+
+</section>
+
+<!-- fun fact section ends -->
+
+<!-- about section starts  -->
+
+<section class="about" id="about">
+    <div class="image">
+        <img src="images/logo-2.jpeg" alt="">
+        <div class="content">
+            <h3>We’re Ready To Grow Your</h3>
+            <h3>Knowledge With Us</h3>
+            <p>We provide a platform where HCMUS students can search for tutors to improve their gpa and academic
+                ability in university.</p>
+        </div>
+        {{!-- <h3 class="btn">Get in touch</h3> --}}
+    </div>
+    <div class="content">
+        <div>
+            <img src="./images/green-point.svg" alt="">
+            <a>TUS (Tutors of University of Science)</a>
+        </div>
+        <h3>We Care About Your</h3>
+        <h3>Emotional And Effective</h3>
+        <p>For meticulously selected outstanding students, TUS pledges to facilitate academic advancement, ensuring
+            students acquire a solid foundational knowledge when engaging with our services.
+        <h3>
+            <i class="fas fa-check-circle">
+                <a>Carefully approved tutors</a>
+            </i>
+            <i class="fas fa-check-circle">
+                <a>Evaluate quality regularly</a>
+            </i>
+        </h3>
+        <div class="frame">
+            <img src="./images/high-gpa.svg" alt="">
+            <a>High GPA Tutor</a>
+        </div>
+        <div class="frame">
+            <img src="./images/preparation.svg" alt="">
+            <a>Throughful Preparation</a>
+        </div>
+        </p>
+       
+    </div>
+</section>
+
+<!-- about section ends -->
+
+<!-- services section starts  -->
+<section class="fun-fact">
+    <div class="boxer">
+        <img src="./images/logo-hcmus.svg" alt="">
+        <!-- <img src="./images/logo-small.svg" alt=""> -->
+    </div>
+</section>
+
+
+
+<!-- services section ends -->
+
+<!-- gallery section starts  -->
+
+<section class="gallery" id="gallery">
+
+    <h1 class="heading"> Acadamic <span>Achievement</span> </h1>
+
+    <div class="gallery-container">
+        <a class="box" href="images/certificate.png"><img src="images/certificate.png" alt=""></a>
+        <a class="box" href="images/certificate.png"><img src="images/certificate.png" alt=""></a>
+        <a class="box" href="images/certificate.png"><img src="images/certificate.png" alt=""></a>
+        <a class="box" href="images/certificate.png"><img src="images/certificate.png" alt=""></a>
+        <a class="box" href="images/certificate.png"><img src="images/certificate.png" alt=""></a>
+        <a class="box" href="images/certificate.png"><img src="images/certificate.png" alt=""></a>
+        <a class="box" href="images/certificate.png"><img src="images/certificate.png" alt=""></a>
+        <a class="box" href="images/certificate.png"><img src="images/certificate.png" alt=""></a>
+    </div>
+
+</section>
+
+<!-- gallery section ends -->
+
+<!-- facilities section starts  -->
+
+<section class="facilities">
+
+    <h1 class="heading"> why <span>choose us?</span> </h1>
+
+    <div class="box-container">
+
+        <div class="box">
+            <img src="images/why-choose-icon-1.svg" alt="">
+            <h3>24/7 support</h3>
+            <p></p>
+        </div>
+
+        <div class="box">
+            <img src="images/why-choose-icon-2.svg" alt="">
+            <h3>quality service</h3>
+            <p></p>
+        </div>
+
+        <div class="box">
+            <img src="images/why-choose-icon-3.svg" alt="">
+            <h3>Improve your GPAs</h3>
+            <p></p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- facilities section ends -->
+
+<!-- team section starts  -->
+
+<section class="team" id="team">
+
+    <h1 class="heading">Weekly Ranking<span> Top 5</span> </h1>
+
+    <div class="box-container">
+
+        {{#each userList as |tutor|}}
+        <div class="box">
+            <img src="images/{{tutor.avatar}}" alt="">
+            <div class="content">
+                <h3>{{tutor.fullname}}</h3>
+                <p>{{tutor.discription}}</p>
+
+            </div>
+        </div>
+        {{/each}}
+        {{!-- <div class="box">
+            <img src="images/team-1.png" alt="">
+            <div class="content">
+                <h3>Trịnh Xuân Bách</h3>
+                <p>Chủ nợ của Hà</p>
+                <div class="share">
+                    <a href="https://www.facebook.com/bach0807/" class="fab fa-facebook-f"></a>
+                    <a href="#" class="fab fa-twitter"></a>
+                    <a href="#" class="fab fa-instagram"></a>
+                    <a href="#" class="fab fa-linkedin"></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="box">
+            <img src="images/team-2.png" alt="">
+            <div class="content">
+                <h3>Lý Nhật Hào</h3>
+                <p>One champ Amily</p>
+                <div class="share">
+                    <a href="https://www.facebook.com/LNH.1105" class="fab fa-facebook-f"></a>
+                    <a href="#" class="fab fa-twitter"></a>
+                    <a href="#" class="fab fa-instagram"></a>
+                    <a href="#" class="fab fa-linkedin"></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="box">
+            <img src="images/team-3.png" alt="">
+            <div class="content">
+                <h3>Trần Hoàng Duy</h3>
+                <p>Ngu học</p>
+                <div class="share">
+                    <a href="https://www.facebook.com/hoangduy.tran.370177" class="fab fa-facebook-f"></a>
+                    <a href="#" class="fab fa-twitter"></a>
+                    <a href="#" class="fab fa-instagram"></a>
+                    <a href="#" class="fab fa-linkedin"></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="box">
+            <img src="images/team-4.png" alt="">
+            <div class="content">
+                <h3>Huỳnh Sơn Hà</h3>
+                <p>Thiếu nợ</p>
+                <div class="share">
+                    <a href="https://www.facebook.com/sonha.huynh.39545" class="fab fa-facebook-f"></a>
+                    <a href="#" class="fab fa-twitter"></a>
+                    <a href="#" class="fab fa-instagram"></a>
+                    <a href="#" class="fab fa-linkedin"></a>
+                </div>
+            </div>
+        </div> --}}
+
+    </div>
+
+</section>
+
+<!-- team section ends -->
+
+<!-- reviews section starts  -->
+
+<section class="reviews" id="reviews">
+
+    <h1 class="heading"> What our's <span> Client Says</span> </h1>
+
+    <div class="box-container">
+        {{#each reviewList as |review|}}
+        <div class="box">
+            <div class="star">
+                {{#each (starRating review.rating)}}
+                <i class="fas fa-star"></i>
+                {{/each}}
+            </div>
+            <div class="text">
+                <i class="fas fa-quote-right"></i>
+                <p>{{review.comment}}</p>
+            </div>
+            <div class="user">
+                <img src="images/{{review.user.avatar}}" alt="">
+                <h3>{{review.user.fullname}}</h3>
+            </div>
+        </div>
+        {{/each}}
+
+
+    </div>
+
+</section>
+
+<!-- reviews section ends -->
+
+<!-- contact section starts  -->
+
+{{!-- <section class="contact" id="contact">
+
+    <h1 class="heading"> <span>contact</span> us </h1>
+
+    <div class="row">
+
+        <iframe class="map"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2035.3449555131897!2d106.68202581586502!3d10.762445584962734!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f1c06f4e1dd%3A0x43900f1d4539a3d!2sUniversity%20of%20Science%20-%20VNUHCM!5e0!3m2!1sen!2s!4v1700913018700!5m2!1sen!2s"
+            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <form action="">
+           
+            <div class="inputBox">
+                <input type="text" placeholder="Name">
+                <input type="email" placeholder="Email">
+            </div>
+            <div class="inputBox">
+                <input type="tel" placeholder="Phone">
+                <input type="text" placeholder="Subject">
+            </div>
+            <textarea name="" placeholder="message" id="" cols="30" rows="10"></textarea>
+            <input type="submit" value="send message" class="btn">
+        </form>
+
+    </div>
+
+</section> --}}
+
+<!-- contact section ends -->
+
+<!-- footer section starts  -->
+
+
+<!-- footer section ends -->
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/js/lightgallery.min.js"></script>
+
+<!-- custom js file link  -->
+<script src="js/script.js"></script>
+
+<script>
+    lightGallery(document.querySelector('.gallery .gallery-container'));
+</script>
