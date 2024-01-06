@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    @import url(/stylesheets/category.css);
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Account List</title>
+    <link rel="stylesheet" href="/assetsViewWaitingTutor/styleViewAccountList.css">
+    <link rel="stylesheet" href="/pagination.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- Google chart -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+
+
+
+<body>
+
+    {{> SideBarAdmin }}
+    <div class="page-view-account-list">
+
+        <div class="main--content">
+            <div class="header--wrapper">
+                <div class="header--title">
+                    <span>Primary</span>
+
+                    <h2>View Waiting List</h2>
+                </div>
+                <div class="user--infor">
+                    <div class="search--box">
+                        <i class="fa-solid fa-search"></i>
+                        <input type="text" id="search-information" placeholder="Search">
+                    </div>
+                    {{!-- <select class="form-select" id="search_selection" aria-label="search User">
+                        <option selected>Search by</option>
+                        <option value="fullname">Full Name</option>
+                        <option value="email">Email</option>
+
+                    </select> --}}
+
+
+                </div>
+
+                {{!-- <img src="\assets\img.jpg" alt=""> --}}
+            </div>
+            <div class="list-account-container">
+                <h3 class="main--title">List Course</h3>
+
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Name Tutor</th>
+                                <th>GPA</th>
+                                <th>Price</th>
+                                <th>Status</th>
+
+                            </tr>
+                        <tbody id="list-account">
+
+                          
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="5">
+
+                                </td>
+                            </tr>
+                        </tfoot>
+                        </thead>
+                    </table>
+                </div>
+                <div class="pagination">
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const $ = document.querySelector.bind(document);
+        const $$ = document.querySelectorAll.bind(document);
+        let currentUrl = new URL(window.location.href);
+        function loadDetailUser(id) {
+            window.location.href = `/admin/courses/edit/${id}`
+        }
+
+        //handle choose method search
+        function changePage(page) {
+            if (currentUrl.searchParams.has('page')) {
+                currentUrl.searchParams.set('page', page);
+            }
+            else {
+                currentUrl.searchParams.append('page', page);
+            }
+            window.location.href = currentUrl.toString();
+        }
+        //load list account
+        const listAccount = $('#list-account');
+        // load pagination
+
+        // generate courses
+        function generateCourses(courses) {
+            let html = '';
+            courses.forEach(course => {
+                html += `
+                    <tr onclick="loadDetailUser('${course._id}')">
+                        <td>
+                            ${course.name}
+                        </td>
+                        <td>
+                            ${course.tutor.fullname}
+                        </td>
+                        <td>
+                            ${course.tutor.GPA}
+                        </td>
+                        <td>
+                            ${course.price}
+                        </td>
+                         <td>
+                            ${course.status}
+                        </td>`;
+            });
+            return html;
+        }
+        const pagination = $('.pagination');
+        document.addEventListener('DOMContentLoaded', function () {
+            let html = '';
+            const data = {{{ registerHelper Courses }}};
+        console.log(data)
+
+        data.totalPages = Array.from({ length: data.totalPages }, (_, i) => i + 1);
+        pagination.innerHTML = generateTutorPaginationLinks(
+            data.totalPages,
+            data.page,
+            data.prevPage,
+            data.nextPage
+        );
+        listAccount.innerHTML = generateCourses(data.docs);
+        });
+        // handle pagination
+        function generateTutorPaginationLinks(pages, currentPage, prevPage, nextPage) {
+            // Adjust currentPage if the number of students is 1 more than a multiple of 4
+            let links = '';
+            //function handle first and last
+            function handleArrow(pageNumber, text) {
+                return `<a id="${pageNumber}" onclick="loadCourse(${pageNumber})">${text}</a>`;
+            }
+            // Function to generate individual links
+            function generateLink(pageNumber, text) {
+                const isActive = pageNumber === currentPage ? 'active' : '';
+                return `<a id="${pageNumber}" onclick="loadCourse(${pageNumber})" class="${isActive}">${text}</a>`;
+            }
+            // Add previous page link
+            if (prevPage !== null) {
+                links += handleArrow(prevPage, '<');
+            }
+            // Add individual page links
+            pages.forEach((pageNumber) => {
+                links += generateLink(pageNumber, pageNumber);
+            });
+
+            // Add next page link
+            if (nextPage !== null) {
+                links += handleArrow(nextPage, '>');
+            }
+            return links;
+        }
+        // load Course Ajax
+
+
+        function loadCourse(currentPage) {
+            // call api /review/:id
+
+            console.log(`/admin/coursesAjax/?page=${currentPage}`)
+            fetch(`/admin/coursesAjax/?page=${currentPage}`, {
+                method: 'GET',
+
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        isError = true;
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data)
+                    // update pages,...
+                    data.Courses.totalPages = Array.from({ length: data.Courses.totalPages }, (_, i) => i + 1);
+                   // update HTML
+                    listAccount.innerHTML = generateCourses(data.Courses.docs);;
+                    pagination.innerHTML = generateTutorPaginationLinks(
+                        data.Courses.totalPages,
+                        data.Courses.page,
+                        data.Courses.prevPage,
+                        data.Courses.nextPage
+                    );
+                })
+                .catch(error => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                });
+
+        }
+
+        function generatePaging(pages, currentPage, prevPage, nextPage) {
+            let pagination = $('.pagination')
+            console.log(currentPage)
+            console.log(pages, currentPage, prevPage, nextPage)
+            const result = generateTutorPaginationLinks(pages, currentPage, prevPage, nextPage);
+            pagination.innerHTML = `${result}`
+        }
+    </script>
+</body>
+
+</html>

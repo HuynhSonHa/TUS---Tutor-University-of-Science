@@ -177,3 +177,62 @@ div[class*="-shopping"]{
     cursor: pointer;
     
 }
+
+
+.information-account-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.main--title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-account {
+    display: flex;
+    flex-direction: column;
+}
+
+.information-account,
+.information-expenditure-account {
+    margin-bottom: 20px;
+}
+
+.information-account label,
+.information-expenditure-account label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.information-account input,
+.information-expenditure-account input,
+.information-expenditure-account textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.wrapper-control-access-account {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.save-changes {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.save-changes:hover {
+    background-color: #0056b3;
+}

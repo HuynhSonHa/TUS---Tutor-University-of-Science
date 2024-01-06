@@ -11,6 +11,7 @@ const BeTutor = require("../models/BeTutor.js");
 
 //Service
 const courseService = require("../services/product.js")
+const adminService = require("../services/admin.js")
 const { mongooseToObject, mutipleMongooseToObject } = require("../util/mongoose");
 
 //const { use } = require("passport");
@@ -277,16 +278,59 @@ const destroyUser = async (req, res, next) => {
 }
 
 const getCoursePage = async(req, res, next) => {
-    const courseList = await Course.find();
-    res.render("", {
-        courseList: courseList,
-        amountOfCourse: courseList.length,
-    })
+    try {
+        
+        const page = req.query.page || 1;
+        const Courses = await adminService.filteredAndGetPagingCourse(page);
+        console.log(Courses);
+        console.log('hahaha');
+
+        if (Courses) {
+            res.render("admin/courses", {
+                Courses: Courses,
+            })
+        }
+        else {
+            res.status(404).json({ message: "Not found" });
+        }
+
+
+      
+    }
+    catch (err) {
+        next(err); // Nếu có lỗi, chuyển lỗi đến middleware xử lý lỗi tiếp theo
+    }
+}
+
+const getCoursePageAjax = async(req, res, next) => {
+    try {
+        
+        const page = req.query.page || 1;
+        const Courses = await adminService.filteredAndGetPagingCourse(page);
+        console.log(Courses);
+        console.log('hahaha');
+
+        if (Courses) {
+            res.status(200).json({
+                Courses: Courses,
+            })
+        }
+        else {
+            res.status(404).json({ message: "Not found" });
+        }
+
+
+      
+    }
+    catch (err) {
+        next(err); // Nếu có lỗi, chuyển lỗi đến middleware xử lý lỗi tiếp theo
+    }
 }
 const getEditCoursePage = async(req, res, next) => {
     //Edit sản phẩm 
-    const course = await Course.findById(req.params.id)
-    res.render('admin/edit/edit', {
+    console.log(req.params.id);
+    const course = await Course.findById(req.params.id).populate('tutor').lean();
+    res.render('admin/courseDetail', {
       course: course,
     })
 }
@@ -331,4 +375,5 @@ module.exports = {
     putEditCoursePage,
     destroyCourse, 
     getCoursePage,
+    getCoursePageAjax,
 }

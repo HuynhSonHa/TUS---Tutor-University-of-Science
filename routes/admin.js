@@ -39,8 +39,11 @@ router.put("/account/edit/:id", adminController.putEditUserPage);
 router.delete("/account/:id", adminController.destroyUser);
 router.get("/account", adminController.getAccountPage);
 
-router.get("product/edit/:id", adminController.getEditCoursePage);
-router.put("product/edit/:id", adminController.putEditCoursePage);
-router.delete("product/:id", adminController.destroyCourse);
-router.get("/product", adminController.getCoursePage);
+router.get("/courses/edit/:id", adminController.getEditCoursePage);
+router.put("/courses/edit/:id", adminController.putEditCoursePage);
+router.delete("/courses/:id", adminController.destroyCourse);
+router.get("/courses", adminController.getCoursePage);
+router.get("/coursesAjax", adminController.getCoursePageAjax);
+
+
 module.exports = router;

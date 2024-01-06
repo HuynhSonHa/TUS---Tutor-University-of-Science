@@ -1629,3 +1629,31 @@ select#sort_selection {
     border: 0.2rem solid #334;
     border-radius: 15px;
 }
+
+
+
+.product-size .wrap{
+
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 1.6;
+    
+}
+
+.right{
+    display: flex;
+    padding: 4px;
+    background-color: var(--flashwhite-color);
+    margin-left: 10px;
+    border-radius: 8px;
+    
+}
+
+#sort_selection{
+    border: none !important;
+}
+
+.wrap input[type="radio"]{
+    margin-left: 10px !important;
+}
+

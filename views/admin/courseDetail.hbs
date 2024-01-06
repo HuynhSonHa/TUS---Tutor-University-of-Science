@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="\assets\styleIndex.css">
+    <link rel="stylesheet" href="\assets\styleViewAccountList.css">
+    <link rel="stylesheet" href="/assetsViewDetailForm/styleViewDetailAccount.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+
+<body>
+    <div class="alert alert-success  text-center align-items-center">
+
+    </div>
+    <div class="alert alert-danger  text-center align-items-center">
+
+    </div>
+    {{> SideBarAdmin }}
+
+    <div class="page-view-detail-account">
+        <div class="main--content">
+            <div class="header--wrapper">
+                <div class="header--title">
+                    <span>Primary</span>
+                    <h2>Detail Course</h2>
+                </div>
+                <div class="user--infor">
+                    <div class="search--box">
+                        <i class="fa-solid fa-search"></i>
+                        <input type="text" placeholder="Search detail account">
+                    </div>
+
+
+                </div>
+
+
+
+            </div>
+            <div class="information-account-container">
+                <h3 class="main--title">Edit Course Information</h3>
+                <form id="edit-course-form">
+                    <div class="profile-account">
+                        <div class="information-account">
+                            <label for="course-name">Subject:</label>
+                            <input id="course-name" type="text" value="{{course.name}}">
+                            <label for="course-price">Price:</label>
+                            <input id="course-price" type="text" value="{{course.price}}">
+                            <label for="tutor-school">Subject Faculty:</label>
+                            <input id="tutor-school" type="text" value="{{course.faculty}}">
+                        </div>
+                        <div class="information-expenditure-account">
+                            <label for="tutor-gpa">Discount:</label>
+                            <input id="tutor-gpa" type="text" value="{{course.discount}}">
+                            <label for="course-description">Description:</label>
+                            <textarea id="course-description">{{course.description}}</textarea>
+                        </div>
+                        <div class="wrapper-control-access-account">
+                            <button type="submit" class="save-changes">Save Changes</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+</body>
+<script>
+    const $ = document.querySelector.bind(document)
+    const $$ = document.querySelectorAll.bind(document)
+    const acceptTutor = $('#accept-tutor');
+    const denyTutor = $('#deny-tutor');
+
+    let currentUrl = new URL(window.location.href);
+    var parts = currentUrl.pathname.split('/')
+    var id = parts[parts.length - 1];
+
+
+    acceptTutor.addEventListener('click', function () {
+        const apiUrl = `/admin/accepted/${id}`;
+        fetch(apiUrl, {
+            method: 'GET', // Use the GET method
+            headers: {
+                'Content-Type': 'application/json',
+                // Add any other headers if needed, such as authentication headers
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    console.log(response);
+                    throw new Error(`Network response was not ok: ${response.statusText}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Handle the successful response from the server
+                const alertSuccess = document.querySelector('.alert-success');
+                alertSuccess.innerHTML = `${data.msg}`
+
+                alertSuccess.style.opacity = "1";
+                alertSuccess.style.display = "block";
+                setTimeout(function () {
+                    alertSuccess.style.opacity = "0";
+                    setTimeout(function () {
+                        alertSuccess.style.display = "none";
+                    }, 500);
+                }, 3000);
+            })
+            .catch(error => {
+                // Handle errors during the fetch
+                console.error('Fetch error:', error);
+            });
+    });
+    denyTutor.addEventListener('click', function () {
+        const apiUrl = `/admin/denied/${id}`;
+        fetch(apiUrl, {
+            method: 'GET', // Use the GET method
+            headers: {
+                'Content-Type': 'application/json',
+                // Add any other headers if needed, such as authentication headers
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    console.log(response);
+                    throw new Error(`Network response was not ok: ${response.statusText}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Handle the successful response from the server
+                const alertSuccess = document.querySelector('.alert-success');
+                alertSuccess.innerHTML = `${data.msg}`
+
+                alertSuccess.style.opacity = "1";
+                alertSuccess.style.display = "block";
+                setTimeout(function () {
+                    alertSuccess.style.opacity = "0";
+                    setTimeout(function () {
+                        alertSuccess.style.display = "none";
+                    }, 500);
+                }, 3000);
+            })
+            .catch(error => {
+                // Handle errors during the fetch
+                console.error('Fetch error:', error);
+            });
+    });
+</script>
+
+</html>

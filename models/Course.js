@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const mongoosePaginate = require('mongoose-paginate-v2');
+
 const Schema = mongoose.Schema;
 const CourseScheme = new Schema({
     // catalogId: {
@@ -77,6 +79,6 @@ const CourseScheme = new Schema({
 
 });
 
-
+CourseScheme.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Course', CourseScheme);
