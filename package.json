@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon ./app.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -34,6 +34,7 @@
     "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
     "sharp": "^0.33.1",
+    "socket.io": "^4.7.3",
     "svg-to-jsx": "^1.0.4",
     "svg.js": "^2.7.1",
     "svg2png": "^4.1.1",

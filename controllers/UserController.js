@@ -5,16 +5,19 @@ const Order = require("../models/Order");
 const Review = require("../models/Review");
 const Contact = require("../models/Contact");
 const CourseService = require("../services/product");
+const RoomChat = require("../models/Roomchat");
 
 const { validationResult, check } = require("express-validator");
-const { mutipleMongooseToObject, mongooseToObject } = require("../util/mongoose");
+const { mutipleMongooseToObject, mongooseToObject } = require("../util/mongoose"); 
 const UserService = require("../services/user");
 const profileService = require("../services/profile");
 
 // [GET] /user/stored/courses
 const storedCourses = async (req, res, next) => {
   const orders = await Order.find({ userId: req.user._id });
-
+  const orderIds = orders.map(order => order._id);
+  const roomChats = await RoomChat.find({ OrderId: { $in: orderIds } }).populate('OrderId');
+  
   const pageSize = 4;
   //filter thay vào trên đây (filter xong lấy ra coursesFull, courses)
   const totalCourses = orders.length;
@@ -32,6 +35,7 @@ const storedCourses = async (req, res, next) => {
     orders: orderList,
     user: mongooseToObject(req.user),
     pages: pages,
+    roomChats: mutipleMongooseToObject(roomChats),
     prevPage: prevPage,
     currentPage: currentPage,
     nextPage: nextPage,
@@ -42,6 +46,9 @@ const storedCourses = async (req, res, next) => {
 
 const storedCoursesAjax = async (req, res, next) => {
   const orders = await Order.find({ userId: req.user._id });
+  const orderIds = orders.map(order => order._id);
+  const roomChats = await RoomChat.find({ OrderId: { $in: orderIds } }).populate('OrderId');
+
 
   const pageSize = 4;
   //filter thay vào trên đây (filter xong lấy ra coursesFull, courses)
@@ -56,9 +63,10 @@ const storedCoursesAjax = async (req, res, next) => {
   console.log(orders.length);
   const namePage = "courses";
   const orderList = await Order.find({ userId: req.user._id }).populate('courseId userId').skip(skipAmount).limit(pageSize).lean();
-  res.status(200).json( {
+  res.status(200).json({
     orders: orderList,
     user: mongooseToObject(req.user),
+    roomChats: mutipleMongooseToObject(roomChats),
     pages: pages,
     prevPage: prevPage,
     currentPage: currentPage,
@@ -213,8 +221,10 @@ const postFormTutor = async (req, res, next) => {
       tutorId: req.user._id,
       comment: req.body.comment,
     });
+
     try {
       await newTutor.save();
+
     } catch (saveError) {
       console.error(saveError);
       return res.status(401).json({ success: false, error: 'Gửi thất bại' });
@@ -241,6 +251,8 @@ const getContactToTutor = async (req, res, next) => {
   }
   console.log(amountOfReviews)
   const role = req.user.role;
+
+
   res.render('user/contactToTutor', {
     course: mongooseToObject(course),
     amountOfReviews: amountOfReviews,
@@ -250,15 +262,15 @@ const getContactToTutor = async (req, res, next) => {
 }
 
 const postContactToTutor = async (req, res, next) => {
+
   const result = validationResult(req);
   if (!result.isEmpty()) {
     res.status(400).json({ errors: result.array() });
     return;
   }
   try {
-    //Chống spam
-    const checkOrder = await Order.find({ userId: req.user._id, courseId: req.params.id, status: "Subscribing" || "Learning" });
-    //console.log(checkOrder.length);
+    // Prevent spam
+    const checkOrder = await Order.find({ userId: req.user._id, courseId: req.params.id, status: { $in: ["Subscribing", "Learning"] } });
     if (checkOrder.length > 0) return res.status(304).json({ success: true, error: "Bạn đã đăng ký khóa học rồi! Hãy chờ tutor accept bạn vào khóa học!" })
 
     const formData = req.body;
@@ -268,8 +280,12 @@ const postContactToTutor = async (req, res, next) => {
     const order = new Order(formData);
     await order.save();
     console.log(order)
+    const roomChat = new RoomChat({
+      OrderId: order._id,
+    })
+    console.log(roomChat)
+    await roomChat.save();
     return res.status(200).json({ success: true, msg: "đã gửi contact thành công! Vui lòng chờ đợi phản hồi" });
-    //return res.send("Thêm review thành công!").redirect("/user/home");
   }
   catch (err) {
     next(err);
@@ -461,6 +477,21 @@ const detail = async (req, res, next) => {
   }
 }
 
+
+const getChat = async (req, res, next) => {
+  try {
+    const order = req.params.id;
+    const roomChat = await RoomChat.findOne({ OrderId: order });
+    console.log(roomChat)
+
+    res.render('user/texting', {
+      roomChat: mongooseToObject(roomChat), layout: 'user',
+    });
+  } catch (err) {
+    next(err);
+  }
+}
+
 module.exports = {
   storedCourses,
   detailCourses,
@@ -476,4 +507,5 @@ module.exports = {
   showAll,
   detail,
   storedCoursesAjax,
+  getChat,
 };

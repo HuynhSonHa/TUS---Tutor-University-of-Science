@@ -8,6 +8,7 @@ const BeTutor = require("../models/BeTutor");
 const CourseService = require("../services/product");
 const UserService = require("../services/user");
 const profileService = require("../services/profile");
+const RoomChat = require("../models/Roomchat");
 
 
 // [GET] /tutor/stored/courses
@@ -104,7 +105,9 @@ const storedWaitingListAjax = async (req, res, next) => {
     const courseIds = courses.map(course => course._id);
 
     const orders = await Order.find({ courseId: { $in: courseIds }, status: "Subscribing" }).populate('userId courseId');
-
+   
+    const orderIds = orders.map(order => order._id);
+    const roomChats = await RoomChat.find({ OrderId: { $in: orderIds } }).populate('OrderId');
     const pageSize = 4;
     const totalCourses = orders.length;
     const totalPages = Math.ceil(totalCourses / pageSize);
@@ -129,6 +132,7 @@ const storedWaitingListAjax = async (req, res, next) => {
     res.status(200).json({
       orders: mutipleMongooseToObject(orderList),
       amountOfStudents: amountOfStudents,
+      roomChats: mutipleMongooseToObject(roomChats),
       pages: pages,
       prevPage: prevPage,
       currentPage: currentPage,
@@ -151,6 +155,7 @@ const storedStudents = async (req, res, next) => {
 
   // Find orders for those courses
   const orders = await Order.find({ courseId: { $in: courseIds }, status: "Subscribing" }).populate('userId courseId');
+  const roomChats = await RoomChat.find({}).populate('OrderId');
 
   //tính toán phân trang
   const pageSize = 4;
@@ -184,6 +189,7 @@ const storedStudents = async (req, res, next) => {
     amountOfStudents: amountOfStudents,
     user: mongooseToObject(user),
     pages: pages,
+    roomChats: mutipleMongooseToObject(roomChats),
     prevPage: prevPage,
     currentPage: currentPage,
     nextPage: nextPage,
@@ -658,6 +664,14 @@ const postContactToTutor = async (req, res, next) => {
   }
 }
 
+const getChat = async (req, res, next) => {
+  const order = req.params.id;
+  const roomChat = await RoomChat.findOne({ OrderId: order });
+  console.log(roomChat)
+  res.render("tutormode/texting", { roomChat: mongooseToObject(roomChat), layout: 'tutor', });
+
+}
+
 module.exports = {
   storedCourses,
   storedStudents,
@@ -680,5 +694,5 @@ module.exports = {
   postFormTutor,
   getContactToTutor,
   postContactToTutor,
-
+  getChat,
 };

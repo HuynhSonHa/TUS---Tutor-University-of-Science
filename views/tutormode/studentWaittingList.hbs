@@ -49,7 +49,7 @@
                                                 <button class="accept"
                                                     onclick="acceptOrder('{{this._id}}')">Accept</button>
                                                 <button class="deny" onclick="denyOrder('{{this._id}}')">Deny</button>
-
+                                                <button class="texting" onclick="texTing('{{this._id}}')">Texting</button>
                                             </div>
                                         </li>
                                         {{/each}}
@@ -270,6 +270,7 @@
                                                 <button class="accept"
                                                     onclick="acceptOrder('${order._id}}')">Accept</button>
                                                 <button class="deny" onclick="denyOrder('${order._id}')">Deny</button>
+                                                <button class="texting" onclick="texTing('${order._id}')">Texting</button>
 
                                             </div>
             `;
@@ -286,5 +287,10 @@
         } catch (error) {
             console.error('Error:', error.message);
         }
+    }
+
+    // texting
+    function texTing(idOrder) {
+        window.location.href = `/tutor/texting/${idOrder}`
     }
 </script>

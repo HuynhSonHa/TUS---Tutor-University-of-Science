@@ -17,6 +17,38 @@ const passport = require('./middlewares/passport');
 const exphbs = require('./util/helpers');
 const app = express();
 
+//socket 
+const http = require('http');
+const socketIo = require('socket.io');
+
+const server = http.createServer(app);
+const io = require('socket.io')(server);
+
+io.on('connection', (socket) => {
+  console.log('New client connected');
+  //socket.emit('private message', { room: 'room1', message: 'Hello, room1!' });
+  // Join a room
+  socket.on('join room', (room) => {
+      socket.join(room);
+  });
+
+  // Listen for a 'private message' event
+  socket.on('private message', ({ room, message }) => {
+      console.log(`Message from room ${room}: ${message}`);
+      // Send the message to all clients in the specified room
+      socket.to(room).emit('private message', message);
+  });
+
+  socket.on('disconnect', () => {
+      console.log('Client disconnected');
+  });
+});
+
+const port = process.env.PORT || 3000;
+server.listen(port, () => console.log(`Listening on port ${port}`));
+
+
+
 // Connect to DB
 db.connect();
 

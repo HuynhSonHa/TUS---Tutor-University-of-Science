@@ -15,6 +15,7 @@ router.get('/stored/courses', isTutor, tutorController.storedCourses);
 router.get('/stored/coursesAjax', isTutor, tutorController.storedCoursesAjax);
 router.get('/stored/waiting-list', isTutor, tutorController.storedStudents);
 router.get('/stored/waiting-listAjax', isTutor, tutorController.storedWaitingListAjax);
+
 router.get('/create', isTutor, tutorController.createCourse);
 router.post('/createNewCourse', isTutor, courseMiddleware.createValidator, tutorController.createNewCourse);
 router.get('/profile', isTutor, tutorController.profile);
@@ -33,6 +34,9 @@ router.post('/formTutor/:page', isTutor, upload.single('GPAfile'), beTutorMiddle
 router.get('/contactToTutor/:id', isTutor, tutorController.getContactToTutor);
 
 router.post('/contactToTutor/:id', isTutor, orderMiddleware.postValidator, tutorController.postContactToTutor);
+
+//text chat
+router.get('/texting/:id', isTutor, tutorController.getChat);
 
 router.get('/', isTutor, tutorController.getHomePage);
 

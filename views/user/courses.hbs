@@ -44,13 +44,10 @@
                                                 </div>
                                             </div>
 
-                                            {{!-- <div class="choose col-3">
-                                                <button class="deny"
-                                                    onclick="deleteCourse('{{this._id}}')">Delete</button>
-                                                <button class="edit" onclick="editCourse('{{this._id}}')">Edit </button>
-                                                <button class="clone"
-                                                    onclick="cloneCourse('{{this._id}}')">Clone</button>
-                                            </div> --}}
+                                            <div class="choose col-3">
+                                                
+                                                  <button class="texting" onclick="texTing('{{this._id}}')">Texting</button>
+                                            </div>
                                         </li>
                                         {{/each}}
                                     </ul>
@@ -175,6 +172,10 @@
                             <span>${Order.status}</span>
                         </div>
                     </div>
+                      <div class="choose col-3">
+                                                
+                                                  <button class="texting" onclick="texTing('${Order._id}')">Texting</button>
+                                            </div>
                 </div>
 
                
@@ -191,5 +192,8 @@
         }
     }
 
-
+     // texting
+    function texTing(idOrder) {
+        window.location.href = `/user/texting/${idOrder}`
+    }
 </script>

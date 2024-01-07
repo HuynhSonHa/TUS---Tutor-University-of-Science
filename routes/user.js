@@ -16,6 +16,10 @@ router.get('/stored/courses/:id', isUser, userController.detailCourses);
 router.get('/stored/courses', isUser, userController.storedCourses);
 router.get('/stored/coursesAjax', isUser, userController.storedCoursesAjax);
 
+//texting 
+router.get('/texting/:id', isUser, userController.getChat);
+
+
 
 router.get('/profile', isUser, userController.profile);
 router.post('/profile', isUser,upload.single('avatar'), profileMiddleware.postValidator,  userController.editProfile);
@@ -33,5 +37,8 @@ router.post('/contactToTutor/:id', isUser, orderMiddleware.postValidator,userCon
 router.get('/courses/:id', userController.detail);
 router.get('/courses/', userController.showAll);
 router.get('/', isUser, userController.getHomePage);
+
+
+
 
 module.exports = router;
