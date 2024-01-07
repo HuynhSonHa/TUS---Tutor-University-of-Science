@@ -37,6 +37,7 @@ router.post('/contactToTutor/:id', isTutor, orderMiddleware.postValidator, tutor
 
 //text chat
 router.get('/texting/:id', isTutor, tutorController.getChat);
+router.post('/texting/:id', isTutor, tutorController.postChat);
 
 router.get('/', isTutor, tutorController.getHomePage);
 

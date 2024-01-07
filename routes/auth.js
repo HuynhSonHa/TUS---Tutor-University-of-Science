@@ -9,11 +9,9 @@ const upload = multer({ storage: storage });
 
 
 
-router.get('/auth/google',
-  passport.authenticate('google', { scope: ['profile'] }));
+router.get('/auth/google', passport.authenticate('google', { scope: ['profile'] }));
 
-router.get('/auth/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/login' }),
+router.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }),
   function(req, res, next) {
     // The user should be attached to the request object after successful authentication
     const user = req.user;
@@ -30,7 +28,7 @@ router.get('/auth/google/callback',
       return res.redirect(successRedirect);
       //return res.status(200).json({ success: true, redirectUrl: successRedirect, msg: "Đăng nhập thành công!" });
     });
-  });
+});
 router.get("/signin", authController.getSignIn);
 router.get("/login", authController.getSignIn);
 router.get("/signup", authController.getSignUp);

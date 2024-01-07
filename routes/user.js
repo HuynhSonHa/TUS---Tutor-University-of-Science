@@ -18,7 +18,7 @@ router.get('/stored/coursesAjax', isUser, userController.storedCoursesAjax);
 
 //texting 
 router.get('/texting/:id', isUser, userController.getChat);
-
+router.post('/texting/:id', isUser, userController.postChat);
 
 
 router.get('/profile', isUser, userController.profile);

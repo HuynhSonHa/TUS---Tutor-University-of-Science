@@ -480,16 +480,28 @@ const detail = async (req, res, next) => {
 
 const getChat = async (req, res, next) => {
   try {
-    const order = req.params.id;
-    const roomChat = await RoomChat.findOne({ OrderId: order });
+    const orderId = req.params.id;
+    const order = await Order.findById(orderId).populate('courseId').lean();
+    const roomChat = await RoomChat.findOne({ OrderId: orderId }).populate('OrderId').lean();
     console.log(roomChat)
 
     res.render('user/texting', {
-      roomChat: mongooseToObject(roomChat), layout: 'user',
+      roomChat: roomChat, layout: 'user', order: order,
     });
   } catch (err) {
     next(err);
   }
+}
+
+const postChat = async (req, res, next) => {
+  const order = req.params.id;
+  const roomChat = await RoomChat.findOne({ OrderId: order });
+  console.log(req.body.message);
+  roomChat.StudentMessage.push(req.body.message);
+  roomChat.message.push(req.body.message);
+  await roomChat.save();
+  res.status(200).json({ roomChat: mongooseToObject(roomChat) });
+
 }
 
 module.exports = {
@@ -508,4 +520,5 @@ module.exports = {
   detail,
   storedCoursesAjax,
   getChat,
+  postChat,
 };

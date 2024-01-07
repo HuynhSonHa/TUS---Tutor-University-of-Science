@@ -53,18 +53,30 @@
 
         // Send a message to the server
         // Send a message to the server
-        sendButton.addEventListener('click', () => {
-    const message = "user: " + inputMessage.value;
-   
-    socket.emit('private message', { room: `{{ roomChat._id }}`, message: message });
+        const orderId = "{{order._id}}";
+        sendButton.addEventListener('click', async() => {
+            console.log('click');
+            const message = "user: " + inputMessage.value;
+            const response = await fetch(`/user/texting/${orderId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: message }),
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
 
-    const item = document.createElement('li');
-    item.textContent = message;
-    messages.appendChild(item);
-    window.scrollTo(0, document.body.scrollHeight);
+            socket.emit('private message', { room: `{{ roomChat._id }}`, message: message });
 
-    inputMessage.value = '';
-});
+            const item = document.createElement('li');
+            item.textContent = message;
+            messages.appendChild(item);
+            window.scrollTo(0, document.body.scrollHeight);
+
+            inputMessage.value = '';
+        });
     </script>
 
 

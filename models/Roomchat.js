@@ -13,6 +13,10 @@ const RoomChatScheme = new Schema({
         type: Array,
        
     },
+    message: {
+        type: Array,
+        default: ''
+    },
    
     
     
