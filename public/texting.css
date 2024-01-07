@@ -1,0 +1,49 @@
+*{
+    font-size: 20px;
+}
+
+
+
+#messages li.owner {
+    text-align: right;
+  
+}
+
+/* Student message */
+#messages li.guest {
+    text-align: left;
+    
+}
+
+
+li {
+    list-style-type: none;
+}
+
+.wrapper-input{
+    margin: 2rem 0;
+}
+
+#inputMessage {
+    width: 80%;
+    height: 3rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 0 1rem;
+    font-size: 1.75rem;
+}
+
+#sendButton {
+    height: 3rem;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 0 1rem;
+    font-size: 1.75rem;
+    background-color: #4CAF50;
+    color: white;
+    float: right;
+}
+
+#sendButton:hover {
+    background-color: #45a049;
+}
