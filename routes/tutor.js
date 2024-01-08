@@ -7,7 +7,7 @@ const profileMiddleware = require("../middlewares/profileMiddlewares");
 const courseMiddleware = require("../middlewares/courseMiddlewares");
 const orderMiddleware = require("../middlewares/orderMiddlewares");
 const beTutorMiddleware = require("../middlewares/beTutorMiddlewares");
-
+const authMiddleware = require("../middlewares/authMiddlewares");
 const {upload, storage} = require('../config/multer');
 
 
@@ -40,7 +40,7 @@ router.get('/texting/:id', isTutor, tutorController.getChat);
 router.post('/texting/:id', isTutor, tutorController.postChat);
 //change password
 router.get('/changePassword', isTutor, tutorController.getChangePassword);
-router.post('/changePassword', isTutor, tutorController.postChangePassword);
+router.post('/changePassword', isTutor, authMiddleware.updateValidator,tutorController.postChangePassword);
 
 router.get('/', isTutor, tutorController.getHomePage);
 

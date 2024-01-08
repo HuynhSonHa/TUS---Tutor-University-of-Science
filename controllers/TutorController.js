@@ -446,6 +446,7 @@ const denyStudent = async (req, res, next) => {
 // [GET] /tutor/courses?page=*;
 const showAll = async (req, res, next) => {
   try {
+    //lấy về thông tin để filter và sort
     const searchField = req.query.searchField;
     const courseName = req.query.courseName;
     const tutorName = req.query.tutorName;
@@ -565,6 +566,7 @@ const postFormTutor = async (req, res, next) => {
   var leftDay = Number.MAX_SAFE_INTEGER;
   var leftCourse = Number.MAX_SAFE_INTEGER;
   const beTutors = await BeTutor.find({ tutorId: req.user._id, status: "accepted" }).populate('tutorId');
+  //tao tính 
   for (let i = 0; i < beTutors.length; i++) {
     const uploadDuration = beTutors[i].tutorId.amountDayUpload * 24 * 60 * 60 * 1000; // Convert days to milliseconds
     const timeSincePost = Date.now() - new Date(beTutors[i].datePost).getTime(); // Calculate time since post in milliseconds
