@@ -511,7 +511,7 @@ const postChat = async (req, res, next) => {
 const getChangePassword = async (req, res, next) => {
   const role = req.user.role;
   const user = await User.findById(req.user._id).lean();
-  res.render('auth/updatePassword', { user: user, layout: role, role: role });
+  res.render('user/updatePassword', { user: user, layout: role, role: role });
 }
 const postChangePassword = async (req, res, next) => {
   const result = validationResult(req);
