@@ -702,7 +702,7 @@ const postChat = async (req, res, next) => {
 
 const getChangePassword = async (req, res, next) => {
   const role = req.user.role;
-  res.render('auth/updatePassword', { user: req.user, layout: role, role: role });
+  res.render('tutormode/updatePassword', { user: req.user, layout: role, role: role });
 }
 const postChangePassword = async (req, res, next) => {
   const result = validationResult(req);
