@@ -720,7 +720,7 @@ const postChangePassword = async (req, res, next) => {
     if (!isMatch) {
       return res.status(400).json({ success: false, error: 'Mật khẩu cũ không đúng' });
     }
-    user.password = newPassword;
+    user.password = user.encryptPassword(newPassword);
     await user.save();
     return res.status(200).json({ success: true, msg: "Đổi mật khẩu thành công" });
   } catch (error) {
