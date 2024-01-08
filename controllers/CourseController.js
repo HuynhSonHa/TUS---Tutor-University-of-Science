@@ -66,6 +66,9 @@ const detail = async(req, res, next) => {
     if (!course) {
       return res.status(404).render("404"); // Handle the case where the product is not found
     }
+    course.view = course.view + 1;
+    await course.save();
+    
     //Tìm kiếm những khóa học của cùng tutor
     const coursesListOfTutor = await Course.find({tutor: course.tutor}).populate('tutor');
     //Tìm kiếm những review của khóa học này

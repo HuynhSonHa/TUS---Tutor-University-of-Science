@@ -454,6 +454,9 @@ const detail = async (req, res, next) => {
       return res.status(404).render("404"); // Handle the case where the product is not found
     }
 
+    course.view = course.view + 1;
+    await course.save();
+    
     const coursesListOfTutor = await Course.find({ tutor: course.tutor }).populate('tutor');
     const reviews = await Review.find({ courseId: req.params.id }).populate('userId');
     let amountOfReviews;
