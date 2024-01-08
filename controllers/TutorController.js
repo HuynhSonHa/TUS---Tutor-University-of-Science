@@ -415,6 +415,9 @@ const acceptStudent = async (req, res, next) => {
     }
     order.status = "Learning";
     await order.save();
+    const course = await Course.findById(order.courseId);
+    course.totalPurchase = course.totalPurchase + 1;
+    await course.save();
     return res.status(200).json({ msg: 'Accepted thành công!' });
   } catch {
     console.error(error);

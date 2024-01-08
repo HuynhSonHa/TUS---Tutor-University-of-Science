@@ -187,6 +187,7 @@ const createNewCourse = async (req, res, next) => {
     //Tạo khóa học mới
     const formData = req.body;
     formData.tutor = req.user._id;
+    formData.discount = formData.price;
     const course = new Course(formData);
     console.log(course)
     await course.save();
