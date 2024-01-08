@@ -63,6 +63,7 @@ const showAll = async (req, res, next) => {
 const detail = async(req, res, next) => {
   try {
     const course = await Course.findById(req.params.id).populate('tutor');
+    //console.log(course);
     if (!course) {
       return res.status(404).render("404"); // Handle the case where the product is not found
     }

@@ -166,7 +166,8 @@ const postFormTutor = async (req, res, next) => {
   const result = validationResult(req);
   if (!result.isEmpty()) {
     console.log(result.array());
-    res.status(400).json({ errors: result.array() });
+    const errors = result.array().map(error => error.msg).join(', ');
+    res.status(400).json({ error: errors.toString() });
     return;
   }
   //chống spam
@@ -520,6 +521,7 @@ const postChangePassword = async (req, res, next) => {
   }
   try {
     const { oldPassword, newPassword, confirmPassword } = req.body;
+    console.log(oldPassword, newPassword, confirmPassword);
     if (newPassword !== confirmPassword) {
       res.status(400).json({ error: "New password and confirmation do not match" });
     }

@@ -38,7 +38,7 @@ const signupValidator = [
     body("password")
         .notEmpty().withMessage("Password must not be empty")
         .isLength({ min: 6 }).withMessage('Password must be at least 6 characters')
-        .isStrongPassword().withMessage('Password must contain at least: one uppercase letter (A-Z), one lowercase letter (a-z), one digit (0-9), one special character (e.g., ! @ #)')
+        .isStrongPassword().withMessage('Password is not strong enough')
         .escape(),
 
     body("passwordConfirmation")
@@ -63,7 +63,7 @@ const resetValidator = [
     body("password")
         .notEmpty().withMessage("Password must not be empty")
         .isLength({ min: 6 }).withMessage('Password must be at least 6 characters')
-        .isStrongPassword().withMessage('Password must contain at least: one uppercase letter (A-Z), one lowercase letter (a-z), one digit (0-9), one special character (e.g., ! @ #)')
+        .isStrongPassword().withMessage('Password is not strong enough')
         .escape(),
 
     body("passwordConfirmation")
@@ -90,7 +90,7 @@ const updateValidator = [
     body("newPassword")
         .notEmpty().withMessage("Password must not be empty")
         .isLength({ min: 6 }).withMessage('Password must be at least 6 characters')
-        .isStrongPassword().withMessage('Password must contain at least: one uppercase letter (A-Z), one lowercase letter (a-z), one digit (0-9), one special character (e.g., ! @ #)')
+        .isStrongPassword().withMessage('Password is not strong enough')
         .escape(),
 
     body("confirmPassword")
