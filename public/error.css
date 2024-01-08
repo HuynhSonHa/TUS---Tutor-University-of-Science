@@ -1,0 +1,21 @@
+
+.wrapper-input{
+    position: relative;
+
+}
+
+.error {
+    color: red;
+    text-align: end;
+    padding-top: 8px;
+    font-weight: 500;
+    position: absolute;
+    
+    /* bottom: -24px; */
+    right: 50%;
+    display: none; 
+}
+
+.error.active {
+    display: block;
+}

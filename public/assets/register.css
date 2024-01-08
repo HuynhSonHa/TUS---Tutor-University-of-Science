@@ -119,11 +119,11 @@ input[id*="input"]{
     text-align: end;
     padding-top: 8px;
     font-weight: 500;
-
     position: absolute;
-    bottom: -24px;
-    right: 0;
-    display: none;
+    
+   right: 0;
+   bottom: -24px;
+    display: none; 
 }
 
 .error.active {

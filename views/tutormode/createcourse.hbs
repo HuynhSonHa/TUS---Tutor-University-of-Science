@@ -1,5 +1,6 @@
 <style>
     @import url(/stylesheets/createcourse.css);
+    @import url(/error.css);
 </style>
 <!-- header section starts  -->
 
@@ -13,19 +14,21 @@
         <h3 class="wrapper-header">
             <a href=""><i class="ri-arrow-right-s-fill"></i> Create courses</a>
             <br>
-         
+
         </h3>
         <form action="">
+
             <p class="wrapper-input">
                 <label for="subject">Course Name:</label>
                 <input type="" id="subject" name="subject" placeholder="Enter your course" check required>
-            </p>
 
+            </p>
+            <div class="error"> error</div>
             <p class="wrapper-input">
                 <label for="schedule">Schedule:</label>
                 <input type="" id="schedule" name="schedule" placeholder="Enter your schedule" check required>
             </p>
-
+            <div class="error"> error</div>
             <p class="wrapper-input">
                 <label for="faculty">Faculty:</label>
                 <select name="faculty" id="faculty" check>
@@ -41,7 +44,7 @@
                     <option value="Điện tử Viễn thông">Điện tử Viễn thông</option>
                 </select>
             </p>
-
+            <div class="error"> error</div>
             <p class="wrapper-input">
                 <label for="school">Student Course:</label>
                 <select name="school" id="school" check>
@@ -53,21 +56,22 @@
                     <option value="K23">K23</option>
                 </select>
             </p>
-
+            <div class="error"> error</div>
             <p class="wrapper-input">
                 <label for="price">Price:</label>
                 <input type="text" id="price" name="price" placeholder="Enter your price/ Week" check required>
             </p>
-
+            <div class="error"> error</div>
             <p class="wrapper-input">
                 <label for="description">Description:</label>
                 <input type="text" id="description" name="description" placeholder="Enter your description about course"
                     check required>
             </p>
-
+            <div class="error"> error</div>
             <p class="wrapper-input">
                 <button class="btn" id="btn-submit" type="submit">Create Course</button>
             </p>
+
         </form>
     </div>
     <div class="image">
@@ -114,9 +118,9 @@
         const curUrl = new URL(window.location.href);
         let isError = false;
 
-       
 
-      
+
+
         const formData = {
             'name': $('#subject').value,
             'schedule': $('#schedule').value,
@@ -139,14 +143,27 @@
             if (!response.ok) {
                 isError = true;
             }
-           
+
             return response.json();
         })
             .then(data => {
                 if (isError == true) {
-                    alert(data.error)
+                    const errorElements = $$('.error');
+
+                    errorElements.forEach(errorElement => {
+                        errorElement.classList.remove('active');
+                    });
+                    errorElements.forEach(errorElement => {
+                        const fieldName = errorElement.previousElementSibling.lastElementChild.getAttribute('name');
+                        console.log(fieldName)
+                        if (data.errors.some(error => error.path === fieldName)) {
+                            errorElement.classList.add('active');
+                            const matchingError = data.errors.find(error => error.path === fieldName);
+                            errorElement.innerHTML = matchingError.msg;
+                        }
+                    });
                 } else {
-                  
+
 
                     const alertReview = $('.alert-success')
                     alertReview.innerHTML = `${data.msg}`

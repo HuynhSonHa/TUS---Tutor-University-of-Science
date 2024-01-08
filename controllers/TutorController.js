@@ -77,7 +77,12 @@ const storedCoursesAjax = async (req, res, next) => {
     Course.find({ tutor: req.user._id }).skip(skipAmount).limit(pageSize)
       .then((courses) => {
         console.log(courses);
-
+          console.log('cat2')
+          console.log(pages)
+          console.log(prevPage)
+          console.log(nextPage)
+          console.log(currentPage)
+         
         res.status(200).json({
           courses: mutipleMongooseToObject(courses),
           numCourse: numCourse,
