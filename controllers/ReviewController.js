@@ -9,8 +9,11 @@ const { validationResult } = require("express-validator");
 const store = async (req, res, next) => {
     // Verify user input
     const result = validationResult(req);
+    console.log("haha", result.array());
     if (!result.isEmpty()) {
-        res.status(400).json({ errors: result.array() });
+        const errors = result.array().map(error => error.msg).join(', ');
+        console.log(errors);
+        res.status(400).json({ error: errors.toString() });
         return;
     }
     try {
@@ -25,6 +28,8 @@ const store = async (req, res, next) => {
         else if (order && order.status === "Subscribing") {
             return res.status(400).json({ error: "Hãy đợi tutor accept bạn vào khóa học!" });
         }
+
+
         //Lưu review lại
         const formData = req.body;
         formData.courseId = req.params.id;
