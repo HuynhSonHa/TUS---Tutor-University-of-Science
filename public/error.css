@@ -19,3 +19,21 @@
 .error.active {
     display: block;
 }
+
+
+
+.wrapper-content-reset .error{
+    color: red;
+    text-align: end;
+    padding-top: 8px;
+    font-weight: 500;
+    position: absolute;
+    
+    bottom: 0px; 
+    right: 0;
+    display: none; 
+}
+
+.error.active {
+    display: block;
+}

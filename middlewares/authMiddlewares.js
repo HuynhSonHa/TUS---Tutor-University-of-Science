@@ -97,7 +97,8 @@ const updateValidator = [
         .notEmpty().withMessage("Confirm password must not be empty")
         .escape()
         .custom((value, { req }) => {
-        if (value !== req.body.password) {
+          
+        if (value !== req.body.newPassword) {
             throw new Error("Password confirmation does not match password");
         }
         return true;
