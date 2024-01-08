@@ -249,9 +249,12 @@ const getResetPassword = async (req, res, next) => {
 //[POST] /reset-password?id=
 const postResetPassword = async (req, res, next) => {
   // Verify user input
+
   const result = validationResult(req);
   if (!result.isEmpty()) {
+    console.log(result.array());
     res.status(400).json({ errors: result.array() });
+
     return;
   }
   try {
@@ -259,6 +262,7 @@ const postResetPassword = async (req, res, next) => {
     const { password, password2 } = req.body;
 
     if (password !== password2) {
+      console.log("New password and confirmation do not match");
       res.status(400).json({ error: "New password and confirmation do not match" });
     }
 
@@ -274,7 +278,7 @@ const postResetPassword = async (req, res, next) => {
       user.password = user.encryptPassword(password);
       await user.save();
 
-      res.status(200).send("Change password successfully!");
+      res.status(200).json({msg: "Change password successfully!"});
     }
 
   } catch (error) {

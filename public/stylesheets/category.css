@@ -1632,28 +1632,63 @@ select#sort_selection {
 
 
 
-.product-size .wrap{
+.product-size .wrap {
 
     font-size: 16px !important;
     font-weight: 400 !important;
     line-height: 1.6;
-    
+
 }
 
-.right{
+.right {
     display: flex;
     padding: 4px;
     background-color: var(--flashwhite-color);
     margin-left: 10px;
     border-radius: 8px;
-    
+
 }
 
-#sort_selection{
+#sort_selection {
     border: none !important;
 }
 
-.wrap input[type="radio"]{
+.wrap input[type="radio"] {
     margin-left: 10px !important;
 }
+
+
+.page-category .star {
+    position: absolute;
+    top: 4px;
+    right: 0;
+    z-index: 1;
+    color: #fff;
+    display: flex;
+    background-color: #2bcbba;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.page-category div[class*="star-"] {
+    font-size: 16px;
+    color: #ccc;
+
+    padding: 0 0px;
+}
+
+.page-category div[class*="star-"]:before {
+    content: '\2605';
+
+}
+
+.page-category div[class*="star-"] {
+    color: #ffcc00;
+}
+
+.page-category div[class*="star-"] {
+   padding: 0 2px;
+}
+
 

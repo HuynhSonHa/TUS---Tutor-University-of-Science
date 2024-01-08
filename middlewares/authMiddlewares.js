@@ -66,7 +66,7 @@ const resetValidator = [
         .isStrongPassword().withMessage('Password is not strong enough')
         .escape(),
 
-    body("passwordConfirmation")
+    body("password2")
         .notEmpty().withMessage("Confirm password must not be empty")
         .escape()
         .custom((value, { req }) => {

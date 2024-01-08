@@ -2,7 +2,7 @@ const { myOAuth2Client } = require('../config/mail')
 const nodemailer = require("nodemailer")
 require("dotenv").config();
 
-async function sendMail(mailOptions) {
+async function sendMail(mailOptions, res) { // { email, subject, content
   try {
     const myAccessTokenObject = await myOAuth2Client.getAccessToken()
     console.log(mailOptions)

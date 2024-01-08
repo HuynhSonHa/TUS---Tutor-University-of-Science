@@ -47,8 +47,8 @@
                                             </div>
                                             <div class="choose col-3">
                                                 <button class="accept"
-                                                    onclick="acceptOrder('{{this._id}}')">Accept</button>
-                                                <button class="deny" onclick="denyOrder('{{this._id}}')">Deny</button>
+                                                    onclick="acceptOrder(1,'{{this._id}}')">Accept</button>
+                                                <button class="deny" onclick="denyOrder(1,'{{this._id}}')">Deny</button>
                                                 <button class="texting"
                                                     onclick="texTing('{{this._id}}')">Texting</button>
                                             </div>
@@ -122,7 +122,7 @@
         window.location.href = `/tutor/courseDetail/${idCourse}`
     }
 
-    function denyOrder(idOrder) {
+    function denyOrder(currentPage,idOrder) {
 
         fetch(`/tutor/denied/${idOrder}`, {
             method: 'GET',
@@ -159,7 +159,7 @@
                 console.error('Fetch error:', error);
             });
     }
-    function acceptOrder(idOrder) {
+    function acceptOrder(currentPage,idOrder) {
         fetch(`/tutor/accepted/${idOrder}`, {
             method: 'GET',
             headers: {
@@ -228,7 +228,7 @@
     async function loadCourse(currentPage) {
 
        
-        if (amountOfStudents % 4 === 0) {
+        if (amountOfStudents % 4 === 1) {
             currentPage -= 1;
         }
         console.log(currentPage)
@@ -272,8 +272,8 @@
                                             </div>
                                             <div class="choose col-3">
                                                 <button class="accept"
-                                                    onclick="acceptOrder('${order._id}}')">Accept</button>
-                                                <button class="deny" onclick="denyOrder('${order._id}')">Deny</button>
+                                                    onclick="acceptOrder('${data.currentPage}','${order._id}}')">Accept</button>
+                                                <button class="deny" onclick="denyOrder('${data.currentPage}','${order._id}')">Deny</button>
                                                 <button class="texting" onclick="texTing('${order._id}')">Texting</button>
 
                                             </div>
