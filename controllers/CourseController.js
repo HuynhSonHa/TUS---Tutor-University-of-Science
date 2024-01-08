@@ -123,7 +123,7 @@ const store = async(req, res, next) => {
   formData.discount = formData.price;
   const course = new Course(formData);
   course.save().then;
-  return res.status(200).json({success: true, redirectUrl: '/tutor', msg: "Đăng khóa học thành công!"})
+  return res.status(200).json({success: true, redirectUrl: '/tutor', msg: "Add course successfully!"})
   //res.redirect("/tutor/");
 
 }
@@ -196,7 +196,7 @@ const createNewCourse = async (req, res, next) => {
     console.log(course)
     await course.save();
 
-    return res.status(200).json({ success: true, msg: "Thêm course thành công!" });
+    return res.status(200).json({ success: true, msg: "Add course successfully!" });
     //return res.send("Thêm review thành công!").redirect("/user/home");
   }
   catch (err) {

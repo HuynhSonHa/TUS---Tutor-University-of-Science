@@ -14,6 +14,9 @@ const store = async (req, res, next) => {
         return;
     }
     try {
+        if(!req.user){
+            return res.status(400).json({ error: "Bạn chưa đăng nhập!" });
+        }
         const order = await Order.findOne({ courseId: req.params.id, userId: req.user._id });
         //Kiểm tra xem user có được tutor accept vào khóa học không
         if (!order || (order && order.status === "denied")) {

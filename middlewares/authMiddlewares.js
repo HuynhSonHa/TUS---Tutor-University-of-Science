@@ -38,6 +38,7 @@ const signupValidator = [
     body("password")
         .notEmpty().withMessage("Password must not be empty")
         .isLength({ min: 6 }).withMessage('Password must be at least 6 characters')
+        .isStrongPassword().withMessage('Password must contain at least: one uppercase letter (A-Z), one lowercase letter (a-z), one digit (0-9), one special character (e.g., ! @ #)')
         .escape(),
 
     body("passwordConfirmation")
@@ -62,9 +63,37 @@ const resetValidator = [
     body("password")
         .notEmpty().withMessage("Password must not be empty")
         .isLength({ min: 6 }).withMessage('Password must be at least 6 characters')
+        .isStrongPassword().withMessage('Password must contain at least: one uppercase letter (A-Z), one lowercase letter (a-z), one digit (0-9), one special character (e.g., ! @ #)')
         .escape(),
 
     body("passwordConfirmation")
+        .notEmpty().withMessage("Confirm password must not be empty")
+        .escape()
+        .custom((value, { req }) => {
+        if (value !== req.body.password) {
+            throw new Error("Password confirmation does not match password");
+        }
+        return true;
+    })
+];
+const updateValidator = [
+    body("oldPassword") 
+        .notEmpty().withMessage("Old password must not be empty")
+        .escape()
+        .custom((value, { req }) => {
+            const user = req.user;
+            if (!user.validPassword(value)) {
+                throw new Error("Old password is incorrect");
+            }
+            return true;
+        }),
+    body("newPassword")
+        .notEmpty().withMessage("Password must not be empty")
+        .isLength({ min: 6 }).withMessage('Password must be at least 6 characters')
+        .isStrongPassword().withMessage('Password must contain at least: one uppercase letter (A-Z), one lowercase letter (a-z), one digit (0-9), one special character (e.g., ! @ #)')
+        .escape(),
+
+    body("confirmPassword")
         .notEmpty().withMessage("Confirm password must not be empty")
         .escape()
         .custom((value, { req }) => {
@@ -79,4 +108,5 @@ module.exports = {
     signupValidator,
     forgetValidator,
     resetValidator,
+    updateValidator,
 }

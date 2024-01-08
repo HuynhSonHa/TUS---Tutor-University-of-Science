@@ -152,8 +152,8 @@ const getWaitingListTutor = async (req, res, next) => {
     const totalTutor = tutorListFull.length;
     const totalPages = Math.ceil(totalTutor / pageSize);
     const pageNumber = parseInt(req.query.page) || 1;
-    const skipAmount = (pageNumber - 1) * pageSize;
-    const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+    const skipAmount = (pageNumber - 1) * pageSize; //số lượng bỏ qua
+    const pages = Array.from({ length: totalPages }, (_, i) => i + 1); //tạo mảng các trang [1,2,3,n]
     const currentPage = Math.max(1, Math.min(totalPages, pageNumber));
     var nextPage = currentPage + 1; if(nextPage > totalPages) nextPage = totalPages;
     var prevPage = currentPage - 1; if(prevPage < 1) prevPage = 1;

@@ -18,6 +18,7 @@ const createValidator = [
     body("price")
         .notEmpty().withMessage("Please provide price")
         .isNumeric().withMessage("Price is a number")
+        .isFloat({ min: 0 }).withMessage("Price must be a positive number")
         .escape(),
     body("description")
         .notEmpty().withMessage("Please provide description of course")
