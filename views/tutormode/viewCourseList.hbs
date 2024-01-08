@@ -44,7 +44,7 @@
 
                                             <div class="choose col-3">
                                                 <button class="deny"
-                                                    onclick="deleteCourse('{{this._id}}')">Delete</button>
+                                                    onclick="deleteCourse(0,'{{this._id}}')">Delete</button>
                                                 <button class="edit" onclick="editCourse('{{this._id}}')">Edit </button>
                                                 <button class="clone"
                                                     onclick="cloneCourse('{{this._id}}')">Clone</button>
@@ -113,8 +113,9 @@
     function cloneCourse(idCourse) {
         window.location.assign(`/courses/clone/${idCourse}`)
     }
-    async function deleteCourse(idCourse) {
-        
+    async function deleteCourse(currentPage, idCourse) {
+        console.log('currentpage')
+        console.log(currentPage)
         try {
             const response = await fetch(`/courses/${idCourse}`, {
                 method: 'DELETE',
@@ -158,7 +159,9 @@
                     }, 500);
                 }, 3000);
 
-
+                if (numCourse % 4 === 1) {
+                    currentPage -= 1;
+                }
                 loadCourse(currentPage);
 
             }
@@ -168,15 +171,17 @@
     }
     function generateTutorPaginationLinks(pages, currentPage, prevPage, nextPage, namePage) {
         // Adjust currentPage if the number of students is 1 more than a multiple of 4
-
+        console.log(pages, currentPage, prevPage, nextPage, namePage)
 
         let links = '';
         //function handle first and last
         function handleArrow(pageNumber, text) {
+            console.log(pageNumber, text)
             return `<a id="${pageNumber}" onclick="loadCourse(${pageNumber})">${text}</a>`;
         }
         // Function to generate individual links
         function generateLink(pageNumber, text) {
+            console.log(pageNumber, text)
             const isActive = pageNumber === currentPage ? 'active' : '';
             return `<a id="${pageNumber}" onclick="loadCourse(${pageNumber})" class="${isActive}">${text}</a>`;
         }
@@ -196,9 +201,7 @@
         return links;
     }
     async function loadCourse(currentPage) {
-        if (numCourse % 4 === 1) {
-            currentPage -= 1;
-        }
+
         try {
             const response = await fetch(`/tutor/stored/coursesAjax?page=${currentPage}`, {
                 method: 'GET',
@@ -231,16 +234,20 @@
                 </div>
 
                 <div class="choose col-3">
-                    <button class="deny" onclick="deleteCourse('${course._id}')">Delete</button>
+                    <button class="deny" onclick="deleteCourse('${data.currentPage}','${course._id}')">Delete</button>
                     <button class="edit" onclick="editCourse('${course._id}')">Edit </button>
                     <button class="clone" onclick="cloneCourse('${course._id}')">Clone</button>
                 </div>
             `;
                 listCourse.appendChild(tempCourse);
             });
-
+            currentPage = data.currentPage;
+            console.log(data)
             numCourse = data.numCourse;
-            
+
+            console.log(numCourse)
+
+            console.log(currentPage)
 
             pagination.innerHTML = generateTutorPaginationLinks(data.pages, data.currentPage, data.prevPage, data.nextPage, data.namePage);
         } catch (error) {
