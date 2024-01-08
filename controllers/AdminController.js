@@ -335,11 +335,7 @@ const getEditCoursePage = async(req, res, next) => {
     })
 }
 const putEditCoursePage = async(req, res, next) => {
-    const result = validationResult(req);
-    if (!result.isEmpty()) {
-      res.status(400).json({ errors: result.array() });
-      return;
-    }
+   
     Course.updateOne({ _id: req.params.id }, req.body)
     .then(() => res.status(200).json({success: true, redirectUrl: '/admin', msg: "Chỉnh sửa môn học thành công!"}))
     .catch(next);

@@ -42,6 +42,16 @@
     padding: 16px 0;
 }
 
+#page-course-detail .information-account{
+    padding-left: 0px;
+
+}
+
+#page-course-detail .information-expenditure-account{
+    padding-left: 0px;
+    
+}
+
 .information-account{
     padding-left: 120px;
 
@@ -236,3 +246,5 @@ div[class*="-shopping"]{
 .save-changes:hover {
     background-color: #0056b3;
 }
+
+

@@ -163,11 +163,13 @@ const getFormTutor = (req, res, next) => {
 //fullname, phoneNumber, GPA, GPAfile
 const postFormTutor = async (req, res, next) => {
   // Verify user input
+  console.log(req.body.comment);
+  console.log(req.body.comment);
   const result = validationResult(req);
   if (!result.isEmpty()) {
     console.log(result.array());
     const errors = result.array().map(error => error.msg).join(', ');
-    res.status(400).json({ error: errors.toString() });
+    res.status(400).json({ errors: result.array() });
     return;
   }
   //chống spam

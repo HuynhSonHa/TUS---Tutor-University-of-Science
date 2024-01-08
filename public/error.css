@@ -37,3 +37,21 @@
 .error.active {
     display: block;
 }
+
+ 
+.form-to-contact .error{
+    color: red;
+    text-align: end;
+    padding-top: 8px;
+    font-weight: 500;
+    position: absolute;
+    
+    bottom: -14px; 
+    right: 18px;
+    display: none; 
+}
+
+.form-to-contact .error.active {
+    display: block;
+}
+

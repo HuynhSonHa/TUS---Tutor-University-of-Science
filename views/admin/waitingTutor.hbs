@@ -28,85 +28,87 @@
 
                     <h2>View Waiting List</h2>
                 </div>
+
                 <div class="user--infor">
                     <div class="search--box">
                         <i class="fa-solid fa-search"></i>
                         <input type="text" id="search-information" placeholder="Search">
                     </div>
                 </div>
-                <div class="list-account-container">
-                    <h3 class="main--title">List Account</h3>
+            </div>
+            <div class="list-account-container">
+                <h3 class="main--title">List Account</h3>
 
 
-                    <div class="table-container">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>GPA</th>
-                                    <th>price</th>
-                                    <th>Date</th>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>GPA</th>
+                                <th>price</th>
+                                <th>Date</th>
 
-                                </tr>
-                            <tbody id="list-account">
+                            </tr>
+                        <tbody id="list-account">
 
-                                {{#each tutorList}}
-                                <tr onclick="loadDetailUser('{{this._id}}')">
-                                    <td>
-                                        {{this.tutorId.fullname}}
-                                    </td>
-                                    <td>
-                                        {{this.tutorId.email}}
-                                    </td>
-                                    <td>
-                                        {{this.tutorId.GPA}}
-                                    </td>
-                                    <td>
-                                        {{this.price}}
-                                    </td>
-                                    <td>
-                                        {{this.datePost}}
-                                    </td>
-                                </tr>
-                                {{/each}}
+                            {{#each tutorList}}
+                            <tr onclick="loadDetailUser('{{this._id}}')">
+                                <td>
+                                    {{this.tutorId.fullname}}
+                                </td>
+                                <td>
+                                    {{this.tutorId.email}}
+                                </td>
+                                <td>
+                                    {{this.tutorId.GPA}}
+                                </td>
+                                <td>
+                                    {{this.price}}
+                                </td>
+                                <td>
+                                    {{this.datePost}}
+                                </td>
+                            </tr>
+                            {{/each}}
 
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td colspan="5">
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="5">
 
-                                    </td>
-                                </tr>
-                            </tfoot>
-                            </thead>
-                        </table>
-                    </div>
-                    <div class="pagination">
-                        {{generatePaginationLinks pages currentPage prevPage nextPage role}}
-                    </div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                        </thead>
+                    </table>
+                </div>
+                <div class="pagination">
+                    {{generatePaginationLinks pages currentPage prevPage nextPage role}}
                 </div>
             </div>
-
         </div>
 
-        <script>
-            let currentUrl = new URL(window.location.href);
-            function loadDetailUser(id) {
-                window.location.href = `/admin/waitingTutor/${id}`
-            }
+    </div>
 
-            //handle choose method search
-            function changePage(page) {
-                if (currentUrl.searchParams.has('page')) {
-                    currentUrl.searchParams.set('page', page);
-                }
-                else {
-                    currentUrl.searchParams.append('page', page);
-                }
-                window.location.href = currentUrl.toString();
+    <script>
+        let currentUrl = new URL(window.location.href);
+        function loadDetailUser(id) {
+            window.location.href = `/admin/waitingTutor/${id}`
+        }
+
+        //handle choose method search
+        function changePage(page) {
+            if (currentUrl.searchParams.has('page')) {
+                currentUrl.searchParams.set('page', page);
             }
-        </script>
+            else {
+                currentUrl.searchParams.append('page', page);
+            }
+            window.location.href = currentUrl.toString();
+        }
+    </script>
 </body>
 
 </html>``

@@ -37,6 +37,7 @@
                         <input type="text" id="search-information" placeholder="Search">
                     </div>
                 </div>
+                </div>
                 <div class="list-account-container">
                     <h3 class="main--title">List Course</h3>
 
@@ -123,8 +124,7 @@
             const pagination = $('.pagination');
             document.addEventListener('DOMContentLoaded', function () {
                 let html = '';
-                const data = {{{ registerHelper Courses }
-            }};
+                const data = {{{registerHelper Courses}}};
             console.log(data)
 
             data.totalPages = Array.from({ length: data.totalPages }, (_, i) => i + 1);

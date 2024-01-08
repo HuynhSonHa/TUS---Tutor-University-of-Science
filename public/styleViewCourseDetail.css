@@ -1,0 +1,51 @@
+
+
+
+textarea, input{
+    width: 100%;
+}
+
+ .information-account{
+   
+   
+}
+
+#page-course-detail .information-account,
+#page-course-detail .information-expenditure-account {
+    width: 100%;
+}
+
+#page-course-detail .information-account label,
+#page-course-detail .information-expenditure-account label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#page-course-detail .information-account input,
+#page-course-detail .information-expenditure-account input,
+#page-course-detail .information-expenditure-account textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#page-course-detail.wrapper-control-access-account {
+    text-align: center;
+}
+
+#page-course-detail .save-changes {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+#page-course-detail .save-changes:hover {
+    background-color: #0056b3;
+}
