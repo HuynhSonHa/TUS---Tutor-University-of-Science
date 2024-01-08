@@ -32,7 +32,8 @@ router.post('/formTutor/:page', isUser, upload.single('GPAfile'), beTutorMiddlew
 router.get('/contactToTutor/:id', isUser, userController.getContactToTutor);
 router.post('/contactToTutor/:id', isUser, orderMiddleware.postValidator,userController.postContactToTutor);
 
-
+router.get('/changePassword', isUser, userController.getChangePassword);
+router.post('/changePassword', isUser, userController.postChangePassword);
 
 router.get('/courses/:id', userController.detail);
 router.get('/courses/', userController.showAll);
