@@ -219,6 +219,7 @@ const createNewCourse = async (req, res, next) => {
     }
     const formData = req.body;
     formData.tutor = req.user._id;
+    formData.discount = formData.price;
     console.log(req)
     const course = new Course(formData);
     await course.save();

@@ -116,6 +116,7 @@ const store = async(req, res, next) => {
   //Tạo khóa học mới
   const formData = req.body;
   formData.tutor = req.user._id;
+  formData.discount = formData.price;
   const course = new Course(formData);
   course.save().then;
   return res.status(200).json({success: true, redirectUrl: '/tutor', msg: "Đăng khóa học thành công!"})
