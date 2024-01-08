@@ -113,7 +113,7 @@ const postSignIn = (req, res, next) => {
       }
       // Check user role and set the successRedirect accordingly
       let successRedirect;
-      if (user.role === 'admin') successRedirect = '/admin';
+      if (user.role === 'admin') successRedirect = '/admin/waitingTutor';
       else if (user.role === 'tutor') successRedirect = '/tutor';
       else successRedirect = '/user';
       //const successRedirect = (user.role === 'tutor') ? '/tutor/' : '/user/';

@@ -386,6 +386,10 @@
                 });
                 function linkToForm(id) {
                     console.log(id)
+                    if( '{{layout}}' === 'guest') {
+                        window.location.href = `/login`
+                        return;
+                    }
                     window.location.href = `/{{layout}}/contactToTutor/${id}`
                 }
 

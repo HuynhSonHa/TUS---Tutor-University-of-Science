@@ -408,6 +408,7 @@ const getDetailStudent = async (req, res, next) => {
 }
 //[GET] /tutor/accepted/Order._id
 const acceptStudent = async (req, res, next) => {
+  console.log("click accepted");
   try {
     const order = await Order.findById(req.params.id).populate('userId courseId');
     if (!order) {
@@ -415,12 +416,14 @@ const acceptStudent = async (req, res, next) => {
     }
     order.status = "Learning";
     await order.save();
-    const course = await Course.findById(order.courseId);
+    const courseId = order.courseId._id;
+    const course = await Course.findById(courseId);
     course.totalPurchase = course.totalPurchase + 1;
     await course.save();
+    console.log(course.totalPurchase);
     return res.status(200).json({ msg: 'Accepted thành công!' });
   } catch {
-    console.error(error);
+    //console.error(error);
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 }
@@ -436,7 +439,7 @@ const denyStudent = async (req, res, next) => {
     await order.save();
     return res.status(200).json({ msg: 'Denied thành công!' });
   } catch {
-    console.error(error);
+    //console.error(error);
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 }
@@ -500,7 +503,7 @@ const detail = async (req, res, next) => {
 
     course.view = course.view + 1;
     await course.save();
-    
+
     const coursesListOfTutor = await Course.find({ tutor: course.tutor }).populate('tutor');
     const reviews = await Review.find({ courseId: req.params.id }).populate('userId');
     let amountOfReviews;

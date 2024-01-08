@@ -68,7 +68,8 @@ const detail = async(req, res, next) => {
     }
     course.view = course.view + 1;
     await course.save();
-    
+    //console.log(course.view);
+
     //Tìm kiếm những khóa học của cùng tutor
     const coursesListOfTutor = await Course.find({tutor: course.tutor}).populate('tutor');
     //Tìm kiếm những review của khóa học này
