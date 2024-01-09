@@ -141,7 +141,7 @@ const editProfile = async (req, res, next) => {
 // [GET] /user/premium
 const getPremium = (req, res, next) => {
   const role = req.user.role;
-  res.render('user/signuptotutor', { user: req.user, layout: role, role: role });
+  res.render('user/signuptotutor', { user: req.user, layout: 'user', role: role });
 }
 // [GET] /user/formTutor/123
 const getFormTutor = (req, res, next) => {
@@ -155,7 +155,7 @@ const getFormTutor = (req, res, next) => {
     user: req.user,
     price: price,
     page: req.params.page,
-    layout: role,
+    layout: 'user',
     role: role,
   });
 }
@@ -259,7 +259,7 @@ const getContactToTutor = async (req, res, next) => {
   res.render('user/contactToTutor', {
     course: mongooseToObject(course),
     amountOfReviews: amountOfReviews,
-    layout: role,
+    layout: 'user',
     role: role,
   });
 }
@@ -513,7 +513,7 @@ const postChat = async (req, res, next) => {
 const getChangePassword = async (req, res, next) => {
   const role = req.user.role;
   const user = await User.findById(req.user._id).lean();
-  res.render('user/updatePassword', { user: user, layout: role, role: role });
+  res.render('user/updatePassword', { user: user, layout: 'user', role: role });
 }
 const postChangePassword = async (req, res, next) => {
   const result = validationResult(req);
