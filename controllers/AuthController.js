@@ -95,6 +95,7 @@ const postSignIn = (req, res, next) => {
   // Verify user input by middleware express-validator
   const result = validationResult(req);
   if (!result.isEmpty()) {
+    console.log(result.array());
     res.status(400).json({ errors: result.array() });
     return;
   }
@@ -105,6 +106,7 @@ const postSignIn = (req, res, next) => {
     }
     if (!user) {
       // Authentication failed, redirect to the sign-in page
+      console.log("Đăng nhập thất bại");
       return res.status(400).json({ error: 'Đăng nhập thất bại' });
     }
     req.logIn(user, (err) => {
@@ -118,6 +120,7 @@ const postSignIn = (req, res, next) => {
       else successRedirect = '/user';
       //const successRedirect = (user.role === 'tutor') ? '/tutor/' : '/user/';
       //return res.redirect(successRedirect);
+      console.log("successRedirect");
       return res.status(200).json({ success: true, redirectUrl: successRedirect, msg: "Đăng nhập thành công!" });
     });
   })(req, res, next);
@@ -157,7 +160,7 @@ const postSignUp = async (req, res, next) => {
       return res.status(400).json({ error: 'Email is already in use.' });
     }
     //Gửi email xác nhận đăng ký
-    const activeLink = `${process.env.WEBSITE_URL}/active-account?username=${req.body.username}&email=${req.body.email}&password=${req.body.password}`;
+    const activeLink = `${process.env.WEBSITE_URL}/active-account?username=${req.body.username}&password=${req.body.password}&email=${req.body.email}`;
     // Nội dung gửi email
     const mailOption = {
       to: req.body.email,
@@ -184,6 +187,7 @@ const postSignUp = async (req, res, next) => {
 const getActiveAccount = async (req, res, next) => {
   try {
     //Tạo user mới
+    console.log(req.query);
     var newUser = new User();
     newUser.username = req.query.username;
     newUser.email = req.query.email;
