@@ -269,14 +269,17 @@ const postContactToTutor = async (req, res, next) => {
   const result = validationResult(req);
   if (!result.isEmpty()) {
     const errors = result.array().map(error => error.msg).join(', ');
-    res.status(400).json({ error: errors.toString()});
+    console.log(errors);
+    res.status(400).json({ errors: result.array()});
     return;
   }
   try {
     // Prevent spam
     const checkOrder = await Order.find({ userId: req.user._id, courseId: req.params.id, status: { $in: ["Subscribing", "Learning"] } });
-    if (checkOrder.length > 0) return res.status(400).json({error: "Bạn đã đăng ký khóa học rồi! Hãy chờ tutor accept bạn vào khóa học!" })
-
+    if (checkOrder.length > 0) {
+      console.log("Ban da dang ky khoa hoc roi!")
+      return res.status(400).json({error: "Bạn đã đăng ký khóa học rồi! Hãy chờ tutor accept bạn vào khóa học!" })
+    }
     const formData = req.body;
     formData.courseId = req.params.id;
     formData.userId = req.user._id;
