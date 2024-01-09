@@ -657,14 +657,15 @@ const getContactToTutor = async (req, res, next) => {
 const postContactToTutor = async (req, res, next) => {
   const result = validationResult(req);
   if (!result.isEmpty()) {
-    res.status(400).json({ errors: result.array() });
+    const errors = result.array().map(error => error.msg).join(', ');
+    res.status(400).json({ error: errors.toString()});
     return;
   }
   try {
     //Chống spam
     const checkOrder = await Order.find({ userId: req.user._id, courseId: req.params.id, status: "Subscribing" || "Learning" });
     //console.log(checkOrder.length);
-    if (checkOrder.length > 0) return res.status(304).json({ success: true, error: "Bạn đã đăng ký khóa học rồi! Hãy chờ tutor accept bạn vào khóa học!" })
+    if (checkOrder.length > 0) return res.status(304).json({error: "Bạn đã đăng ký khóa học rồi! Hãy chờ tutor accept bạn vào khóa học!" })
 
     const formData = req.body;
     formData.courseId = req.params.id;
@@ -673,7 +674,7 @@ const postContactToTutor = async (req, res, next) => {
     const order = new Order(formData);
     await order.save();
     console.log(order)
-    return res.status(200).json({ success: true, msg: "đã gửi contact thành công! Vui lòng chờ đợi phản hồi" });
+    return res.status(200).json({msg: "đã gửi contact thành công! Vui lòng chờ đợi phản hồi" });
     //return res.send("Thêm review thành công!").redirect("/user/home");
   }
   catch (err) {
