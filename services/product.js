@@ -11,7 +11,7 @@ const filteredAndSorted = async function (searchField, name, tutorName, faculty,
     const sort = {};
 
     // Fliter
-    // fliter.status = "Available";
+    fliter.status = "Available";
     if (searchField !== `None` && searchField) {
         const course = await Course.find({name: searchField});
         if(course.length>0)  fliter.name = searchField;
@@ -76,7 +76,7 @@ const filteredSortedPaging = async function (searchField, name, tutorName, facul
     const sort = {};
 
     // Fliter
-    // fliter.status = "Available";
+    fliter.status = "Available";
     if (searchField !== `None` && searchField) {
         const course = await Course.find({name: searchField});
         if(course.length>0)  fliter.name = searchField;
