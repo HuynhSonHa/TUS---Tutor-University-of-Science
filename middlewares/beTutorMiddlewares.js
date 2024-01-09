@@ -26,6 +26,7 @@ const postValidator = [
     body("GPA")
         .notEmpty().withMessage("Please provide GPA")
         .isNumeric().withMessage("GPA is a number")
+        .isFloat({ min: 0, max: 4 }).withMessage("GPA must be between 0 and 4")
         .escape(),
 
     body("comment")

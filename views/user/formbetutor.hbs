@@ -212,7 +212,19 @@
                     errorElements.forEach(errorElement => {
                         errorElement.classList.remove('active');
                     });
-
+                    if(data.error){
+                         const alertReview = $('.alert-danger')
+                    alertReview.innerHTML = `${data.error}`
+                    alertReview.style.opacity = "1";
+                    alertReview.style.display = "block"
+                    console.log(alertReview)
+                    setTimeout(function () {
+                        alertReview.style.opacity = "0";
+                        setTimeout(function () {
+                            alertReview.style.display = "none";
+                        }, 500);
+                    }, 3000);
+                    }
                     errorElements.forEach(errorElement => {
                         const fieldName = errorElement.previousElementSibling.getAttribute('name');
                         console.log(fieldName)
