@@ -275,11 +275,17 @@ const postContactToTutor = async (req, res, next) => {
   }
   try {
     // Prevent spam
-    const checkOrder = await Order.find({ userId: req.user._id, courseId: req.params.id, status: { $in: ["Subscribing", "Learning"] } });
+    const checkOrder = await Order.find({ userId: req.user._id, courseId: req.params.id, status: "Subscribing" });
     if (checkOrder.length > 0) {
       console.log("Ban da dang ky khoa hoc roi!")
       return res.status(400).json({error: "Bạn đã đăng ký khóa học rồi! Hãy chờ tutor accept bạn vào khóa học!" })
     }
+    const checkOrder1 = await Order.find({ userId: req.user._id, courseId: req.params.id, status: "Learning" });
+    if (checkOrder1.length > 0) {
+      console.log("Ban da dang ky khoa hoc roi!")
+      return res.status(400).json({error: "Bạn đang học khóa học này rồi!" })
+    }
+    
     const formData = req.body;
     formData.courseId = req.params.id;
     formData.userId = req.user._id;

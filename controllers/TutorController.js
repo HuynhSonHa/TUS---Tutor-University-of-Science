@@ -655,18 +655,27 @@ const getContactToTutor = async (req, res, next) => {
 
 
 const postContactToTutor = async (req, res, next) => {
+
   const result = validationResult(req);
   if (!result.isEmpty()) {
     const errors = result.array().map(error => error.msg).join(', ');
-    res.status(400).json({ error: errors.toString()});
+    console.log(errors);
+    res.status(400).json({ errors: result.array()});
     return;
   }
   try {
-    //Chống spam
-    const checkOrder = await Order.find({ userId: req.user._id, courseId: req.params.id, status: "Subscribing" || "Learning" });
-    //console.log(checkOrder.length);
-    if (checkOrder.length > 0) return res.status(400).json({error: "Bạn đã đăng ký khóa học rồi! Hãy chờ tutor accept bạn vào khóa học!" })
-
+    // Prevent spam
+    const checkOrder = await Order.find({ userId: req.user._id, courseId: req.params.id, status: "Subscribing" });
+    if (checkOrder.length > 0) {
+      console.log("Ban da dang ky khoa hoc roi!")
+      return res.status(400).json({error: "Bạn đã đăng ký khóa học rồi! Hãy chờ tutor accept bạn vào khóa học!" })
+    }
+    const checkOrder1 = await Order.find({ userId: req.user._id, courseId: req.params.id, status: "Learning" });
+    if (checkOrder1.length > 0) {
+      console.log("Ban da dang ky khoa hoc roi!")
+      return res.status(400).json({error: "Bạn đang học khóa học này rồi!" })
+    }
+    
     const formData = req.body;
     formData.courseId = req.params.id;
     formData.userId = req.user._id;
@@ -674,8 +683,12 @@ const postContactToTutor = async (req, res, next) => {
     const order = new Order(formData);
     await order.save();
     console.log(order)
+    const roomChat = new RoomChat({
+      OrderId: order._id,
+    })
+    console.log(roomChat)
+    await roomChat.save();
     return res.status(200).json({msg: "đã gửi contact thành công! Vui lòng chờ đợi phản hồi" });
-    //return res.send("Thêm review thành công!").redirect("/user/home");
   }
   catch (err) {
     next(err);
