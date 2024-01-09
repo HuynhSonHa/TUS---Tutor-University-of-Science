@@ -268,8 +268,8 @@ const postContactToTutor = async (req, res, next) => {
 
   const result = validationResult(req);
   if (!result.isEmpty()) {
-    const errors = result.array().map(error => error.msg).join(', ');
-    console.log(errors);
+   // const errors = result.array().map(error => error.msg).join(', ');
+   
     res.status(400).json({ errors: result.array()});
     return;
   }

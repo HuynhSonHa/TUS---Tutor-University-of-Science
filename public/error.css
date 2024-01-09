@@ -73,3 +73,23 @@
 #login-page .error.active {
     display: block;
 }
+
+#page-contact-to-tutor .error{
+    color: red;
+    text-align: end;
+    padding-top: 8px;
+    font-weight: 500;
+    position: absolute;
+    
+    bottom: -14px; 
+    right: 18px;
+    /* display: none;  */
+}
+
+#page-contact-to-tutor .error.active {
+    display: block;
+}
+
+#page-contact-to-tutor .col-12 {
+    position: relative;
+}
