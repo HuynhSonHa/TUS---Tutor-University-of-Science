@@ -184,9 +184,9 @@
                                     <div class="dotgrid">
                                         <div class="wrapper">
                                             {{#each courses}}
-                                            <div class="item">
+                                            <div onclick="loadDetail( '{{this._id}}')" class="item">
                                                 <div class="dot-image">
-                                                    <a onclick="loadDetail( '{{this._id}}')"
+                                                    <a 
                                                         class="product-permalink"></a>
                                                     <div class="thumbnail">
                                                         <img src="/images/{{this.tutor.avatar}}" alt="">

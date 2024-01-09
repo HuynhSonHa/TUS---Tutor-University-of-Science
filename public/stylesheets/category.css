@@ -1692,3 +1692,8 @@ select#sort_selection {
 }
 
 
+.item:hover {
+    cursor: pointer;
+}
+
+
