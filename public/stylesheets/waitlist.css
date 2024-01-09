@@ -554,11 +554,11 @@ ul {
     width: 100%;
 }
 
-a:hover{
+a:hover {
     text-decoration: none !important;
 }
 
-.dot-title:hover{
+.dot-title:hover {
     opacity: 0.5;
     cursor: pointer;
 }
@@ -594,7 +594,7 @@ a:hover{
     padding: 4px 12px;
 }
 
-.btn:hover{
+.btn:hover {
     cursor: default !important;
 }
 
@@ -618,11 +618,14 @@ a:hover{
     align-self: center;
 }
 
-.texting{
-    background-color: rgb(173,216,230);
+.texting {
+    background-color: rgb(173, 216, 230);
 }
 
-.texting:hover{
-    background-color: rgba(173,216,230,0.8);
+.texting:hover {
+    background-color: rgba(173, 216, 230, 0.8);
 }
 
+.col-3 {
+    top: 40px;
+}
