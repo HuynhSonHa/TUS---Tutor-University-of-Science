@@ -222,7 +222,7 @@ const acceptTutor = async(req, res, next) => {
             return res.status(200).json({ msg: 'Accepted thành công!' });
         }
     } catch {
-        console.error(error);
+        //console.error(error);
         return res.status(500).json({ error: 'Internal Server Error' });
     }   
 }

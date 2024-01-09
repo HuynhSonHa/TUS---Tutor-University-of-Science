@@ -61,6 +61,14 @@
                             <input id="discount" type="text" value="{{course.discount}}">
                             <label for="course-description">Description:</label>
                             <textarea id="course-description">{{course.description}}</textarea>
+
+                            <p class="wrapper-input">
+                                <label for="status">Status:</label>
+                                <label class="switch">
+                                    <input name="status" id="status" type="checkbox" {{#if (eq course.status 'Available')}}checked{{/if}}>
+                                    <span class="slider round"></span>
+                                </label>
+                            </p>
                         </div>
                         <div class="wrapper-control-access-account">
                             <button type="submit" id="save-changes" class="save-changes">Save Changes</button>
@@ -92,6 +100,7 @@
                     'faculty': $('#course-faculty').value,
                     'discount': $('#discount').value,
                     'description': $('#course-description').value,
+                    'status': $('#status').checked ? 'Available' : 'Unavailable'
                 };
         fetch(`/admin/courses/edit/{{course._id}}`, {
             method: 'PUT', // Use the GET method
