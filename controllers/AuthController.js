@@ -129,7 +129,7 @@ const getSignUp = (req, res, next) => {
 };
 
 // [POST] /signup
-const postSignUp = (req, res, next) => {
+const postSignUp = async (req, res, next) => {
   // Verify user input by middleware express-validator
   const result = validationResult(req);
   console.log(result.array());
@@ -137,45 +137,68 @@ const postSignUp = (req, res, next) => {
     res.status(400).json({ errors: result.array() });
     return;
   }
-  // Kiểm tra xem password và confirm password có khớp nhau không
-  if (req.body.password != req.body.passwordConfirmation) {
-    return res.status(400).json({ error: 'Confirm Password is not match with Password!' });
+  try {
+    // Kiểm tra xem password và confirm password có khớp nhau không
+    if (req.body.password != req.body.passwordConfirmation) {
+      console.log("Confirm Password is not match with Password!");
+      return res.status(400).json({ error: 'Confirm Password is not match with Password!' });
+    }
+    //Tìm trong db xem có user nào thỏa không
+    const checkUser = await User.findOne({ username: req.body.username })
+    //Nếu tồn tại, báo lỗi
+    if (checkUser) {
+      console.log("Username is already in use.");
+      return res.status(400).json({ error: 'Username is already in use.' });
+    }
+    //Tìm trong db xem có email nào thỏa không
+    const checkEmail = await User.findOne({email: req.body.email});
+    if(checkEmail){
+      console.log("Email is already in use.");
+      return res.status(400).json({ error: 'Email is already in use.' });
+    }
+    //Gửi email xác nhận đăng ký
+    const activeLink = `${process.env.WEBSITE_URL}/active-account?username=${req.body.username}&email=${req.body.email}&password=${req.body.password}`;
+    // Nội dung gửi email
+    const mailOption = {
+      to: req.body.email,
+      subject: "Active Account",
+      text: ``,
+      html: `<h3>Dear ${req.body.username} </h3>, <br>
+            <p>Click here to active your TUS account:<br>
+            ${activeLink}<br>
+            <br>
+            Regard</p>`
+    }
+    //Gọi hàm gửi email bên ./mailAPI.js
+    await sendMail(mailOption).then(result => { console.log(result) }).catch(e => { console.log(e) });
+    //res.send("Please check your email to active account .....");
+    res.status(200).json({msg: "Please check your email to active account ....."});
+  } catch (error) {
+    next(error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
-  //Tìm trong db xem có user nào thỏa không
-  User.findOne({ 'username': req.body.username })
-    .then((user) => {
-      //Nếu tồn tại, báo lỗi
-      if (user) {
-        return res.status(400).json({ error: 'Username is already in use.' });
-      }
-      else {
-        //Tạo user mới
-        var newUser = new User();
-        newUser.username = req.body.username;
-        newUser.email = req.body.email;
-        //Hashing password
-        newUser.password = newUser.encryptPassword(req.body.password);
-
-        // Nếu có ảnh đại diện được tải lên
-        // if (req.file) {
-        //   // Gán id của ảnh đại diện cho user
-        //   console.log(req.file.filename);
-        //   newUser.avatar = req.file.filename;
-        // }
-        newUser.save()
-          .then(() => {
-            res.status(200).json({ success: true, redirectUrl: '/signin' });
-          })
-          .catch((err) => {
-            console.error(err);
-            res.status(500).json({ error: 'Internal Server Error' });
-          });
-      }
-
-    })
-    .catch(next);
+  
 };
 
+//[GET] /active-account
+const getActiveAccount = async (req, res, next) => {
+  try {
+    //Tạo user mới
+    var newUser = new User();
+    newUser.username = req.query.username;
+    newUser.email = req.query.email;
+    //Hashing password
+    newUser.password = newUser.encryptPassword(req.query.password);
+    newUser.save()
+      .then(() => {
+        res.status(200).redirect('/signin');
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).json({ error: 'Internal Server Error' });
+      });
+  } catch (error) { next(error) }
+}
 //[GET] /forget-password
 const getForgetPassword = (req, res, next) => {
   var messages = req.flash('error');
@@ -304,5 +327,6 @@ module.exports = {
   getResetPassword,
   postResetPassword,
   Logout,
+  getActiveAccount,
 }
 

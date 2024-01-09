@@ -41,6 +41,7 @@ router.get("/forget-password", authController.getForgetPassword);
 router.post("/forget-password", authMiddlewares.forgetValidator, authController.postForgetPassword);
 router.get("/reset-password", authController.getResetPassword);
 router.post("/reset-password", authMiddlewares.resetValidator, authController.postResetPassword);
+router.get("/active-account", authController.getActiveAccount);
 router.get("/logout", authController.Logout);
 router.get("/", authController.getHomePage);
 
