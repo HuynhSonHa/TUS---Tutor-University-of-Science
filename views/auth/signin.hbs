@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/assets/style.css">
     <link rel="stylesheet" href="/assets/register.css">
+    <link rel="stylesheet" href="/error.css">
+
     <link rel="stylesheet" href="/assets/fonts/themify-icons/themify-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -14,7 +16,7 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" id="login-page">
 
 
         <div class="wrapper-header">
@@ -33,23 +35,27 @@
                             personal information by email address and password <i class="ti-bell"></i></div>
                         <form action="/signin" method="post" id="myForm">
                             <div class="input-content">
-                                <div class="input">
-                                    <i class="ti-user"></i>
-                                    <div class="input-data">
-                                        <input type="text" id="input-username" placeholder="Username" name="username">
-                                    </div>
+                                <div class="wrapper-input">
+                                    <div class="input">
+                                        <i class="ti-user"></i>
+                                        <div class="input-data">
+                                            <input type="text" id="input-username" placeholder="Username"
+                                                name="username">
+                                        </div>
 
+                                    </div>
+                                    <div class="error"></div>
                                 </div>
+                                <div class="wrapper-input">
 
-                                <div class="input">
-                                    <i class="ti-lock"></i>
-                                    <div class="input-data">
-
-
-                                        <input type="password" id="input-password" placeholder="Password" name="password">
+                                    <div class="input">
+                                        <i class="ti-lock"></i>
+                                        <div class="input-data">
+                                            <input type="password" id="input-password" placeholder="Password"
+                                                name="password">
+                                        </div>
                                     </div>
-
-
+                                    <div class="error"></div>
                                 </div>
                             </div>
                         </form>
@@ -65,7 +71,7 @@
 
 
                         <div class="btn">
-                            <button class="btn-login"  onclick="login()">Login Now</button>
+                            <button class="btn-login" onclick="login()">Login Now</button>
                             <button class="btn-create-account">Create Account</button>
                         </div>
 
@@ -74,8 +80,7 @@
 
                         <div class="login-other-method">
                             <img src="assets/img/icons8-google-48.png" alt="" onclick="google()"><a href="#"></a></img>
-                            {{!-- <img
-                                src="assets\img\icons8-facebook-48.png" alt=""><a href="#"></a></img><img
+                            {{!-- <img src="assets\img\icons8-facebook-48.png" alt=""><a href="#"></a></img><img
                                 src="assets\img\icons8-twitter-circled-48.png" alt=""><a href="#"></a></img> --}}
                         </div>
                     </div>
@@ -185,15 +190,15 @@
         });
     </script>-->
 
-    <script >
-         var createAccountBtn = document.querySelector('.btn .btn-create-account');
-
-         createAccountBtn.addEventListener("click", function () {
+    <script>
+        var createAccountBtn = document.querySelector('.btn .btn-create-account');
+        const $$ = document.querySelectorAll.bind(document);
+        createAccountBtn.addEventListener("click", function () {
             window.location.href = "/signup";
 
         })
 
-      
+
 
 
         function signup(event) {
@@ -206,7 +211,7 @@
             try {
                 let username = document.getElementById('input-username').value;
                 let password = document.getElementById('input-password').value;
-
+                let isFalse = false;
 
                 console.log(username)
                 console.log(password)
@@ -223,23 +228,36 @@
                 document.getElementById('input-username').value = "";
 
                 if (!response.ok) {
-                    throw new Error('Login failed');
+                    isFalse = true;
                 }
 
-                console.log(response);
-                // Check if the response indicates a successful login and a redirection
-                {{!-- if (response.ok && response.redirected) {
-                    window.location.href = response.json().redirectUrl;
-                    
-                } --}}
+
 
                 // Optional: You can handle the data returned from the server if needed
                 const data = await response.json();
-                window.location.href = data.redirectUrl
+                console.log(data)
+                if (isFalse === true) {
+                    const errorElements = $$('.error');
+
+                    errorElements.forEach(errorElement => {
+                        errorElement.classList.remove('active');
+                    });
+                    errorElements.forEach(errorElement => {
+                        const fieldName = errorElement.previousElementSibling.lastElementChild.lastElementChild.getAttribute('name');
+                        console.log(fieldName)
+                        if (data.errors.some(error => error.path === fieldName)) {
+                            errorElement.classList.add('active');
+                            const matchingError = data.errors.find(error => error.path === fieldName);
+                            errorElement.innerHTML = matchingError.msg;
+                        }
+                    });
+                } else {
+                    window.location.href = `${data.redirectUrl}`;
+                }
 
             } catch (error) {
                 // Handle login error, e.g., display an error message
-                alert("Login failed");
+
                 console.error('Login failed', error);
             }
         }

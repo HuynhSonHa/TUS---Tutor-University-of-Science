@@ -55,3 +55,21 @@
     display: block;
 }
 
+#login-page input{
+    position: relative;
+}
+#login-page .error{
+    color: red;
+    text-align: end;
+    padding-top: 8px;
+    font-weight: 500;
+    position: absolute;
+    
+    bottom: -22px; 
+    right: 0px;
+    display: none; 
+}
+
+#login-page .error.active {
+    display: block;
+}

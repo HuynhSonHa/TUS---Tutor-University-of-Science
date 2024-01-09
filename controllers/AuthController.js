@@ -212,18 +212,14 @@ const getForgetPassword = (req, res, next) => {
 //[POST] /forget-password
 const postForgetPassword = async (req, res, next) => {
   // Verify user input
-  const result = validationResult(req);
-  if (!result.isEmpty()) {
-    res.status(400).json({ errors: result.array() });
-    return;
-  }
+  
   try {
     const { email } = req.body;
     console.log(email);
     //Tìm kiếm user đã đăng ký email này
     const user = await User.findOne({ email: email });
     if (!user) {
-      res.status(404).json({ error: "Email này không tồn tại" });
+      res.status(400).json({ error: "Email này không tồn tại" });
     }
     else {
       //const secret = process.env.JWT_SECRET + user.password;
