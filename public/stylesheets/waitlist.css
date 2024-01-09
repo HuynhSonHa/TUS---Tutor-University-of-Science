@@ -618,3 +618,11 @@ a:hover{
     align-self: center;
 }
 
+.texting{
+    background-color: rgb(173,216,230);
+}
+
+.texting:hover{
+    background-color: rgba(173,216,230,0.8);
+}
+
