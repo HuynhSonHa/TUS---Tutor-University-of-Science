@@ -1,6 +1,9 @@
 <style>
     @import url(/stylesheets/createcourse.css);
 </style>
+<style>
+    @import url(https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css);
+</style>
 <!-- header section starts  -->
 
 
@@ -58,12 +61,12 @@
             <p class="wrapper-input">
                 <label for="school">Student Course:</label>
                 <select name="school" id="school" check>
-                    <option value="none" {{#if (eq course.studentCourse 'none')}}selected{{/if}}>None</option>
-                    <option value="K19" {{#if (eq course.studentCourse 'K19')}}selected{{/if}}>K19</option>
-                    <option value="K20" {{#if (eq course.studentCourse 'K20')}}selected{{/if}}>K20</option>
-                    <option value="K21" {{#if (eq course.studentCourse 'K21')}}selected{{/if}}>K21</option>
-                    <option value="K22" {{#if (eq course.studentCourse 'K22')}}selected{{/if}}>K22</option>
-                    <option value="K23" {{#if (eq course.studentCourse 'K23')}}selected{{/if}}>K23</option>
+                    <option value="none" {{#if (eq course.studentCourse 'none' )}}selected{{/if}}>None</option>
+                    <option value="K19" {{#if (eq course.studentCourse 'K19' )}}selected{{/if}}>K19</option>
+                    <option value="K20" {{#if (eq course.studentCourse 'K20' )}}selected{{/if}}>K20</option>
+                    <option value="K21" {{#if (eq course.studentCourse 'K21' )}}selected{{/if}}>K21</option>
+                    <option value="K22" {{#if (eq course.studentCourse 'K22' )}}selected{{/if}}>K22</option>
+                    <option value="K23" {{#if (eq course.studentCourse 'K23' )}}selected{{/if}}>K23</option>
                 </select>
             </p>
 

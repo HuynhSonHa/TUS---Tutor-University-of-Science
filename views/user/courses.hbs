@@ -5,6 +5,9 @@
 <style type="text/css">
     @import url('https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css');
 </style>
+<style>
+    @import url(https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css);
+</style>
 
 
 
@@ -45,8 +48,9 @@
                                             </div>
 
                                             <div class="choose col-3">
-                                                
-                                                  <button class="texting" onclick="texTing('{{this._id}}')">Texting</button>
+
+                                                <button class="texting"
+                                                    onclick="texTing('{{this._id}}')">Texting</button>
                                             </div>
                                         </li>
                                         {{/each}}
@@ -70,11 +74,6 @@
 </section>
 
 <!--body section ends -->
-<!-- footer section starts  -->
-
-
-
-<!-- footer section ends -->
 
 <script>
     const $ = document.querySelector.bind(document)
@@ -192,7 +191,7 @@
         }
     }
 
-     // texting
+    // texting
     function texTing(idOrder) {
         window.location.href = `/user/texting/${idOrder}`
     }

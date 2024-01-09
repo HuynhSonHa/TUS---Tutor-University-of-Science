@@ -33,7 +33,7 @@ body {
 } */
 
 a {
-    text-decoration: none;
+    text-decoration: none !important;
     color: inherit;
     -webkit-tap-highlight-color: transparent;
 }
@@ -1688,12 +1688,10 @@ select#sort_selection {
 }
 
 .page-category div[class*="star-"] {
-   padding: 0 2px;
+    padding: 0 2px;
 }
 
 
 .item:hover {
     cursor: pointer;
 }
-
-

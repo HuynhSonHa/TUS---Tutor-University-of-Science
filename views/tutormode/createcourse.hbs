@@ -3,7 +3,9 @@
     @import url(/error.css);
 </style>
 <!-- header section starts  -->
-
+<style>
+    @import url(https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css);
+</style>
 
 
 <!-- header section ends -->
@@ -168,7 +170,7 @@
                         errorElement.classList.remove('active');
                         errorElement.innerHTML = '';
                     });
-                    
+
                     const alertReview = $('.alert-success')
                     alertReview.innerHTML = `${data.msg}`
                     alertReview.style.opacity = "1";

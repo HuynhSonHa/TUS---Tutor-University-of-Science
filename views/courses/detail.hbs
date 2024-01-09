@@ -34,9 +34,9 @@
                     ({{amountOfReviews}} Customer Reviews)
                 </div>
                 <div class="wrapper-price-product">
-                    <div class="price-product-current">${{course.discount}}</div>
+                    <div class="price-product-current">{{course.discount}} VNĐ</div>
 
-                    <div class="price-product-origin">$ {{course.price}}</div>
+                    <div class="price-product-origin">{{course.price}} VNĐ</div>
 
                     <div class="percent-discount">- {{percent course.discount course.price}}%</div>
                 </div>
@@ -69,7 +69,8 @@
                     </ul>
                 </div>
 
-                <button class="btn-contact" id="btn-contact" onclick="linkToForm('{{course._id}}')">Contact</button>
+                <button class="btn-contact" id="btn-contact" onclick="linkToForm('{{course._id}}')">Contact Tutor
+                    Course</button>
 
             </div>
             <div class=" wrapper-discription ">
@@ -124,7 +125,7 @@
                                         srcset="https://secure.gravatar.com/avatar/b992087ca24c735ade838a3cf92d0d29?s=200&amp;d=mm&amp;r=g 2x"
                                         class="avatar avatar-100 photo" height="100" width="100" loading="lazy"
                                         decoding="async">
-                                        
+
                                     <div class="detail-review-user">
                                         <div class="score-rating-user">
                                             <div class="num-review">
