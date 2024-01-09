@@ -11,10 +11,22 @@ const createValidator = [
         .escape(),
     body("faculty")
         .notEmpty().withMessage("Please provide your faculty")
-        .escape(),
+        .escape()
+        .custom(async value => {
+            if(value === "none"){
+                throw new Error("Please choose your faculty");
+            }
+            return true;
+        }),
     body("studentCourse")
         .notEmpty().withMessage("Please provide your studentCourse")
-        .escape(),
+        .escape()
+        .custom(async value => {
+            if(value === "none"){
+                throw new Error("Please choose your studentCourse");
+            }
+            return true;
+        }),
     body("price")
         .notEmpty().withMessage("Please provide price")
         .isNumeric().withMessage("Price is a number")

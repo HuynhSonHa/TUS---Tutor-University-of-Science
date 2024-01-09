@@ -126,7 +126,7 @@
     }
 
     function denyOrder(currentPage, idOrder) {
-
+        console.log(idOrder)
         fetch(`/tutor/denied/${idOrder}`, {
             method: 'GET',
             headers: {
@@ -279,7 +279,7 @@
                                             </div>
                                             <div class="choose col-3">
                                                 <button class="accept"
-                                                    onclick="acceptOrder('${data.currentPage}','${order._id}}')">Accept</button>
+                                                    onclick="acceptOrder('${data.currentPage}','${order._id}')">Accept</button>
                                                 <button class="deny" onclick="denyOrder('${data.currentPage}','${order._id}')">Deny</button>
                                                 <button class="texting" onclick="texTing('${order._id}')">Texting</button>
 

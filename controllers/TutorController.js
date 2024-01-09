@@ -417,13 +417,16 @@ const acceptStudent = async (req, res, next) => {
   try {
     const order = await Order.findById(req.params.id).populate('userId courseId');
     if (!order) {
+      console.log("Không tìm thấy thông tin");
       return res.status(404).json({ error: 'Không tìm thấy thông tin' });
     }
     order.status = "Learning";
+    console.log("Learning");
     await order.save();
     const courseId = order.courseId._id;
     const course = await Course.findById(courseId);
     course.totalPurchase = course.totalPurchase + 1;
+    console.log(course.totalPurchase);
     await course.save();
     console.log(course.totalPurchase);
     return res.status(200).json({ msg: 'Accepted thành công!' });
@@ -675,7 +678,7 @@ const postContactToTutor = async (req, res, next) => {
       console.log("Ban da dang ky khoa hoc roi!")
       return res.status(400).json({error: "Bạn đang học khóa học này rồi!" })
     }
-    
+
     const formData = req.body;
     formData.courseId = req.params.id;
     formData.userId = req.user._id;
