@@ -1,18 +1,24 @@
 <style>
     @import url(/stylesheets/category.css);
 </style>
-<style type="stylesheets">@import url(https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css);</style>
+<style>
+    @import url(https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css);
+</style>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<style type="stylesheets">@import url(https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css);</style>
+<style>
+    @import url(https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css);
+</style>
 <script type="module" src="/javascripts/swiper-bundle.min.js"></script>
 <script type="module" src="/javascripts/script.js"></script>
 <style type="stylesheets">@import url(https://fonts.cdnfonts.com/css/prata-2);</style>
-<style type="stylesheets">
-    @import url(https://fonts.googleapis.com/css?family=Montserrat:400,500,600&subset=latin-ext&display=swap);</style>
+<style>
+    @import url(https://fonts.googleapis.com/css?family=Montserrat:400,500,600&subset=latin-ext&display=swap);
+</style>
 <style type="stylesheets">@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css);
 </style>
-<style type="stylesheets">
-    @import url(https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/css/lightgallery.min.css);</style>
+<style>
+    @import url(https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/css/lightgallery.min.css);
+</style>
 
 
 
@@ -186,14 +192,13 @@
                                             {{#each courses}}
                                             <div onclick="loadDetail( '{{this._id}}')" class="item">
                                                 <div class="dot-image">
-                                                    <a 
-                                                        class="product-permalink"></a>
+                                                    <a class="product-permalink"></a>
                                                     <div class="thumbnail">
                                                         <img src="/images/{{this.tutor.avatar}}" alt="">
                                                     </div>
-                                                     <div class="star"><span>{{ round this.average}}   </span>
-                                                     <div class="star-"></div>
-                                                     </div>
+                                                    <div class="star"><span>{{ round this.average}} </span>
+                                                        <div class="star-"></div>
+                                                    </div>
                                                     <div class="label"><span>-{{percent this.discount
                                                             this.price}}%</span></div>
                                                 </div>
@@ -203,12 +208,6 @@
                                                         <h2 class="dot-title"><a href="">{{this.tutor.fullname}}</a>
 
                                                         </h2>
-                                                        <i class="ri-star-fill"></i>
-                                                        <i class="ri-star-fill"></i>
-                                                        <i class="ri-star-fill"></i>
-                                                        <i class="ri-star-fill"></i>
-                                                        <i class="ri-star-fill"></i>
-
                                                         <div class="product-price">
                                                             <span class="before"> {{this.price}}</span>
                                                             <span class="current">{{this.discount}}</span>
