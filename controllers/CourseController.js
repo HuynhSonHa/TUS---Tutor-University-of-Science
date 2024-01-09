@@ -116,7 +116,7 @@ const store = async(req, res, next) => {
   //Kiểm tra spam
   const checkList = await Course.find({name: req.body.name, tutor: req.user._id});
   if(checkList!=null) {
-    return res.status(304).json({error: 'Bạn đã đăng khóa học này rồi!'})
+    return res.status(400).json({error: 'Bạn đã đăng khóa học này rồi!'})
   }
   //Tạo khóa học mới
   const formData = req.body;

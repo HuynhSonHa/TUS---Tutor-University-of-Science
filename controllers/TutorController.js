@@ -566,7 +566,7 @@ const postFormTutor = async (req, res, next) => {
   }
   //chống spam
   const checkBeTutor = await BeTutor.find({ tutorId: req.user._id, status: "waiting" });
-  if (checkBeTutor.length > 0) return res.status(304).json({ success: true, error: "Bạn đã đăng ký rồi! Hãy chờ admin phản hồi bạn!" });
+  if (checkBeTutor.length > 0) return res.status(400).json({error: "Bạn đã đăng ký rồi! Hãy chờ admin phản hồi bạn!" });
 
   var leftDay = Number.MAX_SAFE_INTEGER;
   var leftCourse = Number.MAX_SAFE_INTEGER;
@@ -586,7 +586,7 @@ const postFormTutor = async (req, res, next) => {
   leftDay = leftDay === Number.MAX_SAFE_INTEGER ? 0 : Math.ceil(leftDay / (24 * 60 * 60 * 1000));
   leftCourse = leftCourse === Number.MAX_SAFE_INTEGER ? 0 : leftCourse;
   if (leftDay > 0 || leftCourse > 0) {
-    return res.status(304).json({ success: true, error: "Bạn đã là tutor rồi! Hãy chờ hết hạn để đăng ký mới!" });
+    return res.status(400).json({error: "Bạn đã là tutor rồi! Hãy chờ hết hạn để đăng ký mới!" });
   }
 
   let price;
@@ -665,7 +665,7 @@ const postContactToTutor = async (req, res, next) => {
     //Chống spam
     const checkOrder = await Order.find({ userId: req.user._id, courseId: req.params.id, status: "Subscribing" || "Learning" });
     //console.log(checkOrder.length);
-    if (checkOrder.length > 0) return res.status(304).json({error: "Bạn đã đăng ký khóa học rồi! Hãy chờ tutor accept bạn vào khóa học!" })
+    if (checkOrder.length > 0) return res.status(400).json({error: "Bạn đã đăng ký khóa học rồi! Hãy chờ tutor accept bạn vào khóa học!" })
 
     const formData = req.body;
     formData.courseId = req.params.id;
